@@ -1,0 +1,52 @@
+{
+  "name": "weatherfit-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Weatherfit outfit recommendation app",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "migrate": "node -r ts-node/register src/database/migrate.ts",
+    "test": "jest"
+  },
+  "keywords": ["outfit", "weather", "AI", "recommendation"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@aws-sdk/client-s3": "^3.654.0",
+    "@aws-sdk/s3-request-presigner": "^3.654.0",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "pg": "^8.12.0",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "axios": "^1.7.7",
+    "node-cron": "^3.0.3",
+    "firebase-admin": "^12.6.0",
+    "helmet": "^8.0.0",
+    "express-rate-limit": "^7.4.1",
+    "validator": "^13.12.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/multer": "^1.4.12",
+    "@types/node-cron": "^3.0.11",
+    "@types/uuid": "^10.0.0",
+    "@types/validator": "^13.12.2",
+    "typescript": "^5.6.3",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "@types/jest": "^29.5.13",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
+  }
+}
