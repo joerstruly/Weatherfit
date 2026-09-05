@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 830" role="img" aria-label="RW-5 plan view in flight mode: a delta lifting body with a narrow nose widening to 680 mm at the rear, four 400 mm coaxial fan discs flipped horizontal outboard on swing-arms and free to pitch fore and aft, and the 380 mm lift fan embedded in the rear of the hull with its vane box thrusting aft; flight footprint 1,510 by 1,200 mm." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 830" role="img" aria-label="RW-5 plan view in flight mode: a delta lifting body with a narrow nose widening to 26.8 in at the rear, four 15.7 inch coaxial fan discs flipped horizontal outboard on swing-arms and free to pitch fore and aft, and the 15 inch lift fan embedded in the rear of the hull with its vane box thrusting aft; flight footprint 59.4 by 47.2 inches." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
   <defs>
     <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
@@ -81,9 +81,9 @@
     <line x1="700" y1="300" x2="730" y2="250"/>
     <line x1="690" y1="580" x2="740" y2="580"/>
   </g>
-  <text x="380" y="266">embedded lift fan Ø 380 · inlet doors open</text>
-  <text x="40" y="326">nose EO/IR · 160 mm wide</text>
-  <text x="734" y="246">680 mm at the rear</text>
+  <text x="380" y="266">embedded lift fan Ø 15.0 · inlet doors open</text>
+  <text x="40" y="326">nose EO/IR · 6.3 in wide</text>
+  <text x="734" y="246">26.8 in at the rear</text>
   <text x="746" y="584">same arms front and rear (FIG 04)</text>
 
   <!-- dimensions -->
@@ -95,7 +95,7 @@
     <line x1="790" y1="530" x2="790" y2="815"/>
     <line x1="198" y1="806" x2="782" y2="806" marker-start="url(#a2)" marker-end="url(#a2)"/>
   </g>
-  <text x="112" y="415">1,510</text>
-  <text x="490" y="799" text-anchor="middle">1,200</text>
-  <text x="40" y="826" font-size="13">RW-5 FERRET · plan view · FLIGHT MODE · dims in mm</text>
+  <text x="112" y="415">59.4</text>
+  <text x="490" y="799" text-anchor="middle">47.2</text>
+  <text x="40" y="826" font-size="13">RW-5 FERRET · plan view · FLIGHT MODE · dims in inches</text>
 </svg>

@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 620" role="img" aria-label="Two rotor-wheels drawn at the same scale, each producing the 2.0 kilonewtons one RW-2S wheel needs to hover. On the left, the specified 1.2 metre ducted fan fills the 1.4 metre wheel: 1.13 square metres of disc, 180 kilograms per square metre, a slow 54 metre-per-second wash, 55 kilowatts ideal. On the right, a turbofan matched to the same thrust has a fan only 0.23 metres across, lost in the middle of the same wheel: 0.041 square metres of disc, 5,000 kilograms per square metre, a 240 metre-per-second hot jet, 290 kilowatts ideal — five times the power for the same lift." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 620" role="img" aria-label="Two rotor-wheels drawn at the same scale, each producing the 450 pounds of thrust one RW-2S wheel needs to hover. On the left, the specified 47 inch ducted fan fills the 55 inch wheel: 12.2 square feet of disc, 36.8 pounds per square foot, a slow 121 mph wash, 74 horsepower ideal. On the right, a turbofan matched to the same thrust has a fan only 9.1 inches across, lost in the middle of the same wheel: 0.44 square feet of disc, 1,024 pounds per square foot, a 537 mph hot jet, 389 horsepower ideal — five times the power for the same lift." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
   <defs>
     <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 Z" fill="#E8571F"/>
     </marker>
   </defs>
 
-  <text x="30" y="30" font-size="14">Same wheel · same 2.0 kN of thrust · 1 px = 5 mm</text>
+  <text x="30" y="30" font-size="14">Same wheel · same 450 lbf of thrust · drawn to scale</text>
 
   <!-- ================= panel A: specified rotor-wheel ================= -->
   <g>
@@ -66,8 +66,8 @@
       <line x1="704" y1="390" x2="704" y2="470" marker-end="url(#af)"/>
     </g>
     <line x1="716" y1="430" x2="760" y2="430" stroke="currentColor" stroke-width="1"/>
-    <text x="766" y="425" font-size="11">240 m/s,</text>
-    <text x="766" y="440" font-size="11">300 °C+</text>
+    <text x="766" y="425" font-size="11">537 mph,</text>
+    <text x="766" y="440" font-size="11">570 °F+</text>
     <line x1="612" y1="157" x2="640" y2="92" stroke="currentColor" stroke-width="1"/>
     <text x="648" y="88" font-size="11">the rest of the wheel now does nothing</text>
   </g>
@@ -75,14 +75,14 @@
   <!-- ================= captions ================= -->
   <g font-size="13">
     <text x="250" y="510" text-anchor="middle" font-size="14">SPECIFIED ROTOR-WHEEL</text>
-    <text x="250" y="532" text-anchor="middle">ducted fan Ø 1.2 m fills the Ø 1.4 m wheel</text>
-    <text x="250" y="554" text-anchor="middle">disc 1.13 m² · 180 kg/m²</text>
-    <text x="250" y="576" text-anchor="middle">wash 54 m/s · <tspan font-size="15">55 kW ideal</tspan></text>
+    <text x="250" y="532" text-anchor="middle">ducted fan Ø 47 in fills the Ø 55 in wheel</text>
+    <text x="250" y="554" text-anchor="middle">disc 12.2 ft² · 36.8 lb/ft²</text>
+    <text x="250" y="576" text-anchor="middle">wash 121 mph · <tspan font-size="15">74 hp ideal</tspan></text>
 
     <text x="690" y="510" text-anchor="middle" font-size="14">TURBOFAN MATCHED TO THE SAME THRUST</text>
-    <text x="690" y="532" text-anchor="middle">fan Ø 0.23 m (BPR 8, FPR 1.4)</text>
-    <text x="690" y="554" text-anchor="middle">disc 0.041 m² — 1/28 the area · 5,000 kg/m²</text>
-    <text x="690" y="576" text-anchor="middle">jet 240 m/s · <tspan font-size="15" fill="#E8571F">290 kW ideal</tspan></text>
+    <text x="690" y="532" text-anchor="middle">fan Ø 9.1 in (BPR 8, FPR 1.4)</text>
+    <text x="690" y="554" text-anchor="middle">disc 0.44 ft² — 1/28 the area · 1,024 lb/ft²</text>
+    <text x="690" y="576" text-anchor="middle">jet 537 mph · <tspan font-size="15" fill="#E8571F">389 hp ideal</tspan></text>
   </g>
   <line x1="470" y1="95" x2="470" y2="590" stroke="currentColor" stroke-width="1" opacity="0.35"/>
   <text x="30" y="608" font-size="12">Hover power ∝ 1/√(disc area) — a jet's propulsive efficiency at zero airspeed is zero, so disc area is the only lever.</text>

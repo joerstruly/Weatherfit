@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-label="Rotor-wheel module in two views. Left, face-on: concentric airless tire, rim-drive ring motor, hubless rim forming the duct wall, tip-drive fan ring, and two contra-rotating seven-blade fan stages, with debris mesh on the left half. Right, section through the axle: the 130 mm wide tire band, ground ring motor, duct walls, stage-one and stage-two fans each with a tip-drive motor, mesh on both faces, static hub, and the two-axis mount that flips the wheel 95 degrees and then pitches it fore and aft." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-label="Rotor-wheel module in two views. Left, face-on: concentric airless tire, rim-drive ring motor, hubless rim forming the duct wall, tip-drive fan ring, and two contra-rotating seven-blade fan stages, with debris mesh on the left half. Right, section through the axle: the 5.1 inch wide tire band, ground ring motor, duct walls, stage-one and stage-two fans each with a tip-drive motor, mesh on both faces, static hub, and the two-axis mount that flips the wheel 95 degrees and then pitches it fore and aft." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
   <defs>
     <pattern id="mesh" width="9" height="9" patternUnits="userSpaceOnUse">
       <path d="M0,0 L9,9 M9,0 L0,9" stroke="currentColor" stroke-width="0.6"/>
@@ -50,11 +50,11 @@
     <line x1="244" y1="292" x2="462" y2="516"/>
     <line x1="150" y1="180" x2="90" y2="72"/>
   </g>
-  <text x="470" y="100">airless shear-band tire · Ø 400</text>
+  <text x="470" y="100">airless shear-band tire · Ø 15.7</text>
   <text x="470" y="170">rim drive ring motor (ground)</text>
   <text x="470" y="240">hubless rim = duct wall</text>
   <text x="470" y="310">tip-drive fan ring, one per stage</text>
-  <text x="470" y="380">stage 1 · 7 blades · Ø 320</text>
+  <text x="470" y="380">stage 1 · 7 blades · Ø 12.6</text>
   <text x="470" y="450">stage 2 · contra-rotating (dashed)</text>
   <text x="470" y="520">static hub — no shaft through center</text>
   <text x="30" y="52">debris mesh, both faces</text>
@@ -107,6 +107,6 @@
   <text x="1016" y="274" font-size="12">static hub</text>
   <text x="1000" y="376" font-size="12" fill="#E8571F">pitch −20 … +70°</text>
   <text x="900" y="552" text-anchor="middle" font-size="12">flip 95° about the fore-aft axis</text>
-  <text x="900" y="40" text-anchor="middle" font-size="12">section through the axle · tire 130 wide</text>
-  <text x="30" y="548">RW-5 FERRET · rotor-wheel module · face-on cutaway + axle section · 1 px = 1 mm</text>
+  <text x="900" y="40" text-anchor="middle" font-size="12">section through the axle · tire 5.1 wide</text>
+  <text x="30" y="548">RW-5 FERRET · rotor-wheel module · face-on cutaway + axle section · drawn to scale · dims in inches</text>
 </svg>
