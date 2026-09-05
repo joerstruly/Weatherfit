@@ -210,7 +210,7 @@ def fig1():
     # reach
     body.append(dim_h(Y(1380 + 60) - 10, xb + 160 * S, xb + 690 * S, "750 reach"))
     # mass note
-    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 41 kg dry / 44 kg wet · scale 0.3</text>')
+    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 45 kg dry / 48 kg wet · scale 0.3</text>')
     svg(1, W, H, "\n".join(body), "General arrangement: stowed roam posture at 1150 mm beside the extended reach posture at 1600 mm with both arms deployed")
 
 
@@ -435,19 +435,17 @@ def fig5():
 
 # ================= Figure 6: Evening-dishes timeline, human vs GYRO =================
 def fig6():
-    W, H = 900, 400
+    W, H = 900, 470
     body = []
-    x0, x1 = 150, 860  # 0..40 min
-    scale = (x1 - x0) / 40.0
+    x0, x1 = 150, 860  # 0..30 min
+    scale = (x1 - x0) / 30.0
     def T(m): return x0 + m * scale
     body.append(f'<text class="cap" x="40" y="36">EVENING DISHES · FAMILY OF 4 · MINUTES OF WORK BEFORE THE DISHWASHER STARTS</text>')
-    # axis
-    ay = 300
-    for m in range(0, 41, 5):
+    ay = 390
+    for m in range(0, 31, 5):
         body.append(f'<line class="grid" x1="{T(m):.1f}" y1="70" x2="{T(m):.1f}" y2="{ay}"/>')
         body.append(f'<text class="dimt" x="{T(m):.1f}" y="{ay+18}" text-anchor="middle">{m}</text>')
     body.append(f'<text class="muted" x="{x1}" y="{ay+36}" text-anchor="end">minutes</text>')
-    # Human: single lane, sequential
     human = [(0, 4, "clear table"), (4, 15, "rinse + load"), (15, 22, "hand-wash pots"), (22, 26, "wipe + dry")]
     y = 95
     body.append(f'<text class="lblb" x="{x0-12}" y="{y+16}" text-anchor="end">Human</text>')
@@ -455,24 +453,24 @@ def fig6():
         body.append(f'<rect class="bar-h" x="{T(a)+1:.1f}" y="{y}" width="{T(b)-T(a)-2:.1f}" height="24" rx="3"/>')
         body.append(f'<text class="lbl" x="{T((a+b)/2):.1f}" y="{y+40}" text-anchor="middle">{t}</text>')
     body.append(f'<text class="lbl" x="{T(26)+8:.1f}" y="{y+16}">26 min · 26 min of attention</text>')
-    # Robot: three lanes in parallel: arm L, arm R, wand
     lanes = [
-        ("GYRO arm L", [(0, 3, "clear"), (3, 12, "rinse + load"), (12, 17, "pots")]),
-        ("GYRO arm R", [(0, 3, "clear"), (3, 12, "rinse + load"), (12, 17, "pots")]),
-        ("GYRO wand", [(3, 9, "spray counters"), (12, 16, "wipe")]),
+        ("GYRO arm L", [(0, 2, "clear"), (2, 5, "load"), (5, 6.5, "pots")]),
+        ("GYRO arm R", [(0, 2, "clear"), (2, 5, "load"), (5, 6.5, "pots")]),
+        ("helper 1", [(0, 2, "tray"), (2, 5, "hold rack"), (5, 6.5, "hold")]),
+        ("helper 2", [(0, 2, "tray"), (2, 5, "pass"), (5, 6.5, "dry")]),
+        ("wand", [(2, 4, "spray"), (4, 6.5, "wipe")]),
     ]
     y = 170
     for name, segs in lanes:
         body.append(f'<text class="lblb" x="{x0-12}" y="{y+16}" text-anchor="end">{name}</text>')
         for a, b, t in segs:
             body.append(f'<rect class="bar-r" x="{T(a)+1:.1f}" y="{y}" width="{T(b)-T(a)-2:.1f}" height="24" rx="3"/>')
-            body.append(f'<text class="lbl" x="{T((a+b)/2):.1f}" y="{y+16}" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">{t}</text>')
+            body.append(f'<text x="{T((a+b)/2):.1f}" y="{y+16}" text-anchor="middle" style="fill:#F5F6F3;font-size:11px">{t}</text>')
         y += 34
-    body.append(f'<text class="lbl" x="{T(17)+8:.1f}" y="{170+16+34}">17 min · 0 min of attention</text>')
-    # ratio callout
-    body.append(f'<text class="muted" x="40" y="{H-30}">robot per-grasp speed assumed 0.8× human at maturity; the gain comes from three effectors working in parallel,</text>')
-    body.append(f'<text class="muted" x="40" y="{H-14}">not from faster hands. The dishwasher cycle (≈2 h) is unchanged, so wall-clock to "done" barely moves.</text>')
-    svg(6, W, H, "\n".join(body), "Timeline comparing 26 minutes of sequential human dishwashing against 17 minutes for the robot, whose two arms and wand work in parallel while the dishwasher cycle stays the same")
+    body.append(f'<text class="lbl" x="{T(6.5)+8:.1f}" y="{170+16+68}">6.5 min · 0 min of attention</text>')
+    body.append(f'<text class="muted" x="40" y="{H-30}">no pre-rinse, tray carry, four effectors plus the wand; per-grasp speed 1.2× human in an empty kitchen.</text>')
+    body.append(f'<text class="muted" x="40" y="{H-14}">Bars in the same colour are one machine\'s effectors. The dishwasher cycle (≈2 h) is unchanged, so wall-clock to "done" barely moves.</text>')
+    svg(6, W, H, "\n".join(body), "Timeline comparing 26 minutes of sequential human dishwashing against 6.5 minutes for the robot, whose two arms, two helpers and wand work in parallel while the dishwasher cycle stays the same")
 
 
 fig1(); fig2(); fig3(); fig4(); fig5(); fig6()
