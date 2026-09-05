@@ -44,7 +44,7 @@
   var suitMat = new T.MeshStandardMaterial({ color: 0x3a3d33, roughness: 0.9 });
 
   // ---- hull: delta lifting body, lofted from a cambered thick section ----
-  var L = 6.2, HW = 1.05, SWEEP = 1.7;
+  var L = 4.6, HW = 0.75, SWEEP = 1.2;
   function section(t, c) {           // t = chord fraction, c = local chord; returns [upper, lower]
     var x = t;
     var th = 5 * 0.16 * (0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * x * x + 0.2843 * x * x * x - 0.1015 * x * x * x * x);
@@ -80,10 +80,10 @@
   function topAt(x, z) { var a = Math.abs(z) / HW, lc = chordAt(a); var t = (x - lc[0]) / lc[1]; if (t < 0 || t > 1) return 0; return section(t, lc[1])[0] * (1 - 0.88 * Math.pow(a, 7)); }
 
   // canopy + crew
-  var canX = 3.15, canTop = topAt(canX, 0);
+  var canX = 2.3, canTop = topAt(canX, 0);
   var canopy = new T.Mesh(new T.SphereGeometry(1, 40, 24), glass);
-  canopy.scale.set(0.82, 0.46, 0.72); canopy.position.set(canX, canTop - 0.02, 0); body.add(canopy);
-  [-0.32, 0.32].forEach(function (z) {
+  canopy.scale.set(0.66, 0.44, 0.58); canopy.position.set(canX, canTop - 0.02, 0); body.add(canopy);
+  [-0.28, 0.28].forEach(function (z) {
     var helmet = new T.Mesh(new T.SphereGeometry(0.15, 20, 14), new T.MeshStandardMaterial({ color: 0x5b6150, roughness: 0.6 }));
     helmet.position.set(canX - 0.05, canTop + 0.16, z); body.add(helmet);
     var torso = new T.Mesh(new T.BoxGeometry(0.34, 0.42, 0.36), suitMat);
@@ -117,49 +117,49 @@
     }
     return fan;
   }
-  var fans = [liftFan(1.7), liftFan(4.4)];
+  var fans = [];   // Rev D: no hull fans — the four rotor-wheels carry all the lift
   // exhaust stub
   var exh = new T.Mesh(new T.CylinderGeometry(0.11, 0.13, 0.3, 16), darkMat); exh.rotation.z = Math.PI / 2; exh.position.set(L + 0.1, topAt(L - 0.15, 0) * 0.45 + 0.05, 0); body.add(exh);
+  var exh2 = exh.clone(); exh2.position.z = 0.3; body.add(exh2); exh.position.z = -0.3;
 
   // ---- rotor-wheels: flip (about fore-aft axis) then pitch (about lateral axis) ----
   var wheels = [];
   function wheelModule(xw, side, rear) {
-    var zp = side * HW * 0.86;
-    var yp = topAt(xw, zp) + (rear ? 0.40 : 0.05);   // front pivot on the shoulder, rear pivot on a 0.4 m pylon
-    if (rear) { var py = new T.Mesh(new T.BoxGeometry(0.42, 0.42, 0.2), hullMat); py.castShadow = true; py.position.set(xw, topAt(xw, zp) + 0.19, zp); body.add(py); }
+    var zp = side * (HW + 0.05), yp = 0.30;      // identical outrigger pivots front and rear
+    var br = new T.Mesh(new T.BoxGeometry(0.22, 0.16, 0.5), hullMat); br.castShadow = true; br.position.set(xw, 0.24, side * 0.58); body.add(br);
     var flip = new T.Group(); flip.position.set(xw, yp, zp); body.add(flip);
-    var wc = new T.Vector3(0, (belly + 0.11) - yp, side * (HW + 0.22) - zp);   // axle 0.41 m above ground = belly + 0.11 in body coords
+    var wc = new T.Vector3(0, (belly + 0.25) - yp, side * (HW + 0.24) - zp);   // axle 0.70 m above ground = belly + 0.25 in body coords
     var len = wc.length();
-    var arm = new T.Mesh(new T.CylinderGeometry(0.045, 0.045, len, 12), rimMat);
+    var arm = new T.Mesh(new T.CylinderGeometry(0.06, 0.06, len, 12), rimMat);
     arm.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), wc.clone().normalize());
     arm.position.copy(wc).multiplyScalar(0.5); arm.castShadow = true; flip.add(arm);
     var pitch = new T.Group(); pitch.position.copy(wc); flip.add(pitch);
-    var tire = new T.Mesh(new T.TorusGeometry(0.34, 0.075, 16, 48), tireMat); tire.castShadow = true; pitch.add(tire);
-    var rim = new T.Mesh(new T.CylinderGeometry(0.33, 0.33, 0.24, 48, 1, true), rimMat); rim.rotation.x = Math.PI / 2; pitch.add(rim);
-    var duct = new T.Mesh(new T.CylinderGeometry(0.315, 0.315, 0.2, 48, 1, true), darkMat); duct.rotation.x = Math.PI / 2; pitch.add(duct);
-    var hub = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.24, 16), rimMat); hub.rotation.x = Math.PI / 2; pitch.add(hub);
+    var tire = new T.Mesh(new T.TorusGeometry(0.6, 0.1, 18, 56), tireMat); tire.castShadow = true; pitch.add(tire);
+    var rim = new T.Mesh(new T.CylinderGeometry(0.55, 0.55, 0.3, 56, 1, true), rimMat); rim.rotation.x = Math.PI / 2; pitch.add(rim);
+    var duct = new T.Mesh(new T.CylinderGeometry(0.53, 0.53, 0.26, 56, 1, true), darkMat); duct.rotation.x = Math.PI / 2; pitch.add(duct);
+    var hub = new T.Mesh(new T.CylinderGeometry(0.1, 0.1, 0.3, 20), rimMat); hub.rotation.x = Math.PI / 2; pitch.add(hub);
     var stages = [];
-    [-0.055, 0.055].forEach(function (dz, si) {
+    [-0.075, 0.075].forEach(function (dz, si) {
       var st = new T.Group(); st.position.z = dz; pitch.add(st);
       for (var k = 0; k < 7; k++) {
-        var b = new T.Mesh(new T.BoxGeometry(0.24, 0.09, 0.018), orange); b.position.x = 0.18;
+        var b = new T.Mesh(new T.BoxGeometry(0.42, 0.15, 0.02), orange); b.position.x = 0.31;
         var g = new T.Group(); g.rotation.z = k * 2 * Math.PI / 7 + si * 0.45; g.add(b); st.add(g);
       }
       stages.push({ g: st, dir: si ? -1 : 1 });
     });
     wheels.push({ flip: flip, pitch: pitch, side: side, stages: stages, hub: hub });
   }
-  [[1.7, false], [4.6, true]].forEach(function (w) { wheelModule(w[0], -1, w[1]); wheelModule(w[0], 1, w[1]); });
+  [1.1, 3.9].forEach(function (xw) { wheelModule(xw, -1, false); wheelModule(xw, 1, false); });
 
-  body.position.y = -belly + 0.30;   // belly 0.30 m above ground in drive mode
+  body.position.y = -belly + 0.45;   // belly 0.45 m above ground in drive mode
 
   // ---- modes ----
   var modes = {
     drive:  { lift: 0.0, aoa: 0, flip: 0, pitch: 0, doors: 0, spin: 0 },
-    hover:  { lift: 1.3, aoa: 0, flip: 95, pitch: 0, doors: 1, spin: 1 },
-    cruise: { lift: 1.9, aoa: 5, flip: 95, pitch: 60, doors: 1, spin: 1 }
+    hover:  { lift: 1.4, aoa: 0, flip: 95, pitch: 0, doors: 1, spin: 1 },
+    cruise: { lift: 2.0, aoa: -12, flip: 95, pitch: 48, doors: 1, spin: 1 }   // hull 12° nose-down; discs 48° to hull = 60° to the air
   };
-  var cur = { lift: 1.9, aoa: 5, flip: 95, pitch: 60, doors: 1, spin: 1 }, target = modes.cruise;
+  var cur = { lift: 2.0, aoa: -12, flip: 95, pitch: 48, doors: 1, spin: 1 }, target = modes.cruise;
   function setMode(name) {
     target = modes[name];
     var bs = host.parentNode.querySelectorAll('[data-mode]');
@@ -170,7 +170,7 @@
   setMode('cruise');
 
   // ---- orbit ----
-  var theta = -0.9, phi = 1.12, dist = 10.8, tgt = new T.Vector3(L * 0.5, 1.0, 0), drag = null;
+  var theta = -0.9, phi = 1.05, dist = 12.0, tgt = new T.Vector3(L * 0.5, 1.7, 0), drag = null;
   function updateCam() {
     camera.position.set(tgt.x + dist * Math.sin(phi) * Math.cos(theta), tgt.y + dist * Math.cos(phi), tgt.z + dist * Math.sin(phi) * Math.sin(theta));
     camera.lookAt(tgt);

@@ -1,9 +1,12 @@
 # RW-5 "FERRET" — Rotorwheel Hybrid Ground–Air Vehicle
 
-**Concept Specification, Rev C** · 2026-09-05 · Unarmed ISR / scout mobility platform
+**Concept Specification, Rev D** · 2026-09-05 · Unarmed ISR / scout mobility platform
 
-Rev C adds the staggered rotor arrangement (§3.1), the two-seat variant RW-2S
-(§11) and the turbine analysis at human scale (§12).
+Rev D: identical wheel arms front and rear — the wake stagger comes from a
+nose-down cruise attitude, not geometry (§3.1); RW-2S re-laid-out around four
+large rotor-wheels with no hull fans (§11); turbine-in-the-wheel assessed and
+rejected on control grounds (§12). Rev C had added the stagger, RW-2S and the
+turbine analysis.
 
 Rev B superseded Rev A: coaxial two-stage fans in smaller wheels, two-axis
 tilt (flip + fore/aft pitch), lift fan embedded in the hull with a thrust-
@@ -42,9 +45,10 @@ tilted rotors and the lifting body make flight far cheaper.
   thickness (~200 mm) ahead of mid-chord, tapering to a 70 mm trailing edge.
   Chord 1,200 mm.
 - **Aerodynamics (calc.):** planform ≈ 0.25 m², effective aspect ratio ~0.7. At
-  110 km/h and ~8° angle of attack (C_L ≈ 0.7) the hull carries ~26% of weight;
-  at 145 km/h ~46%. Low aspect ratio means it never carries the whole vehicle —
-  the point is unloading the rotors, not gliding.
+  110 km/h and +5° (C_L ≈ 0.7) the hull would carry ~26% of weight — but in
+  Rev D the vehicle cruises 15° nose-down for wake clearance (§3.1), so the hull
+  lifts only in level transition; in cruise it is a fairing that produces some
+  downforce. Low aspect ratio means it never carries the whole vehicle either way.
 - **Ground role:** the same shape gives a low, sloped signature and a flat belly
   for skid landings; ground clearance 150 mm.
 
@@ -75,28 +79,38 @@ From outside in:
 - Cost: ~10% worse figure of merit than a single rotor of the same disc area,
   and a second motor, mesh, and controller per wheel.
 
-### 3.1 Staggered discs (Rev C)
+### 3.1 Stagger by attitude, not by arms (Rev D)
 
-In cruise the rear discs sit directly behind the front pair. Coplanar, they fly
-in the front discs' wake: ~10–15% thrust loss on the rear pair plus vibration
-and noise (the reason the CH-47's rear pylon is taller than its front one).
-Over the 720 mm wheelbase at 110 km/h the front wake descends ~0.2 m under its
-own induced velocity but rises ~0.1 m in the body frame because the hull flies
-nose-up, so it arrives at the rear axle only ~0.1 m below the front disc plane,
-with a radius of at least 0.16 m. Clearing it needs the rear disc centre ≥ 0.22 m
-above the front; with margin, **300 mm (0.75 D)**.
+In cruise the rear discs sit directly behind the front pair. Coplanar and
+level, they would fly in the front discs' wake: ~10–15% thrust loss on the
+rear pair plus vibration and noise. Rev C fixed this with raised rear pivots
+and longer rear arms. Rev D drops that: **all four arms and pivots are
+identical, and the whole vehicle cruises nose-down**, so the rear pair rides
+higher in the airflow the way a multirotor's does.
 
-Implementation: the front flip pivots sit low on the hull flank; the rear
-pivots sit on raised shoulder pylons (+120 mm) with longer swing-arms, so that
-when both pairs flip to horizontal the rear discs are 300 mm higher. In drive
-mode all four wheels remain at axle height — the rear arm is simply a longer
-swingarm. Cruise AoA is held at **5°** rather than 8° (each degree of nose-up
-pushes the wake toward the rear discs); the hull gives up a little lift.
+Geometry: with the hull pitched θ nose-down the rear discs sit
+wheelbase·sin θ higher than the front pair relative to the airflow, and the
+front wake also descends ~0.2 m over the wheelbase under its own induced
+velocity. Clearing the wake needs ~0.22 m; at **15° nose-down** the attitude
+alone gives 720 mm × sin 15° = 0.19 m, and with the induced descent the wake
+passes ~0.4 m under the rear discs. The discs pitch 45° relative to the hull,
+which puts their thrust 60° to the air — the same as before.
+
+What it costs — stated plainly, because it is not free: **a lifting body at
+−15° is a brake.** The cambered hull that carried ~26% of the weight at +5°
+now produces downforce (C_L ≈ −0.3, ~19% of weight added to the rotors' job)
+and roughly triple the drag. Cruise power rises from ≈ 6.5 kW to ≈ 8.5 kW;
+cruise endurance falls from ~17 to ~13 min and range from ~30 to ~24 km. The
+hull still earns its shape at low speed and in transition (level, +5°), and
+as the low-signature drive-mode body. If the wing matters more than the
+simplicity, the alternative is to build the hull with +12° incidence relative
+to the wheel plane so it flies at a useful angle while the chassis is
+nose-down; that makes it sit nose-high on the ground and was not adopted.
 
 Side effects to carry in the control law: a small pitch coupling from the
-vertical offset between front and rear thrust lines during translation, and a
-nose-down tendency in the first half-metre of liftoff as the higher rear discs
-leave ground effect first. The vane box trims both.
+vertical offset between front and rear thrust lines during translation, and
+the transition from level hover to 15° nose-down cruise itself (≈ 4 s, discs
+pitching 0 → 45° as the hull rotates).
 
 ### Why two-axis tilt
 
@@ -152,21 +166,22 @@ also trims the lifting body across the speed range.
 = T^1.5/√(2ρA) ≈ 7.0 kW; coaxial figure of merit 0.60 with mesh → **≈ 11.6 kW**
 electrical.
 
-**Cruise.** At 110 km/h the hull carries ~26% of weight, and the tilted discs
-operate at high advance ratio where rotor efficiency roughly doubles versus
-hover. Estimated cruise power ≈ 6.5 kW.
+**Cruise.** At 110 km/h the tilted discs operate at high advance ratio where
+rotor efficiency roughly doubles versus hover; the hull, at −15°, adds ~19%
+downforce and drag. Estimated cruise power ≈ 8.5 kW (≈ 6.5 kW if flown level
+with the hull lifting, at the cost of rear-disc wake ingestion).
 
 | Metric | Value |
 |---|---|
 | Hover endurance (90% usable) | **≈ 9 min** |
-| Cruise speed / endurance / range | **~110 km/h / ~17 min / ~30 km** (rear discs in clean air) |
-| Max dash | ~145 km/h (hull at ~46% of lift) |
+| Cruise speed / endurance / range | **~110 km/h / ~13 min / ~24 km** (15° nose-down, rear discs in clean air) |
+| Max dash | ~130 km/h |
 | Ground speed, max / patrol | 45 / 20 km/h |
 | Ground endurance @ 20 km/h | ≈ 3 h, ~50 km |
 | Rolled step (Ø 400 wheels) | ≤ 130 mm; anything above is flown |
 | Transition, drive → airborne | ≈ 3 s (flip 1.8 s, spool 1.2 s) |
-| Transition, hover → cruise | ≈ 6 s, discs pitching 0 → 60° |
-| Cruise angle of attack | 5° |
+| Transition, hover → cruise | ≈ 4 s, hull rotating to −15°, discs pitching 0 → 45° |
+| Cruise attitude | 15° nose-down; discs 45° to hull, 60° to the air |
 | Acoustic (hover) | ~88–92 dBA @ 10 m est.; quiet only on wheels |
 
 ## 7. Subsystems
@@ -233,61 +248,60 @@ descending). Rev A's tail fan was optional; Rev B's is not.
 
 ## 11. Two-seat variant — RW-2S
 
-The architecture scales; the geometry does not. Rotor area is pinned to wheel
-size (∝ L²) while mass grows ∝ L³, so disc loading rises linearly with scale.
-At human scale the wheels therefore stop being the primary lift: RW-2S is a
-**body-lift-dominant** vehicle in which two large fans buried in the hull carry
-~75% of hover thrust and the four rotor-wheels carry the rest while providing
-ground drive, hover yaw and cruise propulsion.
+Rev D layout: **four large rotor-wheels carry all the lift; there are no fans
+in the hull.** Wheel size is the free variable that makes this work — at
+Ø 1.4 m the four coaxial Ø 1.2 m discs give 4.5 m², as much as Rev C's two
+hull fans and four small wheels combined, in a hull 1.6 m shorter. The wheels
+are ~30% of vehicle length, the same proportion as RW-5.
 
-| Item | RW-2S |
+| Item | RW-2S (Rev D) |
 |---|---|
 | Crew | 2, side by side, under a bubble canopy |
-| Length / width (hull) / width overall / height | 6.2 / 2.1 / **2.6** / 1.75 m |
-| Flight footprint | 4.5 × 6.2 m |
-| Rotor-wheels | 4 × Ø 0.82 m, 2 × Ø 0.66 m coaxial fans each |
-| Hull lift fans | 2 × Ø 1.7 m, tandem, fore and aft of the cabin, vane boxes |
-| Rear disc stagger | +0.5 m above front (0.75 D), rear pivots on pylons |
-| GTOW | ~800 kg |
-| Disc area / loading | 5.9 m² / ~135 kg/m² |
-| Hover power | ≈ 300 kW electrical |
-| Cruise | ~160 km/h at ≈ 120 kW; hull carries ~45% of weight |
-| Power | turboshaft-electric hybrid: ~300 kW genset in the tail + 15 kWh battery |
-| Fuel / air endurance | 80 kg Jet-A: ~1.3 h cruise (~200 km), or 10 min hover + ~1 h cruise |
-| Silent electric mode | ~1.5 h driving at 30 km/h, or ~3 min emergency hover |
-| Ground | 80 km/h max; ~4 h mixed on fuel |
+| Length / hull width / overall width / height | 4.6 / 1.5 / **2.2** / 1.9 m |
+| Flight footprint | 4.7 × 4.6 m |
+| Rotor-wheels | 4 × Ø 1.4 m, 2 × Ø 1.2 m coaxial fans each, 0.36 m wide 3D-printed airless tire |
+| Hull fans | none |
+| Arms / pivots | identical front and rear; wake clearance from a 12° nose-down cruise |
+| GTOW | ~830 kg |
+| Disc area / loading | 4.5 m² / ~185 kg/m² |
+| Hover power | ≈ 350 kW electrical |
+| Cruise | ~150 km/h at ≈ 180 kW, 12° nose-down |
+| Power | turboshaft-electric hybrid: ~350 kW genset + 80 kg fuel in the tail, 15 kWh battery in the nose |
+| Air endurance | ~50 min cruise (~125 km), or 10 min hover + ~40 min cruise |
+| Silent electric mode | ~1.5 h driving at 30 km/h, or ~2.5 min emergency hover |
+| Ground | 80 km/h max; ~4 h mixed on fuel; 0.45 m clearance, rolls 0.45 m steps |
 
 ### Mass budget (target, kg)
 
 | Group | kg |
 |---|---|
-| Lifting-body hull, structure, canopy | 150 |
-| Rotor-wheel modules, 4 × 28 | 112 |
-| Hull lift fans, ducts, doors, vane boxes, 2 × 35 | 70 |
+| Hull, structure, canopy, outriggers | 120 |
+| Rotor-wheel modules, 4 × 55 (tire 12, rim motor 12, two fan stages 22, mount 9) | 220 |
 | Turboshaft + generator + power electronics | 120 |
 | Battery, 15 kWh | 60 |
 | Fuel | 80 |
 | Crew and kit, 2 × 90 | 180 |
 | Avionics, comms, payload | 25 |
-| Wiring, thermal, misc | 28 |
-| **GTOW** | **~825 → 800 target** |
+| Wiring, thermal, misc | 25 |
+| **GTOW** | **830** |
 
 ### What changes at this scale
 
-- **The doorway advantage is gone.** At 2.6 m wide the vehicle does not go
-  inside buildings. The mission becomes rough-terrain mobility plus short-hop
-  VTOL for a two-person team: where a helicopter cannot land and a truck cannot
-  drive. Precedent: DARPA Transformer TX / Advanced Tactics Black Knight (2014).
-- **Hover is turbine-fuelled, not battery-fuelled.** 300 kW for 10 minutes is
-  50 kWh — 200 kg of cells. Fuel at 0.45 kg/kWh does it for ~22 kg. The battery's
-  job is peak-shaving in hover, and the *silent electric ground mode* — turbine
-  off, 1.5 h of quiet driving — which is the tactical feature worth having.
-- **Packaging drives the length.** Two Ø 1.7 fans plus a 1.2 m cabin plus a
-  turbine in the tail is 6.2 m. A single Ø 2.2 fan behind the cabin would be
-  shorter but raises hover power ~8% and makes the aft fan even more mandatory.
-- **Three times the power of an R22 for the same seats.** That is the price of
-  keeping rotors in wheels. RW-2S is defensible only where the ground mode is
-  doing most of the work.
+- **Bigger wheels are the right call aerodynamically and on the ground.**
+  Every centimetre of wheel diameter is disc area; Ø 1.4 also rolls 0.45 m
+  steps and gives 0.45 m of clearance. The cost is module mass: 55 kg per
+  corner, half the empty weight.
+- **No hull fans means the hull is just a hull.** Cabin, turbine, fuel and
+  battery pack into 4.6 m with room to spare; nothing under the cabin floor
+  spins. It also removes the mandatory-fan failure case: lose one wheel
+  stage and the other three-and-a-half discs still hover it.
+- **The doorway advantage is gone** at 2.2 m wide; the mission is rough-terrain
+  mobility plus short-hop VTOL for a two-person team.
+- **Hover is turbine-fuelled.** 350 kW for 10 min is 58 kWh — 230 kg of cells
+  or ~26 kg of Jet-A. The battery's job is peak-shaving and the silent electric
+  ground mode.
+- **It is still ~3.5× an R22's power for the same seats.** That is the price of
+  rotors sized to wheels rather than wheels sized to rotors.
 
 ## 12. Turbines at human scale
 
@@ -299,6 +313,30 @@ ideas, and only one of them is good.
 | **A. Micro-turbojets in the wheels** | Replace each coaxial fan pair with a ~600 N turbojet (JetCat P550 class) | **Reject.** Turbojet thrust-specific fuel consumption is ~150 kg/kN·h: 8 kN of hover thrust burns ~10 kg of fuel per minute — jet-suit endurance, 5–8 min. Exhaust at 600 °C and ~400 m/s inside a tire kills the tire, the ground and anyone nearby. FOD ingestion becomes catastrophic at 100,000 rpm; every mud and debris problem in §8 becomes a blade-out. Thermal soak makes drive mode impossible after flight. And turbojets are propulsively inefficient below ~300 km/h — the wrong engine for a 160 km/h vehicle. |
 | **B. Small turbofans as the body lift fans** | Gas-turbine core driving the Ø 1.7 hull fans mechanically | **Possible, second choice.** Efficient enough (high bypass), and the fans stay cold and mesh-protected. But a gearbox and shafting through the hull, two hot cores under the cabin, and no silent electric mode. Loses the redundancy of independent electric motors. |
 | **C. Turboshaft generator, electric fans everywhere** | One turbine in the tail turning a generator; all fans and wheels stay electric | **Recommended.** Fuel energy density (12 kWh/kg, ~3.5 kWh/kg after a 30% turbine) is 14× battery, which is the single thing that makes a ~800 kg VTOL hover for more than a few minutes. The turbine sits protected in the tail with clean inlet air and a Kamm-tail exhaust. Every rotor stays electric: fine control, redundancy, mesh protection, and silent battery-only driving. Small turboshafts have poor specific fuel consumption (~0.45 kg/kWh), which is why fuel is 80 kg, but it is still one-tenth the mass of the equivalent battery. |
+
+### 12.1 "Small turbines with the wheel spinning around them"
+
+Mechanically this is exactly the hubless layout already specified: the
+printed airless tire and rim rotate on the ring motor while the unit in the
+centre stays fixed on its two-axis mount. Whether that centre unit is an
+electric coaxial fan or a gas turbine is the real question, and the gas
+turbine loses on **control**, before heat or fuel come into it:
+
+1. **Throttle lag.** A gas turbine changes thrust over ~1–2 s as its spool
+   accelerates; an electric fan does it in ~50 ms. A four-rotor hover is
+   stabilised by continuous small thrust corrections at 10–50 Hz. Four
+   turbines cannot do that — every jet-lift VTOL that ever hovered used
+   either reaction-control bleed air or fast vanes to get around it, and
+   helicopters solve it with collective pitch on a constant-speed rotor. A
+   turbine-in-wheel would need variable-pitch fans on constant-speed cores:
+   heavier and more complex than the electric stages it replaces.
+2. **Fuel and hot gas through a two-axis tilt joint**, four times, on
+   modules that are also wheels in mud. Electric modules need one cable.
+3. **Four engines to start, synchronise and maintain** instead of one.
+4. **Silence.** With turbines in the wheels there is no quiet electric
+   ground mode; the tactical feature of this vehicle is gone.
+5. Then the physics from the table: turbojet fuel burn, exhaust temperature
+   inside a polymer tire, FOD at 100,000 rpm, thermal soak after landing.
 
 Rule of thumb: **turbines belong in the body as the power source, never in the
 wheels as thrusters.** The whole point of the rotor-wheel is a fan you can drive
@@ -313,6 +351,6 @@ Rendering set in [`renderings/`](renderings/):
 | `01-side-elevation-drive.svg` | Side elevation, centerline section, drive mode |
 | `02-plan-flight.svg` | Plan view, flight mode, discs deployed, lift fan open |
 | `03-wheel-module-cutaway.svg` | Rotor-wheel module: face-on cutaway + axle section |
-| `04-flight-modes.svg` | Drive / hover / cruise, side view, rear discs staggered |
-| `05-two-seat-elevation.svg` | RW-2S two-seat variant, side elevation, section |
+| `04-flight-modes.svg` | Drive / hover / cruise, side view, 15° nose-down cruise |
+| `05-two-seat-elevation.svg` | RW-2S two-seat variant, side elevation, section (four Ø 1.4 rotor-wheels, no hull fans) |
 | `rw2s-3d.html` + `rw2s-viewer.js` | RW-2S interactive 3D model (three.js): drive / hover / cruise |
