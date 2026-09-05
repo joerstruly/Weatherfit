@@ -1,57 +1,112 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 640" role="img" aria-label="Rotor-wheel module cutaway, face-on: concentric rings from outside in are the airless shear-band tire, rim drive ring motor, structural hubless rim forming the duct wall, tip-drive fan ring motor, and the seven-blade 420 mm fan; debris mesh shown on the left half, tilt swing-arm at lower right." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-label="Rotor-wheel module in two views. Left, face-on: concentric airless tire, rim-drive ring motor, hubless rim forming the duct wall, tip-drive fan ring, and two contra-rotating seven-blade fan stages, with debris mesh on the left half. Right, section through the axle: the 130 mm wide tire band, ground ring motor, duct walls, stage-one and stage-two fans each with a tip-drive motor, mesh on both faces, static hub, and the two-axis mount that flips the wheel 95 degrees and then pitches it fore and aft." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
   <defs>
     <pattern id="mesh" width="9" height="9" patternUnits="userSpaceOnUse">
       <path d="M0,0 L9,9 M9,0 L0,9" stroke="currentColor" stroke-width="0.6"/>
     </pattern>
+    <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
   </defs>
 
-  <!-- swing arm (under wheel) -->
-  <path d="M340,538 L610,588 L604,616 L318,564 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-  <circle cx="612" cy="601" r="15" fill="none" stroke="currentColor" stroke-width="2.5"/>
-  <circle cx="612" cy="601" r="4" fill="currentColor"/>
-
-  <!-- ring stack, outside in -->
-  <circle cx="310" cy="320" r="260" fill="none" stroke="currentColor" stroke-width="4"/>
-  <circle cx="310" cy="320" r="232" fill="none" stroke="currentColor" stroke-width="2"/>
-  <circle cx="310" cy="320" r="225" fill="none" stroke="currentColor" stroke-width="9" opacity="0.35"/>
-  <circle cx="310" cy="320" r="218" fill="none" stroke="currentColor" stroke-width="2"/>
-  <circle cx="310" cy="320" r="210" fill="none" stroke="currentColor" stroke-width="3"/>
-  <circle cx="310" cy="320" r="205" fill="none" stroke="#E8571F" stroke-width="2"/>
-
-  <!-- debris mesh, left half -->
-  <path d="M310,115 A205,205 0 0 0 310,525 Z" fill="url(#mesh)" opacity="0.45"/>
-
-  <!-- fan -->
-  <circle cx="310" cy="320" r="36" fill="none" stroke="currentColor" stroke-width="3"/>
-  <circle cx="310" cy="320" r="10" fill="currentColor"/>
-  <g stroke="#E8571F" stroke-width="13" stroke-linecap="round">
-    <line x1="354" y1="320" x2="512" y2="320"/>
-    <line x1="338" y1="354" x2="436" y2="478"/>
-    <line x1="300" y1="363" x2="265" y2="517"/>
-    <line x1="270" y1="339" x2="128" y2="408"/>
-    <line x1="270" y1="301" x2="128" y2="232"/>
-    <line x1="300" y1="277" x2="265" y2="123"/>
-    <line x1="338" y1="286" x2="436" y2="162"/>
+  <!-- ===== face-on view ===== -->
+  <circle cx="230" cy="270" r="200" fill="none" stroke="currentColor" stroke-width="4"/>
+  <circle cx="230" cy="270" r="178" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="230" cy="270" r="172" fill="none" stroke="currentColor" stroke-width="9" opacity="0.35"/>
+  <circle cx="230" cy="270" r="166" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="230" cy="270" r="160" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="230" cy="270" r="156" fill="none" stroke="#E8571F" stroke-width="2"/>
+  <path d="M230,114 A156,156 0 0 0 230,426 Z" fill="url(#mesh)" opacity="0.45"/>
+  <!-- stage 2, contra-rotating (behind) -->
+  <g stroke="#E8571F" stroke-width="7" stroke-linecap="round" stroke-dasharray="9 7" opacity="0.7">
+    <line x1="281" y1="285" x2="383" y2="334"/>
+    <line x1="258" y1="303" x2="283" y2="414"/>
+    <line x1="229" y1="297" x2="158" y2="386"/>
+    <line x1="216" y1="270" x2="102" y2="270"/>
+    <line x1="229" y1="243" x2="158" y2="154"/>
+    <line x1="258" y1="237" x2="283" y2="126"/>
+    <line x1="281" y1="255" x2="383" y2="206"/>
   </g>
+  <!-- stage 1 (front) -->
+  <g stroke="#E8571F" stroke-width="11" stroke-linecap="round">
+    <line x1="284" y1="270" x2="402" y2="270"/>
+    <line x1="271" y1="297" x2="345" y2="389"/>
+    <line x1="242" y1="303" x2="216" y2="418"/>
+    <line x1="219" y1="285" x2="113" y2="336"/>
+    <line x1="219" y1="255" x2="113" y2="204"/>
+    <line x1="242" y1="237" x2="216" y2="122"/>
+    <line x1="271" y1="243" x2="345" y2="151"/>
+  </g>
+  <circle cx="230" cy="270" r="28" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="230" cy="270" r="8" fill="currentColor"/>
 
-  <!-- leaders -->
+  <!-- face-on leaders and labels -->
   <g stroke="currentColor" stroke-width="1">
-    <line x1="468" y1="132" x2="618" y2="100"/>
-    <line x1="514" y1="225" x2="618" y2="170"/>
-    <line x1="524" y1="309" x2="618" y2="240"/>
-    <line x1="504" y1="391" x2="618" y2="330"/>
-    <line x1="450" y1="452" x2="618" y2="400"/>
-    <line x1="325" y1="352" x2="618" y2="470"/>
-    <line x1="185" y1="205" x2="112" y2="82"/>
+    <line x1="352" y1="124" x2="462" y2="96"/>
+    <line x1="386" y1="197" x2="462" y2="166"/>
+    <line x1="393" y1="261" x2="462" y2="236"/>
+    <line x1="377" y1="323" x2="462" y2="306"/>
+    <line x1="315" y1="355" x2="462" y2="376"/>
+    <line x1="257" y1="387" x2="462" y2="446"/>
+    <line x1="244" y1="292" x2="462" y2="516"/>
+    <line x1="150" y1="180" x2="90" y2="72"/>
   </g>
-  <text x="626" y="104">airless shear-band tire · Ø 520</text>
-  <text x="626" y="174">rim drive ring motor (ground)</text>
-  <text x="626" y="244">structural hubless rim = duct wall</text>
-  <text x="626" y="334">tip-drive fan ring motor (flight)</text>
-  <text x="626" y="404">7-blade ducted fan · Ø 420</text>
-  <text x="626" y="474">static hub — nav lights, sonar</text>
-  <text x="40" y="66">debris mesh, both faces</text>
-  <text x="40" y="84">(shown on left half)</text>
-  <text x="640" y="606">tilt swing-arm · 95°, endpoint locks</text>
-  <text x="40" y="628">RW-5 FERRET · rotor-wheel module · cutaway, face-on</text>
+  <text x="470" y="100">airless shear-band tire · Ø 400</text>
+  <text x="470" y="170">rim drive ring motor (ground)</text>
+  <text x="470" y="240">hubless rim = duct wall</text>
+  <text x="470" y="310">tip-drive fan ring, one per stage</text>
+  <text x="470" y="380">stage 1 · 7 blades · Ø 320</text>
+  <text x="470" y="450">stage 2 · contra-rotating (dashed)</text>
+  <text x="470" y="520">static hub — no shaft through center</text>
+  <text x="30" y="52">debris mesh, both faces</text>
+  <text x="30" y="70">(shown on left half)</text>
+
+  <!-- ===== section through the axle ===== -->
+  <!-- tire band -->
+  <rect x="835" y="70" width="130" height="22" fill="none" stroke="currentColor" stroke-width="3"/>
+  <rect x="835" y="448" width="130" height="22" fill="none" stroke="currentColor" stroke-width="3"/>
+  <!-- ground ring motor -->
+  <rect x="835" y="92" width="130" height="12" fill="currentColor" opacity="0.35"/>
+  <rect x="835" y="436" width="130" height="12" fill="currentColor" opacity="0.35"/>
+  <!-- rim / duct walls -->
+  <rect x="850" y="104" width="100" height="6" fill="currentColor"/>
+  <rect x="850" y="430" width="100" height="6" fill="currentColor"/>
+  <line x1="850" y1="110" x2="850" y2="430" stroke="currentColor" stroke-width="2"/>
+  <line x1="950" y1="110" x2="950" y2="430" stroke="currentColor" stroke-width="2"/>
+  <!-- tip-drive motors -->
+  <g fill="#E8571F" opacity="0.5">
+    <rect x="860" y="110" width="22" height="8"/><rect x="860" y="422" width="22" height="8"/>
+    <rect x="918" y="110" width="22" height="8"/><rect x="918" y="422" width="22" height="8"/>
+  </g>
+  <!-- fan stages -->
+  <rect x="865" y="118" width="12" height="304" rx="3" fill="#E8571F"/>
+  <rect x="923" y="118" width="12" height="304" rx="3" fill="#E8571F" opacity="0.7"/>
+  <!-- static hub -->
+  <rect x="860" y="242" width="80" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+  <!-- mesh, both faces -->
+  <line x1="842" y1="112" x2="842" y2="428" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
+  <line x1="958" y1="112" x2="958" y2="428" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
+  <!-- two-axis mount -->
+  <line x1="900" y1="470" x2="900" y2="500" stroke="currentColor" stroke-width="6"/>
+  <circle cx="900" cy="510" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="900" cy="510" r="3" fill="currentColor"/>
+  <path d="M860,530 A45,45 0 0 0 940,530" fill="none" stroke="#E8571F" stroke-width="2" marker-end="url(#a3)" color="#E8571F"/>
+  <path d="M985,190 A100,100 0 0 1 985,350" fill="none" stroke="#E8571F" stroke-width="2" marker-start="url(#a3)" marker-end="url(#a3)" color="#E8571F"/>
+
+  <!-- section labels -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="871" y1="116" x2="871" y2="62"/>
+    <line x1="929" y1="116" x2="929" y2="62"/>
+    <line x1="842" y1="200" x2="800" y2="200"/>
+    <line x1="940" y1="270" x2="1010" y2="270"/>
+    <line x1="882" y1="114" x2="1010" y2="114"/>
+  </g>
+  <text x="871" y="56" text-anchor="middle" font-size="12">stage 1</text>
+  <text x="929" y="56" text-anchor="middle" font-size="12">stage 2</text>
+  <text x="796" y="204" text-anchor="end" font-size="12">mesh</text>
+  <text x="1016" y="118" font-size="12">tip-drive motors</text>
+  <text x="1016" y="274" font-size="12">static hub</text>
+  <text x="1000" y="376" font-size="12" fill="#E8571F">pitch −20 … +70°</text>
+  <text x="900" y="552" text-anchor="middle" font-size="12">flip 95° about the fore-aft axis</text>
+  <text x="900" y="40" text-anchor="middle" font-size="12">section through the axle · tire 130 wide</text>
+  <text x="30" y="548">RW-5 FERRET · rotor-wheel module · face-on cutaway + axle section · 1 px = 1 mm</text>
 </svg>

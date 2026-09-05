@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 470" role="img" aria-label="Three side-view frames of the RW-5. Drive: wheels down on the ground, fans stopped, inlet doors shut. Hover: airborne with the wheel discs flipped flat outboard, the embedded lift fan drawing air through the open top inlet and exhausting straight down through the vane box. Cruise: the body pitched eight degrees nose-up, wheel discs pitched sixty degrees forward so their thrust points aft, vane box deflecting the lift-fan exhaust fifty degrees aft, forward speed about 110 km/h." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+    <path id="hull" d="M190,300 C230,240 330,198 430,198 C560,198 700,215 790,235 L790,270 C700,290 640,305 600,305 L250,305 C220,305 200,303 190,300 Z" fill="none" stroke="currentColor" stroke-width="5"/>
+    <g id="wheel">
+      <circle r="100" fill="none" stroke="currentColor" stroke-width="10"/>
+      <circle r="80" fill="none" stroke="#E8571F" stroke-width="5"/>
+      <circle r="14" fill="currentColor"/>
+      <g stroke="#E8571F" stroke-width="9" stroke-linecap="round">
+        <line x1="18" y1="0" x2="74" y2="0"/>
+        <line x1="-4" y1="18" x2="-17" y2="72"/>
+        <line x1="-16" y1="-8" x2="-67" y2="-32"/>
+        <line x1="11" y1="-14" x2="46" y2="-58"/>
+        <line x1="-16" y1="8" x2="-67" y2="32"/>
+      </g>
+    </g>
+    <rect id="discedge" x="150" y="195" width="200" height="40" rx="14" fill="none" stroke="currentColor" stroke-width="7"/>
+    <g id="vanebox" stroke="currentColor" stroke-width="3">
+      <line x1="500" y1="290" x2="500" y2="305"/><line x1="530" y1="290" x2="530" y2="305"/>
+      <line x1="560" y1="290" x2="560" y2="305"/><line x1="590" y1="290" x2="590" y2="305"/>
+      <line x1="620" y1="290" x2="620" y2="305"/>
+    </g>
+  </defs>
+
+  <!-- ground -->
+  <line x1="20" y1="340" x2="1160" y2="340" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.5">
+    <line x1="60" y1="340" x2="50" y2="352"/><line x1="200" y1="340" x2="190" y2="352"/>
+    <line x1="340" y1="340" x2="330" y2="352"/><line x1="480" y1="340" x2="470" y2="352"/>
+    <line x1="620" y1="340" x2="610" y2="352"/><line x1="760" y1="340" x2="750" y2="352"/>
+    <line x1="900" y1="340" x2="890" y2="352"/><line x1="1040" y1="340" x2="1030" y2="352"/>
+  </g>
+
+  <!-- frame 1: drive -->
+  <g transform="translate(10,150) scale(0.5)">
+    <use href="#hull"/>
+    <line x1="462" y1="205" x2="658" y2="212" stroke="currentColor" stroke-width="5"/>
+    <use href="#vanebox"/>
+    <use href="#wheel" x="250" y="280"/>
+    <use href="#wheel" x="610" y="280"/>
+  </g>
+  <text x="255" y="396" text-anchor="middle" font-size="14">DRIVE</text>
+  <text x="255" y="416" text-anchor="middle">wheels down · fans stopped · doors shut</text>
+
+  <!-- frame 2: hover -->
+  <g transform="translate(395,110) scale(0.5)">
+    <use href="#hull"/>
+    <use href="#vanebox"/>
+    <use href="#discedge"/>
+    <use href="#discedge" x="360"/>
+    <g stroke="currentColor" stroke-width="3">
+      <line x1="200" y1="248" x2="200" y2="310" marker-end="url(#a4)"/>
+      <line x1="250" y1="248" x2="250" y2="310" marker-end="url(#a4)"/>
+      <line x1="300" y1="248" x2="300" y2="310" marker-end="url(#a4)"/>
+      <line x1="560" y1="248" x2="560" y2="310" marker-end="url(#a4)"/>
+      <line x1="610" y1="248" x2="610" y2="310" marker-end="url(#a4)"/>
+      <line x1="660" y1="248" x2="660" y2="310" marker-end="url(#a4)"/>
+      <line x1="520" y1="150" x2="520" y2="200" marker-end="url(#a4)"/>
+      <line x1="560" y1="150" x2="560" y2="200" marker-end="url(#a4)"/>
+      <line x1="600" y1="150" x2="600" y2="200" marker-end="url(#a4)"/>
+      <line x1="520" y1="312" x2="520" y2="372" marker-end="url(#a4)"/>
+      <line x1="560" y1="312" x2="560" y2="372" marker-end="url(#a4)"/>
+      <line x1="600" y1="312" x2="600" y2="372" marker-end="url(#a4)"/>
+    </g>
+    <line x1="430" y1="190" x2="430" y2="110" stroke="#E8571F" stroke-width="7" marker-end="url(#a4)" color="#E8571F"/>
+  </g>
+  <text x="640" y="396" text-anchor="middle" font-size="14">HOVER</text>
+  <text x="640" y="416" text-anchor="middle">discs flat · inlet open · vanes straight down</text>
+
+  <!-- frame 3: cruise -->
+  <g transform="translate(780,100) scale(0.5) rotate(-8 490 260)">
+    <use href="#hull"/>
+    <use href="#discedge" transform="rotate(-60 250 215)"/>
+    <use href="#discedge" transform="rotate(-60 610 215)"/>
+    <g stroke="currentColor" stroke-width="3">
+      <line x1="262" y1="236" x2="320" y2="270" marker-end="url(#a4)"/>
+      <line x1="292" y1="222" x2="350" y2="256" marker-end="url(#a4)"/>
+      <line x1="622" y1="236" x2="680" y2="270" marker-end="url(#a4)"/>
+      <line x1="652" y1="222" x2="710" y2="256" marker-end="url(#a4)"/>
+      <line x1="520" y1="150" x2="520" y2="200" marker-end="url(#a4)"/>
+      <line x1="560" y1="150" x2="560" y2="200" marker-end="url(#a4)"/>
+      <line x1="600" y1="150" x2="600" y2="200" marker-end="url(#a4)"/>
+      <line x1="540" y1="310" x2="586" y2="349" marker-end="url(#a4)"/>
+      <line x1="580" y1="310" x2="626" y2="349" marker-end="url(#a4)"/>
+      <line x1="620" y1="310" x2="666" y2="349" marker-end="url(#a4)"/>
+    </g>
+    <g stroke="currentColor" stroke-width="3">
+      <line x1="500" y1="290" x2="490" y2="305"/><line x1="530" y1="290" x2="520" y2="305"/>
+      <line x1="560" y1="290" x2="550" y2="305"/><line x1="590" y1="290" x2="580" y2="305"/>
+      <line x1="620" y1="290" x2="610" y2="305"/>
+    </g>
+    <line x1="430" y1="190" x2="430" y2="110" stroke="#E8571F" stroke-width="7" marker-end="url(#a4)" color="#E8571F"/>
+  </g>
+  <line x1="905" y1="118" x2="840" y2="118" stroke="#E8571F" stroke-width="3" marker-end="url(#a4)" color="#E8571F"/>
+  <text x="912" y="122" fill="#E8571F">110 km/h</text>
+  <text x="1025" y="396" text-anchor="middle" font-size="14">CRUISE</text>
+  <text x="1025" y="416" text-anchor="middle">discs 60° fwd · vanes 50° aft · hull +8° AoA</text>
+
+  <text x="24" y="34">RW-5 FERRET · operating modes · side view · lift shown in orange</text>
+</svg>

@@ -1,78 +1,101 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 900" role="img" aria-label="RW-5 plan view in flight mode: four 520 mm fan discs deployed horizontally at the corners on swing-arms, central hull, tail fan aft; flight footprint 1,560 by 1,640 mm." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 830" role="img" aria-label="RW-5 plan view in flight mode: a delta lifting body with a narrow nose widening to 680 mm at the rear, four 400 mm coaxial fan discs flipped horizontal outboard on swing-arms and free to pitch fore and aft, and the 380 mm lift fan embedded in the rear of the hull with its vane box thrusting aft; flight footprint 1,510 by 1,200 mm." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
   <defs>
     <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
     </marker>
-    <g id="fandisc">
-      <circle r="130" fill="none" stroke="currentColor" stroke-width="6"/>
-      <circle r="105" fill="none" stroke="#E8571F" stroke-width="3"/>
-      <circle r="18" fill="currentColor"/>
-      <g stroke="#E8571F" stroke-width="7" stroke-linecap="round">
-        <line x1="22" y1="0" x2="98" y2="0"/>
-        <line x1="14" y1="17" x2="61" y2="77"/>
-        <line x1="-5" y1="22" x2="-22" y2="96"/>
-        <line x1="-20" y1="10" x2="-88" y2="43"/>
-        <line x1="-20" y1="-10" x2="-88" y2="-43"/>
-        <line x1="-5" y1="-22" x2="-22" y2="-96"/>
-        <line x1="14" y1="-17" x2="61" y2="-77"/>
+    <g id="disc">
+      <circle r="100" fill="none" stroke="currentColor" stroke-width="6"/>
+      <circle r="80" fill="none" stroke="#E8571F" stroke-width="2.5"/>
+      <circle r="14" fill="currentColor"/>
+      <g stroke="#E8571F" stroke-width="6" stroke-linecap="round">
+        <line x1="18" y1="0" x2="74" y2="0"/>
+        <line x1="11" y1="14" x2="46" y2="58"/>
+        <line x1="-4" y1="18" x2="-17" y2="72"/>
+        <line x1="-16" y1="8" x2="-67" y2="32"/>
+        <line x1="-16" y1="-8" x2="-67" y2="-32"/>
+        <line x1="-4" y1="-18" x2="-17" y2="-72"/>
+        <line x1="11" y1="-14" x2="46" y2="-58"/>
+      </g>
+      <g stroke="#E8571F" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 5" opacity="0.7">
+        <line x1="16" y1="8" x2="63" y2="30"/>
+        <line x1="4" y1="18" x2="16" y2="68"/>
+        <line x1="-11" y1="14" x2="-44" y2="55"/>
+        <line x1="-18" y1="0" x2="-70" y2="0"/>
+        <line x1="-11" y1="-14" x2="-44" y2="-55"/>
+        <line x1="4" y1="-18" x2="16" y2="-68"/>
+        <line x1="16" y1="-8" x2="63" y2="-30"/>
       </g>
     </g>
   </defs>
 
   <!-- centerline -->
-  <line x1="200" y1="450" x2="1070" y2="450" stroke="currentColor" stroke-width="1" stroke-dasharray="14 4 3 4" opacity="0.55"/>
+  <line x1="150" y1="410" x2="930" y2="410" stroke="currentColor" stroke-width="1" stroke-dasharray="14 4 3 4" opacity="0.55"/>
 
   <!-- swing arms -->
-  <g stroke="currentColor" stroke-width="10" stroke-linecap="round">
-    <line x1="370" y1="375" x2="370" y2="210"/>
-    <line x1="370" y1="525" x2="370" y2="690"/>
-    <line x1="680" y1="375" x2="680" y2="210"/>
-    <line x1="680" y1="525" x2="680" y2="690"/>
+  <g stroke="currentColor" stroke-width="9" stroke-linecap="round">
+    <line x1="250" y1="370" x2="250" y2="150"/>
+    <line x1="250" y1="450" x2="250" y2="670"/>
+    <line x1="610" y1="305" x2="610" y2="150"/>
+    <line x1="610" y1="515" x2="610" y2="670"/>
   </g>
 
-  <!-- hull -->
-  <path d="M280,375 L230,450 L280,525 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
-  <rect x="280" y="375" width="540" height="150" rx="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
-  <rect x="820" y="435" width="70" height="30" fill="none" stroke="currentColor" stroke-width="2"/>
+  <!-- lifting body, delta planform -->
+  <path d="M190,410 L250,370 L610,305 L790,300 L790,520 L610,515 L250,450 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- embedded rear lift fan, inlet doors open -->
+  <circle cx="560" cy="410" r="95" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="560" cy="410" r="80" fill="none" stroke="#E8571F" stroke-width="2.5"/>
+  <circle cx="560" cy="410" r="12" fill="currentColor"/>
+  <g stroke="#E8571F" stroke-width="5" stroke-linecap="round">
+    <line x1="576" y1="410" x2="632" y2="410"/>
+    <line x1="544" y1="410" x2="488" y2="410"/>
+    <line x1="560" y1="426" x2="560" y2="482"/>
+    <line x1="560" y1="394" x2="560" y2="338"/>
+    <line x1="571" y1="399" x2="611" y2="359"/>
+    <line x1="549" y1="421" x2="509" y2="461"/>
+    <line x1="549" y1="399" x2="509" y2="359"/>
+    <line x1="571" y1="421" x2="611" y2="461"/>
+  </g>
+  <line x1="465" y1="318" x2="465" y2="502" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="655" y1="308" x2="655" y2="512" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- nose sensor -->
+  <circle cx="215" cy="410" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
 
   <!-- fan discs -->
-  <use href="#fandisc" x="370" y="190"/>
-  <use href="#fandisc" x="370" y="710"/>
-  <use href="#fandisc" x="680" y="190"/>
-  <use href="#fandisc" x="680" y="710"/>
+  <use href="#disc" x="250" y="133"/>
+  <use href="#disc" x="250" y="687"/>
+  <use href="#disc" x="610" y="133"/>
+  <use href="#disc" x="610" y="687"/>
 
-  <!-- tail fan -->
-  <g>
-    <circle cx="960" cy="450" r="90" fill="none" stroke="currentColor" stroke-width="5"/>
-    <circle cx="960" cy="450" r="76" fill="none" stroke="#E8571F" stroke-width="2.5"/>
-    <circle cx="960" cy="450" r="14" fill="currentColor"/>
-    <g stroke="#E8571F" stroke-width="6" stroke-linecap="round">
-      <line x1="978" y1="450" x2="1030" y2="450"/>
-      <line x1="942" y1="450" x2="890" y2="450"/>
-      <line x1="960" y1="468" x2="960" y2="520"/>
-      <line x1="960" y1="432" x2="960" y2="380"/>
-    </g>
-  </g>
+  <!-- pitch-tilt indication on the front-top disc -->
+  <line x1="130" y1="18" x2="370" y2="18" stroke="#E8571F" stroke-width="2.5" marker-start="url(#a2)" marker-end="url(#a2)" color="#E8571F"/>
+  <text x="380" y="22" fill="#E8571F">discs pitch −20° … +70° fore/aft (cruise)</text>
+
+  <!-- vane-box thrust -->
+  <line x1="800" y1="410" x2="900" y2="410" stroke="#E8571F" stroke-width="3" marker-end="url(#a2)" color="#E8571F"/>
+  <text x="808" y="398" fill="#E8571F">vane box thrust</text>
 
   <!-- callouts -->
-  <line x1="680" y1="58" x2="706" y2="46" stroke="currentColor" stroke-width="1"/>
-  <text x="712" y="36">fan discs horizontal —</text>
-  <text x="712" y="54">wheels tilted 95° on swing-arms</text>
-  <line x1="960" y1="555" x2="960" y2="600" stroke="currentColor" stroke-width="1"/>
-  <text x="700" y="622">tail fan · tilts aft for cruise thrust</text>
-  <line x1="900" y1="655" x2="1000" y2="655" stroke="#E8571F" stroke-width="3" marker-end="url(#a2)" color="#E8571F"/>
-  <text x="1012" y="659" fill="#E8571F">thrust</text>
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="560" y1="318" x2="560" y2="270"/>
+    <line x1="215" y1="401" x2="150" y2="330"/>
+    <line x1="700" y1="300" x2="730" y2="250"/>
+    <line x1="690" y1="580" x2="740" y2="580"/>
+  </g>
+  <text x="380" y="266">embedded lift fan Ø 380 · inlet doors open</text>
+  <text x="40" y="326">nose EO/IR · 160 mm wide</text>
+  <text x="734" y="246">680 mm at the rear</text>
+  <text x="746" y="584">swing-arm: flip 95°, then pitch</text>
 
   <!-- dimensions -->
   <g stroke="currentColor" stroke-width="1">
-    <line x1="240" y1="60" x2="130" y2="60"/>
-    <line x1="240" y1="840" x2="130" y2="840"/>
-    <line x1="140" y1="70" x2="140" y2="830" marker-start="url(#a2)" marker-end="url(#a2)"/>
-    <line x1="230" y1="535" x2="230" y2="880"/>
-    <line x1="1050" y1="550" x2="1050" y2="880"/>
-    <line x1="238" y1="872" x2="1042" y2="872" marker-start="url(#a2)" marker-end="url(#a2)"/>
+    <line x1="140" y1="33" x2="90" y2="33"/>
+    <line x1="140" y1="787" x2="90" y2="787"/>
+    <line x1="100" y1="43" x2="100" y2="777" marker-start="url(#a2)" marker-end="url(#a2)"/>
+    <line x1="190" y1="420" x2="190" y2="815"/>
+    <line x1="790" y1="530" x2="790" y2="815"/>
+    <line x1="198" y1="806" x2="782" y2="806" marker-start="url(#a2)" marker-end="url(#a2)"/>
   </g>
-  <text x="152" y="455">1,560</text>
-  <text x="640" y="864" text-anchor="middle">1,640</text>
-  <text x="60" y="30" font-size="13">RW-5 FERRET · plan view · FLIGHT MODE · dims in mm</text>
+  <text x="112" y="415">1,510</text>
+  <text x="490" y="799" text-anchor="middle">1,200</text>
+  <text x="40" y="826" font-size="13">RW-5 FERRET · plan view · FLIGHT MODE · dims in mm</text>
 </svg>
