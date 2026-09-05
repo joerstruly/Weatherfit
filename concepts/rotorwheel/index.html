@@ -1,0 +1,499 @@
+<title>RW-5 Ferret</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@600;700;800&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#EEF0E9; --surface:#E5E8DD; --ink:#20241E; --muted:#5A6052;
+  --line:#20241E; --hairline:#C6CBBB; --accent:#D94E14; --accent-ink:#B23F0E;
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15180F; --surface:#1D2116; --ink:#E5E8DC; --muted:#9BA18D;
+    --line:#E5E8DC; --hairline:#3A4030; --accent:#F0693A; --accent-ink:#F0693A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15180F; --surface:#1D2116; --ink:#E5E8DC; --muted:#9BA18D;
+  --line:#E5E8DC; --hairline:#3A4030; --accent:#F0693A; --accent-ink:#F0693A;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:'Archivo',system-ui,sans-serif;
+  font-size:15px; line-height:1.6; margin:0}
+.wrap{max-width:960px; margin:0 auto; padding:0 28px 80px}
+a{color:var(--accent-ink)}
+
+/* header */
+header{border-bottom:3px solid var(--line); padding:44px 0 28px; margin-bottom:8px}
+.eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+h1{font-family:'Saira Semi Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+  font-size:clamp(40px,7vw,64px); line-height:1; letter-spacing:.01em; margin:14px 0 10px; text-wrap:balance}
+h1 .num{color:var(--accent)}
+.thesis{font-size:17px; max-width:62ch; margin:0; color:var(--ink)}
+
+/* key figures */
+.figs{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); border:2px solid var(--line);
+  margin:28px 0 0; background:var(--surface)}
+.figs>div{padding:14px 16px; border-right:1px solid var(--hairline)}
+.figs>div:last-child{border-right:0}
+.figs b{display:block; font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:500;
+  font-variant-numeric:tabular-nums; margin-bottom:2px}
+.figs span{font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+
+/* sections */
+h2{font-family:'Saira Semi Condensed',sans-serif; font-weight:700; text-transform:uppercase;
+  font-size:22px; letter-spacing:.03em; margin:56px 0 14px; padding-top:14px; border-top:3px solid var(--line)}
+h2 .sec{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:400; color:var(--accent-ink); margin-right:10px}
+h3{font-family:'Saira Semi Condensed',sans-serif; font-weight:700; font-size:16.5px;
+  text-transform:uppercase; letter-spacing:.03em; margin:26px 0 8px}
+p{max-width:68ch; margin:0 0 14px}
+ul{max-width:68ch; padding-left:20px; margin:0 0 14px}
+li{margin-bottom:6px}
+strong{font-weight:600}
+
+/* tables */
+.tblwrap{overflow-x:auto; margin:0 0 18px}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.08em;
+  text-align:left; color:var(--muted); font-weight:500; padding:6px 14px 6px 0; border-bottom:2px solid var(--line)}
+td{padding:7px 14px 7px 0; border-bottom:1px solid var(--hairline); vertical-align:top}
+td.v{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.total td{border-top:2px solid var(--line); border-bottom:0; font-weight:600}
+
+/* figure plates */
+figure{margin:26px 0; border:2px solid var(--line); background:var(--surface)}
+figure svg{display:block; width:100%; height:auto; padding:14px 10px 4px}
+figcaption{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink);
+  border-top:2px solid var(--line); padding:10px 14px; display:flex; gap:14px; flex-wrap:wrap}
+figcaption .fno{color:var(--accent-ink); flex-shrink:0}
+
+.callout{border-left:4px solid var(--accent); background:var(--surface); padding:14px 18px; margin:0 0 16px; max-width:72ch}
+.callout p{margin:0}
+footer{margin-top:64px; border-top:3px solid var(--line); padding-top:14px;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow"><span>Concept specification · Rev A</span><span>2026-09-05 · Unclassified concept</span></div>
+  <h1><span class="num">RW-5</span> Ferret Rotorwheel</h1>
+  <p class="thesis">A hybrid ground–air scout: four road wheels with ducted lift fans in their hubless
+  centers, plus a tilting tail fan that boosts liftoff and pushes in cruise.
+  Doctrine in one line: <strong>ground for endurance, air for obstacles.</strong></p>
+  <div class="figs">
+    <div><b>42 kg</b><span>gross takeoff mass</span></div>
+    <div><b>680 mm</b><span>width — clears an 810 mm doorway</span></div>
+    <div><b>~3 h</b><span>ground endurance @ 20 km/h</span></div>
+    <div><b>~12 min</b><span>hover endurance</span></div>
+    <div><b>3.5 s</b><span>drive → airborne</span></div>
+  </div>
+</header>
+
+<h2><span class="sec">01</span>Concept &amp; mission profile</h2>
+<p>Wheel-sized rotors are aerodynamically poor — that constraint is examined honestly in §06 —
+so the RW-5 is not a drone that also drives. It is a ground scout that can <em>jump</em>:
+over rubble, wire, gaps, walls, stairwells, between floors and rooftops, then resume driving.
+The airframe is sized by the single most binding requirement for interior work:
+it must pass a standard doorway under its own power in drive mode.</p>
+<p>The design mission splits roughly <strong>90% ground / 10% air</strong> by distance.
+Flight is a budget of short hops (≤ 12 min total, ~3–4 km cumulative), spent only where wheels fail.
+The quiet mode is the ground mode: fly briefly, land beyond line-of-sight, approach on wheels.</p>
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-label="RW-5 side elevation in drive mode: two 520 mm rotor-wheels with 420 mm ducted fans visible in their centers, hull slung between, EO/IR mast up, tail fan pylon folded flat; principal dimensions 1,080 mm length, 640 mm height, 190 mm ground clearance." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- ground -->
+  <line x1="60" y1="410" x2="840" y2="410" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.5">
+    <line x1="80" y1="410" x2="70" y2="422"/><line x1="140" y1="410" x2="130" y2="422"/>
+    <line x1="200" y1="410" x2="190" y2="422"/><line x1="640" y1="410" x2="630" y2="422"/>
+    <line x1="700" y1="410" x2="690" y2="422"/><line x1="760" y1="410" x2="750" y2="422"/>
+    <line x1="820" y1="410" x2="810" y2="422"/>
+  </g>
+
+  <!-- hull -->
+  <path d="M215,300 L237,255 L700,250 L755,278 L755,315 L237,315 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <!-- battery cassette -->
+  <rect x="662" y="260" width="78" height="50" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <!-- tail fan pylon, folded -->
+  <rect x="600" y="230" width="150" height="18" rx="9" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="612" y1="239" x2="738" y2="239" stroke="#E8571F" stroke-width="2"/>
+  <!-- EO/IR mast -->
+  <line x1="330" y1="252" x2="330" y2="138" stroke="currentColor" stroke-width="3"/>
+  <circle cx="330" cy="118" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <rect x="322" y="110" width="16" height="9" fill="currentColor"/>
+
+  <!-- front rotor-wheel -->
+  <g>
+    <circle cx="280" cy="280" r="130" fill="none" stroke="currentColor" stroke-width="6"/>
+    <circle cx="280" cy="280" r="112" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="280" cy="280" r="105" fill="none" stroke="#E8571F" stroke-width="3"/>
+    <circle cx="280" cy="280" r="18" fill="currentColor"/>
+    <g stroke="#E8571F" stroke-width="7" stroke-linecap="round">
+      <line x1="302" y1="280" x2="378" y2="280"/>
+      <line x1="294" y1="297" x2="341" y2="357"/>
+      <line x1="275" y1="302" x2="258" y2="376"/>
+      <line x1="260" y1="290" x2="192" y2="323"/>
+      <line x1="260" y1="270" x2="192" y2="237"/>
+      <line x1="275" y1="258" x2="258" y2="184"/>
+      <line x1="294" y1="263" x2="341" y2="203"/>
+    </g>
+  </g>
+  <!-- rear rotor-wheel -->
+  <g>
+    <circle cx="590" cy="280" r="130" fill="none" stroke="currentColor" stroke-width="6"/>
+    <circle cx="590" cy="280" r="112" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="590" cy="280" r="105" fill="none" stroke="#E8571F" stroke-width="3"/>
+    <circle cx="590" cy="280" r="18" fill="currentColor"/>
+    <g stroke="#E8571F" stroke-width="7" stroke-linecap="round">
+      <line x1="612" y1="280" x2="688" y2="280"/>
+      <line x1="604" y1="297" x2="651" y2="357"/>
+      <line x1="585" y1="302" x2="568" y2="376"/>
+      <line x1="570" y1="290" x2="502" y2="323"/>
+      <line x1="570" y1="270" x2="502" y2="237"/>
+      <line x1="585" y1="258" x2="568" y2="184"/>
+      <line x1="604" y1="263" x2="651" y2="203"/>
+    </g>
+  </g>
+
+  <!-- callouts -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="341" y1="118" x2="410" y2="95"/>
+    <line x1="675" y1="230" x2="700" y2="185"/>
+    <line x1="206" y1="354" x2="140" y2="386"/>
+    <line x1="664" y1="206" x2="704" y2="162"/>
+  </g>
+  <text x="416" y="98">EO/IR gimbal, stowable mast</text>
+  <text x="706" y="180">tail fan pylon (folded)</text>
+  <text x="60" y="400">Ø 520 tire</text>
+  <text x="710" y="156">fan Ø 420</text>
+
+  <!-- dimensions -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="215" y1="418" x2="215" y2="458"/>
+    <line x1="755" y1="418" x2="755" y2="458"/>
+    <line x1="222" y1="450" x2="748" y2="450" marker-start="url(#a1)" marker-end="url(#a1)"/>
+    <line x1="765" y1="410" x2="835" y2="410"/>
+    <line x1="330" y1="98" x2="828" y2="98"/>
+    <line x1="820" y1="105" x2="820" y2="403" marker-start="url(#a1)" marker-end="url(#a1)"/>
+    <line x1="463" y1="315" x2="463" y2="410" marker-start="url(#a1)" marker-end="url(#a1)"/>
+  </g>
+  <text x="470" y="443" text-anchor="middle">1,080</text>
+  <text x="833" y="260">640</text>
+  <text x="472" y="368">190</text>
+  <text x="60" y="480" font-size="13">RW-5 FERRET · side elevation · DRIVE MODE · dims in mm</text>
+</svg>
+<figcaption><span class="fno">FIG 01</span><span>Side elevation, drive mode. Fan faces are fully visible through the hubless wheels; tail pylon folded, mast up. Dims in mm.</span></figcaption></figure>
+
+<h2><span class="sec">02</span>Configuration</h2>
+<ul>
+  <li><strong>Layout —</strong> 4 rotor-wheel modules on tilting swing-arms, skid-steered on the ground; 1 tail fan on a 0–90° tilting pylon.</li>
+  <li><strong>Drive mode —</strong> wheel planes vertical, fans stopped, tail pylon folded flat into the deck.</li>
+  <li><strong>Flight mode —</strong> swing-arms tilt each wheel 95° outboard so all four fan discs are horizontal; tail pylon vertical for liftoff, tilting aft for translational flight.</li>
+  <li><strong>Hover control —</strong> quad differential thrust; tail fan carries ~15% at liftoff and trims pitch. <strong>Ground control —</strong> independent per-wheel torque, zero-radius turns, regenerative braking.</li>
+</ul>
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 900" role="img" aria-label="RW-5 plan view in flight mode: four 520 mm fan discs deployed horizontally at the corners on swing-arms, central hull, tail fan aft; flight footprint 1,560 by 1,640 mm." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+    <g id="fandisc">
+      <circle r="130" fill="none" stroke="currentColor" stroke-width="6"/>
+      <circle r="105" fill="none" stroke="#E8571F" stroke-width="3"/>
+      <circle r="18" fill="currentColor"/>
+      <g stroke="#E8571F" stroke-width="7" stroke-linecap="round">
+        <line x1="22" y1="0" x2="98" y2="0"/>
+        <line x1="14" y1="17" x2="61" y2="77"/>
+        <line x1="-5" y1="22" x2="-22" y2="96"/>
+        <line x1="-20" y1="10" x2="-88" y2="43"/>
+        <line x1="-20" y1="-10" x2="-88" y2="-43"/>
+        <line x1="-5" y1="-22" x2="-22" y2="-96"/>
+        <line x1="14" y1="-17" x2="61" y2="-77"/>
+      </g>
+    </g>
+  </defs>
+
+  <!-- centerline -->
+  <line x1="200" y1="450" x2="1070" y2="450" stroke="currentColor" stroke-width="1" stroke-dasharray="14 4 3 4" opacity="0.55"/>
+
+  <!-- swing arms -->
+  <g stroke="currentColor" stroke-width="10" stroke-linecap="round">
+    <line x1="370" y1="375" x2="370" y2="210"/>
+    <line x1="370" y1="525" x2="370" y2="690"/>
+    <line x1="680" y1="375" x2="680" y2="210"/>
+    <line x1="680" y1="525" x2="680" y2="690"/>
+  </g>
+
+  <!-- hull -->
+  <path d="M280,375 L230,450 L280,525 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <rect x="280" y="375" width="540" height="150" rx="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <rect x="820" y="435" width="70" height="30" fill="none" stroke="currentColor" stroke-width="2"/>
+
+  <!-- fan discs -->
+  <use href="#fandisc" x="370" y="190"/>
+  <use href="#fandisc" x="370" y="710"/>
+  <use href="#fandisc" x="680" y="190"/>
+  <use href="#fandisc" x="680" y="710"/>
+
+  <!-- tail fan -->
+  <g>
+    <circle cx="960" cy="450" r="90" fill="none" stroke="currentColor" stroke-width="5"/>
+    <circle cx="960" cy="450" r="76" fill="none" stroke="#E8571F" stroke-width="2.5"/>
+    <circle cx="960" cy="450" r="14" fill="currentColor"/>
+    <g stroke="#E8571F" stroke-width="6" stroke-linecap="round">
+      <line x1="978" y1="450" x2="1030" y2="450"/>
+      <line x1="942" y1="450" x2="890" y2="450"/>
+      <line x1="960" y1="468" x2="960" y2="520"/>
+      <line x1="960" y1="432" x2="960" y2="380"/>
+    </g>
+  </g>
+
+  <!-- callouts -->
+  <line x1="680" y1="58" x2="706" y2="46" stroke="currentColor" stroke-width="1"/>
+  <text x="712" y="36">fan discs horizontal —</text>
+  <text x="712" y="54">wheels tilted 95° on swing-arms</text>
+  <line x1="960" y1="555" x2="960" y2="600" stroke="currentColor" stroke-width="1"/>
+  <text x="700" y="622">tail fan · tilts aft for cruise thrust</text>
+  <line x1="900" y1="655" x2="1000" y2="655" stroke="#E8571F" stroke-width="3" marker-end="url(#a2)" color="#E8571F"/>
+  <text x="1012" y="659" fill="#E8571F">thrust</text>
+
+  <!-- dimensions -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="240" y1="60" x2="130" y2="60"/>
+    <line x1="240" y1="840" x2="130" y2="840"/>
+    <line x1="140" y1="70" x2="140" y2="830" marker-start="url(#a2)" marker-end="url(#a2)"/>
+    <line x1="230" y1="535" x2="230" y2="880"/>
+    <line x1="1050" y1="550" x2="1050" y2="880"/>
+    <line x1="238" y1="872" x2="1042" y2="872" marker-start="url(#a2)" marker-end="url(#a2)"/>
+  </g>
+  <text x="152" y="455">1,560</text>
+  <text x="640" y="864" text-anchor="middle">1,640</text>
+  <text x="60" y="30" font-size="13">RW-5 FERRET · plan view · FLIGHT MODE · dims in mm</text>
+</svg>
+<figcaption><span class="fno">FIG 02</span><span>Plan view, flight mode. Swing-arms place all four fan discs horizontal at the corners; tail fan tilts aft for cruise thrust.</span></figcaption></figure>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 470" role="img" aria-label="Drive-to-flight transition in three front-view frames: at t plus 0 seconds the vehicle drives on vertical wheels; at t plus 1.8 seconds the body settles onto belly skids while the wheels tilt outboard; at t plus 3.5 seconds the fan discs are horizontal and the vehicle lifts off." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- ground -->
+  <line x1="20" y1="390" x2="1120" y2="390" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.5">
+    <line x1="60" y1="390" x2="50" y2="402"/><line x1="180" y1="390" x2="170" y2="402"/>
+    <line x1="300" y1="390" x2="290" y2="402"/><line x1="430" y1="390" x2="420" y2="402"/>
+    <line x1="550" y1="390" x2="540" y2="402"/><line x1="670" y1="390" x2="660" y2="402"/>
+    <line x1="800" y1="390" x2="790" y2="402"/><line x1="930" y1="390" x2="920" y2="402"/>
+    <line x1="1060" y1="390" x2="1050" y2="402"/>
+  </g>
+
+  <!-- frame 1: drive -->
+  <g>
+    <rect x="105" y="205" width="150" height="90" rx="8" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <rect x="25" y="130" width="65" height="260" rx="14" fill="none" stroke="currentColor" stroke-width="3"/>
+    <rect x="270" y="130" width="65" height="260" rx="14" fill="none" stroke="currentColor" stroke-width="3"/>
+    <line x1="90" y1="250" x2="105" y2="250" stroke="currentColor" stroke-width="6"/>
+    <line x1="255" y1="250" x2="270" y2="250" stroke="currentColor" stroke-width="6"/>
+  </g>
+  <text x="180" y="435" text-anchor="middle">t + 0.0 s — DRIVE</text>
+
+  <!-- frame 2: tilt-out, on belly skids -->
+  <g>
+    <rect x="470" y="290" width="150" height="90" rx="8" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <rect x="492" y="380" width="26" height="10" fill="currentColor"/>
+    <rect x="572" y="380" width="26" height="10" fill="currentColor"/>
+    <line x1="470" y1="310" x2="405" y2="255" stroke="currentColor" stroke-width="6"/>
+    <line x1="620" y1="310" x2="685" y2="255" stroke="currentColor" stroke-width="6"/>
+    <rect x="372" y="125" width="65" height="260" rx="14" fill="none" stroke="currentColor" stroke-width="3" transform="rotate(-50 405 255)"/>
+    <rect x="652" y="125" width="65" height="260" rx="14" fill="none" stroke="currentColor" stroke-width="3" transform="rotate(50 685 255)"/>
+    <path d="M330,180 A110,110 0 0 1 430,105" fill="none" stroke="#E8571F" stroke-width="2.5" marker-end="url(#a4)" color="#E8571F"/>
+    <path d="M760,180 A110,110 0 0 0 660,105" fill="none" stroke="#E8571F" stroke-width="2.5" marker-end="url(#a4)" color="#E8571F"/>
+  </g>
+  <text x="545" y="435" text-anchor="middle">t + 1.8 s — TILT-OUT · belly skids take load</text>
+
+  <!-- frame 3: lift -->
+  <g>
+    <rect x="855" y="150" width="150" height="90" rx="8" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <rect x="725" y="170" width="130" height="50" rx="12" fill="none" stroke="currentColor" stroke-width="3"/>
+    <rect x="1005" y="170" width="130" height="50" rx="12" fill="none" stroke="currentColor" stroke-width="3"/>
+    <g stroke="currentColor" stroke-width="1.5">
+      <line x1="755" y1="235" x2="755" y2="285" marker-end="url(#a4)"/>
+      <line x1="790" y1="235" x2="790" y2="285" marker-end="url(#a4)"/>
+      <line x1="825" y1="235" x2="825" y2="285" marker-end="url(#a4)"/>
+      <line x1="1035" y1="235" x2="1035" y2="285" marker-end="url(#a4)"/>
+      <line x1="1070" y1="235" x2="1070" y2="285" marker-end="url(#a4)"/>
+      <line x1="1105" y1="235" x2="1105" y2="285" marker-end="url(#a4)"/>
+    </g>
+    <line x1="930" y1="125" x2="930" y2="60" stroke="#E8571F" stroke-width="3.5" marker-end="url(#a4)" color="#E8571F"/>
+    <text x="944" y="80" fill="#E8571F">lift</text>
+    <ellipse cx="930" cy="385" rx="130" ry="6" fill="currentColor" opacity="0.25"/>
+  </g>
+  <text x="930" y="435" text-anchor="middle">t + 3.5 s — LIFT · tail fan boosting</text>
+
+  <text x="24" y="34">RW-5 FERRET · drive → flight transition · front view</text>
+</svg>
+<figcaption><span class="fno">FIG 04</span><span>Drive-to-flight transition, front view: belly skids take the load while the wheels tilt out, then the discs spool and lift.</span></figcaption></figure>
+
+<h2><span class="sec">03</span>Rotor-wheel module</h2>
+<p>The wheel is hubless: an open-center structural rim carries everything and leaves the center
+free for the fan. From outside in: an airless shear-band tire ring (Ø 520 mm, no blowouts);
+a rim-drive ring motor for the ground mode (direct drive, no gearbox, 1.4 kW continuous);
+the structural rim, which doubles as the duct outer wall; a second, independent ring motor
+driving the 7-blade Ø 420 mm fan at its blade tips; and debris mesh on both duct faces
+(~5% thrust penalty, rejects objects over 8 mm).</p>
+<div class="callout"><p><strong>Failure isolation:</strong> the two drivetrains share nothing but
+the rim. A wheel with a dead fan still drives; a wheel with a dead rim motor still lifts;
+land-and-drive is the universal abort.</p></div>
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 640" role="img" aria-label="Rotor-wheel module cutaway, face-on: concentric rings from outside in are the airless shear-band tire, rim drive ring motor, structural hubless rim forming the duct wall, tip-drive fan ring motor, and the seven-blade 420 mm fan; debris mesh shown on the left half, tilt swing-arm at lower right." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+  <defs>
+    <pattern id="mesh" width="9" height="9" patternUnits="userSpaceOnUse">
+      <path d="M0,0 L9,9 M9,0 L0,9" stroke="currentColor" stroke-width="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- swing arm (under wheel) -->
+  <path d="M340,538 L610,588 L604,616 L318,564 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="612" cy="601" r="15" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <circle cx="612" cy="601" r="4" fill="currentColor"/>
+
+  <!-- ring stack, outside in -->
+  <circle cx="310" cy="320" r="260" fill="none" stroke="currentColor" stroke-width="4"/>
+  <circle cx="310" cy="320" r="232" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="310" cy="320" r="225" fill="none" stroke="currentColor" stroke-width="9" opacity="0.35"/>
+  <circle cx="310" cy="320" r="218" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="310" cy="320" r="210" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="310" cy="320" r="205" fill="none" stroke="#E8571F" stroke-width="2"/>
+
+  <!-- debris mesh, left half -->
+  <path d="M310,115 A205,205 0 0 0 310,525 Z" fill="url(#mesh)" opacity="0.45"/>
+
+  <!-- fan -->
+  <circle cx="310" cy="320" r="36" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="310" cy="320" r="10" fill="currentColor"/>
+  <g stroke="#E8571F" stroke-width="13" stroke-linecap="round">
+    <line x1="354" y1="320" x2="512" y2="320"/>
+    <line x1="338" y1="354" x2="436" y2="478"/>
+    <line x1="300" y1="363" x2="265" y2="517"/>
+    <line x1="270" y1="339" x2="128" y2="408"/>
+    <line x1="270" y1="301" x2="128" y2="232"/>
+    <line x1="300" y1="277" x2="265" y2="123"/>
+    <line x1="338" y1="286" x2="436" y2="162"/>
+  </g>
+
+  <!-- leaders -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="468" y1="132" x2="618" y2="100"/>
+    <line x1="514" y1="225" x2="618" y2="170"/>
+    <line x1="524" y1="309" x2="618" y2="240"/>
+    <line x1="504" y1="391" x2="618" y2="330"/>
+    <line x1="450" y1="452" x2="618" y2="400"/>
+    <line x1="325" y1="352" x2="618" y2="470"/>
+    <line x1="185" y1="205" x2="112" y2="82"/>
+  </g>
+  <text x="626" y="104">airless shear-band tire · Ø 520</text>
+  <text x="626" y="174">rim drive ring motor (ground)</text>
+  <text x="626" y="244">structural hubless rim = duct wall</text>
+  <text x="626" y="334">tip-drive fan ring motor (flight)</text>
+  <text x="626" y="404">7-blade ducted fan · Ø 420</text>
+  <text x="626" y="474">static hub — nav lights, sonar</text>
+  <text x="40" y="66">debris mesh, both faces</text>
+  <text x="40" y="84">(shown on left half)</text>
+  <text x="640" y="606">tilt swing-arm · 95°, endpoint locks</text>
+  <text x="40" y="628">RW-5 FERRET · rotor-wheel module · cutaway, face-on</text>
+</svg>
+<figcaption><span class="fno">FIG 03</span><span>Rotor-wheel module cutaway. Concentric ring stack: tire, ground ring motor, structural rim/duct wall, tip-drive fan motor, 7-blade fan.</span></figcaption></figure>
+
+<h3>Tail unit</h3>
+<p>A single <em>fixed</em> rear lift rotor — the naive version of this idea — does not work:
+mounted behind the center of gravity it produces an uncommanded pitch-down moment it cannot
+trim away, and it is dead weight in cruise. The RW-5 instead mounts its Ø 360 mm tail fan on a
+tilting pylon: vertical at liftoff, where its ~15% thrust share lets the CG sit slightly aft
+and gives direct pitch trim during ground-effect departure; tilted aft in cruise, where it
+becomes the pusher and lets the wheel fans unload toward lift-only — a compound layout,
+more efficient than dragging the airframe around on tilted lift fans.</p>
+
+<h2><span class="sec">04</span>Dimensions, mass &amp; performance</h2>
+<div class="tblwrap"><table>
+<tr><th>Dimension</th><th>Value</th><th>Performance (calc., ISA SL)</th><th>Value</th></tr>
+<tr><td>Length / width / height, drive mode</td><td class="v">1,080 / 680 / 640 mm</td><td>Hover power (FoM 0.65)</td><td class="v">≈ 11 kW</td></tr>
+<tr><td>Flight footprint</td><td class="v">1,560 × 1,640 mm</td><td>Hover endurance</td><td class="v">≈ 11–12 min</td></tr>
+<tr><td>Wheel / fan / tail fan Ø</td><td class="v">520 / 420 / 360 mm</td><td>Air dash speed (tail pusher)</td><td class="v">~60 km/h</td></tr>
+<tr><td>Ground clearance</td><td class="v">190 mm</td><td>Ground speed max / patrol</td><td class="v">45 / 20 km/h</td></tr>
+<tr><td>GTOW, incl. 3.5 kg payload</td><td class="v">42 kg</td><td>Ground endurance @ 20 km/h</td><td class="v">≈ 3 h / 45 km</td></tr>
+<tr><td>Battery</td><td class="v">2.25 kWh Li-ion</td><td>Gradeability / rolled step</td><td class="v">40% / 180 mm</td></tr>
+</table></div>
+
+<h3>Mass budget (target)</h3>
+<div class="tblwrap"><table>
+<tr><th>Group</th><th>kg</th></tr>
+<tr><td>Chassis / structure</td><td class="v">8.0</td></tr>
+<tr><td>Rotor-wheel modules, 4 × 4.2</td><td class="v">16.8</td></tr>
+<tr><td>Tail unit (fan, pylon, actuator)</td><td class="v">2.4</td></tr>
+<tr><td>Battery (250 Wh/kg)</td><td class="v">9.0</td></tr>
+<tr><td>Avionics, comms, ISR payload</td><td class="v">3.5</td></tr>
+<tr><td>Wiring, thermal, misc.</td><td class="v">2.3</td></tr>
+<tr class="total"><td>Gross takeoff mass</td><td class="v">42.0</td></tr>
+</table></div>
+
+<h2><span class="sec">05</span>Subsystems</h2>
+<ul>
+  <li><strong>Autonomy / nav —</strong> GNSS + visual-inertial odometry for denied interiors; lidar ring for doorway centering; operator-in-the-loop flight segments in Gen-1.</li>
+  <li><strong>Comms —</strong> 2 W MANET mesh radio; fiber-spool option for RF-silent interior work.</li>
+  <li><strong>Payload —</strong> stowable-mast EO/IR gimbal; two powered accessory rails for repeaters and droppable sensors.</li>
+  <li><strong>Power —</strong> hot-swap battery cassette through the tail deck; common 100 V bus for all nine motors.</li>
+</ul>
+
+<h2><span class="sec">06</span>The hard problems</h2>
+<p>An honest concept spec earns its keep here. Five things are genuinely wrong with the
+wheel-rotor idea, and the design either answers them or prices them in.</p>
+<h3>6.1 — Disc loading is the tax on the whole idea</h3>
+<p>Total disc area is 0.66 m², so disc loading is <strong>≈ 64 kg/m² — roughly 4× a conventional
+quadcopter</strong> of this mass. Ideal hover power T<sup>1.5</sup>/√(2ρA) ≈ 6.6 kW; at a figure of
+merit of 0.65 (small ducted fans plus mesh losses), ≈ 11 kW at hover. There is no mitigation,
+only accounting: flight must be treated as a sprint. Any mission needing more than ~15 minutes
+airborne belongs on a different airframe.</p>
+<h3>6.2 — Tilt mechanisms are the reliability budget</h3>
+<p>Four swing-arm actuators, four hubless rims, eight ring motors. The simpler alternative —
+fixed horizontal lift fans buried in the body — was rejected because it either widens the
+vehicle past doorway width or shrinks the fans further, which is worse than 6.1. Mitigations:
+mechanical endpoint locks (unpowered holding in both modes), full drive capability with any
+tilt actuator failed.</p>
+<h3>6.3 — Mud is worse than debris</h3>
+<p>Mesh stops stones; wet mud caking the mesh and duct is the real thrust killer. Accepted
+limitation: after deep-mud driving, VTOL is degraded until a spin-clean cycle (fans pulsed at
+ground idle) or manual clearing.</p>
+<h3>6.4 — Acoustics</h3>
+<p>64 kg/m² is loud — est. 85–90 dBA at 10 m in hover. Uneven blade spacing and duct liners
+shape the tone, not the level. The fix is doctrinal, not mechanical: the approach happens
+on wheels.</p>
+<h3>6.5 — Why not a caged quadcopter?</h3>
+<div class="tblwrap"><table>
+<tr><th></th><th>RW-5 rotorwheel</th><th>Caged / rolling quadcopter</th></tr>
+<tr><td>Flight efficiency</td><td>Poor — small ducted fans</td><td>Good — free rotors</td></tr>
+<tr><td>Ground endurance</td><td class="v">~3 h powered wheels</td><td>Low — rotors turn to roll</td></tr>
+<tr><td>Ground signature</td><td>Quiet, low profile</td><td>Rotors always audible</td></tr>
+<tr><td>Stairs / rubble driving</td><td>Real drivetrain torque</td><td>Marginal</td></tr>
+<tr><td>Mechanical complexity</td><td>High</td><td>Low</td></tr>
+<tr><td>Doorway width</td><td class="v">680 mm drive mode</td><td>≥ rotor span; similar or worse</td></tr>
+</table></div>
+<p>The rotorwheel buys ground endurance and silence at the price of complexity and flight time.
+If the mission is mostly air, build the cage. If it is mostly ground with vertical obstacles —
+the stated interior / rough-terrain case — the rotorwheel is defensible.</p>
+
+<h2><span class="sec">07</span>Development path</h2>
+<ul>
+  <li><strong>Gen-0, bench —</strong> one rotor-wheel module on a thrust stand and dyno: validate FoM ≥ 0.6 with mesh, ring-motor thermals, tilt-lock loads.</li>
+  <li><strong>Gen-0.5, surrogate —</strong> a COTS quadcopter bolted to a skid-steer chassis, flown against the 90/10 mission profile — proves the doctrine before paying for integration.</li>
+  <li><strong>Gen-1 —</strong> full airframe: tethered hover, then free transitions.</li>
+  <li><strong>Gen-2 —</strong> environmental hardening (mud, sand, EMI) and autonomous doorway / stairwell traversal.</li>
+</ul>
+
+<footer>RW-5 FERRET · concept specification Rev A · unarmed ISR / scout mobility platform · all dimensions mm, masses kg</footer>
+</div>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 640" role="img" aria-label="Rotor-wheel module cutaway, face-on: concentric rings from outside in are the airless shear-band tire, rim drive ring motor, structural hubless rim forming the duct wall, tip-drive fan ring motor, and the seven-blade 420 mm fan; debris mesh shown on the left half, tilt swing-arm at lower right." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+  <defs>
+    <pattern id="mesh" width="9" height="9" patternUnits="userSpaceOnUse">
+      <path d="M0,0 L9,9 M9,0 L0,9" stroke="currentColor" stroke-width="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- swing arm (under wheel) -->
+  <path d="M340,538 L610,588 L604,616 L318,564 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="612" cy="601" r="15" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <circle cx="612" cy="601" r="4" fill="currentColor"/>
+
+  <!-- ring stack, outside in -->
+  <circle cx="310" cy="320" r="260" fill="none" stroke="currentColor" stroke-width="4"/>
+  <circle cx="310" cy="320" r="232" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="310" cy="320" r="225" fill="none" stroke="currentColor" stroke-width="9" opacity="0.35"/>
+  <circle cx="310" cy="320" r="218" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="310" cy="320" r="210" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="310" cy="320" r="205" fill="none" stroke="#E8571F" stroke-width="2"/>
+
+  <!-- debris mesh, left half -->
+  <path d="M310,115 A205,205 0 0 0 310,525 Z" fill="url(#mesh)" opacity="0.45"/>
+
+  <!-- fan -->
+  <circle cx="310" cy="320" r="36" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="310" cy="320" r="10" fill="currentColor"/>
+  <g stroke="#E8571F" stroke-width="13" stroke-linecap="round">
+    <line x1="354" y1="320" x2="512" y2="320"/>
+    <line x1="338" y1="354" x2="436" y2="478"/>
+    <line x1="300" y1="363" x2="265" y2="517"/>
+    <line x1="270" y1="339" x2="128" y2="408"/>
+    <line x1="270" y1="301" x2="128" y2="232"/>
+    <line x1="300" y1="277" x2="265" y2="123"/>
+    <line x1="338" y1="286" x2="436" y2="162"/>
+  </g>
+
+  <!-- leaders -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="468" y1="132" x2="618" y2="100"/>
+    <line x1="514" y1="225" x2="618" y2="170"/>
+    <line x1="524" y1="309" x2="618" y2="240"/>
+    <line x1="504" y1="391" x2="618" y2="330"/>
+    <line x1="450" y1="452" x2="618" y2="400"/>
+    <line x1="325" y1="352" x2="618" y2="470"/>
+    <line x1="185" y1="205" x2="112" y2="82"/>
+  </g>
+  <text x="626" y="104">airless shear-band tire · Ø 520</text>
+  <text x="626" y="174">rim drive ring motor (ground)</text>
+  <text x="626" y="244">structural hubless rim = duct wall</text>
+  <text x="626" y="334">tip-drive fan ring motor (flight)</text>
+  <text x="626" y="404">7-blade ducted fan · Ø 420</text>
+  <text x="626" y="474">static hub — nav lights, sonar</text>
+  <text x="40" y="66">debris mesh, both faces</text>
+  <text x="40" y="84">(shown on left half)</text>
+  <text x="640" y="606">tilt swing-arm · 95°, endpoint locks</text>
+  <text x="40" y="628">RW-5 FERRET · rotor-wheel module · cutaway, face-on</text>
+</svg>
