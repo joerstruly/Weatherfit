@@ -1,0 +1,23 @@
+# Verification round — LIHTC / affordable-housing cost data (Opus agent; Tasks B–F not attempted after budget)
+
+| Source | URL | Contains | Granularity | Cadence | Format | Status |
+|---|---|---|---|---|---|---|
+| CA TCAC Project Mapping | https://www.treasurer.ca.gov/ctcac/projects | Excel of CTCAC project data; map through Jun 2026 | project/city/county | ongoing | XLSX | VERIFIED-URL (cost fields unverified) |
+| CA TCAC cost containment | https://www.treasurer.ca.gov/ctcac/containment/presentation.pdf | Policy; avg cost/unit $285,008 (2011) | aggregate | one-off | PDF | VERIFIED |
+| TX TDHCA 9% application logs | https://tdhca.texas.gov/competitive-9-housing-tax-credits · https://www.tdhca.state.tx.us/multifamily/housing-tax-credits-9pct/docs/210506-CompHTCFullAppLog.xlsx | Application logs per round | project | annual | XLSX | VERIFIED |
+| FL FHFC credit underwriting reports | https://www.floridahousing.org/docs/default-source/data-docs-and-reports/boardpackages/2018/june-15/consent-items/SAIL_Ex_F.pdf | Per-project underwriting incl. dev cost tables | project | per board mtg | PDF | VERIFIED-URL |
+| WA WSHFC Affordable Housing Cost Data Report FY2024-25 | https://wshfc.org/admin/20251219BlacklineWSHFCCostDataReportFY2024-25.pdf | Development costs for LIHTC projects placed in service | project | annual | PDF | VERIFIED |
+| MN Housing 2024 Cost Containment Report | https://mnhousing.gov/documents/52434/2024-cost-containment-report-final-11132024/view | TDC/unit trends (~$273k/unit 2024$) | aggregate | annual | PDF | VERIFIED |
+| OR OHCS ARH financial reporting | https://www.oregon.gov/ohcs/compliance-monitoring/pages/affordable-housing-financial-report.aspx | Operating cost dashboard ($6,278→$8,198/unit FY21→FY24) | property | annual | dashboard | VERIFIED (operating, not dev) |
+| NYC Open Data LIHTC by HPD (project & building) | https://data.cityofnewyork.us/Housing-Development/Low-Income-Housing-Tax-Credits-Awarded-by-HPD-Proj/p8i7-ix2s | Project-level awards | project | ongoing | Socrata | VERIFIED |
+| IL IHDA 2026 QAP | https://www.ihda.org/wp-content/uploads/2025/07/2026-Qualified-Allocation-Plan_7.1.2025.pdf | Per-SF construction cost limits | policy | annual | PDF | VERIFIED |
+| CO CHFA award reports | https://www.chfainfo.com/rental-housing/housing-credit/awards | Applicant + award reports; county map | project | per round | HTML/PDF | VERIFIED-URL |
+| GA DCA scoring documents & data | https://dca.georgia.gov/affordable-housing/housing-development/housing-tax-credit-program/qualified-allocation-plans-and-1 | Scoring data by year; Excel core application | project | annual | XLSX/PDF | VERIFIED-URL |
+| VA Virginia Housing HTC application archive | https://www.virginiahousing.com/en/partners/rental-housing/housing-tax-credit-application-archive | Archive of applications | project | annual | PDF/XLS | VERIFIED-URL |
+| NV Housing Division applications received | https://housing.nv.gov/uploadedFiles/housingnvgov/content/programs/LIH/2014LIHTCAppsRcd20140507.pdf | Applicants with units and TDC | project/city | annual | PDF | VERIFIED |
+| AZ ADOH, PA PHFA, OH OHFA, MI MSHDA, WI WHEDA, NC NCHFA, NJ NJHMFA, NY HCR | program/award pages | Award lists; no confirmed machine-readable cost file | project | annual | HTML/PDF | VERIFIED-URL; cost fields unverified |
+| HUD LIHTC Database | https://www.huduser.gov/portal/datasets/lihtc/property.html | Size, unit mix, location — **no development cost** | project | periodic | CSV | VERIFIED |
+| GAO-18-637 | https://www.gao.gov/products/gao-18-637 | App. III dev costs 2011–2015, 12 agencies; median $204k/unit; range $104k–$606k; new construction ~$126k (TX) to ~$326k (CA) | project/agency | 2018 | PDF | VERIFIED |
+| Abt/NCSHA Variation in Development Costs for LIHTC (2018) | https://www.ncsha.org/wp-content/uploads/2018/09/Final-LIHTC-Costs-Analysis_2018_08_31.pdf | 2,500+ properties; median TDC/unit $164,757; mean $182,498 (2016$) | project/regional | one-off | PDF | VERIFIED |
+| Terner Center Cost of Building Housing series; LIHTC Construction Costs (Mar 2020); Prevailing Wages (Aug 2024: +$94k/unit) | https://ternercenter.berkeley.edu/research-and-policy/the-cost-of-building-housing-series/ · https://ternercenter.berkeley.edu/wp-content/uploads/2024/08/Low-Income-Housing-Tax-Credit-Construction-Costs-An-Analysis-of-Prevailing-Wages-August-2024.pdf | CA project-level analyses | project | series | PDF | VERIFIED |
+| SDHC Affordable Housing Cost Study (Apr 2025) | https://sdhc.org/wp-content/uploads/2025/04/Att-1_Affordable-Housing-Cost-Study-4.17.25.pdf | Cost drivers study | project/aggregate | one-off | PDF | VERIFIED-URL |
