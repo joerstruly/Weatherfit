@@ -94,7 +94,7 @@ footer{margin-top:64px; border-top:3px solid var(--line); padding-top:14px;
   </div>
   <p class="rev">Rev D: identical wheel arms front and rear — the rear pair clears the front wake because the vehicle cruises
   nose-down, not because of geometry; RW-2S re-laid-out around four Ø 1.4 m rotor-wheels with no fans in the hull;
-  turbine-in-the-wheel assessed and rejected on control grounds. Rev C had added the stagger, RW-2S (§08) and turbines (§09).
+  turbine-in-the-wheel assessed as a turbofan matching problem and rejected (§09). Rev C had added the stagger, RW-2S (§08) and turbines (§09).
   Rev B superseded Rev A: coaxial two-stage fans in Ø 400 wheels (was single-stage in Ø 520),
   two-axis tilt (flip + fore/aft pitch), lift fan embedded in the hull behind a thrust-vectoring vane box
   (was a tail pylon), and a delta lifting-body hull.</p>
@@ -847,26 +847,168 @@ fuel sit in the tail, the battery in the nose, the crew in the middle, and nothi
 </ul>
 
 <h2><span class="sec">09</span>Turbines at human scale</h2>
-<p>"Small turbines instead of the dual fans" is three different ideas, and only one is good.</p>
+<p>The proposal is small gas turbines in the wheels — <strong>turbofans, as on an airliner, scaled
+down</strong> — instead of electric fans. The answer turns on a matching problem, so it is worth working
+properly rather than asserting.</p>
+
+<h3>A turbofan is a gas core driving a ducted fan</h3>
+<p>That is the whole architecture: a combustion core extracts shaft power and spins a ducted fan, and on a
+high-bypass engine that fan makes 80–90% of the thrust while the core exhaust is nearly an afterthought.
+<strong>The rotor-wheel already has the ducted fan.</strong> So a turbofan in the wheel adds no new kind of
+thruster — it moves the combustor from the tail into the wheel and swaps the electric ring motor for a gas
+core. The real question is narrow: what spins the fan, and where does the fuel burn?</p>
+
+<h3>The matching problem</h3>
+<p>One RW-2S wheel must make ~2.0 kN in hover. There are two ways to make that thrust, and they are not
+close:</p>
 <div class="tblwrap"><table>
-<tr><th>Option</th><th>What it is</th><th>Verdict</th></tr>
-<tr><td><strong>A. Micro-turbojets in the wheels</strong></td><td>Replace each coaxial fan pair with a ~600 N turbojet (JetCat P550 class)</td><td><strong>Reject.</strong> Turbojet fuel burn is ~150 kg per kN·h: 8 kN of hover thrust burns ~10 kg of fuel a minute — jet-suit endurance, 5–8 min. Exhaust at 600 °C and ~400 m/s inside a tire destroys the tire, the ground and anyone nearby. FOD ingestion at 100,000 rpm turns every mud and debris problem into a blade-out. Thermal soak rules out drive mode after flight. And turbojets are propulsively inefficient below ~300 km/h — the wrong engine for a 160 km/h vehicle.</td></tr>
-<tr><td><strong>B. Small turbofans as the hull lift fans</strong></td><td>A gas-turbine core driving each Ø 1.7 fan mechanically</td><td><strong>Possible, second choice.</strong> Efficient enough, fans stay cold and mesh-protected. But gearboxes and shafting through the hull, two hot cores under the cabin, no silent electric mode, and the redundancy of independent electric motors is lost.</td></tr>
-<tr><td><strong>C. Turboshaft generator, electric fans everywhere</strong></td><td>One turbine in the tail turning a generator; every fan and wheel stays electric</td><td><strong>Recommended.</strong> Fuel at ~3.5 kWh/kg after a 30% turbine is 14× battery — the one thing that lets an 800 kg VTOL hover for more than a few minutes. The turbine sits protected in the tail with clean inlet air and a Kamm-tail exhaust. Every rotor stays electric: fine control, redundancy, mesh protection, silent battery driving. Small turboshafts burn ~0.45 kg/kWh, which is why fuel is 80 kg — still a tenth the mass of the equivalent battery.</td></tr>
+<tr><th></th><th>Specified rotor-wheel</th><th>Turbofan matched to 2.0 kN</th></tr>
+<tr><td>Fan diameter</td><td class="v">Ø 1.20 m — fills the Ø 1.4 m wheel</td><td class="v">Ø 0.23 m (BPR 8, FPR 1.4)</td></tr>
+<tr><td>Disc area</td><td class="v">1.13 m²</td><td class="v">0.041 m² — 1/28 as much</td></tr>
+<tr><td>Disc loading</td><td class="v">180 kg/m²</td><td class="v">~5,000 kg/m²</td></tr>
+<tr><td>Jet velocity</td><td class="v">54 m/s, ambient</td><td class="v">240 m/s, 300 °C+</td></tr>
+<tr><td>Ideal hover power</td><td class="v">55 kW</td><td class="v">290 kW</td></tr>
 </table></div>
-<h3>"Small turbines with the wheel spinning around them"</h3>
-<p>Mechanically that is exactly the hubless layout already specified: the printed airless tire and rim
-rotate on the ring motor while the unit in the centre stays fixed on its two-axis mount. Whether that
-centre unit is an electric coaxial fan or a gas turbine is the real question, and the gas turbine loses on
-<strong>control</strong> before heat or fuel come into it.</p>
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 620" role="img" aria-label="Two rotor-wheels drawn at the same scale, each producing the 2.0 kilonewtons one RW-2S wheel needs to hover. On the left, the specified 1.2 metre ducted fan fills the 1.4 metre wheel: 1.13 square metres of disc, 180 kilograms per square metre, a slow 54 metre-per-second wash, 55 kilowatts ideal. On the right, a turbofan matched to the same thrust has a fan only 0.23 metres across, lost in the middle of the same wheel: 0.041 square metres of disc, 5,000 kilograms per square metre, a 240 metre-per-second hot jet, 290 kilowatts ideal — five times the power for the same lift." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+  <defs>
+    <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#E8571F"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="30" font-size="14">Same wheel · same 2.0 kN of thrust · 1 px = 5 mm</text>
+
+  <!-- ================= panel A: specified rotor-wheel ================= -->
+  <g>
+    <circle cx="250" cy="235" r="140" fill="none" stroke="currentColor" stroke-width="7"/>
+    <circle cx="250" cy="235" r="122" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="250" cy="235" r="118" fill="none" stroke="#E8571F" stroke-width="2.5"/>
+    <circle cx="250" cy="235" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle cx="250" cy="235" r="8" fill="currentColor"/>
+    <g stroke="#E8571F" stroke-width="13" stroke-linecap="round">
+      <line x1="282" y1="235" x2="362" y2="235"/>
+      <line x1="272" y1="260" x2="322" y2="325"/>
+      <line x1="243" y1="268" x2="228" y2="349"/>
+      <line x1="226" y1="252" x2="150" y2="288"/>
+      <line x1="226" y1="218" x2="150" y2="182"/>
+      <line x1="243" y1="202" x2="228" y2="121"/>
+      <line x1="272" y1="210" x2="322" y2="145"/>
+    </g>
+    <!-- slow wide wash -->
+    <g stroke="#E8571F" stroke-width="3" opacity="0.85">
+      <line x1="140" y1="390" x2="140" y2="424" marker-end="url(#af)"/>
+      <line x1="195" y1="390" x2="195" y2="424" marker-end="url(#af)"/>
+      <line x1="250" y1="390" x2="250" y2="424" marker-end="url(#af)"/>
+      <line x1="305" y1="390" x2="305" y2="424" marker-end="url(#af)"/>
+      <line x1="360" y1="390" x2="360" y2="424" marker-end="url(#af)"/>
+    </g>
+  </g>
+
+  <!-- ================= panel B: matched turbofan ================= -->
+  <g>
+    <circle cx="690" cy="235" r="140" fill="none" stroke="currentColor" stroke-width="7"/>
+    <circle cx="690" cy="235" r="122" fill="none" stroke="currentColor" stroke-width="2"/>
+    <!-- dead annulus -->
+    <circle cx="690" cy="235" r="118" fill="currentColor" opacity="0.07"/>
+    <!-- struts -->
+    <g stroke="currentColor" stroke-width="3" opacity="0.6">
+      <line x1="690" y1="212" x2="690" y2="117"/>
+      <line x1="690" y1="258" x2="690" y2="353"/>
+      <line x1="667" y1="235" x2="572" y2="235"/>
+      <line x1="713" y1="235" x2="808" y2="235"/>
+    </g>
+    <!-- the matched turbofan, true scale: fan Ø 0.23 m = 46 px -->
+    <circle cx="690" cy="235" r="27" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle cx="690" cy="235" r="23" fill="none" stroke="#E8571F" stroke-width="2.5"/>
+    <circle cx="690" cy="235" r="6" fill="currentColor"/>
+    <g stroke="#E8571F" stroke-width="4" stroke-linecap="round">
+      <line x1="696" y1="235" x2="719" y2="235"/>
+      <line x1="694" y1="242" x2="708" y2="260"/>
+      <line x1="686" y1="244" x2="682" y2="267"/>
+      <line x1="681" y1="240" x2="659" y2="250"/>
+      <line x1="681" y1="230" x2="659" y2="220"/>
+      <line x1="686" y1="226" x2="682" y2="203"/>
+      <line x1="694" y1="228" x2="708" y2="210"/>
+    </g>
+    <!-- narrow hot fast jet -->
+    <g stroke="#E8571F" stroke-width="4" opacity="0.95">
+      <line x1="676" y1="390" x2="676" y2="470" marker-end="url(#af)"/>
+      <line x1="690" y1="390" x2="690" y2="470" marker-end="url(#af)"/>
+      <line x1="704" y1="390" x2="704" y2="470" marker-end="url(#af)"/>
+    </g>
+    <line x1="716" y1="430" x2="760" y2="430" stroke="currentColor" stroke-width="1"/>
+    <text x="766" y="425" font-size="11">240 m/s,</text>
+    <text x="766" y="440" font-size="11">300 °C+</text>
+    <line x1="612" y1="157" x2="640" y2="92" stroke="currentColor" stroke-width="1"/>
+    <text x="648" y="88" font-size="11">the rest of the wheel now does nothing</text>
+  </g>
+
+  <!-- ================= captions ================= -->
+  <g font-size="13">
+    <text x="250" y="510" text-anchor="middle" font-size="14">SPECIFIED ROTOR-WHEEL</text>
+    <text x="250" y="532" text-anchor="middle">ducted fan Ø 1.2 m fills the Ø 1.4 m wheel</text>
+    <text x="250" y="554" text-anchor="middle">disc 1.13 m² · 180 kg/m²</text>
+    <text x="250" y="576" text-anchor="middle">wash 54 m/s · <tspan font-size="15">55 kW ideal</tspan></text>
+
+    <text x="690" y="510" text-anchor="middle" font-size="14">TURBOFAN MATCHED TO THE SAME THRUST</text>
+    <text x="690" y="532" text-anchor="middle">fan Ø 0.23 m (BPR 8, FPR 1.4)</text>
+    <text x="690" y="554" text-anchor="middle">disc 0.041 m² — 1/28 the area · 5,000 kg/m²</text>
+    <text x="690" y="576" text-anchor="middle">jet 240 m/s · <tspan font-size="15" fill="#E8571F">290 kW ideal</tspan></text>
+  </g>
+  <line x1="470" y1="95" x2="470" y2="590" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+  <text x="30" y="608" font-size="12">Hover power ∝ 1/√(disc area) — a jet's propulsive efficiency at zero airspeed is zero, so disc area is the only lever.</text>
+</svg>
+
+<figcaption><span class="fno">FIG 07</span><span>The same wheel and the same 2.0 kN, drawn at one scale. A turbofan matched to that thrust has a Ø 0.23 m fan — 1/28 the disc area — so it needs five times the power and leaves the rest of the wheel doing nothing.</span></figcaption></figure>
+
+<p>Hover power goes as T<sup>1.5</sup>/√(2ρA). Thrust is fixed, so power scales with 1/√(disc area), and
+√28 ≈ 5.3: <strong>the same lift costs five times the power.</strong> In fuel — after crediting the small
+core's ~22% thermal efficiency against the turboshaft's ~19% — that is roughly <strong>3–4× the
+burn</strong>, about 6–8 kg/min in hover against 2.6.</p>
+<div class="callout"><p>This is not a detail better design fixes. Propulsive efficiency is
+2 / (1 + v<sub>jet</sub>/v<sub>flight</sub>); in hover v<sub>flight</sub> = 0, so <em>every</em> jet sits at
+zero propulsive efficiency and the only lever left is to move a lot of air slowly. A turbofan's entire
+design intent is the opposite — move less air faster — because at 900 km/h that is the efficient
+choice.</p></div>
+
+<h3>The bypass ratio proves it</h3>
+<p>Turn the question around: keep the Ø 1.2 m fan and ask what core would drive it. The fan passes ~37 kg/s;
+a core making the required ~55 kW of shaft power passes about 0.3 kg/s. That is a <strong>bypass ratio near
+120</strong>. Airliner turbofans run 5–12, the GE9X is 10, and open-rotor demonstrators reach 30–40 — and
+those are already geared turboshafts driving propellers, not turbofans. Nothing at BPR 120 is a turbofan.
+It is a turboshaft driving a fan, which is precisely the recommended architecture; the only thing still in
+question is where the combustor sits.</p>
+
+<h3>Core in the wheel, or core in the tail?</h3>
+<p>With the fan settled, the choice is mechanical drive in each wheel against electric drive from one
+turbine in the tail. Two honest points for the wheel: direct drive skips the generator–inverter–motor chain
+and its ~8–10% loss, and mass is close to a wash — one 350 kW turboshaft with generator, inverters and four
+motors is ~160 kg; four ~90 kW turboshafts with four reduction gearboxes is also ~160 kg. Against it, in
+order of severity:</p>
 <ul>
-  <li><strong>Throttle lag.</strong> A gas turbine changes thrust over 1–2 s as its spool accelerates; an electric fan does it in ~50 ms. A four-rotor hover lives on small thrust corrections at 10–50 Hz. Every jet-lift VTOL that ever hovered used bleed-air reaction jets or fast vanes to get around this; helicopters use collective pitch on a constant-speed rotor. A turbine-in-wheel would need variable-pitch fans on constant-speed cores — heavier and more complex than the electric stages it replaces.</li>
-  <li><strong>Fuel and hot gas through a two-axis tilt joint</strong>, four times, on modules that are also wheels in mud. Electric modules need one cable.</li>
-  <li><strong>Four engines</strong> to start, synchronise and maintain instead of one.</li>
-  <li><strong>No silence.</strong> Turbines in the wheels means no quiet electric ground mode — the tactical feature of the vehicle.</li>
-  <li>Then the physics from the table: turbojet fuel burn, exhaust temperature inside a polymer tire, FOD at 100,000 rpm, thermal soak after landing.</li>
+  <li><strong>Throttle lag.</strong> A gas turbine changes thrust in 1–2 s as its spool accelerates; an electric fan does it in ~50 ms, and a four-rotor hover is held together by corrections at 10–50 Hz. Turbine-driven lift has never been controlled by throttling the turbine — the Harrier and F-35B use bleed-air reaction jets and fast vanes, helicopters use collective pitch on a constant-speed rotor. A turbine-in-wheel would need variable-pitch coaxial fans on constant-speed cores: heavier and more complex than the electric stages it replaces.</li>
+  <li><strong>Fuel and hot gas across a two-axis tilt joint</strong>, four times, on modules that are also wheels driving through mud. Electric modules need one cable.</li>
+  <li><strong>A combustor inside the wheel that lands</strong> — hot section, oil system and FOD path in the one component guaranteed to meet debris and water.</li>
+  <li><strong>Four engines</strong> to start, synchronise and maintain, instead of one.</li>
+  <li><strong>No silent mode.</strong> Battery-electric driving with the turbine shut down is the vehicle's best tactical feature; turbines in the wheels delete it.</li>
+  <li><strong>Thermal soak.</strong> Driving straight after flight puts a heat-soaked hot section beside the tire and the ground.</li>
 </ul>
-<div class="callout"><p><strong>Rule of thumb:</strong> turbines belong in the body as the power source, never in the wheels as thrusters. The point of a rotor-wheel is a fan you can drive on; a turbine is a fan you cannot get near.</p></div>
+
+<h3>Conclusion — and where it doesn't apply</h3>
+<p><strong>One turboshaft in the tail turning a generator; every fan stays electric.</strong> Fuel carries
+~14× a battery's energy per kilogram, which is the only reason an 830 kg VTOL flies for more than a few
+minutes; the turbine sits protected with clean inlet air; and the rotors keep millisecond control,
+redundancy, mesh protection and a silent battery mode.</p>
+<p>Cruise doesn't rescue the turbofan either. A turbofan wants v<sub>flight</sub> ≈ 0.5–0.7 × v<sub>jet</sub>;
+at RW-2S's 150 km/h (42 m/s) the matched jet velocity is 60–85 m/s, which describes a ducted fan. There is
+no point in this vehicle's envelope where a turbofan is the right device.</p>
+<p>Two footnotes for completeness. Combustion has been put in the rotor before: tip-jet rotorcraft — the
+Fairey Rotodyne, the Hughes XH-17 — piped hot gas to the blade tips, eliminating reaction torque and the
+transmission entirely, and were so loud and thirsty that none entered service. And if the airframe were far
+larger and hover were a negligible slice of the mission, jet lift starts to pay: that vehicle is the F-35B,
+and it is not this one.</p>
+<div class="callout"><p><strong>Rule of thumb:</strong> turbines belong in the body as the power source, never in the wheels as thrusters.</p></div>
 
 <h2><span class="sec">10</span>Development path</h2>
 <ul>

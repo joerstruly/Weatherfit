@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 620" role="img" aria-label="Two rotor-wheels drawn at the same scale, each producing the 2.0 kilonewtons one RW-2S wheel needs to hover. On the left, the specified 1.2 metre ducted fan fills the 1.4 metre wheel: 1.13 square metres of disc, 180 kilograms per square metre, a slow 54 metre-per-second wash, 55 kilowatts ideal. On the right, a turbofan matched to the same thrust has a fan only 0.23 metres across, lost in the middle of the same wheel: 0.041 square metres of disc, 5,000 kilograms per square metre, a 240 metre-per-second hot jet, 290 kilowatts ideal — five times the power for the same lift." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+  <defs>
+    <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#E8571F"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="30" font-size="14">Same wheel · same 2.0 kN of thrust · 1 px = 5 mm</text>
+
+  <!-- ================= panel A: specified rotor-wheel ================= -->
+  <g>
+    <circle cx="250" cy="235" r="140" fill="none" stroke="currentColor" stroke-width="7"/>
+    <circle cx="250" cy="235" r="122" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="250" cy="235" r="118" fill="none" stroke="#E8571F" stroke-width="2.5"/>
+    <circle cx="250" cy="235" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle cx="250" cy="235" r="8" fill="currentColor"/>
+    <g stroke="#E8571F" stroke-width="13" stroke-linecap="round">
+      <line x1="282" y1="235" x2="362" y2="235"/>
+      <line x1="272" y1="260" x2="322" y2="325"/>
+      <line x1="243" y1="268" x2="228" y2="349"/>
+      <line x1="226" y1="252" x2="150" y2="288"/>
+      <line x1="226" y1="218" x2="150" y2="182"/>
+      <line x1="243" y1="202" x2="228" y2="121"/>
+      <line x1="272" y1="210" x2="322" y2="145"/>
+    </g>
+    <!-- slow wide wash -->
+    <g stroke="#E8571F" stroke-width="3" opacity="0.85">
+      <line x1="140" y1="390" x2="140" y2="424" marker-end="url(#af)"/>
+      <line x1="195" y1="390" x2="195" y2="424" marker-end="url(#af)"/>
+      <line x1="250" y1="390" x2="250" y2="424" marker-end="url(#af)"/>
+      <line x1="305" y1="390" x2="305" y2="424" marker-end="url(#af)"/>
+      <line x1="360" y1="390" x2="360" y2="424" marker-end="url(#af)"/>
+    </g>
+  </g>
+
+  <!-- ================= panel B: matched turbofan ================= -->
+  <g>
+    <circle cx="690" cy="235" r="140" fill="none" stroke="currentColor" stroke-width="7"/>
+    <circle cx="690" cy="235" r="122" fill="none" stroke="currentColor" stroke-width="2"/>
+    <!-- dead annulus -->
+    <circle cx="690" cy="235" r="118" fill="currentColor" opacity="0.07"/>
+    <!-- struts -->
+    <g stroke="currentColor" stroke-width="3" opacity="0.6">
+      <line x1="690" y1="212" x2="690" y2="117"/>
+      <line x1="690" y1="258" x2="690" y2="353"/>
+      <line x1="667" y1="235" x2="572" y2="235"/>
+      <line x1="713" y1="235" x2="808" y2="235"/>
+    </g>
+    <!-- the matched turbofan, true scale: fan Ø 0.23 m = 46 px -->
+    <circle cx="690" cy="235" r="27" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle cx="690" cy="235" r="23" fill="none" stroke="#E8571F" stroke-width="2.5"/>
+    <circle cx="690" cy="235" r="6" fill="currentColor"/>
+    <g stroke="#E8571F" stroke-width="4" stroke-linecap="round">
+      <line x1="696" y1="235" x2="719" y2="235"/>
+      <line x1="694" y1="242" x2="708" y2="260"/>
+      <line x1="686" y1="244" x2="682" y2="267"/>
+      <line x1="681" y1="240" x2="659" y2="250"/>
+      <line x1="681" y1="230" x2="659" y2="220"/>
+      <line x1="686" y1="226" x2="682" y2="203"/>
+      <line x1="694" y1="228" x2="708" y2="210"/>
+    </g>
+    <!-- narrow hot fast jet -->
+    <g stroke="#E8571F" stroke-width="4" opacity="0.95">
+      <line x1="676" y1="390" x2="676" y2="470" marker-end="url(#af)"/>
+      <line x1="690" y1="390" x2="690" y2="470" marker-end="url(#af)"/>
+      <line x1="704" y1="390" x2="704" y2="470" marker-end="url(#af)"/>
+    </g>
+    <line x1="716" y1="430" x2="760" y2="430" stroke="currentColor" stroke-width="1"/>
+    <text x="766" y="425" font-size="11">240 m/s,</text>
+    <text x="766" y="440" font-size="11">300 °C+</text>
+    <line x1="612" y1="157" x2="640" y2="92" stroke="currentColor" stroke-width="1"/>
+    <text x="648" y="88" font-size="11">the rest of the wheel now does nothing</text>
+  </g>
+
+  <!-- ================= captions ================= -->
+  <g font-size="13">
+    <text x="250" y="510" text-anchor="middle" font-size="14">SPECIFIED ROTOR-WHEEL</text>
+    <text x="250" y="532" text-anchor="middle">ducted fan Ø 1.2 m fills the Ø 1.4 m wheel</text>
+    <text x="250" y="554" text-anchor="middle">disc 1.13 m² · 180 kg/m²</text>
+    <text x="250" y="576" text-anchor="middle">wash 54 m/s · <tspan font-size="15">55 kW ideal</tspan></text>
+
+    <text x="690" y="510" text-anchor="middle" font-size="14">TURBOFAN MATCHED TO THE SAME THRUST</text>
+    <text x="690" y="532" text-anchor="middle">fan Ø 0.23 m (BPR 8, FPR 1.4)</text>
+    <text x="690" y="554" text-anchor="middle">disc 0.041 m² — 1/28 the area · 5,000 kg/m²</text>
+    <text x="690" y="576" text-anchor="middle">jet 240 m/s · <tspan font-size="15" fill="#E8571F">290 kW ideal</tspan></text>
+  </g>
+  <line x1="470" y1="95" x2="470" y2="590" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+  <text x="30" y="608" font-size="12">Hover power ∝ 1/√(disc area) — a jet's propulsive efficiency at zero airspeed is zero, so disc area is the only lever.</text>
+</svg>

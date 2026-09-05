@@ -5,7 +5,7 @@
 Rev D: identical wheel arms front and rear — the wake stagger comes from a
 nose-down cruise attitude, not geometry (§3.1); RW-2S re-laid-out around four
 large rotor-wheels with no hull fans (§11); turbine-in-the-wheel assessed and
-rejected on control grounds (§12). Rev C had added the stagger, RW-2S and the
+rejected on matching, not just control, grounds (§12). Rev C had added the stagger, RW-2S and the
 turbine analysis.
 
 Rev B superseded Rev A: coaxial two-stage fans in smaller wheels, two-axis
@@ -305,42 +305,107 @@ are ~30% of vehicle length, the same proportion as RW-5.
 
 ## 12. Turbines at human scale
 
-"Small turbines instead of the dual fans" splits into three very different
-ideas, and only one of them is good.
+The proposal is small gas turbines in the wheels — **turbofans, as on an
+airliner, scaled down** — rather than electric fans. This section works the
+matching problem, because the answer turns on it.
 
-| Option | What it is | Verdict |
+### 12.1 A turbofan is a gas core driving a ducted fan
+
+That is the whole architecture: a combustion core extracts shaft power and
+spins a ducted fan; on a high-bypass engine the fan makes 80–90% of the
+thrust and the core exhaust is almost an afterthought. **The rotor-wheel
+already has the ducted fan.** So "turbofan in the wheel" does not add a new
+kind of thruster — it only moves the combustor from the tail into the wheel
+and replaces the electric ring motor with a gas core. The question is
+therefore narrow: what should spin the fan, and where should the fuel burn?
+
+### 12.2 The matching problem
+
+One RW-2S wheel must produce ~2.0 kN in hover. Two ways to make that thrust:
+
+| | Specified rotor-wheel | Turbofan matched to 2.0 kN |
 |---|---|---|
-| **A. Micro-turbojets in the wheels** | Replace each coaxial fan pair with a ~600 N turbojet (JetCat P550 class) | **Reject.** Turbojet thrust-specific fuel consumption is ~150 kg/kN·h: 8 kN of hover thrust burns ~10 kg of fuel per minute — jet-suit endurance, 5–8 min. Exhaust at 600 °C and ~400 m/s inside a tire kills the tire, the ground and anyone nearby. FOD ingestion becomes catastrophic at 100,000 rpm; every mud and debris problem in §8 becomes a blade-out. Thermal soak makes drive mode impossible after flight. And turbojets are propulsively inefficient below ~300 km/h — the wrong engine for a 160 km/h vehicle. |
-| **B. Small turbofans as the body lift fans** | Gas-turbine core driving the Ø 1.7 hull fans mechanically | **Possible, second choice.** Efficient enough (high bypass), and the fans stay cold and mesh-protected. But a gearbox and shafting through the hull, two hot cores under the cabin, and no silent electric mode. Loses the redundancy of independent electric motors. |
-| **C. Turboshaft generator, electric fans everywhere** | One turbine in the tail turning a generator; all fans and wheels stay electric | **Recommended.** Fuel energy density (12 kWh/kg, ~3.5 kWh/kg after a 30% turbine) is 14× battery, which is the single thing that makes a ~800 kg VTOL hover for more than a few minutes. The turbine sits protected in the tail with clean inlet air and a Kamm-tail exhaust. Every rotor stays electric: fine control, redundancy, mesh protection, and silent battery-only driving. Small turboshafts have poor specific fuel consumption (~0.45 kg/kWh), which is why fuel is 80 kg, but it is still one-tenth the mass of the equivalent battery. |
+| Fan diameter | Ø 1.20 m (fills the Ø 1.4 m wheel) | **Ø 0.23 m** (BPR 8, FPR 1.4) |
+| Disc area | 1.13 m² | 0.041 m² — **1/28 as much** |
+| Disc loading | 180 kg/m² | ~5,000 kg/m² |
+| Jet velocity | 54 m/s, ambient | 240 m/s, 300 °C+ |
+| Ideal hover power | **55 kW** | **290 kW** |
 
-### 12.1 "Small turbines with the wheel spinning around them"
+Hover power goes as T^1.5/√(2ρA): thrust is fixed, so power scales with
+1/√(disc area), and √28 ≈ 5.3. **The same lift costs 5× the power.** In fuel,
+after the small core's ~22% thermal efficiency against the turboshaft's ~19%,
+that is roughly **3–4× the burn** — call it 6–8 kg/min in hover against 2.6.
 
-Mechanically this is exactly the hubless layout already specified: the
-printed airless tire and rim rotate on the ring motor while the unit in the
-centre stays fixed on its two-axis mount. Whether that centre unit is an
-electric coaxial fan or a gas turbine is the real question, and the gas
-turbine loses on **control**, before heat or fuel come into it:
+This is not an engineering detail that better design fixes. Propulsive
+efficiency is 2/(1 + v_jet/v_flight); in hover v_flight = 0, so *every* jet is
+at zero propulsive efficiency and the only remaining lever is to move a lot of
+air slowly. A turbofan's entire design intent is the opposite — move less air
+faster, because at 900 km/h that is efficient.
 
-1. **Throttle lag.** A gas turbine changes thrust over ~1–2 s as its spool
-   accelerates; an electric fan does it in ~50 ms. A four-rotor hover is
-   stabilised by continuous small thrust corrections at 10–50 Hz. Four
-   turbines cannot do that — every jet-lift VTOL that ever hovered used
-   either reaction-control bleed air or fast vanes to get around it, and
-   helicopters solve it with collective pitch on a constant-speed rotor. A
-   turbine-in-wheel would need variable-pitch fans on constant-speed cores:
-   heavier and more complex than the electric stages it replaces.
-2. **Fuel and hot gas through a two-axis tilt joint**, four times, on
-   modules that are also wheels in mud. Electric modules need one cable.
-3. **Four engines to start, synchronise and maintain** instead of one.
-4. **Silence.** With turbines in the wheels there is no quiet electric
-   ground mode; the tactical feature of this vehicle is gone.
-5. Then the physics from the table: turbojet fuel burn, exhaust temperature
-   inside a polymer tire, FOD at 100,000 rpm, thermal soak after landing.
+### 12.3 The bypass ratio proves the point
+
+Turn it around: keep the Ø 1.2 m fan and ask what core would drive it. The fan
+passes ~37 kg/s; a core making the required ~55 kW of shaft power passes about
+0.3 kg/s. That is a **bypass ratio near 120.** Airliner turbofans run 5–12;
+the GE9X is 10; open-rotor demonstrators reach 30–40 and are already
+*geared turboshafts driving propellers*, not turbofans. Nothing at BPR 120 is
+a turbofan. It is a turboshaft driving a fan — which is exactly the
+recommended architecture (§12.5), differing only in where the combustor sits.
+
+### 12.4 Core in the wheel vs. core in the tail
+
+With the fan fixed, the remaining choice is mechanical drive in each wheel or
+electric drive from one turbine in the tail.
+
+**Honest points for the core in the wheel:** direct drive avoids the
+generator–inverter–motor chain, worth ~8–10% of transmission loss; and on
+mass it is close to a wash — one 350 kW turboshaft plus generator, inverters
+and four motors is ~160 kg, four ~90 kW turboshafts plus four reduction
+gearboxes is ~160 kg too.
+
+**Against, in order of severity:**
+
+1. **Throttle lag.** A gas turbine changes thrust in 1–2 s as its spool
+   accelerates; an electric fan does it in ~50 ms. A four-rotor hover is held
+   by continuous corrections at 10–50 Hz. Turbine-driven lift has *never* been
+   controlled by throttling the turbine — the Harrier and F-35B use bleed-air
+   reaction jets and fast vanes, helicopters use collective pitch on a
+   constant-speed rotor. A turbine-in-wheel therefore needs variable-pitch
+   coaxial fans on constant-speed cores: heavier, and more complex than the
+   electric stages it was meant to replace.
+2. **Fuel and hot gas across a two-axis tilt joint,** four times, on modules
+   that are also wheels driving through mud. Electric modules need one cable.
+3. **A combustor inside the wheel that lands.** Hot section, oil system and
+   FOD path in the one component guaranteed to hit debris, water and mud.
+4. **Four engines** to start, synchronise, and maintain, instead of one.
+5. **No silent mode.** Battery-electric driving with the turbine shut down is
+   the vehicle's best tactical feature; turbines in the wheels delete it.
+6. **Thermal soak.** Drive mode immediately after flight puts a heat-soaked
+   hot section next to the tire and the ground.
+
+### 12.5 Conclusion — and where it does not apply
+
+**Recommended: one turboshaft in the tail turning a generator; every fan stays
+electric.** Fuel is ~14× battery per kilogram of stored energy, which is the
+only reason an 830 kg VTOL can fly for more than a few minutes; the turbine
+sits protected with clean inlet air; the rotors keep millisecond control,
+redundancy, mesh protection, and a silent battery mode.
+
+Cruise does not rescue the turbofan either. A turbofan wants
+v_flight ≈ 0.5–0.7 × v_jet; at RW-2S's 150 km/h (42 m/s) the matched jet
+velocity is 60–85 m/s — which describes a ducted fan, not a turbofan. There is
+no point in this vehicle's envelope where a turbofan is the right device.
+
+Two footnotes for completeness. Combustion *has* been put in the rotor before:
+tip-jet rotorcraft (Fairey Rotodyne, Hughes XH-17) piped hot gas to the blade
+tips, which eliminated reaction torque and the transmission entirely — and
+were extraordinarily loud and thirsty, which is why none entered service. And
+if the airframe were much larger and hover were a negligible fraction of the
+mission, jet lift starts to pay; that is the F-35B, and it is not this
+vehicle.
 
 Rule of thumb: **turbines belong in the body as the power source, never in the
-wheels as thrusters.** The whole point of the rotor-wheel is a fan you can drive
-on; a turbine is a fan you cannot get near.
+wheels as thrusters.**
 
 ## 13. Renderings
 
@@ -353,4 +418,5 @@ Rendering set in [`renderings/`](renderings/):
 | `03-wheel-module-cutaway.svg` | Rotor-wheel module: face-on cutaway + axle section |
 | `04-flight-modes.svg` | Drive / hover / cruise, side view, 15° nose-down cruise |
 | `05-two-seat-elevation.svg` | RW-2S two-seat variant, side elevation, section (four Ø 1.4 rotor-wheels, no hull fans) |
+| `06-turbofan-scale.svg` | Wheel fan vs. a turbofan matched to the same thrust, true relative scale |
 | `rw2s-3d.html` + `rw2s-viewer.js` | RW-2S interactive 3D model (three.js): drive / hover / cruise |
