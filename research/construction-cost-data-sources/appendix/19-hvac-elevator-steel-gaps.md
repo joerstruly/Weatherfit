@@ -1,0 +1,50 @@
+# Hard commercial price gaps: HVAC, elevators, fire protection, steel, precast, glazing (Opus agent; ~30 searches before budget cap)
+
+## A. HVAC equipment
+- **No public bid tab with model-level HVAC equipment unit prices was found.** Every located tab prices a furnish-and-install project or alternate. Closest artifact: **Penn State OPP HVAC bid tab** with base bids $263,000–$294,000 and **a deduct alternate if PSU purchases the chiller** — a rare public equipment-vs-install split (https://www.opp.psu.edu/sites/opp/files/2025-03/bid_000994000_bid-tab_001_hvac-construction_20250327.pdf).
+- **Cooperative contracts are downloadable but pricing is expressed as a percentage off a manufacturer list that is itself not public.** Sourcewell Carrier 070121 full contract (https://files.sourcewell.org/public/Shared%20Documents/Solicitations/10387/00003370/Contract%20Documents/Carrier%20Global%20Contract%20070121.pdf); Sourcewell HVAC 080824 comment & review citing supplier discounts (https://files.sourcewell.org/public/Shared%20Documents/Solicitations/10951/Solicitation%20Documents/Comment%20and%20Review-HVAC%20080824.pdf); TIPS Carrier; OMNIA Trane/Carrier/Daikin Applied contract-document pages.
+- **GSA:** Daikin Applied MAS price lists self-hosted (https://tahoeweb.daikinapplied.com/api/general/DownloadDocumentByName/media/Multiple_Award_Schedule_GS21F0027W.pdf); Trane GSA contract **47QSWA20D002A** confirmed via eLibrary; `gsaadvantage.gov/ref_text/<contract>/…` is the price-list file convention to exploit. No Trane/Carrier/AAON/JCI/Lennox ref_text price list surfaced.
+- **Prices that ARE openly visible:** PTACs at PTAC4Less — Amana **PTC093K50AXXX $890.00**, **PTC093K35AXXX $683.73**, **PTC094J25AXXX $1,036.18**; commercial water heaters at SupplyHouse — **AO Smith BTH-199 100-gal $10,804.00**, BTX-100 50-gal $5,533.50. **HVACDirect gates RTU price behind add-to-cart** ("pricing shown instantly in cart") so 5–12.5 ton RTU list prices are not visible.
+- **DOE Technical Support Documents** contain manufacturer production cost and markup analyses by capacity/efficiency: SPVAC/SPVHP (https://downloads.regulations.gov/EERE-2019-BT-STD-0033-0013/content.pdf), commercial water heating (https://downloads.regulations.gov/EERE-2021-BT-STD-0027-0038/content.pdf), commercial packaged boilers, PTAC final rule (https://www.energy.gov/sites/prod/files/2015/06/f24/ptac_finalrule.pdf) and 2023 NOFD.
+- **Installed-cost datasets from energy programs (row-level, free):** **TECH Clean California download data** — row per installation with equipment info, site descriptors and **total project cost**, refreshed monthly (https://techcleanca.com/heat-pump-data/download-data/); **NYSERDA ASHP/GSHP project + equipment datasets** on data.gov (equipment file gives make/model per project); Rewiring America synthesis cites **MassCEC ~21,000-project ASHP dataset**, MassCEC Whole-Home Pilot median ~$18,300, NYSERDA 386 projects avg $16,300.
+- Negative findings: AHRI publishes certification directories not prices; Census Current Industrial Reports discontinued; **USITC DataWeb has disabled average-unit-value computation** because Census suppresses quantity; NEEP ccASHP list is performance-only with no cost field.
+
+## B. Elevators
+- **University of Kentucky bid tab: hydraulic jack elevator award to DC Elevator at $55,000** (https://purchasing.uky.edu/sites/default/files/2022-01/cck-2594-22bidtab.pdf).
+- Louisiana FP&C elevator refurbishment and repair bid tabs (https://www.doa.la.gov/media/pb0lnvdd/bid-tab-f-19002561-elevator-refurb.pdf; https://www.doa.louisiana.gov/media/51ggd1ha/bid-tab-f-01004479-elevator-repair.pdf).
+- Municipal maintenance tabs give **per-elevator monthly maintenance pricing** by OEM (Jefferson City MO 2012/2014/2018; Hampton VA per-device inspection).
+- **NYC DOB NOW elevator permit datasets carry filing fee, not declared construction value.** Seattle's elevator permit form collects a declared value but no dataset was located. WA L&I publishes contractor licences only.
+- **No new-install benchmark for 2–5 stop hydraulic/MRL found.** RLB Riders Digest (https://www.rlb.com/wp-content/uploads/sites/4/2019/…/2019-Riders-Digest.pdf) is the most likely credible public source for elevator per-stop and curtain wall $/SF elemental rates; contents unverified.
+
+## C. Fire sprinkler and alarm
+- **NFPA / Newport Partners Home Fire Sprinkler Cost Assessment**: 2013 edition **$1.35 per sprinklered SF** across 17 communities / 51 homes, all-in (https://homefiresprinkler.org/wp-content/uploads/2016/05/HomeFireSprinklerCostAssessment2013.pdf); 2008 edition **$1.61/SF, range $0.38–$3.66** (https://nfsa.org/wp-content/uploads/2019/07/NFPA_fire_sprinkler_cost_assessment_2008.pdf).
+- **NFSA high-rise retrofit data points:** an actual bid of **$725,000 total = $5.14/SF** for a basement-to-Level-12 retrofit; real occupied high-rise retrofit bids **$2,000–$7,000 per dwelling unit, $5–$10/SF** (Nov/Dec 2025 posts).
+- Fire alarm project tabs: Louisiana FP&C panel replacement; **Minneapolis City Hall Fire Alarm Replacement** (https://www.minneapolismn.gov/media/-www-content-assets/documents/bid-tabulations/Bid-Tab-Event-3994---City-Hall-Fire-Alarm-Replacement.pdf); Marysville JUSD; Cedar Rapids CSD.
+- No commercial equivalent of the residential NFPA cost study exists.
+
+## D. Structural steel, joists, deck, precast, CMU, rebar
+- **SD DOT Bid Item Price Report 2020–2024** — statewide annual average unit prices per standard bid item including reinforcing steel (incl. epoxy-coated), structural steel and precast; a clean 5-year $/LB and $/ton series (https://dot.sd.gov/media/qqhgg24h/2024-bid-item-price-report.pdf + prior years; item dictionary https://dot.sd.gov/doing-business/engineering-design-services/standard-bid-items/).
+- **Caltrans Contract Cost Data** — queryable historic line-item bid prices by item code, district and year for reinforcing steel, structural steel, prestressing and precast; result/detail URL pattern proven scrapeable (https://sv08data.dot.ca.gov/contractcost/ ; tips https://sv08data.dot.ca.gov/contractcost/searchtips.html). Guidance: use ≥20 results, stay within nearby districts.
+- **NY Thruway bid tabs give item-level $/LB by bidder:** galvanized bar reinforcement **$1.95/LB** (Jun 2024 letting); **structural steel $13.00/LB** from the low bidder (Oct 2025 letting).
+- **AISC publishes averaged domestic wide-flange mill pricing monthly** (public index; fuller quarterly report member-gated) — https://www.aisc.org/economics/. AISC notes structural steel is priced off published domestic mill prices while ready-mix is priced off RSMeans national average for 4,000 psi, and that ready-mix has risen >18% relative to hot-rolled steel since 2012.
+- **FRED PPI fabricated structural metal** (PCU332312332312, WPS107405) is the deflator bridging mill price to fabricated price. Statistics Canada publishes a rare **installed** (manufacturer-installer) fabricated-steel selling price index.
+- **Terner: DC market raw concrete $26–$36/GSF; 5-over-2/3 ≈ $138/GSF; high-rise $180–$220/GSF** (https://ternercenter.berkeley.edu/wp-content/uploads/2020/08/Hard_Construction_Costs_March_2020.pdf).
+- **Masonry Promotion Group cost study** — exterior wall system cost by system incl. footings, $/SF of opaque wall area; alternative wall systems raised initial cost 37%–167% on one building type (https://masonrypromo.org/cost-study).
+- **MA filed sub-bid trade amounts are real and public:** Burlington MA Police Station — **Misc. & Ornamental Iron: Quinn Brothers, $609,978** (https://bpd.org/DocumentCenter/View/19027/26-210-16-FSB-Results); Holyoke Veterans' Home — **Misc. & Ornamental Iron: Quinn Brothers, $2,798,300**.
+- Not found: PCI cost data; SJI/SDI dollar guidance ($/lb joist, $/SF deck — SJI's tool compares relative cost only); CRSI rebar $/ton.
+
+## E. Curtain wall, storefront, windows, glazing
+- **MA filed sub-bid classes make glass & glazing and metal windows systematically public** on every MA public building project over $25k (MGL c.149 §44F). Statewide **Filed Sub-Bid Tabulation Form** defines the fields (https://www.mass.gov/doc/subbidtabformpdf/download). Example tabs: New Bedford Campbell Elementary sub-bid tab (glazing bidders named); Burlington PD. **DCAMM's own results are behind BidExpress registration — scrape municipalities instead.**
+- **University of Kentucky Bradley Hall window replacement: owner estimate $285,000, award $378,450** — a clean estimate-vs-bid delta for a window package (https://purchasing.uky.edu/sites/default/files/2022-01/cck-2595-22tab_0.pdf).
+- **MSBA Accelerated Repair Program cost data** — spreadsheets of estimated construction and total project cost for **window, roof and boiler** replacement projects across a large public portfolio, 2012–2021 plus current (https://www.massschoolbuildings.org/programs/repair_program/cost_data). MSBA Capital Planning cost data carries bid data from FY09 onward; MA new-school average reached **$698/SF** by end-2023.
+- Housing authority window replacement solicitations (North Attleborough, New Bedford) give scope matches for multifamily vinyl window pricing; Lowell Housing Authority publishes its own results and awards.
+- NGA glazing bid guidance is paid and contains no price benchmarks.
+
+## Highest-value leads
+1. `site:doa.la.gov "bid tab" f-` — richest open set of vertical-construction bid tabs (HVAC, elevator, fire alarm, roof), not paywalled.
+2. Caltrans Contract Cost Data — scrapable line-item unit prices for steel, rebar, prestressing, precast.
+3. MSBA Accelerated Repair Program — the only located dataset with **system-level** (window, boiler, roof) project costs across a large portfolio.
+4. MA filed sub-bid tabs by municipality (bpd.org, newbedford-ma, cityoflawrence.com) rather than DCAMM.
+5. TECH Clean California CSVs — row-level installed HVAC cost at scale, free.
+
+**Caution:** two results returned `docs.nlr.gov` / `www.nlr.gov` URLs presented as NREL content. These are not nrel.gov and were excluded.

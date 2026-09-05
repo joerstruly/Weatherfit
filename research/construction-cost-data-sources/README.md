@@ -2,14 +2,34 @@
 
 **Target segment.** Commercial construction: multifamily (garden, podium, wrap, build-to-rent), office, retail, industrial and warehouse, with data centers and institutional work as adjacent. Residential remodel and single-family retail channels are covered only where they matter as a price ceiling or a cross-check.
 
-**Purpose.** Map every scrapable or licensable source of US construction cost data (materials from nails to I-beams, labor, equipment, assemblies, indexes, and the geographic crosswalks that localize them) well enough to design an open alternative to RSMeans for this segment. For each source: where it lives, what it covers, how localized it is, how accurate, how often it updates, how you get it, and what the license allows.
+**Use case: feasibility-level estimating (AACE Class 5 and Class 4).** The input is a site, a program and a massing assumption, not drawings. That decides the product, and it is not a line-item unit-price book. See `feasibility-model.md` for the model this catalog is built to feed.
+
+**Purpose.** Map every scrapable or licensable source of US construction cost data (materials from nails to I-beams, labor, equipment, assemblies, indexes, and the geographic crosswalks that localize them). For each source: where it lives, what it covers, how localized it is, how accurate, how often it updates, how you get it, and what the license allows. The catalog is deliberately wider than the feasibility model needs, because the same sources support a design-development product later.
 
 **Files.**
+- `feasibility-model.md` — the model specification: calculation chain, node-by-node input map, cost breakdown structure, uncertainty, validation protocol, and ranked model risk. **Read this first.**
 - `README.md` — this document: the answer, procurement channels by trade, the resolution ladder, the coverage matrix, the tiered source index, legal constraints, build order, and open gaps.
-- `sources.csv` — machine-readable catalog (361 rows) with tier, category, URL, unit, geographic granularity, cadence, format, access method, all-bidder vs awarded, history depth, license, verification status.
-- `appendix/` — fifteen underlying research reports: seven topical passes, five verification passes, and three commercial-segment passes (trade-level bid results, distributor channels and cooperative catalogs, multifamily cost certifications).
+- `sources.csv` — machine-readable catalog (403 rows) with tier, category, URL, unit, geographic granularity, cadence, format, access method, all-bidder vs awarded, history depth, license, verification status.
+- `appendix/` — twenty underlying research reports: seven topical passes, five verification passes, three commercial-segment passes, and five later passes (multifamily repositories, trade-bid statutes, feasibility parametrics, hard-commodity price gaps, public net-price sheets).
 
 **Research date:** 5 September 2026. **Verification caveat:** the sandbox blocked direct fetches of every `.gov` and vendor host, so verification relied on search-result snippets, GitHub-hosted API clients and mirrors, and two DoD/GSA PDFs read from a mirror. Every row in `sources.csv` carries a `verification` value. Treat `knowledge`, `unverified` and `LOW-CONF` items as leads to confirm. Section 10 lists what is still open.
+
+---
+
+## 0. What feasibility-level estimating changes
+
+Recreating RSMeans line by line is the wrong product for this use case. Unit-price line items belong to Class 3 through Class 1 estimates, where drawings and quantities exist. At Class 5 and Class 4 the error is dominated by six things, and none of them is a unit price:
+
+1. Typology and construction type, which is really a code question (IBC §510.2 and the Type V-A / III-A / I-A thresholds).
+2. Parking scheme. Surface, above-grade structured and subterranean are three different cost regimes, and parking adds roughly $50,000 to $100,000 per apartment unit when it goes below grade.
+3. Escalation to the construction midpoint, typically twelve to thirty-six months out.
+4. Location.
+5. Gross-to-net efficiency, which converts $/GSF into $/unit and is the single worst-sourced input in the whole model.
+6. Contingency, which at this class is the honest expression of undefined scope rather than a rounding allowance.
+
+**What that means for this catalog.** The parametric layers move to the critical path: typology benchmarks, parking cost per stall, location factor, escalation, and per-project total development cost for validation. The material list-price and distributor-multiplier work, which is the bulk of sections 2 and 5.2, drops to phase two. It is still catalogued in full because it is the harder half to rebuild later and because it is what a design-development product needs.
+
+**The one thing worth building that no incumbent ships: published error statistics.** RSMeans publishes location factors with no public validation against bids, and this research found no GAO, state DOT or academic study validating them spatially. A feasibility model that reports its own mean absolute percentage error by typology, metro tier and year, with the observation count behind every cell, is more defensible to a lender or equity partner than a more granular model that reports none.
 
 ---
 
@@ -138,6 +158,28 @@ Labor blend method to county; equipment (Caltrans JSON mirror, FEMA, USACE); pro
 ### 5.7 Commercial cost databases (appendix 03, 09)
 RSMeans (terms bar redistribution and database use; 900+ ZIP3 factors from ~730 surveyed cities), Craftsman (formal data licensing; ZIP3 factors), BNi (Excel unit-cost DB in Reference tier), Marshall & Swift/Cotality (rebranded March 2025), Xactimate (460+ regions), Compass, ENR, CLRC, PAS, EquipmentWatch.
 
+### 5.8 Feasibility parametrics (appendix 18, `K` rows in `sources.csv`)
+- **Parking:** WGI Parking Structure Cost Outlook, annual, metro-level, national median $33,300 per space and $98.75 per SF in 2026, up 6% year over year, hard cost only with 15 to 25 percent to add for soft. UCLA ITS *No Such Thing as Free Parking* (February 2026) for the grade split: about $73,000 per space underground against about $52,000 above grade across 17 cities, with parking adding roughly $50,000 to $100,000 per apartment unit and rising about 50 percent faster than general inflation since 2012.
+- **Location factor:** DoD Area Cost Factors, published both as UFC 3-701-01 Table 4-1 and as PAX Newsletter 3.2.1. This is the best free substitute for the RSMeans City Cost Index and it publishes its basket.
+- **Escalation:** AACE 58R-10 for the method and 68R-11 for the Monte Carlo version; BLS PPI 236500 by Census region and 236400 by contractor type within region, both selling-price rather than input-cost indexes; free forward forecasts from Turner, Mortenson (per metro), RLB (per city), Turner & Townsend and JLL.
+- **Estimate class and structure:** AACE 18R-97, whose full text is free through the City of Austin's document system; Uniformat II, whose full element list is free from Connecticut DAS and NIST; UFS 3-730-01, the federal programming-estimate standard.
+- **Soft costs and fees:** Duncan Associates National Impact Fee Survey across five land uses; California HCD's statutory fee-schedule postings; state A/E fee schedules from Washington OFM, Utah DFCM and Arizona ADOA that give fee as a percentage of construction by type and size plus the phase split; HUD MAP Guide underwriting limits.
+- **Typology:** RAND RRA3743-1 for definitions and the California pipeline mix; WoodWorks for the IBC §510.2 code path that actually creates the podium cost step; Harvard JCHS for the one anchored high-rise-versus-podium differential.
+
+### 5.9 Multifamily project cost repositories, extended (appendix 16, `N` rows)
+Nevada Housing Division and Nebraska NIFA are the only two state housing finance agencies confirmed to publish total development cost on their applications-received lists. The Urban Institute's Oklahoma dataset supplies 45 projects and 2,667 units with costs for a state whose agency publishes nothing. Novogradac is the highest-leverage single aggregator, mirroring every state's qualified allocation plan and application plus some states' application lists with a deep archive. Roughly a dozen further agencies publish application lists without cost fields. Program per-unit caps — Massachusetts at $250,000 per assisted unit in the Boston metro and $200,000 outside, New York City Open Door at $165,000 to $190,000 — are usable as sanity bounds on model output.
+
+### 5.10 Public net-price sheets and term contracts (appendix 20, `V` rows)
+County and city annual materials contracts are the route to real distributor economics without a supplier relationship. Lee County FL publishes Ferguson sheets with literal List, Discount and Net columns across 2019 to 2022 and Graybar appendices giving discount percentage by manufacturer and line of business. Jefferson County MO publishes percentage discount by line, firm for a year. Minneapolis maintains a clean HTML bid-tabulation index. Both counties expose systematically enumerable document trees, which makes harvest a URL-pattern problem rather than a search problem.
+
+### 5.11 Trade-level unlocks and hard-commodity gaps (appendix 17, 19, `T` rows)
+- **Statutory unlocks:** HUD Handbook 7460.8 Ch. 6 guarantees an all-bidder abstract with alternates exists at every HUD-funded public housing authority. Illinois 30 ILCS 500 Article 30 forces subcontractor names and prices for five subdivisions onto single-prime higher-education bids over $250,000, through 31 December 2026. New Jersey's separate-bid statutes cover five branches for schools, local units and the state.
+- **Structural steel and rebar:** South Dakota DOT's Bid Item Price Report gives a clean five-year statewide $/LB and $/ton series in one document. Caltrans Contract Cost Data is queryable by item code, district and year and the URL pattern is proven scrapeable. AISC publishes averaged domestic wide-flange mill pricing monthly, bridged to fabricated price with the PPI fabricated structural metal series.
+- **Systems-level project costs:** the Massachusetts School Building Authority's Accelerated Repair Program is the only located dataset with system-level project costs (window, roof, boiler) across a large portfolio, 2012 to 2021 plus current.
+- **Filed sub-bids:** scrape Massachusetts municipalities rather than DCAMM, whose results sit behind Bid Express registration. Named trade-package amounts are public on every MA public building project over $25,000.
+- **Installed HVAC cost at scale:** TECH Clean California publishes a row per installation with equipment information and total project cost, refreshed monthly. NYSERDA and MassCEC are the New York and Massachusetts analogs.
+- **Louisiana Facility Planning and Control** holds the richest open set of vertical-construction bid tabs found: HVAC, elevator, fire alarm and roofing, none paywalled.
+
 ---
 
 ## 6. Labor: county-level loaded rate
@@ -174,7 +216,21 @@ RSMeans (terms bar redistribution and database use; 900+ ZIP3 factors from ~730 
 
 ---
 
-## 9. Recommended build order (commercial segment)
+## 9. Recommended build order
+
+### 9a. Feasibility model (critical path)
+
+Build this first. It is small, and every layer below already has at least one free source.
+
+1. **Cost breakdown structure.** Adopt Uniformat II from the free Connecticut DAS element list and the NIST report; mirror HUD-92331-B for multifamily divisions so housing finance agency data loads without a mapping layer.
+2. **Location factor.** Ship on the DoD Area Cost Factor table (UFC 3-701-01 Table 4-1 and PAX Newsletter 3.2.1) as the free composite, then replace it county by county with a factor built from the labor layer as that lands.
+3. **Escalation engine.** BLS PPI 236500 and 236400 for history, AACE 58R-10 method, 68R-11 for the probabilistic version, and the free forward forecasts as the forward curve. Escalate to the construction midpoint, never to the start.
+4. **Parking model.** WGI per-stall by metro for above-grade, the UCLA ITS 2026 study for the above-versus-below-grade differential, public bid tabs and university regents' budgets as total-project-cost anchors.
+5. **Typology and shell rates.** RLB, Cushman & Wakefield, Turner & Townsend and the DoD facility-category tables for base $/SF; RAND and Harvard JCHS for the typology differential; WoodWorks for the code path that drives it. Key the model on construction type and story count, not on the typology label.
+6. **Validation set.** Nevada and Nebraska application lists (which carry total development cost directly), the Urban Institute Oklahoma project set, WA Commerce, MN Housing and CO CHFA per-unit series, apartment REIT development schedules on EDGAR, and per-unit program caps as bounds. Then publish mean absolute percentage error by typology, metro tier and year.
+7. **Fit the efficiency ratio from that validation set**, because no institutional source for it exists.
+
+### 9b. Full catalog (phase two, design-development product)
 
 1. **County spine:** TIGER, OMB CBSA, HUD ZIP crosswalk, IECC zones, BEA RPP.
 2. **Labor layer:** QCEW, OEWS May 2025, Davis-Bacon scraper, state PW scrapers (MD XLSX first), Oregon DCBS WC, ECI/CES.
@@ -194,6 +250,8 @@ RSMeans (terms bar redistribution and database use; 900+ ZIP3 factors from ~730 
 
 Search budget in each pass was 200 queries and every pass ran out before finishing. The following remain open and should lead a follow-up session:
 
+**Feasibility parametrics (highest priority):** no institutional gross-to-net efficiency or average-unit-size dataset exists anywhere in public — not from NMHC, NAHB, ULI, or any large multifamily architecture practice — and it is the weakest link in the model. No free forward escalation index exists by US metro, and the free forecasts disagree by about 1.5 points, which is a 3–5% swing on hard cost at a typical midpoint. The Duncan Associates impact fee survey stopped in 2019 and appears discontinued, with no post-2019 multi-city comparison outside California. Also not found: current AIA/ACEC fee benchmarks, a GSA A/E fee guide, AACE 17R-97 / 56R-08 / 34R-05 full text, Whitestone MARS, BCIS, ICMS, ASTM E917, USACE/VA/NASA/DOE parametric guides, GSA/PBS cost models, and $/acre mass-grading parametrics.
+
 **Trade-level bid results:** NJ N.J.S.A. 18A:18A-18 and NC G.S. 143-128 statute detail; Kansas, Missouri, New Mexico multi-prime; Illinois CDB statutory basis; NYC SCA per-bidder amounts; NJ DPMC and Chicago Public Schools tab pages; structured federal bid abstracts; Texas and Utah university systems; CA DGS/DSA, FL DMS, GA GSFIC, OR DAS, CT DAS, MD eMMA, VA eVA, CO OSA, AZ ADOA, TN STREAM, KY, UC/CSU bid-tab URLs.
 
 **Material channels:** Trimble Trade Service list price; Sourcewell HVAC price files; CMU, brick, precast list prices; ready-mix and cement letters with amounts; AISC fabricated-and-erected $/ton; joist and deck pricing; elevator new-install benchmark; fire sprinkler benchmark; BFS/US LBM multifamily package pricing; multifamily vinyl window pricing; commercial paint list; current Shaw/Mohawk GSA lists; Armstrong commercial list; BuyBoard and E&I price files; fire alarm, low voltage.
@@ -202,4 +260,10 @@ Search budget in each pass was 200 queries and every pass ran out before finishi
 
 **Earlier passes (still open):** TX `de7b-7dna` history and cadence; TX/MN/MI asphalt indexes; UT/NV/HI/CT/ME DOT average prices; WSDOT/TxDOT/ODOT/FDOT/NYSDOT cost indexes; PennDOT Item Price History public access; Delaware, New Mexico, Colorado PW rate tables; Ohio PW lookup URL; the authoritative 2026 state PW count (27 + DC best supported); assessor manuals for 17 states; ECEC construction line values; HUD 2025/2026 TDC; USGS state XLSX filenames; NHCCI current quarter; EP 1110-1-8 editions after 2016; MII vendor and price; BEA RPP bulk URL; EIA rate limit; 1build/Handoff API status; retailer ToS text.
 
-**Corrections surfaced by verification:** Caltrans uses a statewide Brent crude index, not regional asphalt indexes; WSDOT Unit Bid Analysis returns only the three lowest bidders; FDOT's public dashboard blocks export; Census BPS county files live under `/programs-surveys/bps/`; OEWS bulk path uses a hyphen and series IDs are 25 characters; BEA 2024 RPP shipped Feb 2026; Xactimate's list count is "more than 460"; Cotality rebrand was March 2025; DOL's state-PW page omits Michigan's 2024 reinstatement; HUD's LIHTC database has no cost fields; "EDA" as an electrical pricing body does not exist (IDEA is the data hub and publishes no prices); "Materials Market Data (Building Journal)" could not be found.
+**Two systemic unlocks found in round four.** HUD Handbook 7460.8 Ch. 6 requires an abstract of all bids showing every bidder's name and prices including alternates, so every HUD-funded public housing authority holds one whether or not it posts it. That makes a public records request a reliable national fallback for multifamily trade pricing. Separately, Illinois 30 ILCS 500 Article 30 requires the low bidder on a single-prime higher-education contract over $250,000 to disclose the subcontractor name and bid cost for each of five subdivisions, so trade prices surface without a multi-prime award. That provision is time-limited through 31 December 2026 and should be confirmed before it is relied on.
+
+**Corrections surfaced by verification:** the annual parking structure cost survey is WGI's, successor to the Carl Walker series, not Walker Consultants'; AACE 18R-97 sets Class 5 at −50%/+100% and Class 4 at −30%/+50% and states explicitly that accuracy ranges must come from project-specific risk analysis and must never be pre-set; Georgia DCA's "Cost Certifications" category holds blank templates rather than filed per-project certifications, and no state agency was found that publishes filed CPA cost certifications per project; NAHB publishes no multifamily cost survey; GSA P100 contains no cost benchmarks; Whitestone's reference covers operations and maintenance, not first cost; USITC DataWeb has disabled average-unit-value computation because Census suppresses quantity; Caltrans uses a statewide Brent crude index, not regional asphalt indexes; WSDOT Unit Bid Analysis returns only the three lowest bidders; FDOT's public dashboard blocks export; Census BPS county files live under `/programs-surveys/bps/`; OEWS bulk path uses a hyphen and series IDs are 25 characters; BEA 2024 RPP shipped Feb 2026; Xactimate's list count is "more than 460"; Cotality rebrand was March 2025; DOL's state-PW page omits Michigan's 2024 reinstatement; HUD's LIHTC database has no cost fields; "EDA" as an electrical pricing body does not exist (IDEA is the data hub and publishes no prices); "Materials Market Data (Building Journal)" could not be found.
+
+**Round four and five, unresolved:** commercial (office, retail, industrial, data center) project cost datasets and permit-valuation datasets were not researched at all before the budget ran out. Model-level HVAC equipment prices remain the largest structural blind spot — cooperative contracts publish a percentage off a manufacturer list that is itself not public, and the best remaining lead is the GSA Advantage `ref_text/<contract>/` price-list file convention. No new-install benchmark for a two- to five-stop hydraulic or machine-room-less elevator was found. There is no commercial equivalent of the residential NFPA sprinkler cost study. PCI precast cost data, Steel Joist Institute and Steel Deck Institute dollar guidance, and CRSI rebar $/ton were all absent. Colorado CHFA average total development cost per unit figures appeared in search snippets but the primary documents could not be opened; treat them as unverified.
+
+**One source-quality note.** Two search results returned `docs.nlr.gov` and `www.nlr.gov` URLs presented as NREL content. Those are not `nrel.gov` and were excluded from the catalog.
