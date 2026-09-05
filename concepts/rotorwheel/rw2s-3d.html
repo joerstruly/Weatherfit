@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RW-2S 3D concept model</title>
+<style>
+body{margin:0;background:#EEF0E9;color:#20241E;font-family:system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:20px}
+.modes{display:flex;gap:8px;margin-bottom:10px}
+.modes button{font:600 13px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border:2px solid #20241E;background:#E5E8DD;color:#20241E;cursor:pointer}
+.modes button[aria-pressed="true"]{background:#20241E;color:#EEF0E9}
+.modes button:focus-visible{outline:3px solid #D94E14;outline-offset:2px}
+#v3d{border:2px solid #20241E;background:#d6dccf}
+#v3d canvas{display:block;width:100%!important;height:auto!important}
+p{font-size:14px;max-width:70ch}
+</style></head><body>
+<div class="wrap">
+  <h1 style="font-size:20px;margin:0 0 6px">RW-2S two-seat rotorwheel — 3D concept model</h1>
+  <p>Drag to orbit, scroll to zoom. Switch modes to see the wheels flip, the rear pair sit higher, the discs pitch forward, and the lift-fan doors open.</p>
+  <div class="viewer">
+    <div class="modes"><button data-mode="drive" aria-pressed="false">Drive</button><button data-mode="hover" aria-pressed="false">Hover</button><button data-mode="cruise" aria-pressed="true">Cruise</button></div>
+    <div id="v3d"></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="rw2s-viewer.js"></script>
+</body></html>

@@ -64,13 +64,22 @@ figcaption .fno{color:var(--accent-ink); flex-shrink:0}
 .callout{border-left:4px solid var(--accent); background:var(--surface); padding:14px 18px; margin:0 0 16px; max-width:72ch}
 .callout p{margin:0}
 .rev{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted); max-width:72ch; margin:18px 0 0}
+.viewer{margin:26px 0; border:2px solid var(--line); background:var(--surface)}
+.modes{display:flex; gap:8px; padding:12px 14px; border-bottom:2px solid var(--line)}
+.modes button{font:600 12px/1 'IBM Plex Mono',monospace; letter-spacing:.08em; text-transform:uppercase; padding:9px 14px;
+  border:2px solid var(--line); background:var(--bg); color:var(--ink); cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+.modes button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+#v3d{background:#d6dccf; min-height:200px}
+#v3d canvas{display:block; width:100%!important; height:auto!important}
+.viewer .hint{font-family:'IBM Plex Mono',monospace; font-size:12.5px; border-top:2px solid var(--line); padding:10px 14px}
 footer{margin-top:64px; border-top:3px solid var(--line); padding-top:14px;
   font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted)}
 </style>
 
 <div class="wrap">
 <header>
-  <div class="eyebrow"><span>Concept specification · Rev B</span><span>2026-09-05 · Unclassified concept</span></div>
+  <div class="eyebrow"><span>Concept specification · Rev C</span><span>2026-09-05 · Unclassified concept</span></div>
   <h1><span class="num">RW-5</span> Ferret Rotorwheel</h1>
   <p class="thesis">A hybrid ground–air scout: four small hubless wheels, each holding a pair of
   contra-rotating ducted fans, that flip flat to fly and then pitch forward to fly <em>fast</em>;
@@ -83,7 +92,9 @@ footer{margin-top:64px; border-top:3px solid var(--line); padding-top:14px;
     <div><b>~9 min</b><span>hover budget</span></div>
     <div><b>110 km/h</b><span>cruise · ~17 min · ~30 km</span></div>
   </div>
-  <p class="rev">Rev B supersedes Rev A: coaxial two-stage fans in Ø 400 wheels (was single-stage in Ø 520),
+  <p class="rev">Rev C: rear discs staggered 300 mm above the front pair so all four fly in clean air; cruise AoA trimmed to 5°;
+  two-seat variant RW-2S added (§08) with an interactive 3D model; turbine options at human scale assessed (§09).
+  Rev B superseded Rev A: coaxial two-stage fans in Ø 400 wheels (was single-stage in Ø 520),
   two-axis tilt (flip + fore/aft pitch), lift fan embedded in the hull behind a thrust-vectoring vane box
   (was a tail pylon), and a delta lifting-body hull.</p>
 </header>
@@ -162,6 +173,14 @@ vehicle that hops obstacles, transfers between floors and rooftops, and dashes t
     <line x1="600" y1="290" x2="600" y2="305"/><line x1="620" y1="290" x2="620" y2="305"/>
     <line x1="640" y1="290" x2="640" y2="305"/>
   </g>
+  <!-- flip pivots: front low on the flank, rear on a raised shoulder pylon -->
+  <path d="M582,214 L600,168 L624,168 L642,214 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  <g opacity="0.55" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+    <line x1="250" y1="262" x2="250" y2="280"/>
+    <line x1="612" y1="172" x2="610" y2="280"/>
+  </g>
+  <circle cx="250" cy="258" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <circle cx="612" cy="170" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
   <!-- battery cassette -->
   <rect x="280" y="238" width="150" height="58" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/>
   <!-- EO/IR mast -->
@@ -177,6 +196,8 @@ vehicle that hops obstacles, transfers between floors and rooftops, and dashes t
     <line x1="176" y1="342" x2="120" y2="342"/>
     <line x1="354" y1="238" x2="420" y2="120"/>
     <line x1="500" y1="290" x2="470" y2="345"/>
+    <line x1="257" y1="258" x2="330" y2="245"/>
+    <line x1="619" y1="170" x2="680" y2="150"/>
   </g>
   <text x="524" y="146">inlet doors (closed in drive)</text>
   <text x="704" y="116">lift fan Ø 380, edge-on</text>
@@ -185,6 +206,8 @@ vehicle that hops obstacles, transfers between floors and rooftops, and dashes t
   <text x="60" y="350" font-size="11">2× Ø 320 coaxial</text>
   <text x="424" y="116">cambered lifting body</text>
   <text x="380" y="360">battery cassette</text>
+  <text x="334" y="249" font-size="11">front flip pivot, low</text>
+  <text x="684" y="146" font-size="11">rear flip pivot, +120</text>
 
   <!-- dimensions -->
   <g stroke="currentColor" stroke-width="1">
@@ -201,7 +224,7 @@ vehicle that hops obstacles, transfers between floors and rooftops, and dashes t
   <text x="438" y="348">150</text>
   <text x="60" y="455" font-size="13">RW-5 FERRET · side elevation, section on centerline · DRIVE MODE · wheels ghosted · dims in mm</text>
 </svg>
-<figcaption><span class="fno">FIG 01</span><span>Side elevation, drive mode, sectioned on the centerline. Cambered lifting-body hull; the embedded lift fan lies flat inside with its inlet doors shut and the vane box beneath; wheels ghosted outboard.</span></figcaption></figure>
+<figcaption><span class="fno">FIG 01</span><span>Side elevation, drive mode, sectioned on the centerline. Cambered lifting-body hull; embedded lift fan flat inside with inlet doors shut and vane box beneath; front flip pivots low, rear pivots on raised pylons; wheels ghosted.</span></figcaption></figure>
 
 <h2><span class="sec">02</span>Hull — delta lifting body</h2>
 <p><strong>Planform:</strong> an F1-style nose 160 mm wide at the sensor tip, sitting between the front
@@ -300,7 +323,7 @@ for skid landings.</p>
   <text x="380" y="266">embedded lift fan Ø 380 · inlet doors open</text>
   <text x="40" y="326">nose EO/IR · 160 mm wide</text>
   <text x="734" y="246">680 mm at the rear</text>
-  <text x="746" y="584">swing-arm: flip 95°, then pitch</text>
+  <text x="746" y="584">rear discs +300 mm above front (FIG 04)</text>
 
   <!-- dimensions -->
   <g stroke="currentColor" stroke-width="1">
@@ -337,6 +360,18 @@ so yaw has to come from vectoring: differential fore/aft pitch — left discs fo
 yaws the vehicle in hover, and symmetric forward pitch is the cruise propulsion. The same authority trims
 the lifting body across the speed range. Both axes lock mechanically at their endpoints, so neither mode
 needs power to hold.</p>
+<h3>Staggered discs — rear pair 300 mm higher</h3>
+<p>Coplanar, the rear discs would fly in the front discs' wake in cruise: 10–15% thrust loss, vibration,
+noise — the reason the CH-47's rear pylon stands taller than its front. Over the 720 mm wheelbase at
+110 km/h the front wake descends ~0.2 m under its own induced velocity but rises ~0.1 m in the body frame
+because the hull flies nose-up, so it reaches the rear axle only ~0.1 m below the front disc plane with a
+radius of at least 0.16 m. Clearing it needs the rear disc centre 0.22 m above the front; with margin,
+<strong>300 mm, 0.75 disc diameters</strong>. The front flip pivots sit low on the flank and the rear pivots on
+raised shoulder pylons with longer swing-arms, so the stagger appears only when the wheels flip; in drive mode
+all four sit at axle height. Cruise AoA is held at 5° rather than 8°, since every degree of nose-up pushes
+the wake toward the rear discs. Two couplings go into the control law: a pitch moment from the vertical
+offset of the thrust lines during translation, and a nose-down tendency as the higher rear discs leave
+ground effect first at liftoff.</p>
 <div class="callout"><p><strong>Failure isolation:</strong> the ground and flight drivetrains share nothing
 but the rim. A wheel with dead fans still drives; a wheel with a dead rim motor still lifts. Drive mode
 works with any flight subsystem dead, and land-and-drive is the universal abort.</p></div>
@@ -466,12 +501,17 @@ and the wing's upper surface; vanes cost ~4% of thrust and no structure. The pre
 lift-fan vane box. The fan carries ~25% of hover thrust and gives direct pitch trim at liftoff, supplies
 forward thrust through the transition, and unloads toward pure propulsion in cruise.</p>
 
-<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 470" role="img" aria-label="Three side-view frames of the RW-5. Drive: wheels down on the ground, fans stopped, inlet doors shut. Hover: airborne with the wheel discs flipped flat outboard, the embedded lift fan drawing air through the open top inlet and exhausting straight down through the vane box. Cruise: the body pitched eight degrees nose-up, wheel discs pitched sixty degrees forward so their thrust points aft, vane box deflecting the lift-fan exhaust fifty degrees aft, forward speed about 110 km/h." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 470" role="img" aria-label="Three side-view frames of the RW-5. Drive: wheels down on the ground, fans stopped, inlet doors shut, front flip pivots low on the flank and rear pivots on raised pylons. Hover: airborne with the wheel discs flipped flat outboard, the rear pair 300 mm higher than the front, the embedded lift fan drawing air through the open top inlet and exhausting straight down. Cruise: hull pitched five degrees nose-up, discs pitched sixty degrees forward, the front discs' wake trailing aft and passing under the raised rear discs, vane box deflecting exhaust fifty degrees aft, forward speed about 110 km/h." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
   <defs>
     <marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
     </marker>
     <path id="hull" d="M190,300 C230,240 330,198 430,198 C560,198 700,215 790,235 L790,270 C700,290 640,305 600,305 L250,305 C220,305 200,303 190,300 Z" fill="none" stroke="currentColor" stroke-width="5"/>
+    <g id="pivots">
+      <path d="M582,214 L600,168 L624,168 L642,214 Z" fill="none" stroke="currentColor" stroke-width="4"/>
+      <circle cx="612" cy="170" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+      <circle cx="250" cy="258" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+    </g>
     <g id="wheel">
       <circle r="100" fill="none" stroke="currentColor" stroke-width="10"/>
       <circle r="80" fill="none" stroke="#E8571F" stroke-width="5"/>
@@ -504,6 +544,7 @@ forward thrust through the transition, and unloads toward pure propulsion in cru
   <!-- frame 1: drive -->
   <g transform="translate(10,150) scale(0.5)">
     <use href="#hull"/>
+    <use href="#pivots"/>
     <line x1="462" y1="205" x2="658" y2="212" stroke="currentColor" stroke-width="5"/>
     <use href="#vanebox"/>
     <use href="#wheel" x="250" y="280"/>
@@ -515,41 +556,54 @@ forward thrust through the transition, and unloads toward pure propulsion in cru
   <!-- frame 2: hover -->
   <g transform="translate(395,110) scale(0.5)">
     <use href="#hull"/>
+    <use href="#pivots"/>
     <use href="#vanebox"/>
+    <g stroke="currentColor" stroke-width="8" stroke-linecap="round">
+      <line x1="250" y1="258" x2="250" y2="228"/>
+      <line x1="612" y1="170" x2="611" y2="90"/>
+    </g>
     <use href="#discedge"/>
-    <use href="#discedge" x="360"/>
+    <use href="#discedge" x="360" y="-150"/>
     <g stroke="currentColor" stroke-width="3">
       <line x1="200" y1="248" x2="200" y2="310" marker-end="url(#a4)"/>
       <line x1="250" y1="248" x2="250" y2="310" marker-end="url(#a4)"/>
       <line x1="300" y1="248" x2="300" y2="310" marker-end="url(#a4)"/>
-      <line x1="560" y1="248" x2="560" y2="310" marker-end="url(#a4)"/>
-      <line x1="610" y1="248" x2="610" y2="310" marker-end="url(#a4)"/>
-      <line x1="660" y1="248" x2="660" y2="310" marker-end="url(#a4)"/>
-      <line x1="520" y1="150" x2="520" y2="200" marker-end="url(#a4)"/>
-      <line x1="560" y1="150" x2="560" y2="200" marker-end="url(#a4)"/>
-      <line x1="600" y1="150" x2="600" y2="200" marker-end="url(#a4)"/>
+      <line x1="560" y1="98" x2="560" y2="160" marker-end="url(#a4)"/>
+      <line x1="610" y1="98" x2="610" y2="160" marker-end="url(#a4)"/>
+      <line x1="660" y1="98" x2="660" y2="160" marker-end="url(#a4)"/>
+      <line x1="500" y1="150" x2="500" y2="200" marker-end="url(#a4)"/>
+      <line x1="540" y1="150" x2="540" y2="200" marker-end="url(#a4)"/>
       <line x1="520" y1="312" x2="520" y2="372" marker-end="url(#a4)"/>
       <line x1="560" y1="312" x2="560" y2="372" marker-end="url(#a4)"/>
       <line x1="600" y1="312" x2="600" y2="372" marker-end="url(#a4)"/>
     </g>
     <line x1="430" y1="190" x2="430" y2="110" stroke="#E8571F" stroke-width="7" marker-end="url(#a4)" color="#E8571F"/>
+    <line x1="150" y1="215" x2="110" y2="215" stroke="currentColor" stroke-width="2"/>
+    <line x1="110" y1="215" x2="110" y2="65" stroke="currentColor" stroke-width="2" marker-start="url(#a4)" marker-end="url(#a4)"/>
+    <line x1="110" y1="65" x2="500" y2="65" stroke="currentColor" stroke-width="2" stroke-dasharray="8 6"/>
   </g>
+  <text x="418" y="176" font-size="11">+300</text>
   <text x="640" y="396" text-anchor="middle" font-size="14">HOVER</text>
-  <text x="640" y="416" text-anchor="middle">discs flat · inlet open · vanes straight down</text>
+  <text x="640" y="416" text-anchor="middle">discs flat · rear pair +300 mm · inlet open · vanes down</text>
 
   <!-- frame 3: cruise -->
-  <g transform="translate(780,100) scale(0.5) rotate(-8 490 260)">
+  <g transform="translate(780,100) scale(0.5) rotate(-5 490 260)">
     <use href="#hull"/>
+    <use href="#pivots"/>
+    <g stroke="currentColor" stroke-width="8" stroke-linecap="round">
+      <line x1="250" y1="258" x2="250" y2="228"/>
+      <line x1="612" y1="170" x2="611" y2="90"/>
+    </g>
+    <path d="M250,215 L740,300" fill="none" stroke="#E8571F" stroke-width="4" stroke-dasharray="12 10" opacity="0.7"/>
     <use href="#discedge" transform="rotate(-60 250 215)"/>
-    <use href="#discedge" transform="rotate(-60 610 215)"/>
+    <use href="#discedge" transform="translate(360,-150) rotate(-60 250 215)"/>
     <g stroke="currentColor" stroke-width="3">
       <line x1="262" y1="236" x2="320" y2="270" marker-end="url(#a4)"/>
       <line x1="292" y1="222" x2="350" y2="256" marker-end="url(#a4)"/>
-      <line x1="622" y1="236" x2="680" y2="270" marker-end="url(#a4)"/>
-      <line x1="652" y1="222" x2="710" y2="256" marker-end="url(#a4)"/>
-      <line x1="520" y1="150" x2="520" y2="200" marker-end="url(#a4)"/>
-      <line x1="560" y1="150" x2="560" y2="200" marker-end="url(#a4)"/>
-      <line x1="600" y1="150" x2="600" y2="200" marker-end="url(#a4)"/>
+      <line x1="622" y1="86" x2="680" y2="120" marker-end="url(#a4)"/>
+      <line x1="652" y1="72" x2="710" y2="106" marker-end="url(#a4)"/>
+      <line x1="500" y1="150" x2="500" y2="200" marker-end="url(#a4)"/>
+      <line x1="540" y1="150" x2="540" y2="200" marker-end="url(#a4)"/>
       <line x1="540" y1="310" x2="586" y2="349" marker-end="url(#a4)"/>
       <line x1="580" y1="310" x2="626" y2="349" marker-end="url(#a4)"/>
       <line x1="620" y1="310" x2="666" y2="349" marker-end="url(#a4)"/>
@@ -563,12 +617,13 @@ forward thrust through the transition, and unloads toward pure propulsion in cru
   </g>
   <line x1="905" y1="118" x2="840" y2="118" stroke="#E8571F" stroke-width="3" marker-end="url(#a4)" color="#E8571F"/>
   <text x="912" y="122" fill="#E8571F">110 km/h</text>
+  <text x="1040" y="262" font-size="11" fill="#E8571F">front-disc wake</text>
   <text x="1025" y="396" text-anchor="middle" font-size="14">CRUISE</text>
-  <text x="1025" y="416" text-anchor="middle">discs 60° fwd · vanes 50° aft · hull +8° AoA</text>
+  <text x="1025" y="416" text-anchor="middle">discs 60° fwd · rear pair clear of the wake · vanes 50° aft · +5° AoA</text>
 
   <text x="24" y="34">RW-5 FERRET · operating modes · side view · lift shown in orange</text>
 </svg>
-<figcaption><span class="fno">FIG 04</span><span>Operating modes, side view. Drive → hover (discs flat, inlet open, vanes straight down) → cruise (discs pitched 60° forward, vanes 50° aft, hull at +8°).</span></figcaption></figure>
+<figcaption><span class="fno">FIG 04</span><span>Operating modes, side view. Drive → hover (rear discs 300 mm above the front pair) → cruise (discs pitched 60° forward, the front-disc wake passing under the raised rear discs, vanes 50° aft, hull at +5°).</span></figcaption></figure>
 
 <h2><span class="sec">05</span>Dimensions, mass &amp; performance</h2>
 <div class="tblwrap"><table>
@@ -580,6 +635,7 @@ forward thrust through the transition, and unloads toward pure propulsion in cru
 <tr><td>Wheel fans</td><td class="v">4 × (2 × Ø 320)</td><td>Max dash</td><td class="v">~145 km/h</td></tr>
 <tr><td>Embedded lift fan</td><td class="v">1 × Ø 380</td><td>Ground speed max / patrol</td><td class="v">45 / 20 km/h</td></tr>
 <tr><td>Ground clearance</td><td class="v">150 mm</td><td>Ground endurance @ 20 km/h</td><td class="v">≈ 3 h / ~50 km</td></tr>
+<tr><td>Rear disc stagger, flight mode</td><td class="v">+300 mm</td><td>Cruise angle of attack</td><td class="v">5°</td></tr>
 <tr><td>GTOW, incl. 3.0 kg payload</td><td class="v">38 kg</td><td>Drive → airborne / hover → cruise</td><td class="v">≈ 3 s / ≈ 6 s</td></tr>
 <tr><td>Battery</td><td class="v">2.0 kWh Li-ion</td><td>Rolled step (Ø 400 wheels)</td><td class="v">≤ 130 mm</td></tr>
 </table></div>
@@ -643,7 +699,183 @@ Rev B's is not. Fan-out redundancy on the lift fan is a Gen-1 design item.</p>
 <tr><td>Doorway width</td><td class="v">680 mm drive mode</td><td>≥ rotor span</td></tr>
 </table></div>
 
-<h2><span class="sec">07</span>Development path</h2>
+<h2><span class="sec">07</span>Scaling to people</h2>
+<p>The architecture scales; the geometry does not. Rotor area is pinned to wheel size and grows with L²
+while mass grows with L³, so disc loading rises linearly with scale and hover power per kilogram with its
+square root. A 4-seat version of this configuration would need ~900 kW to hover — five times an R44 of
+the same mass — and is not worth building. A 2-seat version is defensible, provided the wheels stop being
+the primary lift.</p>
+
+<h2><span class="sec">08</span>RW-2S — two-seat variant</h2>
+<p>Body-lift-dominant: two Ø 1.7 m fans buried in the hull fore and aft of a side-by-side cabin carry
+~75% of hover thrust; the four Ø 0.82 m coaxial rotor-wheels carry the rest and provide ground drive,
+hover yaw and cruise propulsion. A ~300 kW turboshaft generator in the tail feeds every motor, with a
+15 kWh battery for hover peak-shaving and a silent electric ground mode. The rear discs sit 0.5 m above
+the front pair on shoulder pylons.</p>
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" role="img" aria-label="RW-2S two-seat variant, side elevation in drive mode with the hull sectioned on the centerline: a 6.2 metre cambered lifting-body hull with a bubble canopy over a two-seat cabin, two 1.7 metre lift fans buried fore and aft of the cabin, a turboshaft generator in the tail, fuel and battery under the cabin floor, four 0.82 metre coaxial rotor-wheels ghosted outboard, front flip pivots low on the flank and rear pivots on raised pylons; a 1.8 metre standing figure for scale." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+  <defs>
+    <marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+    <linearGradient id="hullg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E7A5A"/><stop offset="1" stop-color="#3E4634"/>
+    </linearGradient>
+    <linearGradient id="glassg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DCE9F0"/><stop offset="1" stop-color="#8FB0C4"/>
+    </linearGradient>
+    <g id="w5">
+      <circle r="45" fill="#24271F" stroke="#111" stroke-width="2"/>
+      <circle r="36" fill="#3B3F35" stroke="#E8571F" stroke-width="2.5"/>
+      <g stroke="#E8571F" stroke-width="4" stroke-linecap="round">
+        <line x1="8" y1="0" x2="33" y2="0"/><line x1="5" y1="6" x2="21" y2="26"/>
+        <line x1="-2" y1="8" x2="-7" y2="32"/><line x1="-7" y1="3" x2="-30" y2="14"/>
+        <line x1="-7" y1="-3" x2="-30" y2="-14"/><line x1="-2" y1="-8" x2="-7" y2="-32"/>
+        <line x1="5" y1="-6" x2="21" y2="-26"/>
+      </g>
+      <circle r="6" fill="#C9CCC3"/>
+    </g>
+  </defs>
+
+  <!-- ground -->
+  <rect x="0" y="400" width="900" height="80" fill="currentColor" opacity="0.06"/>
+  <line x1="30" y1="400" x2="870" y2="400" stroke="currentColor" stroke-width="2"/>
+
+  <!-- scale figure, 1.8 m -->
+  <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+    <circle cx="70" cy="212" r="9"/>
+    <line x1="70" y1="221" x2="70" y2="300"/>
+    <line x1="70" y1="300" x2="60" y2="398"/><line x1="70" y1="300" x2="80" y2="398"/>
+    <line x1="70" y1="240" x2="55" y2="285"/><line x1="70" y1="240" x2="85" y2="285"/>
+  </g>
+  <text x="36" y="195" font-size="11">1.8 m</text>
+
+  <!-- wheels, ghosted -->
+  <g opacity="0.38">
+    <use href="#w5" x="317" y="355"/>
+    <use href="#w5" x="636" y="355"/>
+  </g>
+
+  <!-- hull -->
+  <path d="M130,352 C180,300 280,249 400,249 C540,249 700,258 812,272 L812,306 C700,345 560,367 480,367 L210,367 C170,367 145,362 130,352 Z" fill="url(#hullg)" stroke="#20241E" stroke-width="2"/>
+  <!-- rear pivot pylon -->
+  <path d="M608,264 L624,236 L648,236 L664,264 Z" fill="#4C5540" stroke="#20241E" stroke-width="1.5"/>
+  <circle cx="636" cy="238" r="6" fill="#C9CCC3" stroke="#20241E" stroke-width="1.5"/>
+  <circle cx="317" cy="330" r="6" fill="#C9CCC3" stroke="#20241E" stroke-width="1.5"/>
+  <!-- canopy -->
+  <path d="M412,252 C440,200 530,198 548,256 Z" fill="url(#glassg)" stroke="#20241E" stroke-width="1.5" opacity="0.85"/>
+  <!-- seated figure, ghosted -->
+  <g stroke="#20241E" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.55">
+    <circle cx="468" cy="226" r="8"/>
+    <line x1="466" y1="234" x2="458" y2="292"/>
+    <line x1="458" y1="292" x2="500" y2="294"/>
+    <line x1="500" y1="294" x2="506" y2="332"/>
+  </g>
+  <!-- internal arrangement (section) -->
+  <g fill="none" stroke="#EDEFE6" stroke-width="1.4" stroke-dasharray="5 3">
+    <rect x="224" y="300" width="187" height="28"/>
+    <rect x="521" y="302" width="186" height="28"/>
+    <rect x="713" y="290" width="78" height="30"/>
+    <rect x="420" y="338" width="50" height="22"/>
+    <rect x="480" y="338" width="56" height="22"/>
+  </g>
+  <g stroke="#E8571F" stroke-width="2.5">
+    <line x1="317" y1="304" x2="317" y2="324"/><line x1="614" y1="306" x2="614" y2="326"/>
+    <line x1="232" y1="314" x2="403" y2="314"/><line x1="529" y1="316" x2="699" y2="316"/>
+  </g>
+  <!-- inlet doors (closed) -->
+  <line x1="222" y1="267" x2="414" y2="255" stroke="#20241E" stroke-width="2.5"/>
+  <line x1="520" y1="256" x2="710" y2="266" stroke="#20241E" stroke-width="2.5"/>
+  <!-- vane boxes -->
+  <g stroke="#20241E" stroke-width="1.5">
+    <line x1="250" y1="352" x2="250" y2="366"/><line x1="275" y1="352" x2="275" y2="366"/><line x1="300" y1="352" x2="300" y2="366"/>
+    <line x1="325" y1="352" x2="325" y2="366"/><line x1="350" y1="352" x2="350" y2="366"/><line x1="375" y1="352" x2="375" y2="366"/>
+    <line x1="550" y1="345" x2="550" y2="360"/><line x1="575" y1="342" x2="575" y2="358"/><line x1="600" y1="340" x2="600" y2="356"/>
+    <line x1="625" y1="338" x2="625" y2="354"/><line x1="650" y1="336" x2="650" y2="352"/><line x1="675" y1="334" x2="675" y2="350"/>
+  </g>
+  <!-- exhaust -->
+  <path d="M812,290 L836,286 L836,296 L812,300 Z" fill="#6B6F66" stroke="#20241E" stroke-width="1.5"/>
+
+  <!-- callouts -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="300" y1="300" x2="330" y2="232"/>
+    <line x1="614" y1="330" x2="600" y2="384"/>
+    <line x1="750" y1="320" x2="760" y2="384"/>
+    <line x1="290" y1="322" x2="220" y2="214"/>
+    <line x1="648" y1="238" x2="700" y2="222"/>
+    <line x1="320" y1="336" x2="200" y2="384"/>
+    <line x1="470" y1="362" x2="470" y2="384"/>
+  </g>
+  <text x="334" y="228" font-size="11">front lift fan Ø 1.7 · inlet doors</text>
+  <text x="440" y="388" font-size="11">rear lift fan Ø 1.7 · vane box</text>
+  <text x="655" y="388" font-size="11">turboshaft genset · tail exhaust</text>
+  <text x="120" y="210" font-size="11">rotor-wheels Ø 0.82 · 2× Ø 0.66 coaxial</text>
+  <text x="704" y="218" font-size="11">rear flip pivot on pylon</text>
+  <text x="120" y="388" font-size="11">front flip pivot, low</text>
+  <text x="380" y="388" font-size="11">fuel</text>
+
+  <!-- dimensions -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="130" y1="408" x2="130" y2="446"/><line x1="812" y1="408" x2="812" y2="446"/>
+    <line x1="137" y1="438" x2="805" y2="438" marker-start="url(#a5)" marker-end="url(#a5)"/>
+    <line x1="560" y1="208" x2="860" y2="208"/><line x1="820" y1="400" x2="860" y2="400"/>
+    <line x1="852" y1="215" x2="852" y2="393" marker-start="url(#a5)" marker-end="url(#a5)"/>
+  </g>
+  <text x="471" y="431" text-anchor="middle">6.2 m</text>
+  <text x="860" y="308">1.75 m</text>
+  <text x="30" y="468" font-size="13">RW-2S · two-seat variant · side elevation, section on centerline · DRIVE MODE · 2.6 m overall width</text>
+</svg>
+<figcaption><span class="fno">FIG 05</span><span>RW-2S two-seat variant, side elevation sectioned on the centerline: two Ø 1.7 m lift fans fore and aft of the cabin, turboshaft generator in the tail, fuel and battery under the floor, Ø 0.82 m coaxial rotor-wheels ghosted; 1.8 m figure for scale.</span></figcaption></figure>
+
+<div class="viewer">
+  <div class="modes"><button data-mode="drive" aria-pressed="false">Drive</button><button data-mode="hover" aria-pressed="false">Hover</button><button data-mode="cruise" aria-pressed="true">Cruise</button></div>
+  <div id="v3d"></div>
+  <div class="hint"><span class="fno" style="color:var(--accent-ink)">FIG 06</span> &nbsp;RW-2S concept model. Drag to orbit, scroll to zoom. Drive → hover → cruise shows the wheels flipping, the rear pair riding higher, the discs pitching forward and the lift-fan doors opening.</div>
+</div>
+
+<div class="tblwrap"><table>
+<tr><th>Item</th><th>RW-2S</th><th>Item</th><th>RW-2S</th></tr>
+<tr><td>Crew</td><td>2, side by side</td><td>GTOW</td><td class="v">~800 kg</td></tr>
+<tr><td>Length / hull width / overall width / height</td><td class="v">6.2 / 2.1 / 2.6 / 1.75 m</td><td>Disc area / loading</td><td class="v">5.9 m² / ~135 kg/m²</td></tr>
+<tr><td>Flight footprint</td><td class="v">4.5 × 6.2 m</td><td>Hover power</td><td class="v">≈ 300 kW</td></tr>
+<tr><td>Rotor-wheels</td><td class="v">4 × Ø 0.82, 2 × Ø 0.66 coaxial</td><td>Cruise</td><td class="v">~160 km/h @ ≈ 120 kW</td></tr>
+<tr><td>Hull lift fans</td><td class="v">2 × Ø 1.7, tandem</td><td>Fuel / air endurance</td><td class="v">80 kg · ~1.3 h cruise, ~200 km</td></tr>
+<tr><td>Rear disc stagger</td><td class="v">+0.5 m (0.75 D)</td><td>Silent electric mode</td><td class="v">~1.5 h driving · 3 min hover</td></tr>
+<tr><td>Power</td><td>turboshaft-electric hybrid</td><td>Ground</td><td class="v">80 km/h · ~4 h on fuel</td></tr>
+</table></div>
+<h3>Mass budget (target)</h3>
+<div class="tblwrap"><table>
+<tr><th>Group</th><th>kg</th></tr>
+<tr><td>Lifting-body hull, structure, canopy</td><td class="v">150</td></tr>
+<tr><td>Rotor-wheel modules, 4 × 28</td><td class="v">112</td></tr>
+<tr><td>Hull lift fans, ducts, doors, vane boxes, 2 × 35</td><td class="v">70</td></tr>
+<tr><td>Turboshaft, generator, power electronics</td><td class="v">120</td></tr>
+<tr><td>Battery, 15 kWh</td><td class="v">60</td></tr>
+<tr><td>Fuel</td><td class="v">80</td></tr>
+<tr><td>Crew and kit, 2 × 90</td><td class="v">180</td></tr>
+<tr><td>Avionics, comms, payload</td><td class="v">25</td></tr>
+<tr><td>Wiring, thermal, misc.</td><td class="v">28</td></tr>
+<tr class="total"><td>Gross takeoff mass (825 → 800 target)</td><td class="v">800</td></tr>
+</table></div>
+<h3>What changes at this scale</h3>
+<ul>
+  <li><strong>The doorway advantage is gone.</strong> At 2.6 m wide it does not go inside buildings. The mission becomes rough-terrain mobility plus short-hop VTOL for a two-person team — where a helicopter can't land and a truck can't drive. Precedent: DARPA Transformer TX / Advanced Tactics Black Knight, 2014.</li>
+  <li><strong>Hover is turbine-fuelled.</strong> 300 kW for 10 minutes is 50 kWh — 200 kg of cells, or ~22 kg of Jet-A. The battery's job is peak-shaving and the silent electric ground mode, which is the tactical feature worth having.</li>
+  <li><strong>Packaging drives the length.</strong> Two Ø 1.7 fans, a 1.2 m cabin and a turbine in the tail is 6.2 m. A single Ø 2.2 fan behind the cabin would be shorter but costs ~8% hover power and makes the aft fan even more mandatory.</li>
+  <li><strong>Three times an R22's power for the same seats.</strong> That is the price of keeping rotors in wheels. RW-2S is defensible only where the ground mode does most of the work.</li>
+</ul>
+
+<h2><span class="sec">09</span>Turbines at human scale</h2>
+<p>"Small turbines instead of the dual fans" is three different ideas, and only one is good.</p>
+<div class="tblwrap"><table>
+<tr><th>Option</th><th>What it is</th><th>Verdict</th></tr>
+<tr><td><strong>A. Micro-turbojets in the wheels</strong></td><td>Replace each coaxial fan pair with a ~600 N turbojet (JetCat P550 class)</td><td><strong>Reject.</strong> Turbojet fuel burn is ~150 kg per kN·h: 8 kN of hover thrust burns ~10 kg of fuel a minute — jet-suit endurance, 5–8 min. Exhaust at 600 °C and ~400 m/s inside a tire destroys the tire, the ground and anyone nearby. FOD ingestion at 100,000 rpm turns every mud and debris problem into a blade-out. Thermal soak rules out drive mode after flight. And turbojets are propulsively inefficient below ~300 km/h — the wrong engine for a 160 km/h vehicle.</td></tr>
+<tr><td><strong>B. Small turbofans as the hull lift fans</strong></td><td>A gas-turbine core driving each Ø 1.7 fan mechanically</td><td><strong>Possible, second choice.</strong> Efficient enough, fans stay cold and mesh-protected. But gearboxes and shafting through the hull, two hot cores under the cabin, no silent electric mode, and the redundancy of independent electric motors is lost.</td></tr>
+<tr><td><strong>C. Turboshaft generator, electric fans everywhere</strong></td><td>One turbine in the tail turning a generator; every fan and wheel stays electric</td><td><strong>Recommended.</strong> Fuel at ~3.5 kWh/kg after a 30% turbine is 14× battery — the one thing that lets an 800 kg VTOL hover for more than a few minutes. The turbine sits protected in the tail with clean inlet air and a Kamm-tail exhaust. Every rotor stays electric: fine control, redundancy, mesh protection, silent battery driving. Small turboshafts burn ~0.45 kg/kWh, which is why fuel is 80 kg — still a tenth the mass of the equivalent battery.</td></tr>
+</table></div>
+<div class="callout"><p><strong>Rule of thumb:</strong> turbines belong in the body as the power source, never in the wheels as thrusters. The point of a rotor-wheel is a fan you can drive on; a turbine is a fan you cannot get near.</p></div>
+
+<h2><span class="sec">10</span>Development path</h2>
 <ul>
   <li><strong>Gen-0, bench —</strong> one coaxial rotor-wheel on a thrust stand and dyno: validate FoM ≥ 0.55 with mesh, both stages' thermals, two-axis mount loads.</li>
   <li><strong>Gen-0.3, tunnel —</strong> a 1:2 lifting-body model: confirm C<sub>L</sub> ≈ 0.7 at 8° and pitch behaviour with the lift-fan inlet open and closed.</li>
@@ -652,5 +884,216 @@ Rev B's is not. Fan-out redundancy on the lift fan is a Gen-1 design item.</p>
   <li><strong>Gen-2 —</strong> environmental hardening (mud, sand, EMI) and autonomous doorway / stairwell traversal.</li>
 </ul>
 
-<footer>RW-5 FERRET · concept specification Rev B · unarmed ISR / scout mobility platform · all dimensions mm, masses kg</footer>
+<footer>RW-5 FERRET · concept specification Rev C · unarmed ISR / scout mobility platform · all dimensions mm, masses kg</footer>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// RW-2S two-seat rotorwheel — interactive 3D concept model (three.js r128).
+// Modes: drive / hover / cruise. Drag to orbit, wheel to zoom.
+(function () {
+  var host = document.getElementById('v3d');
+  if (!host) return;
+  if (!window.THREE) { host.textContent = '3D library did not load.'; return; }
+  var T = window.THREE;
+
+  var W = host.clientWidth || 900, H = Math.round(W * 0.58);
+  var renderer = new T.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(W, H);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = T.PCFSoftShadowMap;
+  renderer.outputEncoding = T.sRGBEncoding;
+  host.appendChild(renderer.domElement);
+
+  var scene = new T.Scene();
+  scene.background = new T.Color(0xd6dccf);
+  scene.fog = new T.Fog(0xd6dccf, 30, 70);
+
+  var camera = new T.PerspectiveCamera(36, W / H, 0.1, 200);
+
+  scene.add(new T.HemisphereLight(0xeaf0f6, 0x6e6a58, 0.85));
+  var sun = new T.DirectionalLight(0xfff3df, 1.15);
+  sun.position.set(7, 11, 5);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.left = -9; sun.shadow.camera.right = 9;
+  sun.shadow.camera.top = 9; sun.shadow.camera.bottom = -9;
+  sun.shadow.bias = -0.0006;
+  scene.add(sun);
+
+  var ground = new T.Mesh(new T.PlaneGeometry(90, 90), new T.MeshStandardMaterial({ color: 0xb4ab8f, roughness: 1 }));
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+  var grid = new T.GridHelper(40, 40, 0x8f886f, 0xa49d85); grid.position.y = 0.004; scene.add(grid);
+
+  var hullMat = new T.MeshStandardMaterial({ color: 0x55613f, roughness: 0.6, metalness: 0.08, side: T.DoubleSide });
+  var darkMat = new T.MeshStandardMaterial({ color: 0x23261f, roughness: 0.9 });
+  var tireMat = new T.MeshStandardMaterial({ color: 0x1c1e1a, roughness: 0.95 });
+  var rimMat = new T.MeshStandardMaterial({ color: 0x9a9e95, roughness: 0.35, metalness: 0.75, side: T.DoubleSide });
+  var orange = new T.MeshStandardMaterial({ color: 0xe8571f, roughness: 0.5 });
+  var glass = new T.MeshPhysicalMaterial({ color: 0x9dc0d8, transparent: true, opacity: 0.45, roughness: 0.08, metalness: 0, side: T.DoubleSide });
+  var suitMat = new T.MeshStandardMaterial({ color: 0x3a3d33, roughness: 0.9 });
+
+  // ---- hull: delta lifting body, lofted from a cambered thick section ----
+  var L = 6.2, HW = 1.05, SWEEP = 1.7;
+  function section(t, c) {           // t = chord fraction, c = local chord; returns [upper, lower]
+    var x = t;
+    var th = 5 * 0.16 * (0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * x * x + 0.2843 * x * x * x - 0.1015 * x * x * x * x);
+    var cam = 0.04 * 4 * x * (1 - x);
+    return [(cam + th) * c, (cam - th * 0.5) * c];
+  }
+  function chordAt(a) { var le = SWEEP * Math.pow(a, 1.15); var te = L - 0.25 * a * a; return [le, Math.max(te - le, 0.05)]; }
+  var NS = 56, NC = 44, pos = [], idx = [], row = 2 * NC + 1;
+  for (var i = 0; i <= NS; i++) {
+    var s = -1 + 2 * i / NS, a = Math.abs(s), lc = chordAt(a), le = lc[0], c = lc[1];
+    var tip = 1 - 0.88 * Math.pow(a, 7);
+    for (var j = 0; j <= 2 * NC; j++) {
+      var t, up; if (j <= NC) { t = j / NC; up = true; } else { t = 1 - (j - NC) / NC; up = false; }
+      var tt = 0.5 - 0.5 * Math.cos(Math.PI * t);
+      var yy = section(tt, c); var y = (up ? yy[0] : yy[1]) * tip;
+      pos.push(le + tt * c, y, s * HW);
+    }
+  }
+  for (var i2 = 0; i2 < NS; i2++) for (var j2 = 0; j2 < 2 * NC; j2++) {
+    var p = i2 * row + j2, q = p + row; idx.push(p, q, p + 1, p + 1, q, q + 1);
+  }
+  var hg = new T.BufferGeometry();
+  hg.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+  hg.setIndex(idx); hg.computeVertexNormals();
+  var nAttr = hg.getAttribute('normal'), midTop = ((NS / 2) | 0) * row + ((NC / 2) | 0);
+  if (nAttr.getY(midTop) < 0) { hg.setIndex(idx.slice().reverse()); hg.computeVertexNormals(); }
+  hg.computeBoundingBox();
+  var belly = hg.boundingBox.min.y;
+
+  var vehicle = new T.Group(); scene.add(vehicle);
+  var body = new T.Group(); vehicle.add(body);   // body: pitched for AoA
+  var hull = new T.Mesh(hg, hullMat); hull.castShadow = true; hull.receiveShadow = true; body.add(hull);
+  function topAt(x, z) { var a = Math.abs(z) / HW, lc = chordAt(a); var t = (x - lc[0]) / lc[1]; if (t < 0 || t > 1) return 0; return section(t, lc[1])[0] * (1 - 0.88 * Math.pow(a, 7)); }
+
+  // canopy + crew
+  var canX = 3.15, canTop = topAt(canX, 0);
+  var canopy = new T.Mesh(new T.SphereGeometry(1, 40, 24), glass);
+  canopy.scale.set(0.82, 0.46, 0.72); canopy.position.set(canX, canTop - 0.02, 0); body.add(canopy);
+  [-0.32, 0.32].forEach(function (z) {
+    var helmet = new T.Mesh(new T.SphereGeometry(0.15, 20, 14), new T.MeshStandardMaterial({ color: 0x5b6150, roughness: 0.6 }));
+    helmet.position.set(canX - 0.05, canTop + 0.16, z); body.add(helmet);
+    var torso = new T.Mesh(new T.BoxGeometry(0.34, 0.42, 0.36), suitMat);
+    torso.position.set(canX + 0.05, canTop - 0.16, z); body.add(torso);
+  });
+  // mast / sensor
+  var sensor = new T.Mesh(new T.SphereGeometry(0.09, 16, 12), darkMat); sensor.position.set(0.32, topAt(0.32, 0) + 0.02, 0); body.add(sensor);
+
+  // ---- embedded lift fans with inlet doors ----
+  var doors = [];
+  function liftFan(x) {
+    var r = 0.85, y = topAt(x, 0);
+    var ring = new T.Mesh(new T.TorusGeometry(r, 0.045, 10, 64), rimMat);
+    ring.rotation.x = Math.PI / 2; ring.position.set(x, y + 0.015, 0); body.add(ring);
+    var disc = new T.Mesh(new T.CircleGeometry(r - 0.02, 48), darkMat);
+    disc.rotation.x = -Math.PI / 2; disc.position.set(x, y - 0.06, 0); body.add(disc);
+    var fan = new T.Group(); fan.position.set(x, y - 0.03, 0); body.add(fan);
+    for (var k = 0; k < 7; k++) {
+      var b = new T.Mesh(new T.BoxGeometry(0.72, 0.02, 0.11), orange);
+      b.position.x = 0.42; var g = new T.Group(); g.rotation.y = k * 2 * Math.PI / 7; g.add(b); fan.add(g);
+    }
+    var hub = new T.Mesh(new T.CylinderGeometry(0.1, 0.1, 0.1, 20), rimMat); hub.position.set(x, y - 0.02, 0); body.add(hub);
+    // louvered inlet: 7 slats hinged on lateral axes, closed flush in drive mode
+    var NSL = 7, slatW = 2 * r / NSL;
+    for (var si = 0; si < NSL; si++) {
+      var hinge = new T.Group(); hinge.position.set(x - r + slatW * (si + 0.5), y + 0.03, 0); body.add(hinge);
+      var half = Math.sqrt(Math.max(r * r - Math.pow(x - hinge.position.x, 2), 0.05));
+      var slat = new T.Mesh(new T.BoxGeometry(slatW * 0.95, 0.02, 2 * half), hullMat); slat.castShadow = true;
+      hinge.add(slat);
+      doors.push({ g: hinge, sd: 1 });
+    }
+    return fan;
+  }
+  var fans = [liftFan(1.7), liftFan(4.4)];
+  // exhaust stub
+  var exh = new T.Mesh(new T.CylinderGeometry(0.11, 0.13, 0.3, 16), darkMat); exh.rotation.z = Math.PI / 2; exh.position.set(L + 0.1, topAt(L - 0.15, 0) * 0.45 + 0.05, 0); body.add(exh);
+
+  // ---- rotor-wheels: flip (about fore-aft axis) then pitch (about lateral axis) ----
+  var wheels = [];
+  function wheelModule(xw, side, rear) {
+    var zp = side * HW * 0.86;
+    var yp = topAt(xw, zp) + (rear ? 0.40 : 0.05);   // front pivot on the shoulder, rear pivot on a 0.4 m pylon
+    if (rear) { var py = new T.Mesh(new T.BoxGeometry(0.42, 0.42, 0.2), hullMat); py.castShadow = true; py.position.set(xw, topAt(xw, zp) + 0.19, zp); body.add(py); }
+    var flip = new T.Group(); flip.position.set(xw, yp, zp); body.add(flip);
+    var wc = new T.Vector3(0, (belly + 0.11) - yp, side * (HW + 0.22) - zp);   // axle 0.41 m above ground = belly + 0.11 in body coords
+    var len = wc.length();
+    var arm = new T.Mesh(new T.CylinderGeometry(0.045, 0.045, len, 12), rimMat);
+    arm.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), wc.clone().normalize());
+    arm.position.copy(wc).multiplyScalar(0.5); arm.castShadow = true; flip.add(arm);
+    var pitch = new T.Group(); pitch.position.copy(wc); flip.add(pitch);
+    var tire = new T.Mesh(new T.TorusGeometry(0.34, 0.075, 16, 48), tireMat); tire.castShadow = true; pitch.add(tire);
+    var rim = new T.Mesh(new T.CylinderGeometry(0.33, 0.33, 0.24, 48, 1, true), rimMat); rim.rotation.x = Math.PI / 2; pitch.add(rim);
+    var duct = new T.Mesh(new T.CylinderGeometry(0.315, 0.315, 0.2, 48, 1, true), darkMat); duct.rotation.x = Math.PI / 2; pitch.add(duct);
+    var hub = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.24, 16), rimMat); hub.rotation.x = Math.PI / 2; pitch.add(hub);
+    var stages = [];
+    [-0.055, 0.055].forEach(function (dz, si) {
+      var st = new T.Group(); st.position.z = dz; pitch.add(st);
+      for (var k = 0; k < 7; k++) {
+        var b = new T.Mesh(new T.BoxGeometry(0.24, 0.09, 0.018), orange); b.position.x = 0.18;
+        var g = new T.Group(); g.rotation.z = k * 2 * Math.PI / 7 + si * 0.45; g.add(b); st.add(g);
+      }
+      stages.push({ g: st, dir: si ? -1 : 1 });
+    });
+    wheels.push({ flip: flip, pitch: pitch, side: side, stages: stages, hub: hub });
+  }
+  [[1.7, false], [4.6, true]].forEach(function (w) { wheelModule(w[0], -1, w[1]); wheelModule(w[0], 1, w[1]); });
+
+  body.position.y = -belly + 0.30;   // belly 0.30 m above ground in drive mode
+
+  // ---- modes ----
+  var modes = {
+    drive:  { lift: 0.0, aoa: 0, flip: 0, pitch: 0, doors: 0, spin: 0 },
+    hover:  { lift: 1.3, aoa: 0, flip: 95, pitch: 0, doors: 1, spin: 1 },
+    cruise: { lift: 1.9, aoa: 5, flip: 95, pitch: 60, doors: 1, spin: 1 }
+  };
+  var cur = { lift: 1.9, aoa: 5, flip: 95, pitch: 60, doors: 1, spin: 1 }, target = modes.cruise;
+  function setMode(name) {
+    target = modes[name];
+    var bs = host.parentNode.querySelectorAll('[data-mode]');
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', bs[i].getAttribute('data-mode') === name ? 'true' : 'false');
+  }
+  var btns = host.parentNode.querySelectorAll('[data-mode]');
+  for (var bi = 0; bi < btns.length; bi++) btns[bi].addEventListener('click', function (e) { setMode(e.currentTarget.getAttribute('data-mode')); });
+  setMode('cruise');
+
+  // ---- orbit ----
+  var theta = -0.9, phi = 1.12, dist = 10.8, tgt = new T.Vector3(L * 0.5, 1.0, 0), drag = null;
+  function updateCam() {
+    camera.position.set(tgt.x + dist * Math.sin(phi) * Math.cos(theta), tgt.y + dist * Math.cos(phi), tgt.z + dist * Math.sin(phi) * Math.sin(theta));
+    camera.lookAt(tgt);
+  }
+  var el = renderer.domElement;
+  el.addEventListener('pointerdown', function (e) { drag = { x: e.clientX, y: e.clientY }; el.setPointerCapture(e.pointerId); });
+  el.addEventListener('pointermove', function (e) { if (!drag) return; theta -= (e.clientX - drag.x) * 0.007; phi = Math.max(0.25, Math.min(1.5, phi - (e.clientY - drag.y) * 0.005)); drag = { x: e.clientX, y: e.clientY }; });
+  el.addEventListener('pointerup', function () { drag = null; });
+  el.addEventListener('wheel', function (e) { e.preventDefault(); dist = Math.max(6, Math.min(30, dist * (1 + e.deltaY * 0.001))); }, { passive: false });
+  el.style.cursor = 'grab'; el.style.touchAction = 'none';
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var d2r = Math.PI / 180, spinA = 0;
+  function frame() {
+    var k = reduce ? 1 : 0.06;
+    for (var key in cur) cur[key] += (target[key] - cur[key]) * k;
+    vehicle.position.y = cur.lift;
+    body.rotation.z = -cur.aoa * d2r;          // nose-up: nose is at x=0, tail at +x
+    for (var i = 0; i < wheels.length; i++) {
+      var w = wheels[i];
+      w.flip.rotation.x = -w.side * cur.flip * d2r;
+      w.pitch.rotation.y = -w.side * cur.pitch * d2r;
+      for (var s = 0; s < w.stages.length; s++) w.stages[s].g.rotation.z = w.stages[s].dir * spinA;
+    }
+    for (var d = 0; d < doors.length; d++) doors[d].g.rotation.z = cur.doors * 62 * d2r;
+    for (var f = 0; f < fans.length; f++) fans[f].rotation.y = spinA * 0.7;
+    spinA += cur.spin * 0.35;
+    updateCam();
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize', function () { var w2 = host.clientWidth; if (!w2) return; var h2 = Math.round(w2 * 0.58); renderer.setSize(w2, h2); camera.aspect = w2 / h2; camera.updateProjectionMatrix(); });
+  frame();
+})();
+
+</script>

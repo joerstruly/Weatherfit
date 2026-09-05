@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" role="img" aria-label="RW-2S two-seat variant, side elevation in drive mode with the hull sectioned on the centerline: a 6.2 metre cambered lifting-body hull with a bubble canopy over a two-seat cabin, two 1.7 metre lift fans buried fore and aft of the cabin, a turboshaft generator in the tail, fuel and battery under the cabin floor, four 0.82 metre coaxial rotor-wheels ghosted outboard, front flip pivots low on the flank and rear pivots on raised pylons; a 1.8 metre standing figure for scale." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+  <defs>
+    <marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+    <linearGradient id="hullg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E7A5A"/><stop offset="1" stop-color="#3E4634"/>
+    </linearGradient>
+    <linearGradient id="glassg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DCE9F0"/><stop offset="1" stop-color="#8FB0C4"/>
+    </linearGradient>
+    <g id="w5">
+      <circle r="45" fill="#24271F" stroke="#111" stroke-width="2"/>
+      <circle r="36" fill="#3B3F35" stroke="#E8571F" stroke-width="2.5"/>
+      <g stroke="#E8571F" stroke-width="4" stroke-linecap="round">
+        <line x1="8" y1="0" x2="33" y2="0"/><line x1="5" y1="6" x2="21" y2="26"/>
+        <line x1="-2" y1="8" x2="-7" y2="32"/><line x1="-7" y1="3" x2="-30" y2="14"/>
+        <line x1="-7" y1="-3" x2="-30" y2="-14"/><line x1="-2" y1="-8" x2="-7" y2="-32"/>
+        <line x1="5" y1="-6" x2="21" y2="-26"/>
+      </g>
+      <circle r="6" fill="#C9CCC3"/>
+    </g>
+  </defs>
+
+  <!-- ground -->
+  <rect x="0" y="400" width="900" height="80" fill="currentColor" opacity="0.06"/>
+  <line x1="30" y1="400" x2="870" y2="400" stroke="currentColor" stroke-width="2"/>
+
+  <!-- scale figure, 1.8 m -->
+  <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+    <circle cx="70" cy="212" r="9"/>
+    <line x1="70" y1="221" x2="70" y2="300"/>
+    <line x1="70" y1="300" x2="60" y2="398"/><line x1="70" y1="300" x2="80" y2="398"/>
+    <line x1="70" y1="240" x2="55" y2="285"/><line x1="70" y1="240" x2="85" y2="285"/>
+  </g>
+  <text x="36" y="195" font-size="11">1.8 m</text>
+
+  <!-- wheels, ghosted -->
+  <g opacity="0.38">
+    <use href="#w5" x="317" y="355"/>
+    <use href="#w5" x="636" y="355"/>
+  </g>
+
+  <!-- hull -->
+  <path d="M130,352 C180,300 280,249 400,249 C540,249 700,258 812,272 L812,306 C700,345 560,367 480,367 L210,367 C170,367 145,362 130,352 Z" fill="url(#hullg)" stroke="#20241E" stroke-width="2"/>
+  <!-- rear pivot pylon -->
+  <path d="M608,264 L624,236 L648,236 L664,264 Z" fill="#4C5540" stroke="#20241E" stroke-width="1.5"/>
+  <circle cx="636" cy="238" r="6" fill="#C9CCC3" stroke="#20241E" stroke-width="1.5"/>
+  <circle cx="317" cy="330" r="6" fill="#C9CCC3" stroke="#20241E" stroke-width="1.5"/>
+  <!-- canopy -->
+  <path d="M412,252 C440,200 530,198 548,256 Z" fill="url(#glassg)" stroke="#20241E" stroke-width="1.5" opacity="0.85"/>
+  <!-- seated figure, ghosted -->
+  <g stroke="#20241E" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.55">
+    <circle cx="468" cy="226" r="8"/>
+    <line x1="466" y1="234" x2="458" y2="292"/>
+    <line x1="458" y1="292" x2="500" y2="294"/>
+    <line x1="500" y1="294" x2="506" y2="332"/>
+  </g>
+  <!-- internal arrangement (section) -->
+  <g fill="none" stroke="#EDEFE6" stroke-width="1.4" stroke-dasharray="5 3">
+    <rect x="224" y="300" width="187" height="28"/>
+    <rect x="521" y="302" width="186" height="28"/>
+    <rect x="713" y="290" width="78" height="30"/>
+    <rect x="420" y="338" width="50" height="22"/>
+    <rect x="480" y="338" width="56" height="22"/>
+  </g>
+  <g stroke="#E8571F" stroke-width="2.5">
+    <line x1="317" y1="304" x2="317" y2="324"/><line x1="614" y1="306" x2="614" y2="326"/>
+    <line x1="232" y1="314" x2="403" y2="314"/><line x1="529" y1="316" x2="699" y2="316"/>
+  </g>
+  <!-- inlet doors (closed) -->
+  <line x1="222" y1="267" x2="414" y2="255" stroke="#20241E" stroke-width="2.5"/>
+  <line x1="520" y1="256" x2="710" y2="266" stroke="#20241E" stroke-width="2.5"/>
+  <!-- vane boxes -->
+  <g stroke="#20241E" stroke-width="1.5">
+    <line x1="250" y1="352" x2="250" y2="366"/><line x1="275" y1="352" x2="275" y2="366"/><line x1="300" y1="352" x2="300" y2="366"/>
+    <line x1="325" y1="352" x2="325" y2="366"/><line x1="350" y1="352" x2="350" y2="366"/><line x1="375" y1="352" x2="375" y2="366"/>
+    <line x1="550" y1="345" x2="550" y2="360"/><line x1="575" y1="342" x2="575" y2="358"/><line x1="600" y1="340" x2="600" y2="356"/>
+    <line x1="625" y1="338" x2="625" y2="354"/><line x1="650" y1="336" x2="650" y2="352"/><line x1="675" y1="334" x2="675" y2="350"/>
+  </g>
+  <!-- exhaust -->
+  <path d="M812,290 L836,286 L836,296 L812,300 Z" fill="#6B6F66" stroke="#20241E" stroke-width="1.5"/>
+
+  <!-- callouts -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="300" y1="300" x2="330" y2="232"/>
+    <line x1="614" y1="330" x2="600" y2="384"/>
+    <line x1="750" y1="320" x2="760" y2="384"/>
+    <line x1="290" y1="322" x2="220" y2="214"/>
+    <line x1="648" y1="238" x2="700" y2="222"/>
+    <line x1="320" y1="336" x2="200" y2="384"/>
+    <line x1="470" y1="362" x2="470" y2="384"/>
+  </g>
+  <text x="334" y="228" font-size="11">front lift fan Ø 1.7 · inlet doors</text>
+  <text x="440" y="388" font-size="11">rear lift fan Ø 1.7 · vane box</text>
+  <text x="655" y="388" font-size="11">turboshaft genset · tail exhaust</text>
+  <text x="120" y="210" font-size="11">rotor-wheels Ø 0.82 · 2× Ø 0.66 coaxial</text>
+  <text x="704" y="218" font-size="11">rear flip pivot on pylon</text>
+  <text x="120" y="388" font-size="11">front flip pivot, low</text>
+  <text x="380" y="388" font-size="11">fuel</text>
+
+  <!-- dimensions -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="130" y1="408" x2="130" y2="446"/><line x1="812" y1="408" x2="812" y2="446"/>
+    <line x1="137" y1="438" x2="805" y2="438" marker-start="url(#a5)" marker-end="url(#a5)"/>
+    <line x1="560" y1="208" x2="860" y2="208"/><line x1="820" y1="400" x2="860" y2="400"/>
+    <line x1="852" y1="215" x2="852" y2="393" marker-start="url(#a5)" marker-end="url(#a5)"/>
+  </g>
+  <text x="471" y="431" text-anchor="middle">6.2 m</text>
+  <text x="860" y="308">1.75 m</text>
+  <text x="30" y="468" font-size="13">RW-2S · two-seat variant · side elevation, section on centerline · DRIVE MODE · 2.6 m overall width</text>
+</svg>
