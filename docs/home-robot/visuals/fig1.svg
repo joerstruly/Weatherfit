@@ -79,7 +79,7 @@
 <ellipse class="ink" cx="250.0" cy="518.0" rx="23.1" ry="42.0" opacity="0.35"/>
 <path class="shell" d="M210.9,527.0 C185.7,509.0 185.7,464.0 193.0,458.0 L307.0,458.0 C314.3,464.0 314.3,509.0 289.1,527.0 Z"/>
 <path class="shell" d="M193.0,458.0 C188.4,404.0 194.1,329.0 199.8,296.0 L300.2,296.0 C305.9,329.0 311.6,404.0 307.0,458.0 Z"/>
-<path class="shell2" d="M199.8,296.0 C190.0,287.0 190.0,272.0 211.0,266.0 L289.0,266.0 C310.0,272.0 310.0,287.0 300.2,296.0 Z"/>
+<path class="shell2" d="M199.8,296.0 C184.0,287.0 184.0,272.0 211.0,266.0 L289.0,266.0 C316.0,272.0 316.0,287.0 300.2,296.0 Z"/>
 <path class="shell" d="M211.0,266.0 C211.0,230.0 228.6,215.0 250.0,215.0 C271.4,215.0 289.0,230.0 289.0,266.0 Z"/>
 <rect class="hi" x="212.9" y="245.0" width="74.1" height="1.8" rx="2"/>
 <path class="ink" d="M205.0,290.0 L205.0,272.0" opacity="0.6"/>
@@ -90,7 +90,7 @@
 <path class="shell" d="M600.9,527.0 C575.7,509.0 575.7,464.0 583.0,458.0 L697.0,458.0 C704.3,464.0 704.3,509.0 679.1,527.0 Z"/>
 <path class="shell" d="M583.0,458.0 C578.4,404.0 584.1,329.0 589.8,296.0 L690.2,296.0 C695.9,329.0 701.6,404.0 697.0,458.0 Z"/>
 <rect class="hatch" x="619.0" y="161.0" width="42.0" height="135.0"/>
-<path class="shell2" d="M589.8,161.0 C580.0,152.0 580.0,137.0 601.0,131.0 L679.0,131.0 C700.0,137.0 700.0,152.0 690.2,161.0 Z"/>
+<path class="shell2" d="M589.8,161.0 C574.0,152.0 574.0,137.0 601.0,131.0 L679.0,131.0 C706.0,137.0 706.0,152.0 690.2,161.0 Z"/>
 <path class="shell" d="M601.0,131.0 C601.0,95.0 618.5,80.0 640.0,80.0 C661.5,80.0 679.0,95.0 679.0,131.0 Z"/>
 <rect class="hi" x="603.0" y="110.0" width="74.1" height="1.8" rx="2"/>
 <path class="ink2" d="M688.0,146.0 L766.0,134.0 L835.0,182.0"/>
@@ -114,4 +114,4 @@
 <line class="dim" x1="661.0" y1="161.0" x2="700.0" y2="161.0" stroke-dasharray="3 3"/>
 <line class="dim" x1="690.0" y1="296.0" x2="690.0" y2="161.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="698.0" y="232.5" text-anchor="start">450 mast stroke</text>
 <line class="dim" x1="688.0" y1="118.0" x2="847.0" y2="118.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="767.5" y="112.0" text-anchor="middle">750 reach</text>
-<text class="muted" x="860" y="606" text-anchor="end">all dimensions mm · mass 45 kg dry / 48 kg wet · scale 0.3</text></svg>
+<text class="muted" x="860" y="606" text-anchor="end">all dimensions mm · mass 58 kg dry / 61 kg wet · scale 0.3</text></svg>

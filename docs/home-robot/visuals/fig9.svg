@@ -1,0 +1,78 @@
+<svg viewBox="0 0 960 700" width="960" height="700" role="img" aria-label="Plan of the turret at 930 mm showing four primary shoulders at 45-degree offsets on the upper ring, two helper shoulders at the sides on the lower ring, the wand at the rear and the magazine door at the front" xmlns="http://www.w3.org/2000/svg">
+<style>
+  svg { color:#1F2A33; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .paper { fill:#F5F6F3; }
+  .ink { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round; }
+  .ink2 { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .shell { fill:#ECEBE3; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .shell2 { fill:#E0DFD5; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .ball { fill:#2B3540; stroke:currentColor; stroke-width:1.5; }
+  .hi { fill:#1C7FA8; stroke:none; }
+  .hiink { fill:none; stroke:#1C7FA8; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .hifill { fill:#1C7FA8; fill-opacity:0.18; stroke:#1C7FA8; stroke-width:1.5; }
+  .amb { fill:#B8700A; stroke:none; }
+  .ambink { fill:none; stroke:#B8700A; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .ambfill { fill:#B8700A; fill-opacity:0.22; stroke:#B8700A; stroke-width:1.5; }
+  .dim { fill:none; stroke:#6B7680; stroke-width:1; }
+  .dimt { fill:#6B7680; font-size:12px; }
+  .lbl { fill:currentColor; font-size:13px; }
+  .lblb { fill:currentColor; font-size:13px; font-weight:600; }
+  .cap { fill:currentColor; font-size:14px; font-weight:600; letter-spacing:0.04em; }
+  .muted { fill:#6B7680; font-size:12px; }
+  .grid { stroke:#D2D6D0; stroke-width:1; }
+  .ghost { fill:none; stroke:currentColor; stroke-width:1.2; stroke-dasharray:4 4; opacity:0.55; }
+  .hatch { fill:url(#hatch); stroke:currentColor; stroke-width:1.2; }
+  .bar-h { fill:#1C7FA8; }
+  .bar-r { fill:#B8700A; }
+  .bar-idle { fill:#D2D6D0; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><rect class="paper" x="0" y="0" width="960" height="700"/><text class="cap" x="40" y="32">TURRET · PLAN AT 930 mm · FRONT UP</text>
+<circle class="shell2" cx="330" cy="330" r="220.0"/>
+<circle class="ghost" cx="330" cy="330" r="205.0"/>
+<circle class="shell" cx="330" cy="330" r="130.0"/>
+<circle class="hatch" cx="330" cy="330" r="70.0"/>
+<circle class="hi" cx="330.0" cy="205.0" r="5"/>
+<circle class="hi" cx="455.0" cy="330.0" r="5"/>
+<circle class="hi" cx="330.0" cy="455.0" r="5"/>
+<circle class="hi" cx="205.0" cy="330.0" r="5"/>
+<g transform="rotate(45 453.7 206.3)"><rect class="hifill" x="398.7" y="171.3" width="110.0" height="70.0" rx="10"/></g>
+<text class="lbl" x="453.7" y="210.3" text-anchor="middle">P1</text>
+<g transform="rotate(135 453.7 453.7)"><rect class="hifill" x="398.7" y="418.7" width="110.0" height="70.0" rx="10"/></g>
+<text class="lbl" x="453.7" y="457.7" text-anchor="middle">P2</text>
+<g transform="rotate(225 206.3 453.7)"><rect class="hifill" x="151.3" y="418.7" width="110.0" height="70.0" rx="10"/></g>
+<text class="lbl" x="206.3" y="457.7" text-anchor="middle">P3</text>
+<g transform="rotate(315 206.3 206.3)"><rect class="hifill" x="151.3" y="171.3" width="110.0" height="70.0" rx="10"/></g>
+<text class="lbl" x="206.3" y="210.3" text-anchor="middle">P4</text>
+<g transform="rotate(90 515.0 330.0)"><rect class="ambfill" x="475.0" y="305.0" width="80.0" height="50.0" rx="10"/></g>
+<text class="lbl" x="515.0" y="334.0" text-anchor="middle">H1</text>
+<g transform="rotate(270 145.0 330.0)"><rect class="ambfill" x="105.0" y="305.0" width="80.0" height="50.0" rx="10"/></g>
+<text class="lbl" x="145.0" y="334.0" text-anchor="middle">H2</text>
+<circle class="ambfill" cx="330.0" cy="515.0" r="22.0"/>
+<text class="lbl" x="330.0" y="519.0" text-anchor="middle">W</text>
+<path class="amb" d="M292.6,137.6 L290.7,127.8 A206.0,206.0 0 0 1 369.3,127.8 L367.4,137.6 A196.0,196.0 0 0 0 292.6,137.6 Z" opacity="0.5"/>
+<path class="dim" d="M494.0,166.0 A232.0,232.0 0 0 1 562.0,330.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/>
+<text class="dimt" x="575" y="392">45° · 157 mm arc, P1 to H1</text>
+<line class="dim" x1="110.0" y1="578.0" x2="550.0" y2="578.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="330.0" y="572.0" text-anchor="middle">Ø440 shoulder ring</text>
+<line class="dim" x1="200.0" y1="602.0" x2="460.0" y2="602.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="330.0" y="596.0" text-anchor="middle">Ø260 head</text>
+<rect class="hifill" x="600" y="98" width="24" height="14" rx="3"/><text class="lbl" x="634" y="110">P1–P4 primary 7-DOF, ring 930 mm</text>
+<rect class="ambfill" x="600" y="128" width="24" height="14" rx="3"/><text class="lbl" x="634" y="140">H1–H2 helper 4-DOF, ring 895 mm</text>
+<circle class="ambfill" cx="612" cy="165" r="7"/><text class="lbl" x="634" y="170">W wand shoulder, rear</text>
+<circle class="hi" cx="612" cy="195" r="5"/><text class="lbl" x="634" y="200">RGB-D cameras at 0/90/180/270</text>
+<rect class="amb" x="600" y="218" width="24" height="8" opacity="0.5"/><text class="lbl" x="634" y="230">magazine door, 470–830 mm below</text>
+<text class="muted" x="600" y="270">Two rings put neighbouring shoulders</text>
+<text class="muted" x="600" y="286">35 mm above/below each other, so a</text>
+<text class="muted" x="600" y="302">110 mm primary and an 80 mm helper</text>
+<text class="muted" x="600" y="318">share 157 mm of arc.</text>
+<text class="muted" x="600" y="348">Arms fold into channels down the body;</text>
+<text class="muted" x="600" y="364">hands park in bays at the skirt.</text>
+<text class="muted" x="40" y="684">the turret rotates 360° continuously, so the door and the cameras stay fixed to the body while every shoulder can face any station</text></svg>

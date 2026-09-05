@@ -3,25 +3,25 @@
 | Field | Value |
 |---|---|
 | Document | Concept design specification |
-| Revision | 0.4 (pre-feasibility) |
+| Revision | 0.5 (pre-feasibility) |
 | Date | 2026-09-05 |
 | Status | Draft for design review |
-| Visuals | `visuals/fig1.svg` … `fig8.svg` and `render-*.png` (generated from one dimensioned model) |
+| Visuals | `visuals/fig1.svg` … `fig9.svg` and `render-*.png` (generated from one dimensioned model) |
 
 ## 0. Summary
 
-GYRO is a self-balancing household robot that rides a single 280 mm drive ball, carries its tools inside a sealed egg-shaped body, and deploys two general-purpose arms, two helper arms and a wiping wand from a rotating turret. It is deliberately not humanoid: it has no face, no legs, and no gait. It is an appliance with reach.
+GYRO is a self-balancing household robot that rides a single 280 mm drive ball, carries its tools inside a sealed egg-shaped body, and deploys four general-purpose arms, two helper arms and a wiping wand from a rotating turret. It is deliberately not humanoid: it has no face, no legs, and no gait. It is an appliance with reach.
 
-Revision 0.2 replaced the single 8-slot tool carousel with a three-tier, 34-pocket magazine (§5.3) and added rendered views of the model (§5.4). Revision 0.3 removed the onboard vacuum unit and its snorkel arm: the robot uses the household vacuum instead (§5.5). Revision 0.4 makes throughput a primary requirement: speed-and-separation monitoring replaces the fixed hand-speed cap, two helper arms join the two primary arms, and §5.6 sets a speed target per task. Outdoor tasks are an open platform decision (§11, item 7).
+Revision 0.2 replaced the single 8-slot tool carousel with a three-tier, 34-pocket magazine (§5.3) and added rendered views of the model (§5.4). Revision 0.3 removed the onboard vacuum unit and its snorkel arm: the robot uses the household vacuum instead (§5.5). Revision 0.4 makes throughput a primary requirement: speed-and-separation monitoring replaces the fixed hand-speed cap, two helper arms join the two primary arms, and §5.6 sets a speed target per task. Outdoor tasks are an open platform decision (§11, item 7). Revision 0.5 sets the arm count at four primary and two helper arms (§5.1, §5.2, Figure 9) and resizes the drive, mast, battery and budgets to carry them.
 
 The original brief had four claims. Two survive intact, two need to be reframed before anyone spends money on them:
 
 | Claim in the brief | Verdict | What the spec does about it |
 |---|---|---|
 | People will accept a non-humanoid robot more readily | **Holds.** The strongest part of the idea. | Design principle 1. No face, no eye contact, appliance semantics throughout. |
-| One wheel, blob body | **Holds for locomotion, fails for work.** A balancing robot can only push as hard as it can lean, roughly 30 N. Scrubbing a pan needs more. | Two postures: Roam (balancing) and Plant (three feet down, ball braked, >100 N). See §3 and Figure 2. |
+| One wheel, blob body | **Holds for locomotion, fails for work.** A balancing robot can only push as hard as it can lean, roughly 40 N. Scrubbing a pan needs more. | Two postures: Roam (balancing) and Plant (three feet down, ball braked, >100 N). See §3 and Figure 2. |
 | Tools pop out of the body | **Holds, with a change of shape.** Eight dedicated pop-out arms do not fit in a 420 mm body. | Two general arms plus a three-tier internal magazine of 34 heads with a 4 s change cycle. See §5 and Figures 4, 7 and 8. |
-| 4× a human's work in the same time and less space | **Holds for the hands-on part, not for the machines.** Four effectors, faster-than-human tips in an empty room and wider tool heads give 2–4× on manipulation-bound steps. Appliance cycles are unchanged, so "done" still waits on the dishwasher. | Throughput is a primary requirement (§5.6). Robot-hours are the scarce resource when the task list is long, so every task carries a speed target. See §9 and Figure 6. |
+| 4× a human's work in the same time and less space | **Holds for the hands-on part, not for the machines.** Six arms and a wand, faster-than-human tips in an empty room and wider tool heads give 2–5× on manipulation-bound steps. Appliance cycles are unchanged, so "done" still waits on the dishwasher. | Throughput is a primary requirement (§5.6). Robot-hours are the scarce resource when the task list is long, so every task carries a speed target. See §9 and Figure 6. |
 
 The single biggest unsolved problem is stairs. A wheeled or ball-riding robot cannot climb them, and this spec does not pretend otherwise (§11).
 
@@ -31,7 +31,7 @@ The single biggest unsolved problem is stairs. A wheeled or ball-riding robot ca
 2. **Everything lives inside the shell.** No tools hang off the body when it roams. The stowed silhouette is one smooth solid so it can pass a 600 mm doorway with a child on either side without snagging.
 3. **Small footprint over long reach.** A 420 mm body fits between a fridge and a counter edge, in a laundry closet, and behind a door. Reach comes from a 450 mm telescoping mast, not from a tall standing body.
 4. **Safe to fail.** Any fault, including total power loss, ends with the robot resting on its skirt within one second. A balancing robot that can fall over is not a home product.
-5. **Fast when alone, careful when close.** Robot-hours are the scarce resource, so the robot is built to beat a person on every hands-on task: four effectors working at once, tool tips at 2.5 m/s when no one is in the room, and heads wider than a hand. Speed is gated by distance to people (speed and separation monitoring), not capped by design. A person entering the room slows the robot; it never slows the schedule when nobody is there.
+5. **Fast when alone, careful when close.** Robot-hours are the scarce resource, so the robot is built to beat a person on every hands-on task: six arms and a wand working at once, tool tips at 2.5 m/s when no one is in the room, and heads wider than a hand. Speed is gated by distance to people (speed and separation monitoring), not capped by design. A person entering the room slows the robot; it never slows the schedule when nobody is there.
 6. **Don't carry what the house already owns.** There is no vacuum unit on board. Whole-floor coverage is the robot vacuum's job; spot and edge vacuuming is done with the household stick vacuum, which GYRO picks up and operates like any other tool. The same rule applies to the sink, the dishwasher and the washing machine: GYRO carries the hands, the house supplies the machines.
 
 ## 2. General arrangement
@@ -42,16 +42,16 @@ The single biggest unsolved problem is stairs. A wheeled or ball-riding robot ca
 |---|---|---|
 | Height, stowed | 1150 mm | Below a standard 1400 mm upper-cabinet base; head does not hit open cabinet doors |
 | Height, mast up | 1600 mm | Shoulder ring rises from 930 mm to 1380 mm |
-| Body diameter, max | 420 mm | At the skirt, 300 mm above floor |
+| Body diameter, max | 440 mm | At the shoulder ring; skirt is 420 mm |
 | Body diameter, waist | 380 mm | |
 | Drive ball | Ø280 mm, polyurethane over aluminium | Same class as CMU Ballbot / ETH Rezero |
 | Floor footprint (Roam) | Ø280 contact patch | Effectively a point contact plus a 420 mm shadow |
-| Floor footprint (Plant) | Ø500 mm stance | Three feet at 250 mm radius |
-| Mass, dry | 45 kg | Budget in §10 |
-| Mass, wet | 48 kg | 2 L water + 0.5 L detergent, 28 heads and 3 pad cassettes |
-| Arm reach | 750 mm from shoulder | Two primary arms, §5 |
+| Floor footprint (Plant) | Ø560 mm stance | Three feet at 280 mm radius |
+| Mass, dry | 58 kg | Budget in §10 |
+| Mass, wet | 61 kg | 2 L water + 0.5 L detergent, 28 heads and 3 pad cassettes |
+| Arm reach | 750 mm from shoulder | Four primary arms and two 600 mm helpers, §5 |
 | Max lift height | ~2100 mm | Mast up, arm vertical; front of a 1750 mm shelf only, see §6 |
-| Doorway clearance | 600 mm door with 90 mm each side | |
+| Doorway clearance | 600 mm door with 80 mm each side | Arms stowed in body channels, nothing proud of the shell |
 
 The proportions are set by two constraints pulling in opposite directions. The mass must sit as low as possible for balance, so the battery, water and ball drive fill the skirt. The arms must reach counters and cabinets, so the shoulders sit at 930 mm and lift a further 450 mm. The mast is what lets both be true without a tall, top-heavy body.
 
@@ -63,19 +63,19 @@ The proportions are set by two constraints pulling in opposite directions. The m
 
 | Parameter | Value |
 |---|---|
-| Drive | 3 omniwheels at 120° on the ball, 3 × 250 W BLDC, 12:1 planetary |
+| Drive | 3 omniwheels at 120° on the ball, 3 × 350 W BLDC, 12:1 planetary |
 | Speed | 1.2 m/s max, 0.6 m/s default indoors, 0.25 m/s within 1 m of a person |
 | Acceleration | 1.5 m/s² |
 | Threshold / obstacle | 20 mm step, 12 mm gap, 3° lean on carpet edges |
 | Turning | Omnidirectional, zero radius; turret rotates independently |
 | Balance loop | 1 kHz IMU + wheel odometry, LQR with model-predictive lean limiting |
-| Sustained lateral force at 900 mm | ~30 N (lean-limited, m·g·d/h with d ≈ 0.06 m) |
+| Sustained lateral force at 900 mm | ~40 N (lean-limited, m·g·d/h with d ≈ 0.06 m, m = 58 kg) |
 
-> **Review note.** The single wheel is right for moving and wrong for working. A balancing robot exerts force by leaning; the moment it can generate is bounded by its mass times the horizontal offset it can safely hold, divided by the height it pushes at. For a 45 kg body pushing at counter height that is about 30 N, sustained. Scrubbing a baked-on pan is 20–50 N. Opening a stiff fridge door is 30–70 N. Lifting a full laundry basket from a front-loader shifts the centre of mass by more than the ball can chase on a wet floor. So the ball alone does not do the jobs in the brief. The fix is not to give up the ball, it is to give the robot a way to stand still.
+> **Review note.** The single wheel is right for moving and wrong for working. A balancing robot exerts force by leaning; the moment it can generate is bounded by its mass times the horizontal offset it can safely hold, divided by the height it pushes at. For a 58 kg body pushing at counter height that is about 40 N, sustained. Scrubbing a baked-on pan is 20–50 N. Opening a stiff fridge door is 30–70 N. Lifting a full laundry basket from a front-loader shifts the centre of mass by more than the ball can chase on a wet floor. So the ball alone does not do the jobs in the brief. The fix is not to give up the ball, it is to give the robot a way to stand still.
 
 ### 3.2 Plant
 
-Three outrigger feet stow in the skirt and deploy to a 500 mm stance in about 1.5 s. A friction brake locks the ball. In Plant the robot is a tripod with a low centre of mass and can sustain >100 N at counter height, limited by the feet's rubber pads rather than by balance. The controller enters Plant automatically before any task tagged high-force: scrubbing, prying, pulling a drawer, hauling laundry, holding a pot under a tap.
+Three outrigger feet stow in the skirt and deploy to a 560 mm stance in about 1.5 s. A friction brake locks the ball. In Plant the robot is a tripod with a low centre of mass and can sustain >150 N at counter height with all six arms loaded on one side, limited by the feet's rubber pads rather than by balance. The controller enters Plant automatically before any task tagged high-force: scrubbing, prying, pulling a drawer, hauling laundry, holding a pot under a tap.
 
 Plant also cuts idle power: the balance loop drops from 60 W to under 5 W, which matters for tasks like folding that take twenty minutes at one spot.
 
@@ -99,7 +99,7 @@ The body is three zones stacked on a telescoping mast:
 |---|---|---|
 | Skirt | 110–340 mm | Ball drive, brake, 1.2 kWh annular battery, 3 outrigger feet, supercapacitor bank, charge contacts on the lip |
 | Mid-body | 340–880 mm | Clean water 1.0 L and grey water 1.0 L with pumps (350–460), three-tier tool magazine with 34 pockets (470–830), compute deck (836–878) |
-| Turret + head | 880–1150 mm (+450 with mast) | 360° turret bearing, two primary arm shoulders, wand shoulder, sensor crown, speaker, light ring |
+| Turret + head | 880–1150 mm (+450 with mast) | 360° turret bearing, four primary shoulders on the upper ring, two helper shoulders on the lower ring, wand shoulder at the rear, sensor crown, speaker, light ring |
 
 Shell: two-part rotomoulded polypropylene with a soft TPE band around the skirt and turret. Matte, single colour, no seams on the front. The head dome is a translucent polycarbonate ring so the light ring reads from any side.
 
@@ -109,7 +109,7 @@ Sealing: mid-body is IPX4. The magazine door and its drip trays drain into the g
 
 The brief pictures a body that pops out a different arm for each job. Eight single-purpose arms do not fit in 0.1 m³ and would each need their own actuators, sensors and safety cases. The spec keeps the feeling of the idea and changes the mechanism: general arms, specialised heads, stored densely in a magazine that the shell hides completely.
 
-### 5.1 Primary arms (×2)
+### 5.1 Primary arms (×4)
 
 | Parameter | Value |
 |---|---|
@@ -123,16 +123,19 @@ The brief pictures a body that pops out a different arm for each job. Eight sing
 | Wrist coupler | 3-lug bayonet, 4 pogo pins (power + data), 20 N·m rated |
 | Wrist camera | Global-shutter RGB, 110° FOV, in the palm |
 | Mass, each | 4.5 kg |
+| Layout | Four shoulders at 45°, 135°, 225°, 315° on a Ø440 ring at 930 mm; 157 mm of arc between neighbouring shoulders (Figure 9) |
 
-The arms stow flush inside the turret with the hands in recessed bays. Both shoulders sit on the turret so the robot can work on any side without moving the base, which matters in a galley kitchen and at a laundry machine.
+The arms fold in three segments into recessed channels down the body, hands in bays at the skirt, so nothing stands proud of the shell in Roam. All six shoulders sit on the turret so the robot can work on any side without moving the base. Four primaries let it work two stations from one Plant position: two arms load the dishwasher while two scrub the hob, or two fold while two sort. That, and not raw speed at one station, is why the count is four: at a single sink the third and fourth arm queue for the same rack, at two stations they double the work done per Plant.
+
+![Figure 9. Turret plan at 930 mm. Four primary shoulders on the upper ring, two helpers on the lower ring at the sides, the wand at the rear, the magazine door below at the front. Arms fold into the body channels shown as ghosts.](visuals/fig9.svg)
 
 ### 5.2 Helper arms (×2) and wand
 
-**Helper arms.** Two 4-DOF arms on the turret at 90° to the primaries, 600 mm reach, 3 kg payload, same wrist coupler and the same speed gating. They are the third and fourth hands a person does not have: they carry the tray, hold the dishwasher rack out, hold the pot the primary is scrubbing, hold a bag open, pass items into the primaries' workspace so the primaries never travel. They cost a third of a primary arm and weigh less than half, and in the dish timeline (§9) they are worth more than a third primary arm would be, because the shared resources at a sink reward holding, not grasping.
+**Helper arms.** Two 4-DOF arms on a lower ring at the turret's sides (90° and 270°), 600 mm reach, 3 kg payload, same wrist coupler and the same speed gating. They are the third and fourth hands a person does not have: they carry the tray, hold the dishwasher rack out, hold the pot the primary is scrubbing, hold a bag open, pass items into the primaries' workspace so the primaries never travel. They cost a third of a primary arm and weigh less than half, and in the dish timeline (§9) they are worth more than a third primary arm would be, because the shared resources at a sink reward holding, not grasping.
 
 **Wand.** A 3-DOF arm with a 500 mm telescoping shaft from the turret. Head carries a 400 mm squeegee, spray nozzle, microfibre pad and a 275 nm UV-C strip. Wipes counters and tables while the arms are busy. The 400 mm blade is deliberate: it is nearly three times the width of a hand with a cloth, which is where most of its speed comes from.
 
-Revision 0.2 also had a snorkel: a low arm carrying a hose from an onboard wet/dry vacuum. It is gone, together with the vacuum unit and its 1.5 L bin, because the house already owns a better vacuum than a 48 kg robot can carry. Wet spills are now handled by the wand's squeegee and absorbent pads from the magazine into the grey tank, and dry debris by the household vacuum (§5.5).
+Revision 0.2 also had a snorkel: a low arm carrying a hose from an onboard wet/dry vacuum. It is gone, together with the vacuum unit and its 1.5 L bin, because the house already owns a better vacuum than a 61 kg robot can carry. Wet spills are now handled by the wand's squeegee and absorbent pads from the magazine into the grey tank, and dry debris by the household vacuum (§5.5).
 
 ### 5.3 Tool magazine
 
@@ -216,12 +219,12 @@ The argument for speed is utilisation. A robot that does twice as many tasks per
 
 | Task | Human | Target | Mechanism | What it needs |
 |---|---|---|---|---|
-| Evening dishes to dishwasher start | 26 min | 6.5 min (4×) | 4 effectors, no pre-rinse, tray carry, 3-plate gripper head | Helper arms, magazine head C7 (multi-plate clip) |
+| Evening dishes to dishwasher start | 26 min | 5 min (5×) | Two arms load while two scrub the hob and pots, helpers hold, no pre-rinse, tray carry, 3-plate gripper head | Helper arms, magazine head C7 (multi-plate clip) |
 | Wipe counters and table | 8 min | 3 min (2.7×) | 400 mm squeegee on the wand, sprayed ahead by the arm | Wand as specified |
-| Vacuum and dust a room | 25 min | 10 min (2.5×) | Stick vacuum at a steady 0.5 m/s with no pauses; dust wand on the other arm at the same time | Handle adapter B10, dust wand C5 |
-| Laundry: transfer, hang, fold 20 items | 18 min | 12 min (1.5×) | Two folding arms plus two holders; fold on a heated board | Cloth manipulation policies; this is the schedule risk, not the hardware |
-| Bathroom surfaces | 12 min | 6 min (2×) | Wand plus arm, Plant once per fixture | As specified |
-| Tidy 30 objects to home | 10 min | 6 min (1.7×) | Tray carry, both arms sorting on the move | Recognition speed, not motion |
+| Vacuum and dust a room | 25 min | 8 min (3×) | One arm runs the stick vacuum at a steady 0.5 m/s, one lifts chairs ahead of it, two dust | Handle adapter B10, dust wand C5 |
+| Laundry: transfer, hang, fold 20 items | 18 min | 8 min (2.2×) | Two items folded at once, each by a pair of arms, helpers feed and stack | Cloth manipulation policies; this is the schedule risk, not the hardware |
+| Bathroom surfaces | 12 min | 5 min (2.4×) | Wand plus four arms on sink, mirror and toilet from one Plant | As specified |
+| Tidy 30 objects to home | 10 min | 4 min (2.5×) | Helpers carry two trays, four arms sort on the move | Recognition speed, not motion |
 | Shovel a 20 m² driveway | 20 min | 4 min (5×) | A 600 mm plow blade, not a shovel: a vehicle task | Outdoor base (§11 item 7) |
 | Power-wash siding, 60 m² | 60 min | 45 min (1.3×) | Bounded by the washer's flow; the robot only removes rest breaks and ladder moves | Outdoor base; tether to the pressure washer |
 | Clean single-storey gutters, 40 m | 60 min | 20 min (3×) | Gutter head on a 4 m mast traversing continuously instead of ladder hops | Outdoor base with mast |
@@ -268,10 +271,11 @@ Privacy is a product feature, not a legal note. There is no forward-facing "eye"
 
 | Parameter | Value |
 |---|---|
-| Battery | 1.2 kWh LFP, annular, 48 V, hot-swap not supported (mass sits too low to reach) |
+| Battery | 1.6 kWh LFP, annular, 48 V, hot-swap not supported (mass sits too low to reach) |
 | Runtime | 4–5 h active manipulation, 8 h mixed, 30 h Plant idle |
-| Idle draw | 60 W Roam, <5 W Plant, 3 W Kneel |
-| Charge | 0–80% in 70 min via skirt-lip contacts on the dock |
+| Idle draw | 70 W Roam, <5 W Plant, 3 W Kneel |
+| Peak draw | 1.4 kW with six arms and the ball drive at full speed |
+| Charge | 0–80% in 90 min via skirt-lip contacts on the dock |
 | Fail-safe | 100 F supercapacitor for the Kneel descent |
 | Dock | Charges, drains grey water, refills clean water, holds 4 spare heads and 2 pad cassettes |
 | Water | 1.0 L clean / 1.0 L grey; prefers the household tap when at a sink |
@@ -280,22 +284,22 @@ The robot does not carry hot water. It uses the sink for anything that needs it,
 
 ## 9. Task performance and the throughput claim
 
-![Figure 6. Evening dishes for a family of four. A person needs 26 minutes of sequential work; the robot's two arms, two helpers and wand finish in 6.5 minutes in parallel, with no pre-rinse and a tray carry. The 2-hour dishwasher cycle is unchanged either way.](visuals/fig6.svg)
+![Figure 6. Evening dishes for a family of four. A person needs 26 minutes of sequential work; the robot's four arms, two helpers and wand finish in 5 minutes across two stations, with no pre-rinse and a tray carry. The 2-hour dishwasher cycle is unchanged either way.](visuals/fig6.svg)
 
-Per-grasp speed is taken at 1.2× a person's in an empty room at product maturity and 0.6× with a person nearby, because the speed gate is on. Current research systems are slower than both. The gains below come mostly from four effectors in parallel, wider heads and process changes, and the table marks which of those each row depends on.
+Per-grasp speed is taken at 1.2× a person's in an empty room at product maturity and 0.6× with a person nearby, because the speed gate is on. Current research systems are slower than both. The gains below come mostly from six arms and a wand in parallel, working two stations from one Plant, wider heads and process changes, and the table marks which of those each row depends on.
 
 | Task | Human | GYRO (mature) | Ratio on the manipulation step | What actually bounds "done" |
 |---|---|---|---|---|
-| Evening dishes, load + pots + counters | 26 min | 6.5 min | 4× | Dishwasher cycle ~2 h |
+| Evening dishes, load + pots + counters | 26 min | 5 min | 5× | Dishwasher cycle ~2 h |
 | Unload dishwasher, put away | 6 min | 3 min | 2× | Reach to top shelf |
-| Laundry: transfer, hang, fold 20 items | 18 min | 12 min | 1.5× | Washer 50 min + dryer 60 min |
+| Laundry: transfer, hang, fold 20 items | 18 min | 8 min | 2.2× | Washer 50 min + dryer 60 min |
 | Wipe kitchen after cooking | 8 min | 3 min | 2.7× | Wand blade width |
-| Bathroom: sink, mirror, toilet exterior | 12 min | 6 min | 2× | Plant/relocate cycles |
-| Tidy a room (30 objects to home) | 10 min | 6 min | 1.7× | Recognition, not motion |
-| Vacuum and dust a room | 25 min | 10 min | 2.5× | Stick vacuum head width |
+| Bathroom: sink, mirror, toilet exterior | 12 min | 5 min | 2.4× | Plant/relocate cycles |
+| Tidy a room (30 objects to home) | 10 min | 4 min | 2.5× | Recognition, not motion |
+| Vacuum and dust a room | 25 min | 8 min | 3× | Stick vacuum head width |
 | Whole-floor vacuum, 60 m² | 20 min | not attempted | – | Delegated to the robot vacuum |
 
-> **Review note.** Revision 0.1 said speed does not matter because the robot works while the family sleeps. That was wrong for the product being specified. It is true only when the robot has fewer tasks than hours, and a robot that also does the tidying, the bathrooms, the laundry and the outdoor list does not. Robot-hours are the scarce resource, tasks have windows that collide (dishes before bed, driveway before the commute), and in a leased fleet every saved minute is a minute sold to the next house. So throughput is now a primary requirement (§5.6). What has not changed: a dishwasher still takes two hours, and "done" for dishes and laundry is still the machine, not the hands. The honest claim is 2–4× on the hands-on part, and 12–18 hours a week of a person's attention returned.
+> **Review note.** Revision 0.1 said speed does not matter because the robot works while the family sleeps. That was wrong for the product being specified. It is true only when the robot has fewer tasks than hours, and a robot that also does the tidying, the bathrooms, the laundry and the outdoor list does not. Robot-hours are the scarce resource, tasks have windows that collide (dishes before bed, driveway before the commute), and in a leased fleet every saved minute is a minute sold to the next house. So throughput is now a primary requirement (§5.6). What has not changed: a dishwasher still takes two hours, and "done" for dishes and laundry is still the machine, not the hands. The honest claim is 2–5× on the hands-on part, and 12–18 hours a week of a person's attention returned.
 
 The one place the "less space" half of the claim is straightforwardly true: GYRO in Plant occupies 0.2 m² of floor at a sink. A person working there occupies about 0.5 m² and needs another 0.6 m² to move. The robot can work in a galley kitchen while a person passes behind it.
 
@@ -303,26 +307,26 @@ The one place the "less space" half of the claim is straightforwardly true: GYRO
 
 | Subsystem | Mass | Volume BOM (10k/yr) |
 |---|---|---|
-| Ball, drive, brake, feet | 8.0 kg | $1,100 |
-| Battery + BMS + supercap | 7.5 kg | $700 |
-| Structure, mast, turret bearing | 6.0 kg | $900 |
-| Primary arms ×2, hands | 9.0 kg | $4,200 |
+| Ball, drive (3 × 350 W), brake, feet | 8.5 kg | $1,300 |
+| Battery 1.6 kWh + BMS + supercap | 9.5 kg | $900 |
+| Structure, mast (500 W lift), Ø440 turret bearing | 7.5 kg | $1,200 |
+| Primary arms ×4, hands | 18.0 kg | $8,400 |
 | Helper arms ×2 | 4.0 kg | $1,200 |
 | Utility arm (wand) | 1.5 kg | $350 |
 | Magazine, 3 tiers, 34 pockets + 28 heads | 5.0 kg | $900 |
 | Tanks, pumps | 1.2 kg | $180 |
 | Sensors + compute | 2.0 kg | $1,300 |
-| Shell, seals, light ring | 3.0 kg | $600 |
+| Shell, seals, light ring | 3.2 kg | $650 |
 | Harness, misc | 1.0 kg | $300 |
-| **Total** | **48 kg wet** | **≈ $11,730** |
+| **Total** | **61 kg wet** | **≈ $16,680** |
 
-At a 2.2× multiplier on BOM that is a $24–27k retail unit or a $350–450/month lease, which is the format most households will actually take. The arms are 46% of the cost and the lever for phase-3 reductions.
+At a 2.2× multiplier on BOM that is a $36–40k retail unit or a $600–700/month lease. The six arms are 58% of the cost, which is why the throughput case in §5.6 has to hold: at this price the robot earns its place by clearing more of the list per hour, and a shared or leased fleet is the natural format.
 
 ## 11. Risks and open questions
 
 1. **Stairs.** A ball cannot climb them and a 45 kg robot cannot be carried. Options, in order of preference: sell one unit per floor (the base and body are cheap; the arms are not, and a dumb second body could share arms via the coupler spec), a home lift in new builds, or a stair-climbing dock module that is really a second robot. Single-floor is the phase-1 scope and this is the biggest reason a humanoid competitor could win multi-storey homes.
 2. **Wet floors.** Omniwheel-on-ball drives slip on wet tile. Mitigations: wetness sensor forces Plant before any spill task, ball tread compound, and the wand squeegees its own path dry before the ball crosses it. This needs a test rig before anything else is built.
-3. **Manipulation is the schedule risk, not the ball.** Ballbots have been stable since 2006. Folding a fitted sheet is not solved anywhere. Phase timing below assumes learned policies keep improving at the current rate; if they stall, the product ships as a dishes-and-wiping robot first.
+3. **Manipulation is the schedule risk, not the ball.** Ballbots have been stable since 2006, though at 61 kg with 26 kg of arms above the turret bearing this one is at the top-heavy end of what has been built and needs the 350 W drive and a validated balance model before anything else. Six arms and a wand in one workspace also make collision-aware planning the hardest software problem in the product. Folding a fitted sheet is not solved anywhere. Phase timing below assumes learned policies keep improving at the current rate; if they stall, the product ships as a dishes-and-wiping robot first.
 4. **Acceptance is asserted, not measured.** The appliance-not-person principle is well supported by the uncanny-valley literature and by how people treat robot vacuums, but nobody has put a 1.15 m self-balancing egg in a family kitchen for a month. Run that study in phase 1 with a foam mock-up on a remote-controlled ballbot before locking the shell.
 5. **Children and pets.** A balancing robot pushed by a child must not fall on them. Roam speed near people drops to 0.25 m/s; a shove beyond the lean limit triggers Kneel, not a recovery attempt. This must be tested to ISO 13482 with a dummy, not simulated.
 6. **Noise.** Three omniwheels on a ball are audible. Target 45 dB(A) at 1 m in Roam, which is quieter than a fridge compressor, and this drives the ball tread and bearing choice.
@@ -333,7 +337,7 @@ At a 2.2× multiplier on BOM that is a $24–27k retail unit or a $350–450/mon
 | Phase | Duration | Goal | Exit test |
 |---|---|---|---|
 | 1. Feasibility | 6 months | Ballbot base with Plant/Kneel; foam body; remote-controlled | 30-day in-home acceptance study; wet-floor rig; ISO 13482 push test |
-| 2. Manipulation | 12 months | Two arms, carousel, wand; dishes end-to-end | 50 consecutive dish loads with <2% breakage in 3 kitchens |
+| 2. Manipulation | 12 months | Six arms, magazine, wand; dishes end-to-end at two stations | 50 consecutive dish loads with <2% breakage in 3 kitchens |
 | 3. Product | 12 months | Sealed shell, dock, laundry, safety certification | 1,000 h field trial, 20 homes, no unplanned Kneel from a push |
 | 4. Cost-down | ongoing | Arm cost to $1,200 each; second-body sharing | Lease unit economics positive at $400/month |
 
@@ -343,15 +347,15 @@ At a 2.2× multiplier on BOM that is a $24–27k retail unit or a $350–450/mon
 |---|---|
 | Form | Self-balancing single-ball robot, egg body, no face |
 | Height | 1150 mm stowed / 1600 mm mast up |
-| Diameter | 420 mm max |
-| Mass | 48 kg wet |
-| Drive | Ø280 ball, 3 omniwheels, 1.2 m/s |
+| Diameter | 440 mm max at the shoulder |
+| Mass | 61 kg wet |
+| Drive | Ø280 ball, 3 × 350 W omniwheels, 1.2 m/s |
 | Postures | Roam, Plant (3 feet), Kneel (fail-safe) |
-| Arms | 2 × 7-DOF primary, 750 mm, 3 kg; 2 × 4-DOF helper, 600 mm; wiping wand with 400 mm blade |
+| Arms | 4 × 7-DOF primary, 750 mm, 3 kg; 2 × 4-DOF helper, 600 mm; wiping wand with 400 mm blade |
 | Tools | 3-tier internal magazine, 34 pockets, 4 s change, open coupler spec |
 | Reach | Floor to 2100 mm; top-shelf front only |
 | Sensing | 4 × RGB-D, 2 wrist cams, tactile, 6-mic array, floor wetness |
 | Compute | ~200 TOPS on-device, no default cloud video |
-| Power | 1.2 kWh, 4–5 h active, dock charge 70 min to 80% |
+| Power | 1.6 kWh, 4–5 h active, dock charge 90 min to 80% |
 | Safety | ISO 13482 target, force-limited arms, supercap Kneel |
 | Not supported | Stairs, hot water, onboard vacuum (uses the household vacuum) |

@@ -75,7 +75,7 @@ def svg(fig, w, h, body, label):
 BALL_D = 280
 SKIRT_W = 420
 BODY_W = 380
-SHOULDER_W = 400
+SHOULDER_W = 440
 HEAD_W = 260
 H_STOWED = 1150
 MAST_STROKE = 450
@@ -101,7 +101,7 @@ def robot_side(x0, gy, S, mast=0, arms="stowed", feet=False, drop=0, cls_shell="
     # feet (Plant mode outriggers)
     if feet:
         for sx in (-1, 1):
-            fx = X(sx * 250); fy = Y(0)
+            fx = X(sx * 280); fy = Y(0)
             parts.append(f'<path class="ambink" d="M{X(sx*170):.1f},{Y(200):.1f} L{fx:.1f},{Y(30):.1f}"/>')
             parts.append(f'<rect class="amb" x="{fx - 14:.1f}" y="{fy - 8:.1f}" width="28" height="8" rx="2"/>')
     # mid body 340 -> 880 (+mast for the upper section)
@@ -210,7 +210,7 @@ def fig1():
     # reach
     body.append(dim_h(Y(1380 + 60) - 10, xb + 160 * S, xb + 690 * S, "750 reach"))
     # mass note
-    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 45 kg dry / 48 kg wet · scale 0.3</text>')
+    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 58 kg dry / 61 kg wet · scale 0.3</text>')
     svg(1, W, H, "\n".join(body), "General arrangement: stowed roam posture at 1150 mm beside the extended reach posture at 1600 mm with both arms deployed")
 
 
@@ -224,7 +224,7 @@ def fig2():
     cols = [170, 480, 790]
     titles = ["ROAM", "PLANT", "KNEEL"]
     subs = [("balancing on the ball", "omnidirectional · ≤1.2 m/s"),
-            ("3 feet down, ball braked", "sustained push >100 N"),
+            ("3 feet down, ball braked", "sustained push >150 N"),
             ("fault · charge · storage", "passively stable, no power")]
     def Y(mm): return gy - mm * S
     # ROAM
@@ -237,7 +237,7 @@ def fig2():
     # PLANT
     x = cols[1]
     body.append(robot_side(x, gy, S, mast=0, arms="work", feet=True))
-    body.append(f'<text class="muted" x="{x}" y="{Y(0)+30}" text-anchor="middle">Ø500 stance · ball brake on</text>')
+    body.append(f'<text class="muted" x="{x}" y="{Y(0)+30}" text-anchor="middle">Ø560 stance · ball brake on</text>')
     # KNEEL: body drops 110 mm around the ball so the skirt lip carries the load
     x = cols[2]
     body.append(robot_side(x, gy, S, mast=0, arms="stowed", drop=110))
@@ -254,7 +254,7 @@ def fig2():
     body.append(f'<text class="muted" x="{(cols[0]+cols[1])/2}" y="{ty-8}" text-anchor="middle">~1.5 s either way</text>')
     body.append(f'<path class="ink" d="M{cols[1]+90},{ty} L{cols[2]-90},{ty}" marker-end="url(#arr)"/>')
     body.append(f'<text class="muted" x="{(cols[1]+cols[2])/2}" y="{ty-8}" text-anchor="middle">any fault, from either mode</text>')
-    svg(2, W, H, "\n".join(body), "The three postures: Roam balancing on the ball, Plant with three outrigger feet down for high-force work, and Kneel resting on the skirt lip after a fault")
+    svg(2, W, H, "\n".join(body), "The three postures: Roam balancing on the ball, Plant with three outrigger feet down for forces above 150 N, and Kneel resting on the skirt lip after a fault")
 
 
 # ================= Figure 3: Cutaway / internal layout =================
@@ -435,13 +435,13 @@ def fig5():
 
 # ================= Figure 6: Evening-dishes timeline, human vs GYRO =================
 def fig6():
-    W, H = 900, 470
+    W, H = 900, 560
     body = []
     x0, x1 = 150, 860  # 0..30 min
     scale = (x1 - x0) / 30.0
     def T(m): return x0 + m * scale
     body.append(f'<text class="cap" x="40" y="36">EVENING DISHES · FAMILY OF 4 · MINUTES OF WORK BEFORE THE DISHWASHER STARTS</text>')
-    ay = 390
+    ay = 460
     for m in range(0, 31, 5):
         body.append(f'<line class="grid" x1="{T(m):.1f}" y1="70" x2="{T(m):.1f}" y2="{ay}"/>')
         body.append(f'<text class="dimt" x="{T(m):.1f}" y="{ay+18}" text-anchor="middle">{m}</text>')
@@ -452,25 +452,28 @@ def fig6():
     for a, b, t in human:
         body.append(f'<rect class="bar-h" x="{T(a)+1:.1f}" y="{y}" width="{T(b)-T(a)-2:.1f}" height="24" rx="3"/>')
         body.append(f'<text class="lbl" x="{T((a+b)/2):.1f}" y="{y+40}" text-anchor="middle">{t}</text>')
-    body.append(f'<text class="lbl" x="{T(26)+8:.1f}" y="{y+16}">26 min · 26 min of attention</text>')
+    body.append(f'<text class="lbl" x="{x1}" y="{y-8}" text-anchor="end">26 min · 26 min of attention</text>')
     lanes = [
-        ("GYRO arm L", [(0, 2, "clear"), (2, 5, "load"), (5, 6.5, "pots")]),
-        ("GYRO arm R", [(0, 2, "clear"), (2, 5, "load"), (5, 6.5, "pots")]),
-        ("helper 1", [(0, 2, "tray"), (2, 5, "hold rack"), (5, 6.5, "hold")]),
-        ("helper 2", [(0, 2, "tray"), (2, 5, "pass"), (5, 6.5, "dry")]),
-        ("wand", [(2, 4, "spray"), (4, 6.5, "wipe")]),
+        ("arm 1", [(0, 1.5, "clear"), (1.5, 4, "load"), (4, 5, "pots")]),
+        ("arm 2", [(0, 1.5, "clear"), (1.5, 4, "load"), (4, 5, "pots")]),
+        ("arm 3", [(0, 1.5, "clear"), (1.5, 4, "hob + sink"), (4, 5, "dry")]),
+        ("arm 4", [(0, 1.5, "clear"), (1.5, 4, "scrub pots"), (4, 5, "put away")]),
+        ("helper 1", [(0, 1.5, "tray"), (1.5, 5, "hold rack")]),
+        ("helper 2", [(0, 1.5, "tray"), (1.5, 5, "hold + pass")]),
+        ("wand", [(1.5, 3, "spray"), (3, 5, "wipe")]),
     ]
-    y = 170
+    y = 160
     for name, segs in lanes:
         body.append(f'<text class="lblb" x="{x0-12}" y="{y+16}" text-anchor="end">{name}</text>')
         for a, b, t in segs:
             body.append(f'<rect class="bar-r" x="{T(a)+1:.1f}" y="{y}" width="{T(b)-T(a)-2:.1f}" height="24" rx="3"/>')
-            body.append(f'<text x="{T((a+b)/2):.1f}" y="{y+16}" text-anchor="middle" style="fill:#F5F6F3;font-size:11px">{t}</text>')
-        y += 34
-    body.append(f'<text class="lbl" x="{T(6.5)+8:.1f}" y="{170+16+68}">6.5 min · 0 min of attention</text>')
-    body.append(f'<text class="muted" x="40" y="{H-30}">no pre-rinse, tray carry, four effectors plus the wand; per-grasp speed 1.2× human in an empty kitchen.</text>')
-    body.append(f'<text class="muted" x="40" y="{H-14}">Bars in the same colour are one machine\'s effectors. The dishwasher cycle (≈2 h) is unchanged, so wall-clock to "done" barely moves.</text>')
-    svg(6, W, H, "\n".join(body), "Timeline comparing 26 minutes of sequential human dishwashing against 6.5 minutes for the robot, whose two arms, two helpers and wand work in parallel while the dishwasher cycle stays the same")
+        body.append(f'<text class="muted" x="{T(segs[-1][1])+8:.1f}" y="{y+16}">{" · ".join(t for _, _, t in segs)}</text>')
+        y += 32
+    body.append(f'<text class="lbl" x="{T(0):.1f}" y="{y+18}">5 min · 0 min of attention</text>')
+    body.append(f'<text class="muted" x="40" y="{H-46}">no pre-rinse, tray carry, two stations from one Plant: arms 1–2 at the dishwasher, arms 3–4 at the sink and hob;</text>')
+    body.append(f'<text class="muted" x="40" y="{H-30}">per-grasp 1.2× human in an empty kitchen. Bars in the same colour are one machine\'s effectors.</text>')
+    body.append(f'<text class="muted" x="40" y="{H-14}">The dishwasher cycle (≈2 h) is unchanged, so wall-clock to "done" barely moves.</text>')
+    svg(6, W, H, "\n".join(body), "Timeline comparing 26 minutes of sequential human dishwashing against 5 minutes for the robot, whose four arms, two helpers and wand work in parallel while the dishwasher cycle stays the same")
 
 
 fig1(); fig2(); fig3(); fig4(); fig5(); fig6()
@@ -598,4 +601,65 @@ def fig8():
 
 
 fig7(); fig8()
+
+# ================= Figure 9: Turret plan at 930 mm =================
+def fig9():
+    import math
+    W, H = 960, 700
+    S = 1.0
+    cx, cy = 330, 330
+    body = []
+    def R(mm): return mm * S
+    def pt(r, deg):
+        a = math.radians(deg - 90)  # 0° = front = up on the page
+        return cx + R(r) * math.cos(a), cy + R(r) * math.sin(a)
+    body.append(f'<text class="cap" x="40" y="32">TURRET · PLAN AT 930 mm · FRONT UP</text>')
+    # shoulder ring Ø440, body below Ø410 ghost, head Ø260 ghost
+    body.append(f'<circle class="shell2" cx="{cx}" cy="{cy}" r="{R(220):.1f}"/>')
+    body.append(f'<circle class="ghost" cx="{cx}" cy="{cy}" r="{R(205):.1f}"/>')
+    body.append(f'<circle class="shell" cx="{cx}" cy="{cy}" r="{R(130):.1f}"/>')
+    body.append(f'<circle class="hatch" cx="{cx}" cy="{cy}" r="{R(70):.1f}"/>')
+    # cameras at 0/90/180/270 on the head ring
+    for d in (0, 90, 180, 270):
+        x, y = pt(125, d)
+        body.append(f'<circle class="hi" cx="{x:.1f}" cy="{y:.1f}" r="5"/>')
+    # arm channels (ghost) down the body: 6 rounded rects on the ring
+    def shoulder(deg, w, h, cls, label, r=175):
+        x, y = pt(r, deg)
+        body.append(f'<g transform="rotate({deg} {x:.1f} {y:.1f})"><rect class="{cls}" x="{x - R(w)/2:.1f}" y="{y - R(h)/2:.1f}" width="{R(w):.1f}" height="{R(h):.1f}" rx="10"/></g>')
+        body.append(f'<text class="lbl" x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle">{label}</text>')
+    for k, d in enumerate((45, 135, 225, 315)):
+        shoulder(d, 110, 70, "hifill", f"P{k+1}")
+    for k, d in enumerate((90, 270)):
+        shoulder(d, 80, 50, "ambfill", f"H{k+1}", r=185)
+    # wand at rear
+    x, y = pt(185, 180)
+    body.append(f'<circle class="ambfill" cx="{x:.1f}" cy="{y:.1f}" r="{R(22):.1f}"/>')
+    body.append(f'<text class="lbl" x="{x:.1f}" y="{y+4:.1f}" text-anchor="middle">W</text>')
+    # magazine door at the front (lower on the body): arc segment ghost
+    a0, a1 = math.radians(-90 - 11), math.radians(-90 + 11)
+    body.append(f'<path class="amb" d="M{cx + R(196)*math.cos(a0):.1f},{cy + R(196)*math.sin(a0):.1f} L{cx + R(206)*math.cos(a0):.1f},{cy + R(206)*math.sin(a0):.1f} A{R(206):.1f},{R(206):.1f} 0 0 1 {cx + R(206)*math.cos(a1):.1f},{cy + R(206)*math.sin(a1):.1f} L{cx + R(196)*math.cos(a1):.1f},{cy + R(196)*math.sin(a1):.1f} A{R(196):.1f},{R(196):.1f} 0 0 0 {cx + R(196)*math.cos(a0):.1f},{cy + R(196)*math.sin(a0):.1f} Z" opacity="0.5"/>')
+    # arc dimension between P1 and H1 (45° → 90°)
+    body.append(f'<path class="dim" d="M{pt(232,45)[0]:.1f},{pt(232,45)[1]:.1f} A{R(232):.1f},{R(232):.1f} 0 0 1 {pt(232,90)[0]:.1f},{pt(232,90)[1]:.1f}" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/>')
+    body.append(f'<text class="dimt" x="575" y="392">45° · 157 mm arc, P1 to H1</text>')
+    body.append(dim_h(cy + R(220) + 28, cx - R(220), cx + R(220), "Ø440 shoulder ring"))
+    body.append(dim_h(cy + R(220) + 52, cx - R(130), cx + R(130), "Ø260 head"))
+    # legend
+    lx, ly = 600, 110
+    body.append(f'<rect class="hifill" x="{lx}" y="{ly-12}" width="24" height="14" rx="3"/><text class="lbl" x="{lx+34}" y="{ly}">P1–P4 primary 7-DOF, ring 930 mm</text>')
+    body.append(f'<rect class="ambfill" x="{lx}" y="{ly+18}" width="24" height="14" rx="3"/><text class="lbl" x="{lx+34}" y="{ly+30}">H1–H2 helper 4-DOF, ring 895 mm</text>')
+    body.append(f'<circle class="ambfill" cx="{lx+12}" cy="{ly+55}" r="7"/><text class="lbl" x="{lx+34}" y="{ly+60}">W wand shoulder, rear</text>')
+    body.append(f'<circle class="hi" cx="{lx+12}" cy="{ly+85}" r="5"/><text class="lbl" x="{lx+34}" y="{ly+90}">RGB-D cameras at 0/90/180/270</text>')
+    body.append(f'<rect class="amb" x="{lx}" y="{ly+108}" width="24" height="8" opacity="0.5"/><text class="lbl" x="{lx+34}" y="{ly+120}">magazine door, 470–830 mm below</text>')
+    body.append(f'<text class="muted" x="{lx}" y="{ly+160}">Two rings put neighbouring shoulders</text>')
+    body.append(f'<text class="muted" x="{lx}" y="{ly+176}">35 mm above/below each other, so a</text>')
+    body.append(f'<text class="muted" x="{lx}" y="{ly+192}">110 mm primary and an 80 mm helper</text>')
+    body.append(f'<text class="muted" x="{lx}" y="{ly+208}">share 157 mm of arc.</text>')
+    body.append(f'<text class="muted" x="{lx}" y="{ly+238}">Arms fold into channels down the body;</text>')
+    body.append(f'<text class="muted" x="{lx}" y="{ly+254}">hands park in bays at the skirt.</text>')
+    body.append(f'<text class="muted" x="40" y="{H-16}">the turret rotates 360° continuously, so the door and the cameras stay fixed to the body while every shoulder can face any station</text>')
+    svg(9, W, H, "\n".join(body), "Plan of the turret at 930 mm showing four primary shoulders at 45-degree offsets on the upper ring, two helper shoulders at the sides on the lower ring, the wand at the rear and the magazine door at the front")
+
+
+fig9()
 print("ok")
