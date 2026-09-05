@@ -1,193 +1,205 @@
-# US Construction Cost Data Sources — Exhaustive Catalog
+# US Construction Cost Data Sources — Exhaustive Catalog (Commercial & Multifamily)
 
-**Purpose.** Map every scrapable or licensable source of US construction cost data (materials from nails to I-beams, labor, equipment, assemblies, indexes, and the geographic crosswalks that localize them) well enough to design an open alternative to RSMeans. For each source: where it lives, what it covers, how localized it is, how accurate, how often it updates, how you get it, and what the license allows.
+**Target segment.** Commercial construction: multifamily (garden, podium, wrap, build-to-rent), office, retail, industrial and warehouse, with data centers and institutional work as adjacent. Residential remodel and single-family retail channels are covered only where they matter as a price ceiling or a cross-check.
+
+**Purpose.** Map every scrapable or licensable source of US construction cost data (materials from nails to I-beams, labor, equipment, assemblies, indexes, and the geographic crosswalks that localize them) well enough to design an open alternative to RSMeans for this segment. For each source: where it lives, what it covers, how localized it is, how accurate, how often it updates, how you get it, and what the license allows.
 
 **Files.**
-- `README.md` — this document: the answer, the resolution ladder, the coverage matrix, the tiered source index, legal constraints, build order, and open gaps.
-- `sources.csv` — machine-readable catalog (286 rows) with tier, category, URL, unit, geographic granularity, cadence, format, access method, all-bidder vs awarded, history depth, license, verification status.
-- `appendix/` — the twelve underlying research reports (federal, state/local, commercial, retail/distributor, labor, localization method, equipment/open data, and five verification passes).
+- `README.md` — this document: the answer, procurement channels by trade, the resolution ladder, the coverage matrix, the tiered source index, legal constraints, build order, and open gaps.
+- `sources.csv` — machine-readable catalog (361 rows) with tier, category, URL, unit, geographic granularity, cadence, format, access method, all-bidder vs awarded, history depth, license, verification status.
+- `appendix/` — fifteen underlying research reports: seven topical passes, five verification passes, and three commercial-segment passes (trade-level bid results, distributor channels and cooperative catalogs, multifamily cost certifications).
 
-**Research date:** 5 September 2026. **Verification caveat:** the sandbox blocked direct fetches of every `.gov` and vendor host, so verification relied on search-result snippets, GitHub-hosted API clients and mirrors, and two DoD/GSA PDFs read from the WBDG S3 mirror. Every row in `sources.csv` carries a `verification` value (`verified`, `partially verified`, `knowledge`, `unverified`, `not found`, `pending verification`). Treat `knowledge` and `unverified` rows as leads to confirm before building on them. Section 9 lists what is still open.
+**Research date:** 5 September 2026. **Verification caveat:** the sandbox blocked direct fetches of every `.gov` and vendor host, so verification relied on search-result snippets, GitHub-hosted API clients and mirrors, and two DoD/GSA PDFs read from a mirror. Every row in `sources.csv` carries a `verification` value. Treat `knowledge`, `unverified` and `LOW-CONF` items as leads to confirm. Section 10 lists what is still open.
 
 ---
 
 ## 1. The short answer
 
-**There is no single public source that does what RSMeans does, and no federal or state body publishes a county-level composite location factor or an assembly-level material price book.** But the pieces exist, and they are better than most people assume:
+**No public source does what RSMeans does for commercial work, and nothing public gives a county-level composite location factor or a division-level material price book.** But the commercial channel is far more visible than it first appears, and the pieces assemble:
 
-1. **Real bid prices for civil work exist at district/county level in nearly every state.** State DOTs publish bid tabulations (usually all bidders) and average unit price reports for thousands of pay items: concrete by CY, asphalt by ton, rebar by LB, pipe by LF, excavation by CY, structural steel, signs, striping, traffic control. Texas publishes the entire all-bidder tabulation as an open Socrata dataset with county and district. Oregon, Idaho, West Virginia, Indiana, North Carolina, Virginia, Massachusetts, and Ohio publish structured spreadsheets or exportable apps. About twenty more publish per-letting tabs as parseable HTML or text. This is the deepest free source of localized *transaction* prices in the US.
-2. **Labor is solvable at county level from public data.** BLS OEWS gives trade wages by MSA with percentiles; BLS QCEW gives county wages by NAICS 238 sub-trade quarterly; Davis-Bacon gives county base + fringe by craft for four construction types (with a scrapable, undocumented JSON endpoint on SAM.gov); state prevailing wage schedules in about 27 states are fresher union-scale compilations; Census QWI adds county new-hire earnings. Burden components (workers' comp by class code and state, SUTA, FICA) are public or semi-public.
-3. **Material prices at store level are scrapable from big-box and distributor sites**, with real legal and anti-bot friction. Home Depot's GraphQL gateway returns batch price + inventory per store (about 2,000 stores); Lowe's product-detail endpoint does the same per store; Ace, Tractor Supply, Grainger, Zoro, Fastenal, SupplyHouse, Platt, City Electric, McMaster-Carr (official API) expose public prices. State DOT monthly asphalt/fuel/steel indexes give regional commodity movement free.
-4. **Equipment is essentially solved for free**: Caltrans' annual rate book (about 2,176 standard models plus 7,300 miscellaneous, already parsed to JSON on GitHub), FEMA's 2025 Schedule of Equipment Rates, and USACE EP 1110-1-8 regional ownership/operating schedules, plus EIA weekly fuel by PADD/state.
-5. **Location factors**: the best free composite is DoD's UFS 3-701-01 Area Cost Factors (213 CONUS locations, city/installation level, published methodology: 8 crafts, 18 materials, 4 equipment items, weighted 63/35/2). Below that, you build your own from the layers above. RSMeans' 900+ ZIP3 factors are largely interpolations of about 730 surveyed cities, so ZIP3 is not a resolution you need to match with observations.
-6. **Productivity (labor hours per unit) is the real gap.** The only public-domain man-hour tables are the Navy's P-405 Seabee Planner's and Estimator's Handbook (1996), Army FMs, and pre-1929 editions of Walker's. NECA, MCAA, Craftsman, and RSMeans crew data are all copyrighted. No open dataset exists on GitHub. This is where an open project would need to survey or license.
-7. **What you must not do:** copy RSMeans/BNi/Xactimate/Marshall & Swift numbers. RSMeans' terms explicitly prohibit use in a searchable database, redistribution, or use as a basis for pricing products. Emulate the *schema* (MasterFormat line, crew, daily output, bare M/L/E, O&P, CCI structure) and the *methodology*, not the numbers. Craftsman is the one commercial publisher with a formal bulk-data licensing program (Excel, Access, Bacpac, API; quarterly updates) if you want a licensed seed.
+1. **Commercial materials are bought as distributor net off a manufacturer list price, and the list price books are public.** Watts, Viega (Excel), Charlotte Pipe, NIBCO, Uponor, Tyler Pipe, Southwire, Cerrowire, Eaton (Price & Availability Digest and B-Line Excel sheets), Schneider DigestPLUS, Allegion, ASSA ABLOY and Lawrence Hardware (via SECLOCK's price-book library) all publish dated list prices openly. Southwire even publishes the mechanic: net = a four-decimal multiplier × list. The multiplier is the surveyed unknown, and it is bounded.
+2. **Contractor net prices leak into the public record through government procurement.** County annual materials bids publish literal List / Discount / Net sheets from Ferguson and Graybar (Lee County FL is the exemplar). NY OGS statewide contracts publish discount-off-list schedules. GSA Advantage price lists are fully public and structured. Cooperative contracts (Sourcewell, HGACBuy, NASPO) post pricing files for some categories.
+3. **Manufacturer price-increase letters are a free, dated, continuously updated level-and-direction feed** for drywall, steel studs, insulation, ceilings and commercial roofing membranes, archived by ABC Supply (low-slope and Interiors), SRS, FBM, Cameron Ashley, Negwer, Marjam and KAMCO.
+4. **Trade-level building bid prices exist in the public record in multi-prime and filed-sub-bid states.** Pennsylvania (Separations Act; DGS eMarketplace bid tabs; Penn State trade packages), New York (Wicks Law; SUNY Construction Fund, DASNY, OGS, NYC DCAS), Wisconsin (filed MEP sub-bids posted within 48 hours, with a multi-year archive), Massachusetts (18 filed sub-bid classes via DCAMM), Illinois CDB, North Carolina eVP, plus per-package tabs from CM/GC owners such as Western Washington University. These are whole-building trade prices, not highway items.
+5. **Multifamily hard cost by division is available project by project.** Four housing finance agencies post full LIHTC applications with development cost schedules per project (Texas TDHCA, California TCAC, Florida FHFC with an enumerable URL pattern, Virginia Housing). WA Commerce, MN Housing, CO CHFA and WA WSHFC publish per-unit cost series. Apartment REIT supplementals on EDGAR give per-community total cost, units and city for 15+ years. RAND's 2025 California study contains sub-bid-level deltas for two concurrent wrap projects. HUD's division-level form (HUD-92331-B) is the canonical CSI taxonomy but filed certifications are FOIA-only.
+6. **Civil and site packages are the best-covered scope in the country**: state DOT bid tabulations and average unit prices in 48 states, with Texas fully open as Socrata, and 37 states publishing monthly asphalt, fuel, steel and cement indexes.
+7. **Labor is solvable at county level** from OEWS, QCEW, Davis-Bacon (scrapable JSON endpoints), roughly 27 state prevailing-wage schedules, QWI and public workers'-comp tables. **Equipment is solved for free** (Caltrans book, FEMA 2025 schedule, USACE EP 1110-1-8, EIA fuel).
+8. **Whole-building $/SF by typology and metro is free from four publishers**: RLB (15 typologies × 14 to 16 metros, quarterly, including multifamily and parking structures), Cushman & Wakefield (industrial: 46 markets × 3 sizes; data centers $/MW; office fit-out), JLL and CBRE fit-out guides, Turner & Townsend (99 cities, high-rise apartments among 11 types). None codes garden, podium or wrap as separate typologies.
+9. **The unsolved parts** are HVAC equipment pricing (distributor-gated; the biggest structural blind spot), elevators, fire sprinkler, precast, CMU and fabricated steel $/ton (all bid-quoted with no public benchmark), and productivity (labor hours per unit; only 1996-era Navy P-405 and Army manuals are public domain).
+10. **What you must not do:** copy RSMeans, BNi, Xactimate or Marshall & Swift numbers. Emulate the schema and methodology. Craftsman is the one publisher with a formal bulk-data licensing program; Trimble Trade Service, Vision InfoSoft EPIC and Harrison CINX are the licensable list-price feeds for MEP at roughly $450 to $1,800 per year.
 
 ---
 
-## 2. How localized can each cost component get?
+## 2. How commercial and multifamily materials are actually bought, and where the price signal is
 
-| Component | Finest defensible resolution from public/scrapable data | Sources that reach it | What limits going finer |
+| Trade / scope | Real channel | Public price signal | Licensable feed | Gap |
+|---|---|---|---|---|
+| **Electrical** (wire, conduit, gear, devices, lighting) | Graybar, WESCO, CED, Rexel/Platt, Border States, City Electric on account; distributor net = multiplier × manufacturer list ("column" pricing) | Southwire and Cerrowire building-wire list PDFs plus published multiplier mechanic; Eaton Price & Availability Digest and B-Line Excel sheets; Schneider DigestPLUS; NY OGS Graybar price list; Lee County Graybar discount categories; daily copper close | Trimble Trade Service TRA-SER (~2M items; SX adds "average market pricing"); Vision InfoSoft EPIC ($456 to under $1,000/yr); NetPricer pulls a contractor's own negotiated prices | Multiplier by distributor and volume must be surveyed |
+| **Plumbing / piping** | Ferguson, Winsupply, Hajoca, Core & Main on account; same list × multiplier structure | Watts 2026, Viega 2026 (Excel), Charlotte Pipe, NIBCO (Excel), Uponor, Tyler Pipe list books; Lee County Ferguson List/Discount/Net sheet; Sloan/Zurn/NIBCO increase letters | Harrison Publishing / CINX ($1,100/yr per location); Trimble MEP (Trade Service + Luckins); EPIC plumbing | Fixture-package pricing for multifamily is program-negotiated |
+| **HVAC equipment** (RTUs, splits, VRF, chillers) | Watsco/Carrier Enterprise/Gemaire, Johnstone, RE Michel; contractor pricing account-gated; 20 to 40 percent variance across chains | Light-commercial e-tail (HVACDirect, AC Wholesalers, OnlineSupply) show some unit prices but mask above about $2,000; Sourcewell HVAC contracts route pricing to a rep; Trane holds a GSA schedule | none | **Biggest blind spot**; solve with sub bids and cooperative contract pulls |
+| **Drywall, steel studs, insulation, ceilings** | GMS, ABC Supply Interiors (ex-L&W), FBM, Kenseal on account | Distributor price-increase archives (ABC Interiors, FBM, Cameron Ashley, Negwer, Marjam, Metro Interiors, Performance Pro, KAMCO) with effective dates; Kanopi (Armstrong DTC) $/SF | none needed | Percent levels sometimes omitted from snippets; commercial Armstrong list not found |
+| **Commercial roofing / waterproofing** | ABC Supply, Beacon, SRS two-step distribution | ABC Supply low-slope increase letters (Carlisle 2026-07-01), SRS quarterly commercial announcements, Beacon, Mid-Atlantic, Carolina Atlantic archives | none | Membrane $/square by system is bid-quoted |
+| **Ready-mix, cement, aggregates** | Producer quotes per project | Cemex nationwide increase announcements; USGS state values; state DOT cement indexes (GA, WV); DOT bid tabs (concrete $/CY by class) | PCA, NRMCA (members) | No producer list prices |
+| **Rebar, structural steel, joists, deck** | Fabricator bids; mill price + fabrication + erection | Nucor weekly Consumer Spot Price via Steel Market Update coverage ($865 Aug 2025 → $1,180/ton Aug 2026); CMC and Nucor lockstep rebar announcements; SteelBenchmarker; DOT bid tabs (rebar $/LB, structural steel $/LB) | Steel Market Update, CRU, Platts | No public fabricated-and-erected $/ton; joist and deck pricing not published |
+| **CMU, brick, precast** | Producer-quoted regionally (Oldcastle APG, General Shale; Tindall, Gate, Metromont) | none found | none | Rely on bid tabs and sub quotes |
+| **Lumber, trusses, EWP** (wood-frame multifamily) | Builders FirstSource, US LBM, 84 Lumber pro desks; package quotes | Random Lengths composite (methodology guide public); Tax Credit Advisor benchmarks (lumber + EWP ≈ 12 to 18 percent of vertical hard cost) | Fastmarkets Random Lengths | Package pricing mechanism not documented |
+| **Windows, storefront, curtain wall** | Glazing subs (Kawneer, YKK AP, Oldcastle BE); vinyl via builder programs | none usable | none | Bid-quoted |
+| **Doors, frames, hardware** | Distributor list × multiplier | Allegion ProExpress price book; SECLOCK price-book library (Allegion Multi-Family book, ASSA ABLOY 2026); Lawrence Hardware 2026 | none needed | Multiplier survey |
+| **Elevators** | OEM negotiation | Public maintenance/modernization bid tabs only | none | No new-install benchmark |
+| **Fire sprinkler, fire alarm, low voltage** | Sub bids | none | none | Filed sub-bid states (MA) are the only public source |
+| **Flooring, paint, appliances, cabinets** | National programs (Shaw/Mohawk multifamily, Sherwin-Williams accounts, Whirlpool–Greystar) | Shaw GSA price lists (2020 vintage); PPG/SHW increase disclosures | none | Program pricing not published |
+| **Site work, utilities, paving** | Civil subs | State DOT bid tabs and average unit prices (48 states), NRCS cost lists | none needed | Best-covered scope |
+| **Equipment** | Rental fleets | Caltrans book (JSON on GitHub), FEMA 2025, USACE EP 1110-1-8, EIA fuel | EquipmentWatch | Solved |
+| **Labor** | Sub payrolls | OEWS, QCEW, Davis-Bacon, state prevailing wage, QWI, WC tables | CLRC, PAS | Solved to county |
+
+**Retail (Home Depot, Lowe's) is a residential and punch-list channel.** It is catalogued in appendix 04 as a price ceiling and for small-job scope, not as the commercial material source.
+
+---
+
+## 3. How localized can each cost component get?
+
+| Component | Finest defensible resolution | Sources that reach it | What limits going finer |
 |---|---|---|---|
-| **Civil / heavy unit prices** (earthwork, asphalt, concrete, rebar, pipe, structural steel, traffic items) | **County / DOT district** | State DOT bid tabs (TX county; OR region; WV district; FL market area; VA district; NY region; IL county; WA county) | Sparse items in rural counties; state-specific pay-item codes need a crosswalk |
-| **Building materials** (lumber, drywall, fasteners, roofing, insulation, plumbing, electrical, paint, flooring) | **Store / ZIP** for big-box SKUs; **branch** for distributor SKUs; **CBSA** as the honest aggregation unit | Home Depot GraphQL (`storeId`), Lowe's `/wpd/…/{store}/Guest/{zip}`, Ace Kibo API, Tractor Supply, Platt/CES/Elliott branch pricing, Fastenal branch stock | Anti-bot (Akamai, DataDome), ToS; MAP-hidden prices; pro pricing login-only; manufacturers publish nothing |
-| **Commodities** (steel, copper, cement, aggregates, asphalt binder, lumber composites) | **State / region** | State DOT asphalt/fuel/steel/cement indexes (37 states verified, monthly); USGS Minerals Yearbook state cement/aggregate values (annual); SteelBenchmarker (national, twice monthly); EIA diesel by PADD/state (weekly) | Random Lengths/CRU/Platts are paid and non-redistributable |
-| **Labor wage (bare)** | **County** | Davis-Bacon (county × type), QCEW (county × NAICS 4-6 digit, quarterly), OEWS (MSA/nonmetro × SOC with percentiles), state PW schedules (county in CA/NY/IL/MI/MO/MD/NJ/OH/WA/MN), QWI (county × NAICS 4) | OEWS suppression; Davis-Bacon survey rates can be a decade stale in non-union counties |
-| **Labor fringe & burden** | **State** (WC class rates, SUTA) + **county** (DB/state PW fringe) | Oregon DCBS 50-state WC ranking; state rating bureaus and monopolistic-state tables; NCCI (paid); DOL ETA UI provisions; BLS ECEC (national/region benefit shares) | NCCI loss costs are paid; independent-bureau class codes differ |
-| **Equipment** | **Region / state** | Caltrans (CA), USACE EP 1110-1-8 (12 regions), FEMA (national), EIA fuel (PADD/state) | Rental rates by ZIP are behind rental-company logins; EquipmentWatch is paid |
-| **Productivity** | **National** | P-405, Army FMs, Caterpillar Performance Handbook | Nothing public and current; must license or survey |
-| **Composite location factor** | **City/installation** (DoD ACF: 213 CONUS) → **county** if you build it from the layers above | UFS 3-701-01 Table 4-1; CWCCIS state factors (heavy civil); BEA RPP (state/MSA, general prices) | No public county-level composite exists |
-| **Whole-building $/SF** | **Project / county** (calibration), **city** (benchmarks) | LIHTC cost data (WA WSHFC annual report, TX TDHCA logs, CA TCAC Excel, GAO-18-637 appendix), MSBA school costs, DoD Table 2, Census SOC by division, RLB/Cumming/Mortenson metro reports, NAHB | Scope definitions vary; permit valuations are self-declared and understated |
-| **Scope drivers** (seismic, wind, snow, flood, frost, soils, climate zone, impact fees, sales tax, union density) | **Point / county / jurisdiction** | USGS design maps API, ATC Hazards API, FEMA NFHL, IECC county CSV, SSURGO, Duncan impact fee survey (2019), Avalara ZIP tax tables, unionstats | Frost depth and local code amendments must be hand-compiled |
+| **Trade packages for whole buildings** (GC, mechanical, electrical, plumbing, roofing, glazing, elevators) | **Project / county** in multi-prime and filed-sub-bid states | PA eMarketplace + Penn State; NY SUCF, DASNY, OGS, DCAS; WI DFD MEP tabs; MA DCAMM (18 classes); IL CDB; NC eVP; WWU per-package | Coverage limited to public owners in ~7 states; lump sums need SF normalization from plans |
+| **Civil / site unit prices** | **County / DOT district** | State DOT bid tabs (TX county; OR region; WV district; FL market area; VA district; NY region) | Pay-item crosswalk across states |
+| **MEP and openings materials** | **Distributor branch / metro** (list is national; multiplier and freight vary) | Manufacturer list books + surveyed multipliers; county materials bids; GSA and cooperative price files | Multiplier survey; HVAC equipment gated |
+| **Commodities** | **State / region** | 37 DOT asphalt/fuel/steel/cement indexes; Nucor CSP; USGS state values; EIA fuel | Paid series non-redistributable |
+| **Multifamily hard cost per unit / per SF** | **Project / county** | TDHCA, TCAC, FHFC, Virginia Housing application repositories; WA Commerce, MN, CO CHFA, WSHFC series; REIT supplementals | PDF extraction; typology must be inferred |
+| **Whole-building $/SF benchmarks** | **Metro × typology** | RLB (15 × 16), C&W industrial (46 × 3), C&W data centers ($/MW), JLL/CBRE/C&W fit-out, T&T (99 cities) | Garden/podium/wrap not coded |
+| **Labor wage and burden** | **County** | Davis-Bacon, QCEW, OEWS, state PW, QWI; Oregon DCBS WC, bureau tables | Stale survey rates in rural counties |
+| **Equipment** | **Region / state** | Caltrans, USACE, FEMA, EIA | Rental quotes gated |
+| **Productivity** | **National** | P-405, Army FMs, Caterpillar | Nothing public and current |
+| **Composite location factor** | **City/installation** (DoD ACF) → **county** if built from the layers above | UFS 3-701-01; CWCCIS state factors; BEA RPP | No public county composite exists |
 
-**Practical ceiling: county for the composite factor; ZIP/store only where you actually hold store-level observations.**
+**Practical ceiling: county for the composite factor and for trade-package calibration; metro for material net pricing; ZIP only where you hold branch-level observations.**
 
 ---
 
-## 3. Coverage matrix — "nails to I-beams" by cost item
+## 4. Coverage matrix — nails to I-beams for commercial scope
 
-| Item family | Absolute price source (localized) | Escalation/index source | Notes |
+| Item family | Absolute price source | Escalation / index | Notes |
 |---|---|---|---|
-| Fasteners (nails, screws, bolts, anchors) | Home Depot/Lowe's store prices; Fastenal branch; Grainger/Zoro/McMaster list | PPI `WPU1081` (bolts, nuts, screws) | McMaster official API requires customer approval |
-| Dimensional lumber, engineered wood, panels | Home Depot/Lowe's/Menards store prices; 84 Lumber partial | PPI `WPU081`, `WPU0811`; Random Lengths (paid; NAHB republishes composite chart); CME `LBR` | Pro yards (BFS, US LBM) do not publish |
-| Structural steel, rebar, plate, joists | Ryerson online quotes by location; Metals Depot/OnlineMetals national; DOT bid tabs (rebar $/LB, structural steel $/LB) | SteelBenchmarker (free, twice monthly); PPI `WPU1017`, `WPU107`; state DOT steel indexes (NY, NC, IL, NH, WY) | Nucor/CMC/Gerdau mill prices are announcements only |
-| Ready-mix concrete, cement, aggregates | DOT bid tabs (concrete $/CY by class; aggregate base $/ton); NRCS state cost lists | PPI `WPU1333`, `WPU1322`, `WPU1391`; USGS state cement/aggregate values; GDOT/WV cement indexes | No ready-mix producer publishes list prices |
-| Masonry (brick, block, mortar) | Home Depot/Lowe's bagged products; DOT bid tabs for block/brick items | PPI `WPU1342` | Acme/General Shale/Glen-Gery do not publish |
-| Asphalt paving | DOT bid tabs ($/ton by mix) | 37 state DOT monthly binder/fuel indexes; PPI `WPU1394` | Best regional commodity signal available free |
-| Gypsum/drywall, insulation | Home Depot/Lowe's store prices; GMS/L&W/FBM login-only | PPI `WPU137`, `WPU1392` | |
-| Roofing | Home Depot/Lowe's; ABC/Beacon/SRS login-only | PPI asphalt roofing series; NRCA surveys | |
-| Doors, windows | Home Depot/Lowe's stocked SKUs | PPI millwork series | Andersen/Pella/Marvin dealer-only |
-| Plumbing, pipe, fittings | SupplyHouse, PlumbingSupply, Home Depot/Lowe's; Ferguson partial; Core & Main login | PPI plastic pipe / copper tube series | Ferguson "Trade Partner API" appears in code but program unverified |
-| Electrical (wire, conduit, devices, gear) | Platt, City Electric Supply, Elliott Electric (branch-localized public prices); Graybar list; Home Depot/Lowe's | PPI `WPU102603` copper wire; CME `HG` copper | Trade Service (Trimble) is the paid SKU-level list-price feed |
-| HVAC equipment | HVACDirect, eComfort, AC Wholesalers, Alpine (public); Johnstone/Watsco login | PPI HVAC series | Carrier/Trane/Lennox dealer-only |
-| Paint, coatings | Sherwin-Williams store-select; Home Depot/Lowe's | PPI `WPU0621` | |
-| Flooring, tile | Floor & Decor store-select; Home Depot/Lowe's | PPI series | |
-| Site utilities, fencing, culverts, erosion control | DOT bid tabs; NRCS EQIP cost lists by state; UFS 3-701-01 Table 6 | NHCCI components | NRCS lists are the only state-level absolute price for fencing/pipe/earthwork outside DOT work |
-| Solar / EV | LBNL Tracking the Sun (per-system $/W, state); NREL benchmarks; Solar TRACE fees by AHJ | NREL ATB | Best-instrumented specialty trade |
-| Equipment | Caltrans book; FEMA 2025 schedule; USACE EP 1110-1-8 | EIA fuel | |
-| Labor | See section 5 | ECI, CES | |
+| Fasteners, anchors, hangers | Eaton B-Line price sheets (Excel); Fastenal/Grainger list; Hilti and Simpson list books (not verified) | PPI `WPU1081` | |
+| Building wire, cable | Southwire and Cerrowire list × published multiplier; Service Wire daily copper | CME `HG`; PPI copper wire | Cleanest list-to-net mechanic found |
+| Switchgear, panels, breakers | Eaton PAD, Schneider DigestPLUS list; NY OGS Graybar contract | PPI electrical equipment | Discount symbols → multipliers |
+| Pipe, valves, fittings | Viega (Excel), Watts, Charlotte, NIBCO, Uponor, Tyler list; Lee County Ferguson net sheet | PPI plastic pipe, copper tube | |
+| Plumbing fixtures | Kohler price book (dealer mirror), Zurn, Sloan lists; increase letters | PPI | Multifamily programs negotiated |
+| HVAC equipment | Light-commercial e-tail (partial); Sourcewell/GSA contracts; sub bids | PPI HVAC | Gap |
+| Ductwork, sheet metal | Sub bids; MCAA/SMACNA labor units (paid) | PPI | |
+| Drywall, studs, insulation, ceilings | Distributor increase archives (levels + dates); Kanopi $/SF | PPI `WPU137`, `WPU1392` | |
+| Commercial roofing membranes | ABC/SRS/Beacon increase letters; Sourcewell roofing routes through ezIQC | PPI roofing | |
+| Ready-mix, cement | DOT bid tabs ($/CY by class); Cemex announcements | USGS; DOT cement indexes; PPI `WPU1333` | |
+| Rebar, structural steel, joists, deck | DOT bid tabs (rebar, structural steel $/LB); Nucor CSP series | SteelBenchmarker; PPI `WPU1017`; DOT steel indexes (NY, NC, IL, NH, WY) | Fab+erect $/ton bid-quoted |
+| CMU, brick, precast | DOT bid tabs for block items; sub bids | PPI `WPU1342` | No list prices |
+| Lumber, EWP, trusses | Random Lengths (paid) + Tax Credit Advisor benchmarks; DOT bid tabs for timber items | PPI `WPU081` | Package pricing undocumented |
+| Doors, frames, hardware | Allegion, ASSA ABLOY, Lawrence list books (SECLOCK) | PPI millwork | |
+| Glazing, storefront, windows | Sub bids; MA filed sub-bids (metal windows, glazing classes) | PPI flat glass | |
+| Elevators | Public modernization bid tabs | — | No new-install benchmark |
+| Fire protection | MA filed sub-bids (sprinkler class) | — | |
+| Flooring, paint | Shaw GSA lists (2020); Mohawk programs; PPG/SHW disclosures | PPI `WPU0621` | |
+| Site work, utilities, paving | 48 state DOT bid tabs; NRCS cost lists | 37 DOT asphalt/fuel indexes; NHCCI | Best-covered |
+| Equipment | Caltrans, FEMA, USACE | EIA fuel | |
+| Labor | See section 6 | ECI, CES | |
 
 ---
 
-## 4. Tiered source index
+## 5. Tiered source index
 
-Tier 1 = public domain or open license, structured, machine-readable. Tier 2 = public but PDF/HTML that must be parsed. Tier 3 = publicly visible but ToS-restricted (scrape at your own risk) or third-party scraper APIs. Tier 4 = licensable commercial data. Full detail and URLs are in `sources.csv` and the appendices.
+Tier 1 = public domain or open license, structured. Tier 2 = public but PDF/HTML to parse. Tier 3 = publicly visible but ToS-restricted, or third-party scraper APIs. Tier 4 = licensable commercial data. Full detail and URLs are in `sources.csv` and the appendices.
 
-### 4.1 Federal (appendix 01, 08)
-- **BLS PPI** (national, monthly; API + flat files) — material escalation. Only construction PPI with regional split: new nonresidential building by 4 Census regions.
-- **BLS OEWS** (MSA/nonmetro/state, annual May; `oesm25all.zip` released 15 May 2026) — trade wage levels with percentiles. 25-character series IDs.
-- **BLS QCEW** (county × NAICS 236/237/238 sub-industries, quarterly; open CSV slices, no key) — county labor multiplier. MSA industry detail dropped from Q3 2025; aggregate counties yourself.
-- **BLS CES/SAE, ECI, ECEC** — monthly/quarterly labor escalation and benefit-burden shares.
-- **Davis-Bacon (SAM.gov)** — county base + fringe by craft × Building/Residential/Heavy/Highway; weekly modifications; no official API or bulk file; undocumented JSON search/detail endpoints documented in open-source clients (`grey-flannel/usdol-wage-determination-data`, `cliwant/mcp-sam-gov`); govconapi.com resells ($19/mo).
-- **Census** — BPS county permit valuations (annual county file `coYYYYa.txt` under `www2.census.gov/programs-surveys/bps/`), SOC microdata ($/SF by division), VIP, CBP, QWI (county × NAICS 4 earnings). **API key required for all Census API calls since May 2026.**
-- **FHWA NHCCI** (national quarterly; BTS Socrata `wgzr-nyxc`) and FMIS project listings; **FHWA Federal Lands EEBACS bid unit price analysis** and Federal Lands bid tabs (bonus find).
-- **USACE CWCCIS** (feature-code indexes, semiannual tables to Sep 2025; state adjustment factors), **EP 1110-1-8** equipment O&O (12 regions; latest verified edition Nov 2016), **MII/UPB** (about 70k items, licensed, not open).
-- **DoD UFS 3-701-01 (2 Feb 2026)** — Area Cost Factors for 213 CONUS locations, $/SF by facility type, site/utility $/UOM, escalation tables; combined Excel "Related Materials" file on WBDG.
-- **FEMA** — 2025 Schedule of Equipment Rates (PDF + OpenFEMA dataset); CEF cost codes are internal.
-- **USDA NRCS EQIP payment schedules** — state-level typical unit costs for fencing, pipe, earthwork, concrete structures, roads; annual PDFs per state.
-- **EIA** (weekly fuel by PADD/state; API v2), **FRED** (aggregator; 120 req/min), **USAspending** (contract awards by county × NAICS; no key), **BEA RPP** (state/MSA; 2024 data released Feb 2026), **HUD** (ZIP crosswalk API quarterly; TDC/HCC limits derived from RSMeans + Marshall & Swift), **FTA Capital Cost Database** (transit unit costs), **USGS** (state cement/aggregate values), **DOL OFLC** wage search, **NREL/LBNL** solar cost datasets.
+### 5.1 Trade-level building bid results (appendix 13)
+- **Multi-prime statutes:** New York Wicks Law (separate plumbing, HVAC, electrical above $3M NYC / $1.5M suburbs / $500k upstate); Pennsylvania Separations Act (four branches above $4,000; PA DGS eMarketplace BidTabs posted within 2 days; Penn State OPP posts bid tab per trade package); Wisconsin §16.855 (single prime with filed MEP sub-bids; DOA DFD posts MEP tabs within 48 hours, past-projects archive); Massachusetts c.149 §44F (18 filed sub-bid classes; DCAMM tabs via Bid Express show trade × sub × amount × alternates); Illinois CDB (results retained about one month, so poll); Delaware §6962 (named subs, no prices); Ohio (multi-prime until 2011, still used by OFCC; same-day posting); North Carolina eVP (final tabs include pricing).
+- **Public owners with tab archives:** SUNY Construction Fund running bid-opening report; DASNY (48 hours); NY OGS D&C bid results; NYC DCAS citywide bid tabs 2021 to 2025; Louisiana Facility Planning & Control (stable-URL PDFs 2019 to 2026, mechanical/electrical packages); University of Kentucky (with owner's estimate); University of Iowa; Western Washington University per-package tabs; University of Washington; Michigan DTMB; Chicago Housing Authority (24 to 48 hours); Clark County School District; Miami-Dade schools; LAUSD; Utah DFCM (same-day tab in Bonfire). Not posted: Houston ISD, Texas A&M (request only), Chicago Public Schools, federal building bid abstracts (award totals only via SAM.gov/FPDS). California lists subcontractors by name on every public bid but without amounts.
 
-### 4.2 State and local (appendix 02, 11, 12)
-- **State DOT bid tabulations and average unit prices — 48 states catalogued.** Best structured: **TX** (Socrata `de7b-7dna`, all bidders, county, engineer's estimate; 44 columns listed in appendix 12), **OR** (XLSX with bidder rank by region), **ID** (XLSX with rank), **WV** (XLS by district, min/mean/max), **IN** (annual XLSX 2008+), **NC** (XLSM), **VA** (query app + XLSX), **MA** (weekly all-bid mean/median by quantity band), **OH** (Power BI with PDF/Excel export), **NDDOT** (annual Average Awarded Bid Prices PDFs). Parseable per-letting tabs: LA (ASP), NJ (TXT), AL (TXT), KS (CSV index), MI, MN, IL, DE, ME, AZ (4-month window — poll continuously). PDF annual books: CO (2001+), MT (2016+), TN, SD, AR, MO (by district), OK, MD, NY (by region), WY, NM, NE, NH, VT, GA (Item Mean Summary). Web-app only: Caltrans Contract Cost Data (district + year filters, imported every 2 weeks, no bulk export), FDOT (public dashboard blocks download), WSDOT Unit Bid Analysis (3 lowest bidders; bid tabs page has all bidders), PennDOT ECMS (3 lowest bidders item-by-item; Item Price History reportedly public), MS (JS app). No public average-price product: UT, NV, HI, CT, ME.
-- **Aggregators:** Bid Express (44 agencies; paid Bid Tab Analysis), Oman BidTabs (46 states, feeds NHCCI, commercial), bidtabs.us (22 states free viewer since 2004 — check ToS).
-- **State DOT asphalt binder / fuel / steel / cement price indexes — 37 states verified**, monthly. Genuinely regional: WSDOT (West/East), PennDOT (3 zones), Oregon (Boise/Portland), Ohio (Cleveland/Toledo/Cincinnati average), Montana (East/West). Caltrans now uses a single statewide Brent crude index, not regional asphalt indexes. Illinois exports CSV. Not found: TX, MN, MI, UT, NV, ND, NE, NM, DE, HI, DC.
-- **State DOT construction cost indexes:** CO (quarterly), MN (quarterly, archive to 2009), WI CF-CCI (quarterly), IA (annual, 1987 base), NH (semiannual), MD SHA Price Index (semiannual), MI MHCCI (research report).
-- **State prevailing wage schedules — about 27 states + DC** (best-supported list in appendix 11; DOL's own page is stale on Michigan). Machine-readable: **Maryland XLSX**, Washington multi-select export, Missouri county-parameterized app, Minnesota county pages, Michigan predictable per-county PDF path, California per-issue index pages, Illinois HTML tables, New York county web app. Ohio's new lookup (June 2025) is gated behind an OH|ID account. Rhode Island and Virginia simply adopt Davis-Bacon; Vermont uses OEWS mean + flat 42.5% fringe.
-- **Assessor cost manuals with state-authored tables and regional multipliers:** **Oregon DOR Cost Factors for Residential Buildings** (county Local Cost Multipliers; rev. Oct 2024), **Illinois Pub 123/126** (central-Illinois base + local cost factor), **Indiana DLGF** (county Location Cost Multipliers), **Wisconsin WPAM Vol 2** (area modifiers), **California AH 531**, **North Carolina county Schedules of Values** (100 counties), **Texas CAD schedules**, Montana (state-published, M&S-derived), New Jersey (farm supplement confirmed). Vendor-mandated (do not republish): SD, NE, OK, UT, KS, ID, WA, MI (all Marshall & Swift), PA/CT (Tyler/Vision), MD (internal CAMA).
-- **Permit data with valuation:** NYC, Chicago, LA, SF (has revised cost), Seattle, Austin (BLDS), Dallas, Philadelphia via Socrata/ArcGIS; **Shovels.ai** (178M permits, 2,750+ jurisdictions, paid API) nationally. Valuations are self-declared — use as relative index only.
-- **Facility cost reports:** MSBA (MA schools, $/SF per project), Ohio OFCC, Florida cost-per-student-station, WA OSPI, TX THECB, CA DGS CCCI.
-- **Municipal unit prices:** Austin Average Unit Bid Prices (48 months, quarterly), San Diego County unit price list, Riverside County, Maricopa MCDOT estimation app, Chicago DPS bid tabs.
-- **LIHTC development cost data** (calibration for multifamily $/unit and $/SF): WA WSHFC annual cost data report, TX TDHCA application logs (XLSX), CA TCAC project Excel, FL FHFC underwriting PDFs, MN cost containment reports, NV application lists with TDC, NYC HPD open data; GAO-18-637 appendix (12 agencies) and Abt/NCSHA 2018 (2,500 properties). HUD's LIHTC database has no cost fields.
-- **Sales tax:** Avalara free ZIP tables (monthly), CA CDTFA GIS, TX Comptroller files, Tax Foundation.
-- **Workers' comp:** Oregon DCBS CY2024 50-state ranking (June 2025) with per-state index rates; state bureau PDFs (WCIRB, NYCIRB, PCRB, etc.); monopolistic-state tables (OH BWC, WA per-hour, WY by NAICS, ND); FL OIR posts NCCI filings; NCCI Class Look-Up needs a free account.
+### 5.2 Commercial material channels, cooperatives, JOC (appendix 15)
+- **Manufacturer list books (free):** Watts, Viega (XLSX), Charlotte Pipe, NIBCO (XLSX), Uponor, Tyler Pipe, Southwire, Cerrowire, Eaton PAD and B-Line (XLSX), Schneider DigestPLUS, Allegion ProExpress, SECLOCK library (ASSA ABLOY 2026, Allegion Multi-Family), Lawrence Hardware 2026.
+- **Public net-price sheets:** Lee County FL Ferguson (List/Discount/Net) and Graybar (per-manufacturer discount categories); NY OGS Graybar price list and Appendix C discount schedules; GSA Advantage `ref_text/` price lists (fully public, structured, include IFF); Sourcewell open pricing PDFs (Grainger MRO, construction equipment matrix); HGACBuy pricing worksheets; NASPO contractor documents; Equalis master agreements; Pavilion as the index across cooperatives.
+- **Price-increase archives:** ABC Supply low-slope roofing and Interiors; SRS; FBM; Cameron Ashley; Negwer; Marjam; Metro Interiors; Performance Pro Supply; KAMCO; Mid-Atlantic and Carolina Atlantic roofing; Cemex ready-mix.
+- **Licensable feeds:** Trimble Trade Service TRA-SER; Vision InfoSoft EPIC; Harrison CINX; Fastmarkets Random Lengths; Steel Market Update; IDEA (product content, not prices).
+- **JOC:** Gordian CTC (275,000+ tasks; licensed; adjustment factors typically 0.8 to 1.2) and RSMeans JOC Core Bid Access; awarded coefficients are public in California county bid tabs (Fresno, San Bernardino, San Luis Obispo, San Diego: normal-hours factors 1.085 to 1.099, also 0.90 and 0.94); DASNY's public guide to using the CTC; NYC DDC multiplier-bid booklets in the FOIL repository; Texas Facilities Commission and Arizona ADOA JOC programs.
+- **Platforms:** Trimble now owns both Trade Service (list feed) and StructShare/Trimble Materials (actual purchase data); Kojo, Toolbx publish nothing; Levelset tracker is retail; 1build claims county-level costs (price unpublished, status post-Handoff unclear); ENR publishes 20-city material prices weekly on a monthly rotation and sells ENRCostData with an API; Cumming, RLB, Mortenson, AGC publish free indexes.
 
-### 4.3 Retail and distributor material prices (appendix 04)
-- **Home Depot** — `POST https://apionline.homedepot.com/federation-gateway/graphql` with `x-experience-name` header; ops `searchModel`, `productClientOnlyProduct`, `mediaPriceInventory` (25–50 items per call, per `storeId`); IDs: Internet # (itemId), Store SKU, Model #, UPC/GTIN, OMS ID; default store 2414 (Bangor) when omitted; Akamai Bot Manager (HTTP 206 "GenericError" on TLS/UA mismatch); about 1 rps sustainable. No public price API; Pro Xtra and HD Supply/SRS/GMS are login-gated.
-- **Lowe's** — `GET https://www.lowes.com/wpd/{productId}/productdetail/{store}/Guest/{zip}` returns `finalPrice`, on-hand qty, MAP flag; cookies `sn`, `sd`, `zipcode`, `dbidv2`; Akamai; proxy geolocation can override store cookie. Official partner APIs (Products/Inventory/Stores) at `apis.lowes.com` for B2B registrants.
-- **Menards** (Midwest, store-specific prices + 11% rebate; store cookie unverified), **Ace** (public Kibo JSON API with per-location inventory), **Tractor Supply** (per-store price endpoint; Akamai), **Walmart** (store cookies; Affiliate API national), **Floor & Decor**, **Harbor Freight**.
-- **Distributors with public prices:** Platt, City Electric Supply, Elliott Electric (branch-localized), Graybar (list), Fastenal (branch stock), Grainger (list; CAPTCHA), Zoro (DataDome), MSC, SupplyHouse, HVACDirect/eComfort/AC Wholesalers/Alpine (HVAC equipment), Ryerson (metals quotes by location), Metals Depot, OnlineMetals, McMaster-Carr (official API for approved customers, per-part subscription). Login-only: Ferguson (partial), Winsupply, Hajoca, Core & Main, Johnstone, Watsco, White Cap (partial), SiteOne (partial), ABC, Beacon, SRS, GMS, L&W, FBM, Builders FirstSource, US LBM, 84 Lumber (partial).
-- **Third-party scraper APIs** absorb anti-bot risk: SerpApi Home Depot engine (`store_id`, `delivery_zip`; no Lowe's engine), BigBox/Traject Data (from $15/mo, ZIP-localized), Unwrangle, Apify actors, Oxylabs (Lowe's, Menards), Bright Data (datasets not store-level), Nimble.
-- **Upstream commodity series:** SteelBenchmarker (free PDF), USGS, EIA, FRED PPI; paid: Random Lengths, Fastmarkets AMM, CRU, Platts, LME, CME history, PCA, NRMCA, ICIS, DAT.
+### 5.3 Multifamily and commercial hard-cost data (appendix 14)
+- **HUD:** HUD-92331-B is the CSI-division trade cost schedule attached to the contractor's certificate of actual cost; filed certificates are FOIA-only. Public HUD multifamily datasets stop at loan level (units, mortgage amount, location, endorsement dates). HUD LIHTC database has no cost fields.
+- **State HFA application repositories with cost schedules per project (all PDF):** TDHCA (individually imaged full applications; archive), CTCAC (worksheets posted from the Excel application each round, ~12 years), FHFC (enumerable `Download?appNumber=…&docType=APP+PACKAGE`), Virginia Housing (9% and 4% applications by year). Series: WA Commerce HTF cost reports (median $/unit 2019 to 2023 by county/region), MN Housing cost containment model (2003 to 2024), CO CHFA development cost dashboard ($/unit and $/SF by region, credit type, development type), WSHFC annual cost data report. Taxonomy: Maryland DHCD Guide to Project Development Costs.
+- **Studies with project-level data:** RAND 2025 (Appendix Table A.18: sub-bid hard cost deltas for two concurrent wrap projects, CA vs TX; fees $1k TX / $12k CO / $29k CA per unit); Terner Center Hard Costs (240 CA multifamily projects 2009 to 2018, line-item level; dataset unpublished); SDHC 2025; NMHC/NAHB Cost of Regulations 2022 (40.6 percent of TDC).
+- **Market-rate calibration:** AvalonBay, Camden, Prologis (TEI includes land), American Homes 4 Rent (BTR $250k to $400k per home) development schedules in EDGAR 8-K supplementals, 15+ years.
+- **Benchmarks by typology and metro:** RLB quarterly (15 typologies × 14 to 16 metros including multifamily and parking), Cushman & Wakefield industrial (46 markets × 3 sizes) and data centers ($/MW, 19 markets), JLL and CBRE and C&W fit-out guides, Turner & Townsend GCMI (99 cities; high-rise apartments among 11 types; US labor $76/hr average, NY $131/hr), Mortenson (8 metros, nonresidential index), Cumming quarterly, MSBA school costs. No source codes garden, podium or wrap.
 
-### 4.4 Commercial cost databases and indexes (appendix 03, 09)
-- **RSMeans (Gordian)** — 85–97k line items (vendor figures inconsistent), 970 locations, 900+ US ZIP3 location factors, quarterly online; tiers Core/Complete/Complete Plus (prices reported anywhere from $396 to $5,973/yr; treat as unverified); API for licensees; **terms prohibit redistribution, searchable databases, and use as a basis for pricing products.**
-- **Craftsman Book Co.** — National Construction Estimator family; ZIP3 area modification factors split material/labor; **formal data licensing (Excel, Bacpac, Access, PDF, API; quarterly updates)**; pricing negotiated.
-- **BNi** — >15,000 units with man-hours; 600+ metro multipliers; BNi ACCESS bundled with books in three tiers (Reference tier has Excel-downloadable unit-cost DB).
-- **Marshall & Swift (Cotality, rebranded from CoreLogic 24 Mar 2025)** — 825+ multiplier locations, quarterly; embedded in many state assessor rules; license requires consent and fees for integration.
-- **Verisk Xactimate / 360Value** — 460+ geographic price lists (the "467" figure is not confirmed), monthly; per-user licensing (~$2,690/yr reported); 360Value 431 regions; feeds Zonda Cost vs Value.
-- **1build → Handoff** — 1build marketed a county-level Cost Data API (68M costs); company rebranded to Handoff; API status in 2026 unconfirmed. Bolster and Buildxact were customers.
-- **Indexes (free):** Turner (national quarterly; Q2 2026 = 1552), Mortenson (~7 metros), RLB (12–14 cities, $/SF ranges), Cumming (~10 metros), Gordian Cost Insights, Dodge Momentum, ABC backlog, NAHB Cost of Constructing a Home (2024: ~$162/SF), Zonda Cost vs Value (150 metros). Paid: ENR CCI/BCI (20 cities; 4-input basket), Compass International, CLRC union wage database, PAS craft compensation survey.
-- **Equipment:** EquipmentWatch Blue Book (paid; specified by 47–48 DOTs), Rouse (rental-company only), Ritchie Bros results (login), rental quotes (login/ToS).
-- **Labor units (copyrighted):** NECA Manual of Labor Units, MCAA WebLEM, PHCC, SMACNA, Walker's (current), Richardson's, Page's.
+### 5.4 Federal (appendix 01, 08)
+BLS PPI (national; regional only for new nonresidential building), OEWS (May 2025 released 15 May 2026), QCEW (county × NAICS 238 sub-trades; MSA industry detail dropped from Q3 2025), CES/ECI/ECEC, Davis-Bacon (undocumented SAM.gov JSON endpoints; no official bulk), Census BPS/SOC/VIP/CBP/QWI (API key required since May 2026), FHWA NHCCI and Federal Lands bid unit price analysis, USACE CWCCIS (tables to Sep 2025) and EP 1110-1-8 (12 regions; latest verified 2016), DoD UFS 3-701-01 (Feb 2026; 213 CONUS Area Cost Factors; $/SF by facility type), FEMA 2025 equipment rates, NRCS EQIP state cost lists, EIA, FRED, USAspending, BEA RPP, HUD TDC limits (2024), FTA capital cost database, USGS, NREL and LBNL solar datasets.
 
-### 4.5 Open data, taxonomies, tools (appendix 07)
-- **OpenConstructionEstimate DDC-CWICR** — 55,719 work items with labor/machine hours across 30 countries including a US track, but US prices are PPP-repriced (synthetic) and the data license is CC BY-NC 4.0. Useful as a structure/norm seed only. **OpenConstructionERP** (AGPL app) wraps it.
-- **Taxonomies:** CSI MasterFormat/UniFormat/OmniClass are CSI-copyrighted (2016 MasterFormat JSON exists on GitHub; legally grey). **Uniclass 2015** (CC BY-SA CSV + public API) is the only fully open classification. ICMS, NRM, UNSPSC free with terms.
-- **Tools on GitHub:** `bulklc/cm_tools` (Caltrans equipment book, 8 editions as JSON), `grey-flannel/usdol-wage-determination-data` (Davis-Bacon scraper/parser, MIT), `cliwant/mcp-sam-gov` (SAM.gov endpoint docs), `mikeasilva/blsAPI` and `armollica/qcew-data` (QCEW), `hiring-lab/*` (Indeed postings/wage trackers, CC BY 4.0), `tracykm/impact-fees` (Duncan 2019 survey as JSON), `IMMM-SFA/diyepw` (IECC zones by county), `aubreybailey/bigbox-stock-mcp` and `fruvs/hd-clearance-bot` (Home Depot GraphQL docs), `My-kal/lowes-crawler`, `ericboehs/tractor-supply-cli`.
-- **Productivity (public domain):** NAVFAC P-405 (Oct 1996; mirrored on EverySpec), Army FM 5-412/5-426/5-424, TM 5-800-4, pre-1929 Walker's, Caterpillar Performance Handbook (free but proprietary).
+### 5.5 State and local (appendix 02, 11, 12)
+State DOT bid tabs and average unit prices in 48 states (Texas Socrata all-bidder dataset; Oregon, Idaho, West Virginia, Indiana, North Carolina, Virginia, Massachusetts, Ohio structured; about 20 parseable per-letting; annual PDF books elsewhere); 37 state DOT asphalt/fuel/steel/cement indexes; state DOT construction cost indexes (CO, MN, WI, IA, NH, MD, MI); about 27 state prevailing wage schedules (Maryland XLSX; Washington export; Missouri, Minnesota, Michigan, California, Illinois, New York parameterized); assessor cost manuals with state-authored tables and multipliers (Oregon, Illinois, Indiana, Wisconsin, California, North Carolina counties, Texas CADs); permit data (NYC, Chicago, LA, SF, Seattle, Austin, Dallas; Shovels.ai nationally); municipal unit prices (Austin, San Diego County); sales tax tables; workers' comp tables (Oregon DCBS 50-state, state bureaus).
+
+### 5.6 Labor, equipment, indexes, open data (appendix 05, 06, 07)
+Labor blend method to county; equipment (Caltrans JSON mirror, FEMA, USACE); productivity (P-405, Army FMs, pre-1929 Walker's; NECA, MCAA, Craftsman, RSMeans copyrighted); open databases (CWICR CC BY-NC, synthetic US prices); taxonomies (Uniclass CC BY-SA; CSI copyrighted; HUD-92331-B as free CSI-ordered schedule); GitHub tools for Davis-Bacon, QCEW, Home Depot and Lowe's endpoints.
+
+### 5.7 Commercial cost databases (appendix 03, 09)
+RSMeans (terms bar redistribution and database use; 900+ ZIP3 factors from ~730 surveyed cities), Craftsman (formal data licensing; ZIP3 factors), BNi (Excel unit-cost DB in Reference tier), Marshall & Swift/Cotality (rebranded March 2025), Xactimate (460+ regions), Compass, ENR, CLRC, PAS, EquipmentWatch.
 
 ---
 
-## 5. Labor: how to get to a county-level loaded rate
+## 6. Labor: county-level loaded rate
 
-1. **Base level (annual):** OEWS median (and P10–P90) for the SOC at the MSA/nonmetro area; adjust cross-industry to construction using the national NAICS-238x/SOC ratio.
-2. **County disaggregation (quarterly):** ratio of QCEW county average weekly wage (NAICS 2382x private, 4-quarter average) to the same measure over the OEWS area; empirical-Bayes shrink toward 1 by employment; clip to roughly 0.80–1.25; fall back 23822 → 2382 → 238 → 23 → state on suppression; cross-check with QWI new-hire earnings.
-3. **Escalation (monthly):** ECI construction wages (region) and CES state construction AHE; latest QCEW quarters override.
-4. **Tiers:** journeyman = median; foreman = P75–P90; apprentice/helper = P25 or Davis-Bacon apprentice schedules.
-5. **Union overlay:** parse active Davis-Bacon WDs; union-identified lines (e.g., `ELEC0113-005 06/01/2022`) are fresh CBA scale; survey lines (`SU…`) may be a decade old — age them with ECI as DOL now does; blend by union coverage from unionstats. In CBA-basis states (CA, IL, NY, NJ, PA, OH, MA, WA, MI) prefer the state schedule.
-6. **Fringe:** union tier from DB/state schedule (split from local sheets where available); open-shop from ECEC construction benefit shares with a nonunion discount.
-7. **Burden:** WC = state class-code loss cost × LCM / 100 × wage (Oregon DCBS for 50 classes across 50 states; bureau PDFs otherwise); FICA 7.65%; FUTA 0.6% on $7k; SUTA construction new-employer rate × wage base; GL 1–3% allowance.
-8. **Validate** against CES state AHE, QWI hourly-equivalent, Davis-Bacon, Indeed posted-wage growth; publish P10–P90 bands and observation counts.
-
----
-
-## 6. Localization method (appendix 06)
-
-- **Basket:** define 3–5 building models (single-family, low-rise MF, mid-rise MF, light commercial, heavy civil) with published division weights and material/labor/equipment shares.
-- **Component ratios per county:** materials from scraped store baskets by CBSA (tax-inclusive, freight-adjusted); labor from the section 5 blend; equipment by state/region.
-- **Composite:** `LF_c = Σ_d w_d (m_d·M_{d,c} + l_d·W_{d,c} + e_d·E_c)`, with separate *scope multipliers* for seismic/wind/snow/flood/frost/soils/IECC zone applied to the divisions they affect rather than blended into the factor.
-- **Calibration:** regress log(actual unit price or $/SF) from DOT bid tabs, LIHTC cost data, USAspending awards, and permit values on log(LF_c) plus project controls; shrink county effects toward CBSA/state parents.
-- **Error bars:** bootstrap over basket items and wage sources; expect roughly ±3–5% in dense metros and ±8–12% in rural counties; publish observation counts.
-- **Accuracy context:** AACE Class 5 through Class 1 ranges run from −50/+100% down to −3/+15%; RSMeans positions unit-price estimates at ±5% but its location factors have no published validation against bids. No GAO/DOT/academic study validating RSMeans CCI spatially was found; Garcia & Molloy (Fed, 2025) validate its *time* trend against Census. A published bid-tab-vs-factor validation would be a genuine contribution.
+1. OEWS median and percentiles by SOC at MSA/nonmetro; adjust cross-industry to construction with national NAICS-238x ratio.
+2. County disaggregation with QCEW county average weekly wage (NAICS 2382x, 4-quarter average) relative to the OEWS area; empirical-Bayes shrink; fallback 23822 → 2382 → 238 → 23 → state; cross-check with QWI new-hire earnings.
+3. Escalate monthly with ECI construction wages and CES state AHE.
+4. Tiers: journeyman = median; foreman = P75 to P90; apprentice = P25 or Davis-Bacon schedules.
+5. Union overlay from Davis-Bacon union-identified lines and CBA-basis state schedules; age survey lines with ECI; weight by unionstats coverage.
+6. Fringe from DB/state schedules (union) or ECEC shares (open shop). Burden: WC class-code loss cost (Oregon DCBS, bureau tables), FICA, FUTA, SUTA construction rate, GL allowance.
+7. Validate against CES, QWI, DB, Indeed posted-wage growth; publish P10 to P90 bands and observation counts.
 
 ---
 
-## 7. Legal constraints (not legal advice)
+## 7. Localization method (appendix 06)
 
-- **Government data:** BLS, Census, DOL, DOT, USACE, DoD, FEMA, NRCS, EIA outputs are US Government works (public domain). State DOT and DOL publications are public records; check individual state terms for bulk use (Caltrans, bidtabs.us, Bid Express have ToS).
-- **Retail/distributor scraping:** prices, SKUs, model numbers are facts (Feist); do not copy descriptions, images, reviews. hiQ v. LinkedIn (2022) supports logged-out scraping under CFAA; Ryanair v. Booking (2024) shows credentialed access is different — never bulk-pull behind Pro Xtra, Lowe's Pro, or distributor logins. Home Depot, Lowe's, Menards, Grainger, McMaster ToS prohibit robots/data mining; expect IP bans and cease-and-desist risk; DMCA §1201 arguments against defeating Akamai/DataDome are untested. Rate-limit (≤1 rps/host), respect robots.txt, cache, identify your UA.
-- **Commercial databases:** RSMeans terms bar redistribution, searchable databases, and pricing products; Marshall & Swift requires consent and fees for integration; Xactimate price lists are not licensed for external redistribution; Random Lengths/CRU/Platts index values are licensed compilations. Several state assessor manuals embed Marshall & Swift tables (MI, MT, SD, NE, OK, UT, KS) — republishing those numbers carries the same risk even though the PDF is public.
-- **Taxonomy:** CSI MasterFormat numbers and titles are copyrighted; Uniclass 2015 is CC BY-SA.
-- **Open datasets:** CWICR is CC BY-NC (no commercial use without a DDC licence); Indeed Hiring Lab is CC BY 4.0; LBNL Tracking the Sun is open.
-
----
-
-## 8. Recommended build order
-
-1. **County spine and crosswalks:** TIGER + OMB `list1_2023.csv` + HUD ZIP↔county API (quarterly) + IECC county CSV + BEA RPP.
-2. **Labor layer:** QCEW county slices (no key), OEWS May 2025 zips, Davis-Bacon scraper (clone `grey-flannel/usdol-wage-determination-data`), state PW scrapers for MD (XLSX), WA, CA, IL, NY, MI, MO, MN; Oregon DCBS WC tables; ECI/CES for escalation.
-3. **Civil unit-price layer:** TX Socrata first (all bidders, county, engineer's estimate), then OR/ID/WV/IN/NC/VA XLSX, MA CPE, OH Power BI export, then per-letting HTML/TXT parsers (LA, NJ, AL, KS, MI, MN, IL, DE, ME, AZ-polling), then PDF annual books. Build the pay-item crosswalk to a common civil schema (NHCCI item groups as the starting point).
-4. **Commodity layer:** 37 state DOT asphalt/fuel/steel/cement indexes (monthly), SteelBenchmarker, USGS state values, EIA fuel, FRED PPI.
-5. **Retail material layer:** Home Depot `mediaPriceInventory` over a fixed basket × store graph (from `StoreSearchServices`), Lowe's `/wpd` per SKU × store, Ace Kibo API, distributor branch prices; normalize IDs via UPC/GTIN and model number; Avalara ZIP tax.
-6. **Equipment layer:** Caltrans JSON mirror, FEMA 2025 schedule, USACE EP 1110-1-8 parse, EIA fuel adjustment.
-7. **Assemblies and $/SF benchmarks:** DoD UFS 3-701-01 Tables 2/6 + ACFs, Census SOC, NAHB, RLB/Cumming/Mortenson metro reports, LIHTC and school cost datasets for calibration.
-8. **Productivity:** seed from P-405, Army FMs, pre-1929 Walker's, Caterpillar; plan to license Craftsman or survey contractors.
-9. **Index construction and validation** per section 6; publish weights, factors, error bars, observation counts, and a bid-tab validation.
+- Building models for the target typologies: garden (wood frame, surface parking), podium (wood over concrete, structured parking), wrap (wood around a parking structure), high-rise, BTR townhome, office core-and-shell and fit-out, retail shell, industrial tilt-up. Published division weights and material/labor/equipment shares per model.
+- Component ratios per county: materials from list × multiplier by metro plus commodity indexes; labor per section 6; equipment by region.
+- `LF_c = Σ_d w_d (m_d·M_{d,c} + l_d·W_{d,c} + e_d·E_c)` with scope multipliers for seismic, wind, snow, flood, frost, soils and climate zone applied to the divisions they affect.
+- Calibration: regress log actual cost from trade-package bid tabs (PA, NY, WI, MA, IL, NC), DOT bid tabs, HFA cost schedules and REIT schedules on log(LF_c) plus project controls (typology, size, stories, parking type, prevailing-wage flag, procurement method); shrink county effects toward CBSA and state.
+- Error bars by bootstrap; expect roughly ±3 to 5 percent in dense metros and ±8 to 12 percent in rural counties; publish observation counts.
+- Accuracy context: AACE classes 5 to 1 span −50/+100 percent to −3/+15 percent; no public study validates RSMeans location factors against bids.
 
 ---
 
-## 9. Verification status and open gaps
+## 8. Legal constraints (not legal advice)
 
-Search budget in this session was 200 queries total across all agents and ran out mid-way through the second verification pass. Items below were not resolved and should be the first tasks of a follow-up session with fresh search budget (or a machine with direct egress to `.gov` and vendor hosts):
+- Government outputs (BLS, Census, DOL, DOT, USACE, DoD, FEMA, NRCS, EIA, HUD forms, state and county procurement records, university bid tabs, EDGAR filings) are public domain or public record. Check individual portal terms for bulk use (Bid Express, bidtabs.us, Caltrans).
+- Manufacturer list-price PDFs and price-increase letters are published for open distribution; prices are facts (Feist), but do not reproduce catalogs, descriptions or images wholesale.
+- Distributor and rental sites: scrape logged-out only; never bulk-pull behind Pro or contractor accounts; respect robots.txt; rate-limit; expect Akamai/DataDome friction.
+- Commercial databases: RSMeans terms bar redistribution, searchable databases and pricing products; Marshall & Swift requires consent and fees for integration; Gordian's CTC is licensed IP even when used in public JOC programs; Random Lengths, SMU, CRU, Platts are licensed compilations. Several state assessor manuals embed Marshall & Swift tables.
+- Taxonomy: CSI MasterFormat is copyrighted; HUD-92331-B and Uniclass 2015 are free alternatives.
+- Open datasets: CWICR is CC BY-NC; Indeed Hiring Lab CC BY 4.0; LBNL Tracking the Sun open.
 
-**State DOT:** TX `de7b-7dna` history start and update frequency; TxDOT and MnDOT/MDOT(MI) asphalt/fuel index pages; UT/NV/HI/CT/ME average price products (likely none); Caltrans CCI standalone page; WSDOT/TxDOT/ODOT/FDOT/NYSDOT construction cost index pages; whether PennDOT Item Price History is truly public; MassDOT CPE export; Caltrans Contract Cost Data all-bidder coverage; GDOT Item Mean Summary editions after 2012.
+---
 
-**Prevailing wage / assessor:** Delaware, New Mexico, Colorado rate-table URLs; Tennessee 2026 PDF; Ohio lookup app URL; the authoritative 2026 count of state PW laws (27 + DC is best-supported; "32" claims are unsupported); assessor manuals for VA, SC, WV, KY, TN, OH, FL, VT, NH, ME, DE, AZ (current), NV, NM, WY, AK, HI; Alabama 2015 and Mississippi appraisal manual URLs; whether Colorado ARL Vol 3 and New Jersey's main manual carry per-SF tables.
+## 9. Recommended build order (commercial segment)
 
-**Federal:** ECEC construction-line dollar values; HUD 2025/2026 TDC schedules; USGS Minerals Yearbook state XLSX filenames; OFLC bulk file name; NHCCI current quarter and sub-index downloads; FEMA equipment code count; any EP 1110-1-8 edition after 2016; MII/UPB vendor and price; states other than FL posting NCCI loss-cost PDFs; BEA RPP bulk zip URL; EIA API rate limit.
+1. **County spine:** TIGER, OMB CBSA, HUD ZIP crosswalk, IECC zones, BEA RPP.
+2. **Labor layer:** QCEW, OEWS May 2025, Davis-Bacon scraper, state PW scrapers (MD XLSX first), Oregon DCBS WC, ECI/CES.
+3. **Trade-package bid layer:** PA eMarketplace BidTabs and Penn State packages; WI DFD MEP tabs (past archive); MA DCAMM filed sub-bids; SUNY SUCF, DASNY, OGS, NYC DCAS; IL CDB (poll monthly); NC eVP; Louisiana FPC; WWU; University of Kentucky. Normalize to $/SF with plan quantities where available.
+4. **Multifamily cost-schedule layer:** FHFC (enumerable URLs), TDHCA, TCAC, Virginia Housing PDF extraction into the HUD-92331-B division schema; WA Commerce, MN, CO CHFA series; REIT 8-K schedules; RAND Table A.18.
+5. **Material list-price layer:** scrape Viega, NIBCO, Watts, Charlotte, Uponor, Tyler, Southwire, Cerrowire, Eaton, Schneider, Allegion/SECLOCK, Lawrence list files; build the multiplier survey from county materials bids (Lee County pattern), NY OGS schedules, GSA Advantage `ref_text/`, Sourcewell and HGACBuy price files; ingest distributor price-increase archives as a dated level feed.
+6. **Commodity layer:** 37 DOT asphalt/fuel/steel/cement indexes; Nucor CSP series; SteelBenchmarker; USGS; EIA; FRED PPI; AGC subcontractor-segment PPI tables.
+7. **Civil unit-price layer:** TX Socrata first, then OR/ID/WV/IN/NC/VA/MA/OH, then per-letting parsers; pay-item crosswalk.
+8. **Equipment layer:** Caltrans JSON, FEMA 2025, USACE EP 1110-1-8, EIA.
+9. **Benchmarks:** RLB, C&W, JLL, CBRE, T&T, Mortenson, Cumming, DoD Tables 2 and 6, MSBA.
+10. **Gaps to close by survey or licensing:** HVAC equipment net pricing (cooperative contract pulls, sub bids), elevators, sprinkler, precast, CMU, fabricated steel $/ton; productivity (Craftsman license or contractor survey); MEP list feeds (Trade Service, EPIC, CINX) if list-book scraping is insufficient.
+11. **Index construction and validation** per section 7, with a published bid-tab validation.
 
-**Commercial/retail (not attempted in verification):** EquipmentWatch owner/pricing; Trade Service owner; 1build/Handoff API status; Clear Estimates; ConstructConnect/Dodge ownership and licensing; Whitestone status; Compass; CLRC/PAS pricing; ENR history access; Home Depot/Lowe's/Menards robots.txt and ToS text; Platt/CES/Elliott/White Cap/SiteOne/Ryerson public-price behavior; Ferguson partner API existence; SerpApi/BigBox current pricing; HVAC distributor visibility; AI entrants' data APIs; Shovels pricing tiers.
+---
 
-**Calibration/validation (not attempted):** state school construction cost reports beyond MA/OH/FL/WA/TX; municipal average unit price databases beyond Austin/San Diego/Riverside/Maricopa/Chicago; procurement portal data exposure (PlanetBids, BidNet, DemandStar, Bonfire, OpenGov); any RSMeans-vs-bid or engineer's-estimate-vs-low-bid accuracy studies (state DOT research reports, NCHRP syntheses); AACE 18R-97/56R-08 citations; BuildZoom/Construction Monitor/Dodge permit-value terms.
+## 10. Verification status and open gaps
 
-**Corrections to common assumptions surfaced by verification:** Caltrans no longer publishes regional asphalt indexes (statewide Brent crude index instead); WSDOT Unit Bid Analysis returns only the three lowest bidders; FDOT's public dashboard blocks export; Census BPS county files live under `/programs-surveys/bps/`, not `/econ/bps/`; OEWS bulk path uses a hyphen (`special-requests`); OEWS series IDs are 25 characters; BEA 2024 RPP shipped in Feb 2026; Xactimate's list count is "more than 460", not 467; the Cotality rebrand was March 2025; DOL's state-PW page still omits Michigan's 2024 reinstatement; HUD's LIHTC database has no cost fields.
+Search budget in each pass was 200 queries and every pass ran out before finishing. The following remain open and should lead a follow-up session:
+
+**Trade-level bid results:** NJ N.J.S.A. 18A:18A-18 and NC G.S. 143-128 statute detail; Kansas, Missouri, New Mexico multi-prime; Illinois CDB statutory basis; NYC SCA per-bidder amounts; NJ DPMC and Chicago Public Schools tab pages; structured federal bid abstracts; Texas and Utah university systems; CA DGS/DSA, FL DMS, GA GSFIC, OR DAS, CT DAS, MD eMMA, VA eVA, CO OSA, AZ ADOA, TN STREAM, KY, UC/CSU bid-tab URLs.
+
+**Material channels:** Trimble Trade Service list price; Sourcewell HVAC price files; CMU, brick, precast list prices; ready-mix and cement letters with amounts; AISC fabricated-and-erected $/ton; joist and deck pricing; elevator new-install benchmark; fire sprinkler benchmark; BFS/US LBM multifamily package pricing; multifamily vinyl window pricing; commercial paint list; current Shaw/Mohawk GSA lists; Armstrong commercial list; BuyBoard and E&I price files; fire alarm, low voltage.
+
+**Multifamily cost data:** whether filed cost certifications are posted by Georgia DCA; per-project repositories for OH, IL, PA, MI, NC, WA, NJ, AZ, MO, TN, UT, NV, ID, NM; Marshall & Swift commercial; Trepp; Urban Institute; Up for Growth; Arcadis; Compass; Green Street; NY HCR and MA EOHLC cost reports; Rexford, Equity Residential, MAA, UDR, Invitation Homes schedules; garden/podium/wrap benchmarks from a primary source (the $/door figures circulating are contractor marketing, not data).
+
+**Earlier passes (still open):** TX `de7b-7dna` history and cadence; TX/MN/MI asphalt indexes; UT/NV/HI/CT/ME DOT average prices; WSDOT/TxDOT/ODOT/FDOT/NYSDOT cost indexes; PennDOT Item Price History public access; Delaware, New Mexico, Colorado PW rate tables; Ohio PW lookup URL; the authoritative 2026 state PW count (27 + DC best supported); assessor manuals for 17 states; ECEC construction line values; HUD 2025/2026 TDC; USGS state XLSX filenames; NHCCI current quarter; EP 1110-1-8 editions after 2016; MII vendor and price; BEA RPP bulk URL; EIA rate limit; 1build/Handoff API status; retailer ToS text.
+
+**Corrections surfaced by verification:** Caltrans uses a statewide Brent crude index, not regional asphalt indexes; WSDOT Unit Bid Analysis returns only the three lowest bidders; FDOT's public dashboard blocks export; Census BPS county files live under `/programs-surveys/bps/`; OEWS bulk path uses a hyphen and series IDs are 25 characters; BEA 2024 RPP shipped Feb 2026; Xactimate's list count is "more than 460"; Cotality rebrand was March 2025; DOL's state-PW page omits Michigan's 2024 reinstatement; HUD's LIHTC database has no cost fields; "EDA" as an electrical pricing body does not exist (IDEA is the data hub and publishes no prices); "Materials Market Data (Building Journal)" could not be found.
