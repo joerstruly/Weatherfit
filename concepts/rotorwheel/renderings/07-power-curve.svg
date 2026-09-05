@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" id="pwr" aria-label="Power required against airspeed for the RW-2S. Both curves start at the 350 kilowatt hover requirement at zero speed. Rotors alone: power dips to about 286 kilowatts near 125 km/h, then climbs and crosses the 350 kilowatt installed-power line at 197 km/h, the top speed. With a 4 metre deployable span the wing offloads the rotors above about 120 km/h: cruise power at 180 km/h falls from about 320 to about 226 kilowatts and top speed rises to 227 km/h. Hover sets the installed power; cruise sets the energy." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+<title>RW-2S power required vs airspeed</title>
+<line x1="95" y1="415.0" x2="800" y2="415.0" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="85" y="419.0" text-anchor="end" fill="currentColor" opacity="0.75">0</text>
+<line x1="95" y1="336.1" x2="800" y2="336.1" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="85" y="340.1" text-anchor="end" fill="currentColor" opacity="0.75">100</text>
+<line x1="95" y1="257.2" x2="800" y2="257.2" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="85" y="261.2" text-anchor="end" fill="currentColor" opacity="0.75">200</text>
+<line x1="95" y1="178.3" x2="800" y2="178.3" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="85" y="182.3" text-anchor="end" fill="currentColor" opacity="0.75">300</text>
+<line x1="95" y1="99.4" x2="800" y2="99.4" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="85" y="103.4" text-anchor="end" fill="currentColor" opacity="0.75">400</text>
+<line x1="95.0" y1="60" x2="95.0" y2="415" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="95.0" y="437" text-anchor="middle" fill="currentColor" opacity="0.75">0</text>
+<line x1="241.9" y1="60" x2="241.9" y2="415" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="241.9" y="437" text-anchor="middle" fill="currentColor" opacity="0.75">50</text>
+<line x1="388.8" y1="60" x2="388.8" y2="415" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="388.8" y="437" text-anchor="middle" fill="currentColor" opacity="0.75">100</text>
+<line x1="535.6" y1="60" x2="535.6" y2="415" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="535.6" y="437" text-anchor="middle" fill="currentColor" opacity="0.75">150</text>
+<line x1="682.5" y1="60" x2="682.5" y2="415" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+<text x="682.5" y="437" text-anchor="middle" fill="currentColor" opacity="0.75">200</text>
+<line x1="95" y1="415" x2="800" y2="415" stroke="currentColor" stroke-width="2"/>
+<line x1="95" y1="60" x2="95" y2="415" stroke="currentColor" stroke-width="2"/>
+<text x="85" y="38" text-anchor="end" fill="currentColor" font-size="11" opacity="0.75">kW</text>
+<text x="800" y="455" text-anchor="end" fill="currentColor" font-size="11" opacity="0.75">airspeed, km/h</text>
+<line x1="95" y1="138.9" x2="800" y2="138.9" stroke="currentColor" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="105" y="129.9" fill="currentColor" font-size="12">350 kW installed — set by hover, never by cruise</text>
+<path d="M95.0,138.9 L100.9,138.9 L106.8,138.9 L112.6,139.0 L118.5,139.2 L124.4,139.5 L130.2,139.8 L136.1,140.2 L142.0,140.7 L147.9,141.1 L153.8,141.6 L159.6,142.2 L165.5,142.8 L171.4,143.4 L177.2,144.1 L183.1,144.8 L189.0,145.6 L194.9,146.4 L200.8,147.2 L206.6,148.1 L212.5,149.0 L218.4,150.0 L224.2,151.0 L230.1,152.0 L236.0,153.0 L241.9,154.0 L247.8,155.1 L253.6,156.2 L259.5,157.3 L265.4,158.5 L271.2,159.6 L277.1,160.8 L283.0,161.9 L288.9,163.1 L294.8,164.3 L300.6,165.5 L306.5,166.6 L312.4,167.8 L318.2,169.0 L324.1,170.1 L330.0,171.3 L335.9,172.4 L341.8,173.6 L347.6,174.7 L353.5,175.7 L359.4,176.8 L365.2,177.8 L371.1,178.8 L377.0,179.8 L382.9,180.7 L388.8,181.6 L394.6,182.5 L400.5,183.3 L406.4,184.0 L412.2,184.8 L418.1,185.4 L424.0,186.0 L429.9,186.6 L435.8,187.1 L441.6,187.5 L447.5,187.9 L453.4,188.2 L459.3,188.5 L465.1,188.6 L471.0,188.7 L476.9,188.8 L482.8,188.7 L488.6,188.6 L494.5,188.4 L500.4,188.1 L506.2,187.8 L512.1,187.3 L518.0,186.8 L523.9,186.2 L529.8,185.5 L535.6,184.7 L541.5,183.9 L547.4,182.9 L553.2,181.9 L559.1,180.7 L565.0,179.5 L570.9,178.2 L576.8,176.7 L582.6,175.2 L588.5,173.6 L594.4,171.9 L600.2,170.1 L606.1,168.2 L612.0,166.2 L617.9,164.1 L623.8,161.9 L629.6,159.6 L635.5,157.2 L641.4,154.7 L647.2,152.0 L653.1,149.3 L659.0,146.5 L664.9,143.6 L670.8,140.5" fill="none" stroke="#2a78d6" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M95.0,138.9 L100.9,138.9 L106.8,139.0 L112.6,139.2 L118.5,139.6 L124.4,140.1 L130.2,140.7 L136.1,141.3 L142.0,142.1 L147.9,143.0 L153.8,143.9 L159.6,144.9 L165.5,146.0 L171.4,147.2 L177.2,148.5 L183.1,149.8 L189.0,151.3 L194.9,152.8 L200.8,154.4 L206.6,156.1 L212.5,157.8 L218.4,159.6 L224.2,161.5 L230.1,163.4 L236.0,165.4 L241.9,167.5 L247.8,169.6 L253.6,171.7 L259.5,174.0 L265.4,176.2 L271.2,178.5 L277.1,180.8 L283.0,183.2 L288.9,185.6 L294.8,188.0 L300.6,190.5 L306.5,192.9 L312.4,195.4 L318.2,197.9 L324.1,200.4 L330.0,202.9 L335.9,205.4 L341.8,207.9 L347.6,210.3 L353.5,212.8 L359.4,215.2 L365.2,217.6 L371.1,220.0 L377.0,222.3 L382.9,224.6 L388.8,226.9 L394.6,229.1 L400.5,231.2 L406.4,233.3 L412.2,235.4 L418.1,237.3 L424.0,239.2 L429.9,241.0 L435.8,242.7 L441.6,244.4 L447.5,245.9 L453.4,247.4 L459.3,248.7 L465.1,250.0 L471.0,251.1 L476.9,252.2 L482.8,253.1 L488.6,253.9 L494.5,254.6 L500.4,255.2 L506.2,255.7 L512.1,256.0 L518.0,256.2 L523.9,256.3 L529.8,256.3 L535.6,256.1 L541.5,255.8 L547.4,255.4 L553.2,254.8 L559.1,254.1 L565.0,253.3 L570.9,252.3 L576.8,251.1 L582.6,249.9 L588.5,248.4 L594.4,246.9 L600.2,245.2 L606.1,243.3 L612.0,241.3 L617.9,239.2 L623.8,236.9 L629.6,234.4 L635.5,231.8 L641.4,229.0 L647.2,226.1 L653.1,223.1 L659.0,219.9 L664.9,216.5 L670.8,212.9 L676.6,209.3 L682.5,205.4 L688.4,201.4 L694.2,197.2 L700.1,192.9 L706.0,188.4 L711.9,183.8 L717.8,178.9 L723.6,174.0 L729.5,168.8 L735.4,163.5 L741.2,158.0 L747.1,152.4 L753.0,146.6 L758.9,140.6" fill="none" stroke="#eb6834" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="674.0" cy="138.8" r="5" fill="#2a78d6" stroke="currentColor" stroke-width="2"/>
+<circle cx="760.7" cy="138.7" r="5" fill="#eb6834" stroke="currentColor" stroke-width="2"/>
+<text x="359.4" y="162.8" fill="#2a78d6" font-size="13">rotors alone</text>
+<text x="247.8" y="274.6" fill="#eb6834" font-size="13">+ 4 m deployable span</text>
+<text x="800" y="296.7" text-anchor="end" fill="#2a78d6" font-size="13">rotors alone — top speed 197 km/h</text>
+<text x="800" y="316.7" text-anchor="end" fill="currentColor" font-size="12" opacity="0.8">best range 190 km/h · 100 km on 80 kg fuel</text>
+<text x="800" y="344.7" text-anchor="end" fill="#eb6834" font-size="13">+ 4 m span — top speed 227 km/h</text>
+<text x="800" y="364.7" text-anchor="end" fill="currentColor" font-size="12" opacity="0.8">best range 175 km/h · 142 km on 80 kg fuel</text>
+<circle cx="95.0" cy="138.9" r="5" fill="currentColor"/>
+<text x="107.0" y="78" fill="currentColor" font-size="12">hover: 350 kW,</text>
+<text x="107.0" y="94" fill="currentColor" font-size="12">but only ~60 s per sortie = 5.8 kWh</text>
+<g><rect x="111" y="336.1" width="14" height="4" rx="2" fill="#2a78d6"/><text x="133" y="343.1" fill="currentColor" font-size="12">rotors alone</text><rect x="111" y="358.1" width="14" height="4" rx="2" fill="#eb6834"/><text x="133" y="365.1" fill="currentColor" font-size="12">+ 4 m deployable span</text></g>
+<g id="pwr-hover" opacity="0"><line id="pwr-cross" y1="60" y2="415" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/><circle id="pwr-d1" r="5.5" fill="#2a78d6" stroke="currentColor" stroke-width="2"/><circle id="pwr-d2" r="5.5" fill="#eb6834" stroke="currentColor" stroke-width="2"/><rect id="pwr-tipbg" rx="4" height="58" width="176" fill="currentColor"/><text id="pwr-t0" font-size="12" font-weight="600"></text><text id="pwr-t1" font-size="12"></text><text id="pwr-t2" font-size="12"></text></g>
+<rect id="pwr-hit" x="95" y="60" width="705" height="355" fill="transparent" pointer-events="all"/>
+</svg>

@@ -1,12 +1,14 @@
 # RW-5 "FERRET" — Rotorwheel Hybrid Ground–Air Vehicle
 
-**Concept Specification, Rev D** · 2026-09-05 · Unarmed ISR / scout mobility platform
+**Concept Specification, Rev E** · 2026-09-05 · Unarmed ISR / scout mobility platform
 
-Rev D: identical wheel arms front and rear — the wake stagger comes from a
-nose-down cruise attitude, not geometry (§3.1); RW-2S re-laid-out around four
-large rotor-wheels with no hull fans (§11); turbine-in-the-wheel assessed and
-rejected on matching, not just control, grounds (§12). Rev C had added the stagger, RW-2S and the
-turbine analysis.
+Rev E re-derives the vehicle around a **point-to-point speed** design point
+(§1.1): hover is a 30-second transition at each end, not a loiter mode. Three
+consequences — the nose-down cruise attitude is withdrawn because the wake
+problem was overstated (§3.1); fans become **variable-pitch**, without which
+there is no cruise (§3.2); and **span**, not hull shape, is the dominant
+cruise-power lever (§2.1). Rev D had made the arms identical and re-laid-out
+RW-2S; Rev C added the stagger, RW-2S and the turbine analysis.
 
 Rev B superseded Rev A: coaxial two-stage fans in smaller wheels, two-axis
 tilt (flip + fore/aft pitch), lift fan embedded in the hull with a thrust-
@@ -23,18 +25,38 @@ narrow enough for doorways. To fly, the wheels flip outboard to horizontal;
 once flat they can also pitch fore and aft, so the vehicle transitions from
 hover into fast forward flight with the hull itself generating lift.
 
-Design thesis: **ground for endurance, air for obstacles and speed.** Wheel-sized
-rotors are aerodynamically expensive (§8.1), so hover is a transition state, not
-a loiter mode; the airframe is built to get *through* hover into cruise, where
-tilted rotors and the lifting body make flight far cheaper.
+Design thesis: **A to B, fast.** This is not a hovering machine that also
+travels; it is a travelling machine that can take off and land anywhere.
+A quadcopter is built to hold station — this is built to depart, dash, and
+arrive.
+
+### 1.1 Design point — point-to-point speed
+
+Hover is a **transition state of roughly 30 s at each end of a sortie**, not a
+mission phase. That single statement reorders every trade in this document:
+
+- **Hover sets installed power. Cruise sets energy.** Two different budgets,
+  and they must not be confused. At RW-2S scale hover needs ~350 kW but only
+  ~60 s per sortie — **5.8 kWh**, a third of the battery, and irrelevant as
+  fuel. Meanwhile cruise runs 30–60 min and spends every kilogram of fuel
+  aboard.
+- **So disc loading barely matters as a fuel penalty**, and it is the reason
+  earlier revisions of this document over-weighted it. What it still does,
+  unavoidably, is size the powerplant: the vehicle carries a 350 kW
+  installation to use ~220–320 kW in cruise. Every proposal must be judged on
+  *installed power*, not on hover fuel burn (§12 revisits turbines on exactly
+  this basis).
+- **The cruise curve is the design.** Power required against airspeed, with
+  the installed-power line drawn across it, sets top speed, best-range speed,
+  and range in one picture — see the figure in §6.
 
 ### Mission profile (design case)
 
 | Segment | Mode | Notes |
 |---|---|---|
-| Approach, patrol, interior traverse | Ground | ~85% of distance, ~3 h available |
-| Obstacle hops, floor/roof transfers | Hover / low-speed | ≤ 9 min total hover budget |
-| Repositioning, dash to next vantage | Cruise | ~110 km/h, ~17 min, ~30 km |
+| Departure and arrival | Hover / transition | ~30 s each end · ~5.8 kWh at RW-2S scale |
+| The mission itself | Cruise | 30–60 min, fuel-limited; the sizing case |
+| Approach, dash, hide, interior work | Ground | quiet, endurance-limited, ~3 h |
 
 ## 2. Hull — delta lifting body
 
@@ -51,6 +73,38 @@ tilted rotors and the lifting body make flight far cheaper.
   downforce. Low aspect ratio means it never carries the whole vehicle either way.
 - **Ground role:** the same shape gives a low, sloped signature and a flat belly
   for skid landings; ground clearance 150 mm.
+
+### 2.1 Span, not shape, is the cruise-power lever (Rev E)
+
+At speed the dominant cost is the **induced power of holding the vehicle up**:
+P_i ≈ T²/(2ρAv). Anything that takes lift off the rotors cuts it as the square
+of the thrust removed, so offloading onto a wing is the largest single lever in
+the cruise budget — larger than drag cleanup, larger than rotor efficiency.
+
+The catch is that a lifting body is a poor wing, and the arithmetic is
+unforgiving. Worked at RW-2S scale, 830 kg at 175 km/h:
+
+| | Rotors carry everything | Lifting body, AR ≈ 0.7 | Deployable wing, AR ≈ 4 |
+|---|---|---|---|
+| Rotor thrust | 8,140 N | ~4,650 N | ~4,650 N |
+| Rotor induced power | ~123 kW | ~40 kW | ~40 kW |
+| Wing induced drag | — | ~1,360 N | ~210 N |
+| Drag power | ~115 kW | ~198 kW | ~128 kW |
+| **Total** | **~238 kW** | **~238 kW** | **~168 kW** |
+
+**At aspect ratio 0.7 the lifting body is exactly break-even** — the induced
+drag it creates carrying the load costs precisely what the rotors saved. The
+hull shape earns its keep for low-speed transition, ground signature and
+packaging, but as a *wing* at cruise it is doing nothing. Only span changes
+the answer: at AR 4 the same lift costs a seventh of the induced drag, and
+cruise power drops ~30%.
+
+**Recommendation for the speed variant:** a 4 m deployable wing that folds to
+the 2.2 m driving width. It moves RW-2S from 197 to 227 km/h top speed and
+from ~100 to ~142 km of range on the same 80 kg of fuel (§6). It is the single
+highest-value addition on the roadmap, and it is not adopted into the baseline
+here only because folding structure at that span is its own engineering
+programme.
 
 ## 3. Rotor-wheel module (×4)
 
@@ -79,38 +133,84 @@ From outside in:
 - Cost: ~10% worse figure of merit than a single rotor of the same disc area,
   and a second motor, mesh, and controller per wheel.
 
-### 3.1 Stagger by attitude, not by arms (Rev D)
+### 3.1 The wake problem, corrected (Rev E)
 
-In cruise the rear discs sit directly behind the front pair. Coplanar and
-level, they would fly in the front discs' wake: ~10–15% thrust loss on the
-rear pair plus vibration and noise. Rev C fixed this with raised rear pivots
-and longer rear arms. Rev D drops that: **all four arms and pivots are
-identical, and the whole vehicle cruises nose-down**, so the rear pair rides
-higher in the airflow the way a multirotor's does.
+Revisions C and D both treated the rear discs flying in the front discs' wake
+as a first-order problem — C raised the rear pivots, D pitched the whole
+vehicle 15° nose-down. **Reworked, the concern was overstated, and both fixes
+are withdrawn.**
 
-Geometry: with the hull pitched θ nose-down the rear discs sit
-wheelbase·sin θ higher than the front pair relative to the airflow, and the
-front wake also descends ~0.2 m over the wheelbase under its own induced
-velocity. Clearing the wake needs ~0.22 m; at **15° nose-down** the attitude
-alone gives 720 mm × sin 15° = 0.19 m, and with the induced descent the wake
-passes ~0.4 m under the rear discs. The discs pitch 45° relative to the hull,
-which puts their thrust 60° to the air — the same as before.
+The wake does not hang in place; it is driven down at roughly twice the disc's
+induced velocity while it drifts aft at flight speed. Descent over the
+wheelbase is therefore 2·v_i·(wheelbase / v_flight). At RW-2S cruise
+(v_i ≈ 15 m/s, wheelbase 2.8 m, 175 km/h) that is **~1.7 m** — against a rear
+disc of 0.6 m radius, the wake passes far beneath. The margin only closes above
+about 250 km/h, beyond this airframe's top speed. Slower flight makes it
+*better*, not worse: the induced velocity rises and the wake has longer to fall.
 
-What it costs — stated plainly, because it is not free: **a lifting body at
-−15° is a brake.** The cambered hull that carried ~26% of the weight at +5°
-now produces downforce (C_L ≈ −0.3, ~19% of weight added to the rotors' job)
-and roughly triple the drag. Cruise power rises from ≈ 6.5 kW to ≈ 8.5 kW;
-cruise endurance falls from ~17 to ~13 min and range from ~30 to ~24 km. The
-hull still earns its shape at low speed and in transition (level, +5°), and
-as the low-signature drive-mode body. If the wing matters more than the
-simplicity, the alternative is to build the hull with +12° incidence relative
-to the wheel plane so it flies at a useful angle while the chassis is
-nose-down; that makes it sit nose-high on the ground and was not adopted.
+Two things follow:
 
-Side effects to carry in the control law: a small pitch coupling from the
-vertical offset between front and rear thrust lines during translation, and
-the transition from level hover to 15° nose-down cruise itself (≈ 4 s, discs
-pitching 0 → 45° as the hull rotates).
+1. **Arms and pivots stay identical, and the vehicle no longer cruises
+   nose-down.** The hull flies at whatever attitude the wing wants — level to
+   +5° — which is the attitude that lets it contribute lift at all (§2.1). The
+   nose-down attitude cost ~2 kW at RW-5 scale and roughly a third of RW-2S's
+   cruise efficiency, and bought nothing.
+2. **RW-5 is the tighter case** — 0.72 m wheelbase, Ø 320 discs — and still
+   clears: ~0.4–0.7 m of descent against a 0.16 m disc radius. Fine at cruise.
+
+What remains real is **transition**, at 20–60 km/h, where the wake is skewed
+but not yet swept clear and the rear discs see unsteady inflow. That is a
+control-authority and structural-fatigue item for the conversion corridor
+(§3.3), not a reason to reshape the vehicle.
+
+### 3.2 Variable pitch is mandatory (Rev E)
+
+Fixed-pitch fans were adequate while flight meant short hops. For a vehicle
+whose job is cruise, they are disqualifying, and this is the most consequential
+change in Rev E.
+
+A blade set for hover sees an inflow angle of about 11° at 75% radius
+(27 m/s induced against ~135 m/s blade speed). In cruise the axial inflow rises
+to ~46 m/s and the same blade sees about **19°**. Fixed pitch therefore arrives
+at cruise at *negative* incidence: the fan makes drag, not thrust. Raising rpm
+to compensate demands ~230 m/s tip speed — loud, transonic-adjacent, and it
+raises thrust when the vehicle needs less.
+
+**Both coaxial stages get collective pitch control**, roughly 12–30° at 75%
+radius. The costs are honest: a pitch mechanism inside a hubless rim is the
+hardest packaging problem in the module, and it adds ~15% to module mass.
+What it buys, besides cruise existing at all: constant-rpm operation, so
+thrust responds through blade angle in ~30 ms rather than through rotor
+inertia; autorotation-like windmilling on a failed drive; and a genuine
+feathered position for the drive mode.
+
+*Interaction worth noting:* variable pitch on constant-speed rotors is exactly
+what a turbine-driven wheel would have needed (§12.4). Adding it for cruise
+reasons removes one — but only one — of the objections to that architecture.
+
+### 3.3 Control — where this beats a quadcopter
+
+The reason this layout suits point-to-point work is not efficiency; it is that
+**it can vector thrust without changing attitude.** A quadcopter must pitch the
+whole airframe to accelerate or brake, which costs time, couples into lift, and
+points its sensors at the ground. Four two-axis mounts let this vehicle:
+
+- **Accelerate and decelerate at constant attitude** — pitch the discs, keep
+  the hull, the crew and the sensor line level. Hard braking on arrival does
+  not require a nose-up flare.
+- **Yaw without reaction torque.** Coaxial stages are torque-neutral, so yaw
+  comes from differential fore/aft disc pitch — direct, and decoupled from
+  thrust.
+- **Decouple gust rejection from trim.** Attitude holds while the discs absorb
+  disturbance, which is worth more at 175 km/h than at a hover.
+
+The corresponding risk is the **conversion corridor**: between ~40 and
+~110 km/h the discs are partly edgewise, the ducts produce a nose-up pitching
+moment as the lip loads asymmetrically, and the hull is not yet at useful
+dynamic pressure. Ducted fans are notably worse than open rotors here — it is
+what limited the Bell X-22 and Doak VZ-4. The corridor must be flown quickly
+and mapped early: it is the first flight-test objective after tethered hover,
+ahead of any speed record.
 
 ### Why two-axis tilt
 
@@ -166,22 +266,24 @@ also trims the lifting body across the speed range.
 = T^1.5/√(2ρA) ≈ 7.0 kW; coaxial figure of merit 0.60 with mesh → **≈ 11.6 kW**
 electrical.
 
-**Cruise.** At 110 km/h the tilted discs operate at high advance ratio where
-rotor efficiency roughly doubles versus hover; the hull, at −15°, adds ~19%
-downforce and drag. Estimated cruise power ≈ 8.5 kW (≈ 6.5 kW if flown level
-with the hull lifting, at the cost of rear-disc wake ingestion).
+**Cruise.** Flown level with variable-pitch fans, estimated cruise power
+≈ 6.5 kW at 110 km/h. Note the disc attitude: thrust must balance 373 N of
+weight against ~45 N of drag, so the discs sit only **~13° from horizontal** —
+they are lifting rotors with a slight forward tilt, not propellers. Earlier
+revisions quoted 45–60°, which would be correct only if drag were comparable
+to weight.
 
 | Metric | Value |
 |---|---|
 | Hover endurance (90% usable) | **≈ 9 min** |
-| Cruise speed / endurance / range | **~110 km/h / ~13 min / ~24 km** (15° nose-down, rear discs in clean air) |
-| Max dash | ~130 km/h |
+| Cruise speed / endurance / range | **~110 km/h / ~17 min / ~31 km** (level, variable pitch) |
+| Max dash (drag-limited, not power-limited) | ~150 km/h |
 | Ground speed, max / patrol | 45 / 20 km/h |
 | Ground endurance @ 20 km/h | ≈ 3 h, ~50 km |
 | Rolled step (Ø 400 wheels) | ≤ 130 mm; anything above is flown |
 | Transition, drive → airborne | ≈ 3 s (flip 1.8 s, spool 1.2 s) |
-| Transition, hover → cruise | ≈ 4 s, hull rotating to −15°, discs pitching 0 → 45° |
-| Cruise attitude | 15° nose-down; discs 45° to hull, 60° to the air |
+| Transition, hover → cruise | ≈ 5 s through the conversion corridor (§3.3) |
+| Cruise attitude | level to +5°; discs 13–22° from horizontal (lift dominates drag) |
 | Acoustic (hover) | ~88–92 dBA @ 10 m est.; quiet only on wheels |
 
 ## 7. Subsystems
@@ -196,7 +298,14 @@ with the hull lifting, at the cost of rear-disc wake ingestion).
 
 ## 8. The hard problems (honest assessment)
 
-**8.1 Disc loading got worse, cruise got better.** Smaller wheels cut disc area
+**8.1 Disc loading is an installed-power problem, not a fuel problem.**
+Under the Rev E design point (§1.1) hover lasts ~60 s per sortie, so the
+hover-fuel penalty that dominated Revs A–D is close to irrelevant. What
+survives is that hover still sizes the powerplant — and that penalty is
+permanent, carried as engine and cooling mass through every minute of cruise.
+Judge every propulsion proposal on installed kilowatts.
+
+**8.1a Historical note.** Smaller wheels cut disc area
 by a third; coaxial stages recover the thrust but not the efficiency, so hover
 now costs 11.6 kW for 38 kg. The lifting body and pitching discs are the
 counterweight: cruise at ~6.5 kW. Net: hover is a 9-minute transition budget;
@@ -383,7 +492,28 @@ gearboxes is ~160 kg too.
 6. **Thermal soak.** Drive mode immediately after flight puts a heat-soaked
    hot section next to the tire and the ground.
 
-### 12.5 Conclusion — and where it does not apply
+### 12.5 Re-tested against the speed design point (Rev E)
+
+The hover-fuel case against turbines in the wheels (§12.2) largely dissolves
+under §1.1: if hover lasts 60 s, burning 3–4× the fuel during it costs ~20 kg,
+not a mission. So the honest question becomes whether a turbofan wins on
+*cruise*, and whether the installed-power penalty is affordable.
+
+It is not, and installed power is why. Five times the hover power means
+**~1.75 MW installed** to hover an 830 kg vehicle — against ~250–320 kW
+actually used in cruise. The vehicle would carry a megawatt and a half of
+engine, and its mass, and its cooling, through every minute of the mission in
+order to use a fifth of it. The turboshaft-electric layout installs 350 kW and
+cruises on 220–320 kW: the same powerplant does both jobs.
+
+The one objection Rev E does retract is throttle lag. §3.2 adds variable-pitch
+fans for cruise reasons anyway, and variable pitch on a constant-speed core is
+precisely how turbine-driven lift has always been controlled. That removes
+objection 1 of §12.4 — but leaves fuel and hot gas across four two-axis tilt
+joints, four engines, a combustor inside a landing wheel, no silent mode, and
+the installed-power penalty above.
+
+### 12.6 Conclusion — and where it does not apply
 
 **Recommended: one turboshaft in the tail turning a generator; every fan stays
 electric.** Fuel is ~14× battery per kilogram of stored energy, which is the
@@ -419,4 +549,5 @@ Rendering set in [`renderings/`](renderings/):
 | `04-flight-modes.svg` | Drive / hover / cruise, side view, 15° nose-down cruise |
 | `05-two-seat-elevation.svg` | RW-2S two-seat variant, side elevation, section (four Ø 1.4 rotor-wheels, no hull fans) |
 | `06-turbofan-scale.svg` | Wheel fan vs. a turbofan matched to the same thrust, true relative scale |
+| `07-power-curve.svg` | RW-2S power required vs airspeed, with the installed-power line |
 | `rw2s-3d.html` + `rw2s-viewer.js` | RW-2S interactive 3D model (three.js): drive / hover / cruise |

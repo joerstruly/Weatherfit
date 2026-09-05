@@ -157,9 +157,9 @@
   var modes = {
     drive:  { lift: 0.0, aoa: 0, flip: 0, pitch: 0, doors: 0, spin: 0 },
     hover:  { lift: 1.4, aoa: 0, flip: 95, pitch: 0, doors: 1, spin: 1 },
-    cruise: { lift: 2.0, aoa: -12, flip: 95, pitch: 48, doors: 1, spin: 1 }   // hull 12° nose-down; discs 48° to hull = 60° to the air
+    cruise: { lift: 2.0, aoa: 4, flip: 95, pitch: 22, doors: 1, spin: 1 }   // Rev E: hull level-to-nose-up so the body lifts; discs only ~22° forward
   };
-  var cur = { lift: 2.0, aoa: -12, flip: 95, pitch: 48, doors: 1, spin: 1 }, target = modes.cruise;
+  var cur = { lift: 2.0, aoa: 4, flip: 95, pitch: 22, doors: 1, spin: 1 }, target = modes.cruise;
   function setMode(name) {
     target = modes[name];
     var bs = host.parentNode.querySelectorAll('[data-mode]');
