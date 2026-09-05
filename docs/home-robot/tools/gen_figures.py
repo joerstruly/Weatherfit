@@ -210,7 +210,7 @@ def fig1():
     # reach
     body.append(dim_h(Y(1380 + 60) - 10, xb + 160 * S, xb + 690 * S, "750 reach"))
     # mass note
-    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 44 kg dry / 47 kg wet · scale 0.3</text>')
+    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 41 kg dry / 44 kg wet · scale 0.3</text>')
     svg(1, W, H, "\n".join(body), "General arrangement: stowed roam posture at 1150 mm beside the extended reach posture at 1600 mm with both arms deployed")
 
 
@@ -319,7 +319,7 @@ def fig3():
         (650, 130, "Tool magazine · 3 tiers, 34 pockets", 260),
         (460, 170, "Clean water 1.0 L (L) · grey water 1.0 L (R)", 330),
         (300, 150, "Battery 1.2 kWh annular pack · lowest mass", 400),
-        (215, 95, "Snorkel port · wet/dry vacuum hose", 440),
+        (215, 95, "Supercapacitor bank for the Kneel descent", 440),
         (200, 188, "Outrigger feet ×3, stowed in skirt", 470),
         (160, 162, "3× omniwheel ball drive + brake", 520),
     ]

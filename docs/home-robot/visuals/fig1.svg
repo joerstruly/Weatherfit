@@ -114,4 +114,4 @@
 <line class="dim" x1="661.0" y1="161.0" x2="700.0" y2="161.0" stroke-dasharray="3 3"/>
 <line class="dim" x1="690.0" y1="296.0" x2="690.0" y2="161.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="698.0" y="232.5" text-anchor="start">450 mast stroke</text>
 <line class="dim" x1="688.0" y1="118.0" x2="847.0" y2="118.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="767.5" y="112.0" text-anchor="middle">750 reach</text>
-<text class="muted" x="860" y="606" text-anchor="end">all dimensions mm · mass 44 kg dry / 47 kg wet · scale 0.3</text></svg>
+<text class="muted" x="860" y="606" text-anchor="end">all dimensions mm · mass 41 kg dry / 44 kg wet · scale 0.3</text></svg>

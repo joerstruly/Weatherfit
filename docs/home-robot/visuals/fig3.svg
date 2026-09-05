@@ -100,7 +100,7 @@
 <text class="lbl" x="620" y="404">Battery 1.2 kWh annular pack · lowest mass</text>
 <line class="dim" x1="368.0" y1="524.0" x2="610" y2="440.0"/>
 <circle class="ink" cx="368.0" cy="524.0" r="2.5" fill="currentColor"/>
-<text class="lbl" x="620" y="444">Snorkel port · wet/dry vacuum hose</text>
+<text class="lbl" x="620" y="444">Supercapacitor bank for the Kneel descent</text>
 <line class="dim" x1="405.2" y1="530.0" x2="610" y2="470.0"/>
 <circle class="ink" cx="405.2" cy="530.0" r="2.5" fill="currentColor"/>
 <text class="lbl" x="620" y="474">Outrigger feet ×3, stowed in skirt</text>
