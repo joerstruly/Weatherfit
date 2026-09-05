@@ -44,6 +44,18 @@ while i < len(src):
             t.append("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>")
         t.append("</tbody></table></div>")
         out.append("".join(t)); continue
+    mr = re.match(r"!\[(.*)\]\(visuals/render-([a-z]+)\.png\)", line)
+    if mr:
+        # collect the consecutive render refs into one live-viewer block
+        views = []
+        while i < len(src) and re.match(r"!\[(.*)\]\(visuals/render-([a-z]+)\.png\)", src[i]):
+            mm = re.match(r"!\[(.*)\]\(visuals/render-([a-z]+)\.png\)", src[i]); views.append((mm.group(2), mm.group(1))); i += 1
+        btns = "".join(f'<button type="button" data-view="{v}" class="vbtn{" on" if k == 0 else ""}">{v.capitalize()}</button>' for k, (v, _) in enumerate(views))
+        caps = "".join(f'<span data-cap="{v}"{"" if k == 0 else " hidden"}>{inline(c)}</span>' for k, (v, c) in enumerate(views))
+        out.append(f'<figure class="fig viewer"><div class="vbar" role="tablist">{btns}<span class="vhint">drag to orbit · scroll to zoom</span></div>'
+                   f'<canvas id="gyro3d" aria-label="Interactive shaded model of the robot"></canvas>'
+                   f'<figcaption><span class="fignum">Live model</span>{caps}</figcaption></figure>')
+        continue
     m = re.match(r"!\[(.*)\]\((visuals/fig(\d)\.svg)\)", line)
     if m:
         fig_n += 1
@@ -186,6 +198,13 @@ tbody tr:has(strong) td {{ border-top:1px solid var(--ink); }}
 .fig .bar-r {{ fill:var(--amber); }}
 .fig marker path[fill="#6B7680"] {{ fill:var(--muted); }}
 
+.viewer canvas {{ width:100%; height:auto; aspect-ratio:7/5; display:block; border:1px solid var(--line); background:var(--paper-2); touch-action:none; cursor:grab; }}
+.viewer canvas:active {{ cursor:grabbing; }}
+.vbar {{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:10px; }}
+.vbtn {{ font-family:var(--mono); font-size:12px; letter-spacing:.04em; padding:6px 12px; border:1px solid var(--line-2); background:transparent; color:var(--ink); cursor:pointer; border-radius:2px; }}
+.vbtn.on {{ background:var(--ink); color:var(--paper); border-color:var(--ink); }}
+.vbtn:hover {{ border-color:var(--ink); }}
+.vhint {{ margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--muted); }}
 footer {{ max-width:1040px; margin:0 auto; padding:18px 24px 40px; border-top:1px solid var(--ink); font-family:var(--mono); font-size:12px; color:var(--muted); display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between; }}
 @media (max-width:640px) {{ body {{ font-size:16px; }} h2 {{ font-size:28px; }} }}
 @media (prefers-reduced-motion: no-preference) {{ html {{ scroll-behavior:smooth; }} }}
@@ -201,7 +220,30 @@ footer {{ max-width:1040px; margin:0 auto; padding:18px 24px 40px; border-top:1p
 <main>
 {body_html}
 </main>
-<footer><span>{html.escape(name)} · rev 0.1 · all dimensions mm</span><span>Source: docs/home-robot/SPEC.md · figures generated from one dimensioned model</span></footer>
+<footer><span>{html.escape(name)} · rev 0.1 · all dimensions mm</span><span>Source: docs/home-robot/SPEC.md · figures and 3D model generated from one dimensioned model</span></footer>
+"""
+viewer_js = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "viewer.js"), encoding="utf-8").read()
+page += """
+<script>
+""" + viewer_js + """
+</script>
+<script>
+(function(){
+  var c = document.getElementById('gyro3d'); if (!c || !window.GyroViewer) return;
+  function theme(){ var t = document.documentElement.getAttribute('data-theme'); if (t) return t; return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+  var v = GyroViewer.mount(c, { view: 'exterior', theme: theme() });
+  var fig = c.closest('figure');
+  fig.querySelectorAll('.vbtn').forEach(function(b){
+    b.addEventListener('click', function(){
+      fig.querySelectorAll('.vbtn').forEach(function(x){ x.classList.remove('on'); }); b.classList.add('on');
+      fig.querySelectorAll('[data-cap]').forEach(function(x){ x.hidden = x.getAttribute('data-cap') !== b.dataset.view; });
+      v.setPreset(b.dataset.view);
+    });
+  });
+  if (window.matchMedia) { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){ v.theme = theme(); v.draw(); }); }
+  new MutationObserver(function(){ v.theme = theme(); v.draw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
 """
 open(OUT, "w", encoding="utf-8").write(page)
 print(OUT, len(page))

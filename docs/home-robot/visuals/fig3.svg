@@ -89,9 +89,9 @@
 <line class="dim" x1="378.0" y1="272.0" x2="610" y2="220.0"/>
 <circle class="ink" cx="378.0" cy="272.0" r="2.5" fill="currentColor"/>
 <text class="lbl" x="620" y="224">Compute · ~200 TOPS SoC, all inference local</text>
-<line class="dim" x1="382.0" y1="342.0" x2="610" y2="260.0"/>
-<circle class="ink" cx="382.0" cy="342.0" r="2.5" fill="currentColor"/>
-<text class="lbl" x="620" y="264">Tool carousel · 8 quick-change heads</text>
+<line class="dim" x1="382.0" y1="350.0" x2="610" y2="260.0"/>
+<circle class="ink" cx="382.0" cy="350.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="264">Tool magazine · 3 tiers, 34 pockets</text>
 <line class="dim" x1="398.0" y1="426.0" x2="610" y2="330.0"/>
 <circle class="ink" cx="398.0" cy="426.0" r="2.5" fill="currentColor"/>
 <text class="lbl" x="620" y="334">Clean water 1.0 L (L) · grey water 1.0 L (R)</text>

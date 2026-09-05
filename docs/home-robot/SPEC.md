@@ -3,14 +3,16 @@
 | Field | Value |
 |---|---|
 | Document | Concept design specification |
-| Revision | 0.1 (pre-feasibility) |
+| Revision | 0.2 (pre-feasibility) |
 | Date | 2026-09-05 |
 | Status | Draft for design review |
-| Visuals | `visuals/fig1.svg` … `visuals/fig6.svg` (generated, dimensioned in mm) |
+| Visuals | `visuals/fig1.svg` … `fig8.svg` and `render-*.png` (generated from one dimensioned model) |
 
 ## 0. Summary
 
 GYRO is a self-balancing household robot that rides a single 280 mm drive ball, carries its tools inside a sealed egg-shaped body, and deploys two general-purpose arms plus two task-specific utility arms from a rotating turret. It is deliberately not humanoid: it has no face, no legs, and no gait. It is an appliance with reach.
+
+Revision 0.2 replaces the single 8-slot tool carousel with a three-tier, 34-pocket magazine (§5.3) and adds rendered views of the model (§5.4).
 
 The original brief had four claims. Two survive intact, two need to be reframed before anyone spends money on them:
 
@@ -18,7 +20,7 @@ The original brief had four claims. Two survive intact, two need to be reframed 
 |---|---|---|
 | People will accept a non-humanoid robot more readily | **Holds.** The strongest part of the idea. | Design principle 1. No face, no eye contact, appliance semantics throughout. |
 | One wheel, blob body | **Holds for locomotion, fails for work.** A balancing robot can only push as hard as it can lean, roughly 30 N. Scrubbing a pan needs more. | Two postures: Roam (balancing) and Plant (three feet down, ball braked, >100 N). See §3 and Figure 2. |
-| Tools pop out of the body | **Holds, with a change of shape.** Eight dedicated pop-out arms do not fit in a 420 mm body. | Two general arms plus an 8-slot internal tool carousel with a 4 s change cycle. See §5 and Figure 4. |
+| Tools pop out of the body | **Holds, with a change of shape.** Eight dedicated pop-out arms do not fit in a 420 mm body. | Two general arms plus a three-tier internal magazine of 34 heads with a 4 s change cycle. See §5 and Figures 4, 7 and 8. |
 | 4× a human's work in the same time and less space | **Does not hold as stated.** Dishes and laundry are bounded by appliance cycles the robot cannot speed up. | Reframed as "hours of human attention returned per week" (target 12–18 h) with an honest 1.5–2× on manipulation-bound steps. See §9 and Figure 6. |
 
 The single biggest unsolved problem is stairs. A wheeled or ball-riding robot cannot climb them, and this spec does not pretend otherwise (§11).
@@ -45,8 +47,8 @@ The single biggest unsolved problem is stairs. A wheeled or ball-riding robot ca
 | Drive ball | Ø280 mm, polyurethane over aluminium | Same class as CMU Ballbot / ETH Rezero |
 | Floor footprint (Roam) | Ø280 contact patch | Effectively a point contact plus a 420 mm shadow |
 | Floor footprint (Plant) | Ø500 mm stance | Three feet at 250 mm radius |
-| Mass, dry | 42 kg | Budget in §10 |
-| Mass, wet | 45 kg | 2 L water + 0.5 L detergent, 8-head tool set |
+| Mass, dry | 44 kg | Budget in §10 |
+| Mass, wet | 47 kg | 2 L water + 0.5 L detergent, 28 heads and 3 pad cassettes |
 | Arm reach | 750 mm from shoulder | Two primary arms, §5 |
 | Max lift height | ~2100 mm | Mast up, arm vertical; front of a 1750 mm shelf only, see §6 |
 | Doorway clearance | 600 mm door with 90 mm each side | |
@@ -69,7 +71,7 @@ The proportions are set by two constraints pulling in opposite directions. The m
 | Balance loop | 1 kHz IMU + wheel odometry, LQR with model-predictive lean limiting |
 | Sustained lateral force at 900 mm | ~30 N (lean-limited, m·g·d/h with d ≈ 0.06 m) |
 
-> **Review note.** The single wheel is right for moving and wrong for working. A balancing robot exerts force by leaning; the moment it can generate is bounded by its mass times the horizontal offset it can safely hold, divided by the height it pushes at. For a 42 kg body pushing at counter height that is about 30 N, sustained. Scrubbing a baked-on pan is 20–50 N. Opening a stiff fridge door is 30–70 N. Lifting a full laundry basket from a front-loader shifts the centre of mass by more than the ball can chase on a wet floor. So the ball alone does not do the jobs in the brief. The fix is not to give up the ball, it is to give the robot a way to stand still.
+> **Review note.** The single wheel is right for moving and wrong for working. A balancing robot exerts force by leaning; the moment it can generate is bounded by its mass times the horizontal offset it can safely hold, divided by the height it pushes at. For a 44 kg body pushing at counter height that is about 30 N, sustained. Scrubbing a baked-on pan is 20–50 N. Opening a stiff fridge door is 30–70 N. Lifting a full laundry basket from a front-loader shifts the centre of mass by more than the ball can chase on a wet floor. So the ball alone does not do the jobs in the brief. The fix is not to give up the ball, it is to give the robot a way to stand still.
 
 ### 3.2 Plant
 
@@ -89,23 +91,23 @@ Not supported. See §11.
 
 ## 4. Body and internal layout
 
-![Figure 3. Cutaway. Heavy mass sits in the skirt around the ball; water and the tool carousel sit mid-body; everything above the turret bearing is under 6 kg.](visuals/fig3.svg)
+![Figure 3. Cutaway. Heavy mass sits in the skirt around the ball; water and the tool magazine sit mid-body; everything above the turret bearing is under 6 kg.](visuals/fig3.svg)
 
 The body is three zones stacked on a telescoping mast:
 
 | Zone | Height above floor | Contents |
 |---|---|---|
-| Skirt | 110–340 mm | Ball drive, brake, 1.2 kWh annular battery, 3 outrigger feet, snorkel port, charge contacts on the lip |
-| Mid-body | 340–880 mm | Clean water 1.0 L and grey water 1.0 L, detergent cartridge 0.5 L, 8-slot tool carousel, compute, pumps, wet/dry vacuum unit with 1.5 L bin |
+| Skirt | 110–340 mm | Ball drive, brake, 1.2 kWh annular battery, 3 outrigger feet, wet/dry vacuum unit with 1.5 L bin, snorkel port, charge contacts on the lip |
+| Mid-body | 340–880 mm | Clean water 1.0 L and grey water 1.0 L with pumps (350–460), three-tier tool magazine with 34 pockets (470–830), compute deck (836–878) |
 | Turret + head | 880–1150 mm (+450 with mast) | 360° turret bearing, two primary arm shoulders, wand shoulder, sensor crown, speaker, light ring |
 
 Shell: two-part rotomoulded polypropylene with a soft TPE band around the skirt and turret. Matte, single colour, no seams on the front. The head dome is a translucent polycarbonate ring so the light ring reads from any side.
 
-Sealing: mid-body is IPX4. The carousel hatch and snorkel port drain into the grey tank. The robot can be hosed down at the skirt lip.
+Sealing: mid-body is IPX4. The magazine door, its drip trays and the snorkel port drain into the grey tank. The robot can be hosed down at the skirt lip.
 
 ## 5. Manipulation
 
-The brief pictures a body that pops out a different arm for each job. Eight single-purpose arms do not fit in 0.1 m³ and would each need their own actuators, sensors and safety cases. The spec keeps the feeling of the idea and changes the mechanism: general arms, specialised heads.
+The brief pictures a body that pops out a different arm for each job. Eight single-purpose arms do not fit in 0.1 m³ and would each need their own actuators, sensors and safety cases. The spec keeps the feeling of the idea and changes the mechanism: general arms, specialised heads, stored densely in a magazine that the shell hides completely.
 
 ### 5.1 Primary arms (×2)
 
@@ -129,24 +131,66 @@ The arms stow flush inside the turret with the hands in recessed bays. Both shou
 
 **Wand.** A 3-DOF arm with a 500 mm telescoping shaft from the turret. Head carries spray nozzle, microfibre pad, squeegee edge and a 275 nm UV-C strip. Wipes counters and tables while the primary arms are busy. This is the third parallel effector that the throughput case in §9 relies on.
 
-### 5.3 Tool carousel
+### 5.3 Tool magazine
 
-![Figure 4. Tool change cycle. The arm requests a head, the drum indexes it to the hatch, the head is presented, the wrist couples via bayonet and pogo pins, and the arm works. About 4 s end to end.](visuals/fig4.svg)
+The first draft had one 8-slot drum with radial heads. Two things killed it. The mast is Ø140 in the centre of the body, so the annulus around it is only 83 mm wide and no radial head longer than about 70 mm fits. And a single ring wastes 360 mm of body height that could hold three. The magazine is now a three-tier revolver: heads stand vertically in pockets, coupler up, around the mast.
 
-| Slot | Head | Used for |
-|---|---|---|
-| 1 | Scrub pad, replaceable | Pots, sink, hob |
-| 2 | Stiff brush | Grout, oven rack, shoes |
-| 3 | Squeegee blade | Glass, shower, counters |
-| 4 | Silicone tongs | Hot items, small parts, cutlery basket |
-| 5 | Garment clip pair | Folding, hanging, pulling laundry from the drum |
-| 6 | Suction cup, 60 mm | Plates, glass doors, flat items |
-| 7 | Microfibre mitt | Dusting, screens, polishing |
-| 8 | Spare / user-defined | Third-party heads via the open coupler spec |
+![Figure 7. Plan section through tier B. Twelve pockets on a 250 mm pitch circle around the mast; the pocket at the front aligns with the door, where an ejector fork slides the head radially out of the shell.](visuals/fig7.svg)
 
-Every head has an NFC tag so the robot knows what is in each slot after a user swaps one. Heads are washable in the household dishwasher.
+![Figure 8. Elevation section. Three tiers of increasing height sit between the water tanks and the compute deck. One ejector column at the front serves all three, and the drip trays under each tier drain to the grey tank.](visuals/fig8.svg)
 
-> **Review note.** Tool storage is the honest tax on the "everything inside" principle. The carousel and heads take 22% of the mid-body volume and 3 kg of mass. That is a good trade. The alternative, a wall-mounted tool rack, would make the robot cheaper and lighter and would also make it look like a workshop tool rather than an appliance. The brief is right that the tools should be invisible when not in use.
+| Tier | Height (mm above floor) | Pockets | Pocket size | Holds |
+|---|---|---|---|---|
+| A | 470–550 | 12 | Ø52 × 70 | Pads, mitts, pad cassettes |
+| B | 550–670 | 12 | Ø52 × 110 | Brushes, suction cups, clips, nozzles |
+| C | 670–830 | 10 | Ø58 × 150 | Long tools: squeegee, tongs, scraper, hooks |
+| **Total** | 360 mm | **34** | | |
+
+**Change cycle.** The arm requests a head. The tier's ring gear indexes the pocket to the front (each tier has its own pinion drive, so three heads can be staged at once). The tambour door opens. The ejector fork engages the groove under the coupler collar and slides the head 125 mm radially out along its keyway until it stands clear of the shell, coupler up. The arm descends onto it, the bayonet locks, and the fork releases. Return is the same in reverse; the fork centres the head on the pocket sleeve so the arm does not need to be precise. About 4 s end to end, unchanged from the single-drum version, because the index and eject steps overlap.
+
+![Figure 4. Tool change cycle, schematic. The arm requests a head, the tier indexes it to the door, the ejector presents it, the wrist couples via bayonet and pogo pins, and the arm works. About 4 s end to end. Figures 7 and 8 show the actual magazine geometry.](visuals/fig4.svg)
+
+**Why vertical heads.** A vertical head drips into the tray, not onto the head below it. The arm couples from above with the wrist vertical, which is the hand's strongest orientation and the easiest to see with the palm camera. And pockets can be open-sided toward the rim, so the only moving parts per tier are one ring gear and one fork.
+
+**Pad cassettes.** Three of the tier-A pockets are cassettes of ten fresh scrub or microfibre pads each. A used pad is dropped into a fourth pocket that is a bin. This is where the density pays off: the robot goes a week between consumable refills, and the dock refills cassettes rather than the robot carrying more water.
+
+| Slot | Head | Tier | Used for |
+|---|---|---|---|
+| A1–A3 | Pad cassettes, 10 fresh pads each (scrub, microfibre, polish) | A | Pots, counters, screens |
+| A4 | Used-pad bin | A | |
+| A5–A6 | Microfibre mitts | A | Dusting, polishing |
+| A7 | Melamine block holder | A | Scuffs, hob |
+| A8 | Sponge holder | A | Sink, dishes |
+| A9–A12 | Spare / user | A | |
+| B1–B2 | Stiff brush, soft brush | B | Grout, oven rack, shoes |
+| B3 | Bottle brush | B | Glasses, bottles |
+| B4 | Suction cup Ø60 | B | Plates, glass doors |
+| B5 | Twin suction cup Ø30 | B | Small flat items |
+| B6–B7 | Garment clip pairs | B | Folding, hanging, pulling from the drum |
+| B8 | Silicone spatula | B | Food prep, scraping |
+| B9 | Spray nozzle, fan tip | B | Counters, mirrors |
+| B10 | Detail nozzle for the snorkel | B | Crevices |
+| B11–B12 | Spare / user | B | |
+| C1 | Squeegee, 200 mm blade | C | Glass, shower, counters |
+| C2 | Silicone tongs | C | Hot items, cutlery basket |
+| C3 | Scraper | C | Hob, stuck-on food |
+| C4 | Reach hook | C | Behind furniture, high pulls |
+| C5 | Dust wand | C | Blinds, lampshades |
+| C6 | Tray gripper | C | Baking trays, drawers |
+| C7–C10 | Spare / third-party | C | Open coupler spec |
+
+Every head has an NFC tag in the base, read by the fork on the way out, so a user can put heads back in any pocket. A 275 nm UV-C strip on the rear column irradiates each tier as it indexes past. Heads are dishwasher-safe.
+
+> **Review note.** The magazine now takes 45% of the mid-body volume and 5 kg, up from 22% and 3 kg. That is the price of "everything inside", and it is still right, but it pushed the vacuum unit down into the skirt and the compute up to a thin deck under the turret. There is no fourth tier: above 830 mm the body narrows for the turret bearing, and below 470 mm the water has to sit low for balance. If 34 pockets turn out to be too few, the answer is smarter heads (a brush that is also a scraper), not a taller body.
+
+### 5.4 Views
+
+![Exterior, stowed. The magazine door is closed and flush; nothing projects from the shell.](visuals/render-exterior.png)
+![Cutaway. Battery and vacuum unit in the skirt, tanks, the three magazine tiers, the compute deck and the mast.](visuals/render-cutaway.png)
+![Magazine with a tier-B head ejected through the front door, coupler up, ready for the arm.](visuals/render-magazine.png)
+![Magazine exploded. The three tiers lifted apart to show the pocket plates, hub ring gears and keyways.](visuals/render-exploded.png)
+
+The renders are generated from the same dimensioned model as the drawings. In the web version of this document the model is live: drag to orbit, scroll to zoom, and switch between the four views.
 
 ## 6. Workspace
 
@@ -225,12 +269,12 @@ The one place the "less space" half of the claim is straightforwardly true: GYRO
 | Structure, mast, turret bearing | 6.0 kg | $900 |
 | Primary arms ×2, hands | 9.0 kg | $4,200 |
 | Utility arms ×2 | 3.0 kg | $700 |
-| Carousel + 8 heads | 3.0 kg | $500 |
+| Magazine, 3 tiers, 34 pockets + 28 heads | 5.0 kg | $900 |
 | Tanks, pumps, vacuum unit | 2.5 kg | $350 |
 | Sensors + compute | 2.0 kg | $1,300 |
 | Shell, seals, light ring | 3.0 kg | $600 |
 | Harness, misc | 1.0 kg | $300 |
-| **Total** | **45 kg wet** | **≈ $10,650** |
+| **Total** | **47 kg wet** | **≈ $11,050** |
 
 At a 2.2× multiplier on BOM that is a $22–25k retail unit or a $350–450/month lease, which is the format most households will actually take. The arms are 40% of the cost and the lever for phase-3 reductions.
 
@@ -259,11 +303,11 @@ At a 2.2× multiplier on BOM that is a $22–25k retail unit or a $350–450/mon
 | Form | Self-balancing single-ball robot, egg body, no face |
 | Height | 1150 mm stowed / 1600 mm mast up |
 | Diameter | 420 mm max |
-| Mass | 45 kg wet |
+| Mass | 47 kg wet |
 | Drive | Ø280 ball, 3 omniwheels, 1.2 m/s |
 | Postures | Roam, Plant (3 feet), Kneel (fail-safe) |
 | Arms | 2 × 7-DOF, 750 mm, 3 kg; snorkel; wand |
-| Tools | 8-slot internal carousel, 4 s change, open coupler spec |
+| Tools | 3-tier internal magazine, 34 pockets, 4 s change, open coupler spec |
 | Reach | Floor to 2100 mm; top-shelf front only |
 | Sensing | 4 × RGB-D, 2 wrist cams, tactile, 6-mic array, floor wetness |
 | Compute | ~200 TOPS on-device, no default cloud video |

@@ -1,0 +1,99 @@
+<svg viewBox="0 0 1000 620" width="1000" height="620" role="img" aria-label="Elevation section of the three-tier magazine between the water tanks and the compute deck, with the ejector column and tambour door on the front" xmlns="http://www.w3.org/2000/svg">
+<style>
+  svg { color:#1F2A33; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .paper { fill:#F5F6F3; }
+  .ink { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round; }
+  .ink2 { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .shell { fill:#ECEBE3; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .shell2 { fill:#E0DFD5; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .ball { fill:#2B3540; stroke:currentColor; stroke-width:1.5; }
+  .hi { fill:#1C7FA8; stroke:none; }
+  .hiink { fill:none; stroke:#1C7FA8; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .hifill { fill:#1C7FA8; fill-opacity:0.18; stroke:#1C7FA8; stroke-width:1.5; }
+  .amb { fill:#B8700A; stroke:none; }
+  .ambink { fill:none; stroke:#B8700A; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .ambfill { fill:#B8700A; fill-opacity:0.22; stroke:#B8700A; stroke-width:1.5; }
+  .dim { fill:none; stroke:#6B7680; stroke-width:1; }
+  .dimt { fill:#6B7680; font-size:12px; }
+  .lbl { fill:currentColor; font-size:13px; }
+  .lblb { fill:currentColor; font-size:13px; font-weight:600; }
+  .cap { fill:currentColor; font-size:14px; font-weight:600; letter-spacing:0.04em; }
+  .muted { fill:#6B7680; font-size:12px; }
+  .grid { stroke:#D2D6D0; stroke-width:1; }
+  .ghost { fill:none; stroke:currentColor; stroke-width:1.2; stroke-dasharray:4 4; opacity:0.55; }
+  .hatch { fill:url(#hatch); stroke:currentColor; stroke-width:1.2; }
+  .bar-h { fill:#1C7FA8; }
+  .bar-r { fill:#B8700A; }
+  .bar-idle { fill:#D2D6D0; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><rect class="paper" x="0" y="0" width="1000" height="620"/><text class="cap" x="40" y="32">MAGAZINE · ELEVATION SECTION, FRONT DOOR ON THE RIGHT</text>
+<path class="shell" d="M239.5,560.5 L230.0,484.5 L225.2,389.5 L227.2,294.5 L234.8,199.5 L247.1,114.0 L261.4,47.5 L269.0,47.5 L254.7,114.0 L242.3,199.5 L234.8,294.5 L232.9,389.5 L237.6,484.5 L247.1,560.5 Z"/>
+<path class="shell" d="M600.5,560.5 L610.0,484.5 L614.8,389.5 L612.9,294.5 L605.2,199.5 L592.9,114.0 L578.6,47.5 L571.0,47.5 L585.3,114.0 L597.6,199.5 L605.2,294.5 L607.1,389.5 L602.4,484.5 L592.9,560.5 Z"/>
+<rect class="hatch" x="353.5" y="47.5" width="133.0" height="513.0"/>
+<rect class="hifill" x="260.4" y="448.4" width="72.2" height="100.7" rx="3"/>
+<rect class="hifill" x="507.4" y="448.4" width="72.2" height="100.7" rx="3"/>
+<text class="lbl" x="296.5" y="498.8" text-anchor="middle">clean 1.0 L</text>
+<text class="lbl" x="543.5" y="498.8" text-anchor="middle">grey 1.0 L</text>
+<rect class="hifill" x="268.0" y="49.4" width="304.0" height="39.9" rx="2"/>
+<text class="lbl" x="420.0" y="74.1" text-anchor="middle">compute + pumps</text>
+<rect class="shell2" x="263.2" y="431.3" width="313.5" height="5.7"/>
+<rect class="ambfill" x="268.0" y="437.0" width="304.0" height="3.8"/>
+<rect class="shell2" x="332.6" y="368.6" width="9.5" height="68.4"/>
+<rect class="shell2" x="497.9" y="368.6" width="9.5" height="68.4"/>
+<rect class="shell2" x="272.8" y="378.1" width="57.0" height="53.2" rx="2"/>
+<rect class="hatch" x="276.6" y="376.2" width="49.4" height="53.2" rx="2"/>
+<rect class="hi" x="283.2" y="362.9" width="36.1" height="13.3" rx="1"/>
+<rect class="shell2" x="510.2" y="378.1" width="57.0" height="53.2" rx="2"/>
+<rect class="hatch" x="514.0" y="376.2" width="49.4" height="53.2" rx="2"/>
+<rect class="hi" x="520.7" y="362.9" width="36.1" height="13.3" rx="1"/>
+<line class="dim" x1="196.8" y1="437.0" x2="196.8" y2="361.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="188.8" y="403.0" text-anchor="end">80</text>
+<text class="lblb" x="182.5" y="417.0" text-anchor="end">tier A</text>
+<text class="muted" x="182.5" y="431.0" text-anchor="end">12 × Ø52 × 70</text>
+<rect class="shell2" x="263.2" y="355.3" width="313.5" height="5.7"/>
+<rect class="ambfill" x="268.0" y="361.0" width="304.0" height="3.8"/>
+<rect class="shell2" x="332.6" y="254.6" width="9.5" height="106.4"/>
+<rect class="shell2" x="497.9" y="254.6" width="9.5" height="106.4"/>
+<rect class="shell2" x="272.8" y="271.7" width="57.0" height="83.6" rx="2"/>
+<rect class="hatch" x="276.6" y="262.2" width="49.4" height="91.2" rx="2"/>
+<rect class="hi" x="283.2" y="248.9" width="36.1" height="13.3" rx="1"/>
+<rect class="shell2" x="510.2" y="271.7" width="57.0" height="83.6" rx="2"/>
+<rect class="hatch" x="514.0" y="262.2" width="49.4" height="91.2" rx="2"/>
+<rect class="hi" x="520.7" y="248.9" width="36.1" height="13.3" rx="1"/>
+<line class="dim" x1="196.8" y1="361.0" x2="196.8" y2="247.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="188.8" y="308.0" text-anchor="end">120</text>
+<text class="lblb" x="182.5" y="322.0" text-anchor="end">tier B</text>
+<text class="muted" x="182.5" y="336.0" text-anchor="end">12 × Ø52 × 110</text>
+<rect class="shell2" x="263.2" y="241.3" width="313.5" height="5.7"/>
+<rect class="ambfill" x="268.0" y="247.0" width="304.0" height="3.8"/>
+<rect class="shell2" x="332.6" y="102.6" width="9.5" height="144.4"/>
+<rect class="shell2" x="497.9" y="102.6" width="9.5" height="144.4"/>
+<rect class="shell2" x="269.9" y="127.3" width="62.7" height="114.0" rx="2"/>
+<rect class="hatch" x="273.7" y="110.2" width="55.1" height="129.2" rx="2"/>
+<rect class="hi" x="283.2" y="96.9" width="36.1" height="13.3" rx="1"/>
+<rect class="shell2" x="507.4" y="127.3" width="62.7" height="114.0" rx="2"/>
+<rect class="hatch" x="511.2" y="110.2" width="55.1" height="129.2" rx="2"/>
+<rect class="hi" x="520.7" y="96.9" width="36.1" height="13.3" rx="1"/>
+<line class="dim" x1="196.8" y1="247.0" x2="196.8" y2="95.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="188.8" y="175.0" text-anchor="end">160</text>
+<text class="lblb" x="182.5" y="189.0" text-anchor="end">tier C</text>
+<text class="muted" x="182.5" y="203.0" text-anchor="end">10 × Ø58 × 150</text>
+<rect class="amb" x="606.2" y="79.8" width="6" height="364.8" opacity="0.8"/>
+<text class="lbl" x="624.2" y="218.5">tambour door</text>
+<text class="lbl" x="624.2" y="234.5">384 × 78 mm</text>
+<rect class="ambfill" x="579.6" y="89.3" width="13.3" height="349.6"/>
+<text class="lbl" x="624.2" y="304.0">ejector column:</text>
+<text class="lbl" x="624.2" y="320.0">1 fork per tier,</text>
+<text class="lbl" x="624.2" y="336.0">NFC read on exit</text>
+<path class="ambink" d="M562.5,437.0 L562.5,444.6" marker-end="url(#arr)"/>
+<text class="lbl" x="624.2" y="427.5">drip trays drain</text>
+<text class="lbl" x="624.2" y="443.5">to the grey tank</text>
+<line class="dim" x1="68.5" y1="437.0" x2="68.5" y2="95.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="60.5" y="270.0" text-anchor="end">360</text>
+<text class="muted" x="40" y="604">34 pockets in 360 mm of body height · heads stand coupler-up · a head is never carried between tiers</text></svg>

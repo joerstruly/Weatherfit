@@ -210,7 +210,7 @@ def fig1():
     # reach
     body.append(dim_h(Y(1380 + 60) - 10, xb + 160 * S, xb + 690 * S, "750 reach"))
     # mass note
-    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 42 kg dry / 45 kg wet · scale 0.3</text>')
+    body.append(f'<text class="muted" x="{W-40}" y="{H-14}" text-anchor="end">all dimensions mm · mass 44 kg dry / 47 kg wet · scale 0.3</text>')
     svg(1, W, H, "\n".join(body), "General arrangement: stowed roam posture at 1150 mm beside the extended reach posture at 1600 mm with both arms deployed")
 
 
@@ -316,7 +316,7 @@ def fig3():
         (940, 140, "Arm shoulders (2× 7-DOF) in rotating turret", 160),
         (895, 175, "Turret bearing · 360° continuous", 190),
         (845, 120, "Compute · ~200 TOPS SoC, all inference local", 220),
-        (670, 130, "Tool carousel · 8 quick-change heads", 260),
+        (650, 130, "Tool magazine · 3 tiers, 34 pockets", 260),
         (460, 170, "Clean water 1.0 L (L) · grey water 1.0 L (R)", 330),
         (300, 150, "Battery 1.2 kWh annular pack · lowest mass", 400),
         (215, 95, "Snorkel port · wet/dry vacuum hose", 440),
@@ -476,4 +476,128 @@ def fig6():
 
 
 fig1(); fig2(); fig3(); fig4(); fig5(); fig6()
+
+# ================= Figure 7: Magazine plan section through tier B =================
+def fig7():
+    import math
+    W, H = 960, 700
+    S = 1.0
+    cx, cy = 330, 330
+    body = []
+    def R(mm): return mm * S
+    body.append(f'<text class="cap" x="40" y="32">MAGAZINE · PLAN SECTION AT 610 mm (TIER B)</text>')
+    # shell at this height r=203, wall 8
+    body.append(f'<circle class="shell" cx="{cx}" cy="{cy}" r="{R(203):.1f}"/>')
+    body.append(f'<circle class="ink" cx="{cx}" cy="{cy}" r="{R(195):.1f}" opacity="0.5"/>')
+    # drum plate 82-165
+    body.append(f'<circle class="shell2" cx="{cx}" cy="{cy}" r="{R(165):.1f}"/>')
+    body.append(f'<circle class="shell" cx="{cx}" cy="{cy}" r="{R(82):.1f}"/>')
+    # ring gear teeth on hub
+    for k in range(60):
+        a = k / 60 * 2 * math.pi
+        body.append(f'<line class="ink" x1="{cx + R(84)*math.cos(a):.1f}" y1="{cy + R(84)*math.sin(a):.1f}" x2="{cx + R(90)*math.cos(a):.1f}" y2="{cy + R(90)*math.sin(a):.1f}" opacity="0.5"/>')
+    # mast r=70 (hatched)
+    body.append(f'<circle class="hatch" cx="{cx}" cy="{cy}" r="{R(70):.1f}"/>')
+    # 12 pockets at r=125, Ø56, keyway to rim; slot 0 at the hatch (top of drawing = front)
+    for k in range(12):
+        a = -math.pi / 2 + k / 12 * 2 * math.pi
+        px, py = cx + R(125) * math.cos(a), cy + R(125) * math.sin(a)
+        ox, oy = cx + R(165) * math.cos(a), cy + R(165) * math.sin(a)
+        body.append(f'<line class="ink2" x1="{px:.1f}" y1="{py:.1f}" x2="{ox:.1f}" y2="{oy:.1f}" opacity="0.35"/>')
+        cls = "ambfill" if k == 0 else "shell"
+        body.append(f'<circle class="{cls}" cx="{px:.1f}" cy="{py:.1f}" r="{R(28):.1f}"/>')
+        body.append(f'<circle class="ink" cx="{px:.1f}" cy="{py:.1f}" r="{R(19):.1f}" opacity="0.7"/>')
+        body.append(f'<text class="dimt" x="{px:.1f}" y="{py+4:.1f}" text-anchor="middle">{k+1}</text>')
+    # door opening in the shell at the front: ±11° at r=195..203
+    a0, a1 = -math.pi/2 - 0.19, -math.pi/2 + 0.19
+    body.append(f'<path class="amb" d="M{cx + R(192)*math.cos(a0):.1f},{cy + R(192)*math.sin(a0):.1f} L{cx + R(214)*math.cos(a0):.1f},{cy + R(214)*math.sin(a0):.1f} A{R(214):.1f},{R(214):.1f} 0 0 1 {cx + R(214)*math.cos(a1):.1f},{cy + R(214)*math.sin(a1):.1f} L{cx + R(192)*math.cos(a1):.1f},{cy + R(192)*math.sin(a1):.1f} A{R(192):.1f},{R(192):.1f} 0 0 0 {cx + R(192)*math.cos(a0):.1f},{cy + R(192)*math.sin(a0):.1f} Z" opacity="0.35"/>')
+    # ejected head position (ghost) outside the door
+    ex, ey = cx, cy - R(250)
+    body.append(f'<circle class="ghost" cx="{ex:.1f}" cy="{ey:.1f}" r="{R(28):.1f}"/>')
+    body.append(f'<path class="ambink" d="M{cx:.1f},{cy - R(155):.1f} L{cx:.1f},{cy - R(222):.1f}" marker-end="url(#arr)"/>')
+    body.append(f'<text class="lbl" x="{cx + 40:.1f}" y="{ey + 4:.1f}">head ejected 125 mm, coupler up · arm couples from above</text>')
+    # ejector fork + tambour door + UV strip + NFC
+    body.append(f'<rect class="ambfill" x="{cx - 14:.1f}" y="{cy - R(180):.1f}" width="28" height="{R(14):.1f}" rx="2"/>')
+    body.append(f'<text class="lbl" x="{cx + 40:.1f}" y="{cy - R(172):.1f}">ejector fork + NFC reader</text>')
+    body.append(f'<rect class="hi" x="{cx - 12:.1f}" y="{cy + R(168):.1f}" width="24" height="5"/>')
+    body.append(f'<text class="lbl" x="{cx + 40:.1f}" y="{cy + R(176):.1f}">UV-C strip, 275 nm, rear column</text>')
+    # tier drive pinion at 90° right
+    body.append(f'<circle class="dark" cx="{cx + R(99):.1f}" cy="{cy:.1f}" r="{R(9):.1f}" fill="currentColor"/>')
+    body.append(f'<line class="dim" x1="{cx + R(108):.1f}" y1="{cy:.1f}" x2="{cx + R(215):.1f}" y2="{cy:.1f}"/>')
+    body.append(f'<text class="lbl" x="{cx + R(222):.1f}" y="{cy + 4:.1f}">tier drive pinion on the hub ring gear, 1 per tier</text>')
+    # dims
+    body.append(dim_h(cy + R(203) + 26, cx - R(203), cx + R(203), "Ø406 shell at 610"))
+    body.append(dim_h(cy + R(203) + 50, cx - R(165), cx + R(165), "Ø330 drum"))
+    body.append(dim_h(cy + R(203) + 74, cx - R(70), cx + R(70), "Ø140 mast"))
+    body.append(f'<text class="muted" x="40" y="{H-16}">12 pockets at pitch 65 mm on a 250 mm pitch circle · pocket Ø56 · keyway lets the fork slide a head radially out through the door</text>')
+    body.append(f'<text class="cap" x="{W-40}" y="60" text-anchor="end">FRONT ↑</text>')
+    svg(7, W, H, "\n".join(body), "Plan section through tier B of the magazine: twelve vertical pockets on a 250 mm pitch circle around the mast, one aligned with the front door where an ejector fork slides the head out")
+
+
+# ================= Figure 8: Magazine elevation section =================
+def fig8():
+    W, H = 1000, 620
+    S = 0.95
+    gy = 570  # y of 330 mm level
+    base = 330
+    cx = 420
+    body = []
+    def X(mm): return cx + mm * S
+    def Y(mm): return gy - (mm - base) * S
+    body.append(f'<text class="cap" x="40" y="32">MAGAZINE · ELEVATION SECTION, FRONT DOOR ON THE RIGHT</text>')
+    # shell walls (left/right) between 340 and 880, using egg profile radii
+    prof = [(340,190),(420,200),(520,205),(620,203),(720,195),(810,182),(880,167)]
+    for sgn in (-1, 1):
+        d = "M" + " L".join(f"{X(sgn*r):.1f},{Y(y):.1f}" for y, r in prof)
+        d2 = " L".join(f"{X(sgn*(r-8)):.1f},{Y(y):.1f}" for y, r in reversed(prof))
+        body.append(f'<path class="shell" d="{d} L{d2} Z"/>')
+    # mast
+    body.append(f'<rect class="hatch" x="{X(-70):.1f}" y="{Y(880):.1f}" width="{140*S:.1f}" height="{540*S:.1f}"/>')
+    # tanks 350-460
+    for sgn in (-1, 1):
+        body.append(f'<rect class="hifill" x="{min(X(sgn*92), X(sgn*168)):.1f}" y="{Y(458):.1f}" width="{76*S:.1f}" height="{106*S:.1f}" rx="3"/>')
+    body.append(f'<text class="lbl" x="{X(-130):.1f}" y="{Y(405):.1f}" text-anchor="middle">clean 1.0 L</text>')
+    body.append(f'<text class="lbl" x="{X(130):.1f}" y="{Y(405):.1f}" text-anchor="middle">grey 1.0 L</text>')
+    # compute 836-878
+    body.append(f'<rect class="hifill" x="{X(-160):.1f}" y="{Y(878):.1f}" width="{320*S:.1f}" height="{42*S:.1f}" rx="2"/>')
+    body.append(f'<text class="lbl" x="{X(0):.1f}" y="{Y(852):.1f}" text-anchor="middle">compute + pumps</text>')
+    tiers = [("A", 470, 550, 70, 12, 26), ("B", 550, 670, 110, 12, 26), ("C", 670, 830, 150, 10, 29)]
+    for name, y0, y1, ln, n, r in tiers:
+        # plate
+        body.append(f'<rect class="shell2" x="{X(-165):.1f}" y="{Y(y0+6):.1f}" width="{330*S:.1f}" height="{6*S:.1f}"/>')
+        # drip tray under plate (thin, amber)
+        body.append(f'<rect class="ambfill" x="{X(-160):.1f}" y="{Y(y0):.1f}" width="{320*S:.1f}" height="{4*S:.1f}"/>')
+        # hub ring
+        for sgn in (-1, 1):
+            body.append(f'<rect class="shell2" x="{min(X(sgn*82), X(sgn*92)):.1f}" y="{Y(y1-8):.1f}" width="{10*S:.1f}" height="{(y1-8-y0)*S:.1f}"/>')
+        # two heads visible in section (left and right pockets at r=125)
+        for sgn in (-1, 1):
+            hx = X(sgn*125)
+            body.append(f'<rect class="shell2" x="{hx - (r+4)*S:.1f}" y="{Y(y0+6+ln*0.8):.1f}" width="{(2*r+8)*S:.1f}" height="{ln*0.8*S:.1f}" rx="2"/>')
+            body.append(f'<rect class="hatch" x="{hx - r*S:.1f}" y="{Y(y0+8+ln-14):.1f}" width="{2*r*S:.1f}" height="{(ln-14)*S:.1f}" rx="2"/>')
+            body.append(f'<rect class="hi" x="{hx - 19*S:.1f}" y="{Y(y0+8+ln):.1f}" width="{38*S:.1f}" height="{14*S:.1f}" rx="1"/>')
+        # tier dims on the left
+        body.append(dim_v(X(-235), Y(y0), Y(y1), f"{y1-y0}", side="l"))
+        body.append(f'<text class="lblb" x="{X(-250):.1f}" y="{Y((y0+y1)/2)+18:.1f}" text-anchor="end">tier {name}</text>')
+        body.append(f'<text class="muted" x="{X(-250):.1f}" y="{Y((y0+y1)/2)+32:.1f}" text-anchor="end">{n} × Ø{2*r} × {ln}</text>')
+    # door on the right (tambour), 462-846
+    body.append(f'<rect class="amb" x="{X(196):.1f}" y="{Y(846):.1f}" width="6" height="{384*S:.1f}" opacity="0.8"/>')
+    body.append(f'<text class="lbl" x="{X(215):.1f}" y="{Y(700):.1f}">tambour door</text>')
+    body.append(f'<text class="lbl" x="{X(215):.1f}" y="{Y(700)+16:.1f}">384 × 78 mm</text>')
+    # ejector column on the right inside the shell
+    body.append(f'<rect class="ambfill" x="{X(168):.1f}" y="{Y(836):.1f}" width="{14*S:.1f}" height="{368*S:.1f}"/>')
+    body.append(f'<text class="lbl" x="{X(215):.1f}" y="{Y(610):.1f}">ejector column:</text>')
+    body.append(f'<text class="lbl" x="{X(215):.1f}" y="{Y(610)+16:.1f}">1 fork per tier,</text>')
+    body.append(f'<text class="lbl" x="{X(215):.1f}" y="{Y(610)+32:.1f}">NFC read on exit</text>')
+    # drain arrows from trays to grey tank
+    body.append(f'<path class="ambink" d="M{X(150):.1f},{Y(470):.1f} L{X(150):.1f},{Y(462):.1f}" marker-end="url(#arr)"/>')
+    body.append(f'<text class="lbl" x="{X(215):.1f}" y="{Y(480):.1f}">drip trays drain</text>')
+    body.append(f'<text class="lbl" x="{X(215):.1f}" y="{Y(480)+16:.1f}">to the grey tank</text>')
+    # overall dims on the left
+    body.append(dim_v(X(-370), Y(470), Y(830), "360", side="l"))
+    body.append(f'<text class="muted" x="40" y="{H-16}">34 pockets in 360 mm of body height · heads stand coupler-up · a head is never carried between tiers</text>')
+    svg(8, W, H, "\n".join(body), "Elevation section of the three-tier magazine between the water tanks and the compute deck, with the ejector column and tambour door on the front")
+
+
+fig7(); fig8()
 print("ok")
