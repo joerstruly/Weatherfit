@@ -1,0 +1,621 @@
+<title>Project GYRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --paper:#F5F6F3; --paper-2:#ECEDE8; --ink:#1F2A33; --ink-2:#4A5560; --muted:#6B7680; --line:#D2D6D0; --line-2:#B9BFB8;
+  --accent:#1C7FA8; --accent-ink:#155F7E; --amber:#B8700A; --amber-soft:rgba(184,112,10,.10);
+  --shell:#ECEBE3; --shell-2:#E0DFD5; --ball:#2B3540;
+  --display:"Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper:#161B20; --paper-2:#1E252C; --ink:#E6E8E4; --ink-2:#C2C8CD; --muted:#98A2AB; --line:#2E363D; --line-2:#3E474F;
+    --accent:#2A93BE; --accent-ink:#7CC4E0; --amber:#C2831C; --amber-soft:rgba(194,131,28,.14);
+    --shell:#2A323A; --shell-2:#343D46; --ball:#0E1216;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper:#161B20; --paper-2:#1E252C; --ink:#E6E8E4; --ink-2:#C2C8CD; --muted:#98A2AB; --line:#2E363D; --line-2:#3E474F;
+  --accent:#2A93BE; --accent-ink:#7CC4E0; --amber:#C2831C; --amber-soft:rgba(194,131,28,.14);
+  --shell:#2A323A; --shell-2:#343D46; --ball:#0E1216;
+}
+* { box-sizing:border-box; }
+body { background:var(--paper); color:var(--ink); font-family:var(--serif); font-size:17px; line-height:1.55; margin:0; }
+a { color:var(--accent-ink); text-decoration:none; }
+a:hover, a:focus-visible { text-decoration:underline; }
+:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+/* title block, drawn like an engineering drawing's */
+.tb { border-top:3px solid var(--ink); border-bottom:1px solid var(--ink); margin:0 auto; max-width:1040px; padding:22px 24px 0; }
+.tb-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 24px; }
+.tb h1 { font-family:var(--display); font-weight:700; font-size:clamp(40px,7vw,68px); line-height:.95; letter-spacing:-.01em; margin:0; text-wrap:balance; }
+.tb h1 small { display:block; font-weight:500; font-size:.42em; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.tb .sub { font-family:var(--display); font-weight:500; font-size:clamp(20px,2.6vw,26px); color:var(--ink-2); margin:0; }
+.tb-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); border-top:1px solid var(--line-2); margin-top:18px; }
+.tb-cell { padding:10px 12px 12px 0; border-right:1px solid var(--line); display:flex; flex-direction:column; gap:2px; }
+.tb-cell + .tb-cell { padding-left:12px; }
+.tb-cell:last-child { border-right:0; }
+.tb-k { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.tb-v { font-family:var(--mono); font-size:13.5px; color:var(--ink); }
+
+.toc { max-width:1040px; margin:0 auto; padding:14px 24px; display:flex; flex-wrap:wrap; gap:6px 18px; border-bottom:1px solid var(--line); font-family:var(--mono); font-size:12px; }
+.toc a { color:var(--ink-2); }
+
+main { max-width:1040px; margin:0 auto; padding:24px 24px 80px; }
+main > p, main > ul, main > ol, main > h3 { max-width:68ch; }
+h2 { font-family:var(--display); font-weight:700; font-size:34px; line-height:1.05; letter-spacing:-.005em; margin:56px 0 14px; padding-top:18px; border-top:1px solid var(--ink); text-wrap:balance; }
+h2:first-child { margin-top:16px; border-top:0; padding-top:0; }
+h3 { font-family:var(--display); font-weight:600; font-size:22px; letter-spacing:.01em; margin:30px 0 8px; }
+p { margin:0 0 14px; }
+ul, ol { padding-left:1.3em; margin:0 0 16px; }
+li { margin:0 0 8px; }
+li::marker { font-family:var(--mono); font-size:13px; color:var(--muted); }
+code { font-family:var(--mono); font-size:.85em; background:var(--paper-2); padding:1px 5px; border-radius:3px; }
+strong { font-weight:600; }
+
+.tw { overflow-x:auto; margin:8px 0 22px; }
+table { border-collapse:collapse; width:100%; font-size:14.5px; line-height:1.4; }
+th { text-align:left; font-family:var(--mono); font-weight:500; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding:8px 12px 8px 0; border-bottom:1px solid var(--ink); vertical-align:bottom; }
+td { padding:8px 12px 8px 0; border-bottom:1px solid var(--line); vertical-align:top; font-variant-numeric:tabular-nums; }
+td:first-child { font-family:var(--mono); font-size:13px; color:var(--ink); min-width:12ch; }
+tr:last-child td { border-bottom:1px solid var(--line-2); }
+table.kv td:first-child { color:var(--muted); width:14ch; }
+tbody tr:has(strong) td { border-top:1px solid var(--ink); }
+
+.note { margin:22px 0 26px; padding:14px 18px 6px; background:var(--amber-soft); max-width:74ch; }
+.note-label { display:block; font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); margin-bottom:6px; }
+.note p { font-size:16px; }
+
+.fig { margin:18px 0 26px; padding:16px 0 0; border-top:1px solid var(--line-2); }
+.fig svg { max-width:100%; height:auto; display:block; font-family:var(--mono); color:var(--ink); }
+.fig figcaption { font-family:var(--serif); font-size:14.5px; color:var(--ink-2); max-width:78ch; margin-top:10px; }
+.fignum { font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); margin-right:8px; }
+
+/* figure vocabulary (inline SVG classes) */
+.fig .ink { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round; }
+.fig .ink2 { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+.fig .shell { fill:var(--shell); stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+.fig .shell2 { fill:var(--shell-2); stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+.fig .ball { fill:var(--ball); stroke:currentColor; stroke-width:1.5; }
+.fig .hi { fill:var(--accent); stroke:none; }
+.fig .hiink { fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.fig .hifill { fill:var(--accent); fill-opacity:.18; stroke:var(--accent); stroke-width:1.5; }
+.fig .amb { fill:var(--amber); stroke:none; }
+.fig .ambink { fill:none; stroke:var(--amber); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.fig .ambfill { fill:var(--amber); fill-opacity:.22; stroke:var(--amber); stroke-width:1.5; }
+.fig .dim { fill:none; stroke:var(--muted); stroke-width:1; }
+.fig .dimt { fill:var(--muted); font-size:12px; }
+.fig .lbl { fill:currentColor; font-size:13px; }
+.fig .lblb { fill:currentColor; font-size:13px; font-weight:600; }
+.fig .cap { fill:currentColor; font-size:14px; font-weight:600; letter-spacing:.04em; }
+.fig .muted { fill:var(--muted); font-size:12px; }
+.fig .grid { stroke:var(--line); stroke-width:1; }
+.fig .ghost { fill:none; stroke:currentColor; stroke-width:1.2; stroke-dasharray:4 4; opacity:.55; }
+.fig .hatch { stroke:currentColor; stroke-width:1.2; }
+.fig .bar-h { fill:var(--accent); }
+.fig .bar-r { fill:var(--amber); }
+.fig marker path[fill="#6B7680"] { fill:var(--muted); }
+
+footer { max-width:1040px; margin:0 auto; padding:18px 24px 40px; border-top:1px solid var(--ink); font-family:var(--mono); font-size:12px; color:var(--muted); display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between; }
+@media (max-width:640px) { body { font-size:16px; } h2 { font-size:28px; } }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior:smooth; } }
+</style>
+<header class="tb">
+  <div class="tb-head">
+    <h1><small>Concept design specification</small>Project GYRO</h1>
+    <p class="sub">Single-ball home service robot</p>
+  </div>
+  <div class="tb-grid"><div class="tb-cell"><span class="tb-k">Document</span><span class="tb-v">Concept design specification</span></div><div class="tb-cell"><span class="tb-k">Revision</span><span class="tb-v">0.1 (pre-feasibility)</span></div><div class="tb-cell"><span class="tb-k">Date</span><span class="tb-v">2026-09-05</span></div><div class="tb-cell"><span class="tb-k">Status</span><span class="tb-v">Draft for design review</span></div><div class="tb-cell"><span class="tb-k">Sheet</span><span class="tb-v">1 of 1 · 6 figures</span></div></div>
+</header>
+<nav class="toc" aria-label="Sections"><a href="#s0-summary">0. Summary</a><a href="#s1-design-principles">1. Design principles</a><a href="#s2-general-arrangement">2. General arrangement</a><a href="#s3-locomotion-ball-drive-and-postures">3. Locomotion: ball drive and postures</a><a href="#s4-body-and-internal-layout">4. Body and internal layout</a><a href="#s5-manipulation">5. Manipulation</a><a href="#s6-workspace">6. Workspace</a><a href="#s7-sensing-compute-and-privacy">7. Sensing, compute and privacy</a><a href="#s8-power-docking-and-consumables">8. Power, docking and consumables</a><a href="#s9-task-performance-and-the-throughput-claim">9. Task performance and the throughput claim</a><a href="#s10-mass-and-cost-budgets">10. Mass and cost budgets</a><a href="#s11-risks-and-open-questions">11. Risks and open questions</a><a href="#s12-development-path">12. Development path</a><a href="#sappendix-a-specification-summary">Appendix A. Specification summary</a></nav>
+<main>
+<h2 id="s0-summary">0. Summary</h2>
+<p>GYRO is a self-balancing household robot that rides a single 280 mm drive ball, carries its tools inside a sealed egg-shaped body, and deploys two general-purpose arms plus two task-specific utility arms from a rotating turret. It is deliberately not humanoid: it has no face, no legs, and no gait. It is an appliance with reach.</p>
+<p>The original brief had four claims. Two survive intact, two need to be reframed before anyone spends money on them:</p>
+<div class="tw"><table><thead><tr><th>Claim in the brief</th><th>Verdict</th><th>What the spec does about it</th></tr></thead><tbody><tr><td>People will accept a non-humanoid robot more readily</td><td><strong>Holds.</strong> The strongest part of the idea.</td><td>Design principle 1. No face, no eye contact, appliance semantics throughout.</td></tr><tr><td>One wheel, blob body</td><td><strong>Holds for locomotion, fails for work.</strong> A balancing robot can only push as hard as it can lean, roughly 30 N. Scrubbing a pan needs more.</td><td>Two postures: Roam (balancing) and Plant (three feet down, ball braked, &gt;100 N). See §3 and Figure 2.</td></tr><tr><td>Tools pop out of the body</td><td><strong>Holds, with a change of shape.</strong> Eight dedicated pop-out arms do not fit in a 420 mm body.</td><td>Two general arms plus an 8-slot internal tool carousel with a 4 s change cycle. See §5 and Figure 4.</td></tr><tr><td>4× a human's work in the same time and less space</td><td><strong>Does not hold as stated.</strong> Dishes and laundry are bounded by appliance cycles the robot cannot speed up.</td><td>Reframed as "hours of human attention returned per week" (target 12–18 h) with an honest 1.5–2× on manipulation-bound steps. See §9 and Figure 6.</td></tr></tbody></table></div>
+<p>The single biggest unsolved problem is stairs. A wheeled or ball-riding robot cannot climb them, and this spec does not pretend otherwise (§11).</p>
+<h2 id="s1-design-principles">1. Design principles</h2>
+<ol><li><strong>Appliance, not person.</strong> No face, no head-tracking gaze, no anthropomorphic gestures. The robot signals intent with a light ring and short sounds, the way a dishwasher does. This is what makes it tolerable in a bedroom doorway at 6 am.</li><li><strong>Everything lives inside the shell.</strong> No tools hang off the body when it roams. The stowed silhouette is one smooth solid so it can pass a 600 mm doorway with a child on either side without snagging.</li><li><strong>Small footprint over long reach.</strong> A 420 mm body fits between a fridge and a counter edge, in a laundry closet, and behind a door. Reach comes from a 450 mm telescoping mast, not from a tall standing body.</li><li><strong>Safe to fail.</strong> Any fault, including total power loss, ends with the robot resting on its skirt within one second. A balancing robot that can fall over is not a home product.</li><li><strong>Parallel effectors, not fast hands.</strong> Throughput comes from two arms and a wand working at once, not from moving faster than a person. Fast hands near people are a liability.</li><li><strong>Don't do a cheap robot's job.</strong> Floor vacuuming is done better by a dedicated robot vacuum. GYRO handles edges, spills, stairs-adjacent zones and everything above the floor, and cooperates with the vacuum rather than replacing it.</li></ol>
+<h2 id="s2-general-arrangement">2. General arrangement</h2>
+<figure class="fig"><svg viewBox="0 0 900 620" role="img" aria-label="General arrangement: stowed roam posture at 1150 mm beside the extended reach posture at 1600 mm with both arms deployed" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block"><defs>
+  <marker id="f1arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="f1dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="f1hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><line class="ink" x1="40" y1="560" x2="860" y2="560"/>
+<line class="grid" x1="40" y1="560" x2="32" y2="568"/>
+<line class="grid" x1="62" y1="560" x2="54" y2="568"/>
+<line class="grid" x1="84" y1="560" x2="76" y2="568"/>
+<line class="grid" x1="106" y1="560" x2="98" y2="568"/>
+<line class="grid" x1="128" y1="560" x2="120" y2="568"/>
+<line class="grid" x1="150" y1="560" x2="142" y2="568"/>
+<line class="grid" x1="172" y1="560" x2="164" y2="568"/>
+<line class="grid" x1="194" y1="560" x2="186" y2="568"/>
+<line class="grid" x1="216" y1="560" x2="208" y2="568"/>
+<line class="grid" x1="238" y1="560" x2="230" y2="568"/>
+<line class="grid" x1="260" y1="560" x2="252" y2="568"/>
+<line class="grid" x1="282" y1="560" x2="274" y2="568"/>
+<line class="grid" x1="304" y1="560" x2="296" y2="568"/>
+<line class="grid" x1="326" y1="560" x2="318" y2="568"/>
+<line class="grid" x1="348" y1="560" x2="340" y2="568"/>
+<line class="grid" x1="370" y1="560" x2="362" y2="568"/>
+<line class="grid" x1="392" y1="560" x2="384" y2="568"/>
+<line class="grid" x1="414" y1="560" x2="406" y2="568"/>
+<line class="grid" x1="436" y1="560" x2="428" y2="568"/>
+<line class="grid" x1="458" y1="560" x2="450" y2="568"/>
+<line class="grid" x1="480" y1="560" x2="472" y2="568"/>
+<line class="grid" x1="502" y1="560" x2="494" y2="568"/>
+<line class="grid" x1="524" y1="560" x2="516" y2="568"/>
+<line class="grid" x1="546" y1="560" x2="538" y2="568"/>
+<line class="grid" x1="568" y1="560" x2="560" y2="568"/>
+<line class="grid" x1="590" y1="560" x2="582" y2="568"/>
+<line class="grid" x1="612" y1="560" x2="604" y2="568"/>
+<line class="grid" x1="634" y1="560" x2="626" y2="568"/>
+<line class="grid" x1="656" y1="560" x2="648" y2="568"/>
+<line class="grid" x1="678" y1="560" x2="670" y2="568"/>
+<line class="grid" x1="700" y1="560" x2="692" y2="568"/>
+<line class="grid" x1="722" y1="560" x2="714" y2="568"/>
+<line class="grid" x1="744" y1="560" x2="736" y2="568"/>
+<line class="grid" x1="766" y1="560" x2="758" y2="568"/>
+<line class="grid" x1="788" y1="560" x2="780" y2="568"/>
+<line class="grid" x1="810" y1="560" x2="802" y2="568"/>
+<line class="grid" x1="832" y1="560" x2="824" y2="568"/>
+<line class="grid" x1="854" y1="560" x2="846" y2="568"/>
+<circle class="ball" cx="250.0" cy="518.0" r="42.0"/>
+<ellipse class="ink" cx="250.0" cy="518.0" rx="23.1" ry="42.0" opacity="0.35"/>
+<path class="shell" d="M210.9,527.0 C185.7,509.0 185.7,464.0 193.0,458.0 L307.0,458.0 C314.3,464.0 314.3,509.0 289.1,527.0 Z"/>
+<path class="shell" d="M193.0,458.0 C188.4,404.0 194.1,329.0 199.8,296.0 L300.2,296.0 C305.9,329.0 311.6,404.0 307.0,458.0 Z"/>
+<path class="shell2" d="M199.8,296.0 C190.0,287.0 190.0,272.0 211.0,266.0 L289.0,266.0 C310.0,272.0 310.0,287.0 300.2,296.0 Z"/>
+<path class="shell" d="M211.0,266.0 C211.0,230.0 228.6,215.0 250.0,215.0 C271.4,215.0 289.0,230.0 289.0,266.0 Z"/>
+<rect class="hi" x="212.9" y="245.0" width="74.1" height="1.8" rx="2"/>
+<path class="ink" d="M205.0,290.0 L205.0,272.0" opacity="0.6"/>
+<path class="ink" d="M295.0,290.0 L295.0,272.0" opacity="0.6"/>
+<text class="cap" x="250" y="40" text-anchor="middle">STOWED · ROAM</text>
+<circle class="ball" cx="640.0" cy="518.0" r="42.0"/>
+<ellipse class="ink" cx="640.0" cy="518.0" rx="23.1" ry="42.0" opacity="0.35"/>
+<path class="shell" d="M600.9,527.0 C575.7,509.0 575.7,464.0 583.0,458.0 L697.0,458.0 C704.3,464.0 704.3,509.0 679.1,527.0 Z"/>
+<path class="shell" d="M583.0,458.0 C578.4,404.0 584.1,329.0 589.8,296.0 L690.2,296.0 C695.9,329.0 701.6,404.0 697.0,458.0 Z"/>
+<rect class="hatch" x="619.0" y="161.0" width="42.0" height="135.0"/>
+<path class="shell2" d="M589.8,161.0 C580.0,152.0 580.0,137.0 601.0,131.0 L679.0,131.0 C700.0,137.0 700.0,152.0 690.2,161.0 Z"/>
+<path class="shell" d="M601.0,131.0 C601.0,95.0 618.5,80.0 640.0,80.0 C661.5,80.0 679.0,95.0 679.0,131.0 Z"/>
+<rect class="hi" x="603.0" y="110.0" width="74.1" height="1.8" rx="2"/>
+<path class="ink2" d="M688.0,146.0 L766.0,134.0 L835.0,182.0"/>
+<circle class="ink" cx="766.0" cy="134.0" r="5.4"/>
+<path class="ink2" d="M835.0,182.0 l12.0,-7.5 M835.0,182.0 l13.5,4.5"/>
+<path class="ink2" d="M592.0,146.0 L526.0,110.0 L472.0,164.0"/>
+<circle class="ink" cx="526.0" cy="110.0" r="5.4"/>
+<path class="ink2" d="M472.0,164.0 l-12.0,-7.5 M472.0,164.0 l-13.5,4.5"/>
+<text class="cap" x="640" y="40" text-anchor="middle">EXTENDED · REACH</text>
+<line class="dim" x1="151.0" y1="215.0" x2="190.0" y2="215.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="100.0" y1="560.0" x2="100.0" y2="215.0" marker-start="url(#f1dimarr)" marker-end="url(#f1dimarr)"/><text class="dimt" x="92.0" y="391.5" text-anchor="end">1150</text>
+<line class="dim" x1="208.0" y1="594.0" x2="292.0" y2="594.0" marker-start="url(#f1dimarr)" marker-end="url(#f1dimarr)"/><text class="dimt" x="250.0" y="588.0" text-anchor="middle">Ø280 ball</text>
+<line class="dim" x1="187.0" y1="470.0" x2="187.0" y2="622.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="313.0" y1="470.0" x2="313.0" y2="622.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="187.0" y1="618.0" x2="313.0" y2="618.0" marker-start="url(#f1dimarr)" marker-end="url(#f1dimarr)"/><text class="dimt" x="250.0" y="612.0" text-anchor="middle">Ø420 max</text>
+<line class="dim" x1="307.0" y1="281.0" x2="360.0" y2="281.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="350.0" y1="560.0" x2="350.0" y2="281.0" marker-start="url(#f1dimarr)" marker-end="url(#f1dimarr)"/><text class="dimt" x="358.0" y="424.5" text-anchor="start">930 shoulder</text>
+<line class="dim" x1="571.0" y1="80.0" x2="520.0" y2="80.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="530.0" y1="560.0" x2="530.0" y2="80.0" marker-start="url(#f1dimarr)" marker-end="url(#f1dimarr)"/><text class="dimt" x="522.0" y="324.0" text-anchor="end">1600</text>
+<line class="dim" x1="661.0" y1="296.0" x2="700.0" y2="296.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="661.0" y1="161.0" x2="700.0" y2="161.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="690.0" y1="296.0" x2="690.0" y2="161.0" marker-start="url(#f1dimarr)" marker-end="url(#f1dimarr)"/><text class="dimt" x="698.0" y="232.5" text-anchor="start">450 mast stroke</text>
+<line class="dim" x1="688.0" y1="118.0" x2="847.0" y2="118.0" marker-start="url(#f1dimarr)" marker-end="url(#f1dimarr)"/><text class="dimt" x="767.5" y="112.0" text-anchor="middle">750 reach</text>
+<text class="muted" x="860" y="606" text-anchor="end">all dimensions mm · mass 42 kg dry / 45 kg wet · scale 0.3</text></svg><figcaption><span class="fignum">Figure 1</span> General arrangement. Stowed roam posture (1150 mm) beside the extended reach posture (1600 mm) with both arms deployed. Scale 0.3, dimensions in mm.</figcaption></figure>
+<div class="tw"><table><thead><tr><th>Parameter</th><th>Value</th><th>Note</th></tr></thead><tbody><tr><td>Height, stowed</td><td>1150 mm</td><td>Below a standard 1400 mm upper-cabinet base; head does not hit open cabinet doors</td></tr><tr><td>Height, mast up</td><td>1600 mm</td><td>Shoulder ring rises from 930 mm to 1380 mm</td></tr><tr><td>Body diameter, max</td><td>420 mm</td><td>At the skirt, 300 mm above floor</td></tr><tr><td>Body diameter, waist</td><td>380 mm</td><td></td></tr><tr><td>Drive ball</td><td>Ø280 mm, polyurethane over aluminium</td><td>Same class as CMU Ballbot / ETH Rezero</td></tr><tr><td>Floor footprint (Roam)</td><td>Ø280 contact patch</td><td>Effectively a point contact plus a 420 mm shadow</td></tr><tr><td>Floor footprint (Plant)</td><td>Ø500 mm stance</td><td>Three feet at 250 mm radius</td></tr><tr><td>Mass, dry</td><td>42 kg</td><td>Budget in §10</td></tr><tr><td>Mass, wet</td><td>45 kg</td><td>2 L water + 0.5 L detergent, 8-head tool set</td></tr><tr><td>Arm reach</td><td>750 mm from shoulder</td><td>Two primary arms, §5</td></tr><tr><td>Max lift height</td><td>~2100 mm</td><td>Mast up, arm vertical; front of a 1750 mm shelf only, see §6</td></tr><tr><td>Doorway clearance</td><td>600 mm door with 90 mm each side</td><td></td></tr></tbody></table></div>
+<p>The proportions are set by two constraints pulling in opposite directions. The mass must sit as low as possible for balance, so the battery, water and ball drive fill the skirt. The arms must reach counters and cabinets, so the shoulders sit at 930 mm and lift a further 450 mm. The mast is what lets both be true without a tall, top-heavy body.</p>
+<h2 id="s3-locomotion-ball-drive-and-postures">3. Locomotion: ball drive and postures</h2>
+<figure class="fig"><svg viewBox="0 0 960 540" role="img" aria-label="The three postures: Roam balancing on the ball, Plant with three outrigger feet down for high-force work, and Kneel resting on the skirt lip after a fault" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block"><defs>
+  <marker id="f2arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="f2dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="f2hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><line class="ink" x1="30" y1="450" x2="930" y2="450"/>
+<circle class="ball" cx="170.0" cy="416.4" r="33.6"/>
+<ellipse class="ink" cx="170.0" cy="416.4" rx="18.5" ry="33.6" opacity="0.35"/>
+<path class="shell" d="M138.8,423.6 C118.6,409.2 118.6,373.2 124.4,368.4 L215.6,368.4 C221.4,373.2 221.4,409.2 201.2,423.6 Z"/>
+<path class="shell" d="M124.4,368.4 C120.8,325.2 125.3,265.2 129.9,238.8 L210.1,238.8 C214.7,265.2 219.2,325.2 215.6,368.4 Z"/>
+<path class="shell2" d="M129.9,238.8 C122.0,231.6 122.0,219.6 138.8,214.8 L201.2,214.8 C218.0,219.6 218.0,231.6 210.1,238.8 Z"/>
+<path class="shell" d="M138.8,214.8 C138.8,186.0 152.8,174.0 170.0,174.0 C187.2,174.0 201.2,186.0 201.2,214.8 Z"/>
+<rect class="hi" x="140.4" y="198.0" width="59.3" height="1.4" rx="2"/>
+<path class="ink" d="M134.0,234.0 L134.0,219.6" opacity="0.6"/>
+<path class="ink" d="M206.0,234.0 L206.0,219.6" opacity="0.6"/>
+<path class="hiink" d="M240,306.0 L300,306.0" marker-end="url(#f2arr)"/>
+<text class="lbl" x="240" y="296.0">~30 N push limit</text>
+<path class="hiink" d="M130,150.0 A 120 120 0 0 1 210,150.0" marker-end="url(#f2arr)"/>
+<text class="muted" x="170" y="136.0" text-anchor="middle">lean = force</text>
+<circle class="ball" cx="480.0" cy="416.4" r="33.6"/>
+<ellipse class="ink" cx="480.0" cy="416.4" rx="18.5" ry="33.6" opacity="0.35"/>
+<path class="shell" d="M448.8,423.6 C428.6,409.2 428.6,373.2 434.4,368.4 L525.6,368.4 C531.4,373.2 531.4,409.2 511.2,423.6 Z"/>
+<path class="ambink" d="M439.2,402.0 L420.0,442.8"/>
+<rect class="amb" x="406.0" y="442.0" width="28" height="8" rx="2"/>
+<path class="ambink" d="M520.8,402.0 L540.0,442.8"/>
+<rect class="amb" x="526.0" y="442.0" width="28" height="8" rx="2"/>
+<path class="shell" d="M434.4,368.4 C430.8,325.2 435.3,265.2 439.9,238.8 L520.1,238.8 C524.7,265.2 529.2,325.2 525.6,368.4 Z"/>
+<path class="shell2" d="M439.9,238.8 C432.0,231.6 432.0,219.6 448.8,214.8 L511.2,214.8 C528.0,219.6 528.0,231.6 520.1,238.8 Z"/>
+<path class="shell" d="M448.8,214.8 C448.8,186.0 462.8,174.0 480.0,174.0 C497.2,174.0 511.2,186.0 511.2,214.8 Z"/>
+<rect class="hi" x="450.4" y="198.0" width="59.3" height="1.4" rx="2"/>
+<path class="ink2" d="M518.4,226.8 L580.8,217.2 L636.0,255.6"/>
+<circle class="ink" cx="580.8" cy="217.2" r="4.3"/>
+<path class="ink2" d="M636.0,255.6 l9.6,-6.0 M636.0,255.6 l10.8,3.6"/>
+<path class="ink2" d="M441.6,226.8 L388.8,198.0 L345.6,241.2"/>
+<circle class="ink" cx="388.8" cy="198.0" r="4.3"/>
+<path class="ink2" d="M345.6,241.2 l-9.6,-6.0 M345.6,241.2 l-10.8,3.6"/>
+<text class="muted" x="480" y="480.0" text-anchor="middle">Ø500 stance · ball brake on</text>
+<circle class="ball" cx="790.0" cy="416.4" r="33.6"/>
+<ellipse class="ink" cx="790.0" cy="416.4" rx="18.5" ry="33.6" opacity="0.35"/>
+<path class="shell" d="M758.8,450.0 C738.6,435.6 738.6,399.6 744.4,394.8 L835.6,394.8 C841.4,399.6 841.4,435.6 821.2,450.0 Z"/>
+<path class="shell" d="M744.4,394.8 C740.8,351.6 745.3,291.6 749.9,265.2 L830.1,265.2 C834.7,291.6 839.2,351.6 835.6,394.8 Z"/>
+<path class="shell2" d="M749.9,265.2 C742.0,258.0 742.0,246.0 758.8,241.2 L821.2,241.2 C838.0,246.0 838.0,258.0 830.1,265.2 Z"/>
+<path class="shell" d="M758.8,241.2 C758.8,212.4 772.8,200.4 790.0,200.4 C807.2,200.4 821.2,212.4 821.2,241.2 Z"/>
+<rect class="hi" x="760.4" y="224.4" width="59.3" height="1.4" rx="2"/>
+<path class="ink" d="M754.0,260.4 L754.0,246.0" opacity="0.6"/>
+<path class="ink" d="M826.0,260.4 L826.0,246.0" opacity="0.6"/>
+<rect class="hatch" x="655" y="445" width="270" height="5"/>
+<text class="muted" x="790" y="480.0" text-anchor="middle">skirt lip on floor · body drops 110 mm</text>
+<text class="lbl" x="715" y="150.0" text-anchor="middle">power loss → here in &lt;1 s</text>
+<text class="cap" x="170" y="40" text-anchor="middle">ROAM</text>
+<text class="muted" x="170" y="60" text-anchor="middle">balancing on the ball</text>
+<text class="muted" x="170" y="76" text-anchor="middle">omnidirectional · ≤1.2 m/s</text>
+<text class="cap" x="480" y="40" text-anchor="middle">PLANT</text>
+<text class="muted" x="480" y="60" text-anchor="middle">3 feet down, ball braked</text>
+<text class="muted" x="480" y="76" text-anchor="middle">sustained push >100 N</text>
+<text class="cap" x="790" y="40" text-anchor="middle">KNEEL</text>
+<text class="muted" x="790" y="60" text-anchor="middle">fault · charge · storage</text>
+<text class="muted" x="790" y="76" text-anchor="middle">passively stable, no power</text>
+<path class="ink" d="M260,510 L390,510" marker-end="url(#f2arr)" marker-start="url(#f2arr)"/>
+<text class="muted" x="325.0" y="502" text-anchor="middle">~1.5 s either way</text>
+<path class="ink" d="M570,510 L700,510" marker-end="url(#f2arr)"/>
+<text class="muted" x="635.0" y="502" text-anchor="middle">any fault, from either mode</text></svg><figcaption><span class="fignum">Figure 2</span> The three postures. Roam balances on the ball and can push only about 30 N; Plant drops three feet and brakes the ball for sustained forces above 100 N; Kneel is where every fault ends.</figcaption></figure>
+<h3>3.1 Roam</h3>
+<div class="tw"><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody><tr><td>Drive</td><td>3 omniwheels at 120° on the ball, 3 × 250 W BLDC, 12:1 planetary</td></tr><tr><td>Speed</td><td>1.2 m/s max, 0.6 m/s default indoors, 0.25 m/s within 1 m of a person</td></tr><tr><td>Acceleration</td><td>1.5 m/s²</td></tr><tr><td>Threshold / obstacle</td><td>20 mm step, 12 mm gap, 3° lean on carpet edges</td></tr><tr><td>Turning</td><td>Omnidirectional, zero radius; turret rotates independently</td></tr><tr><td>Balance loop</td><td>1 kHz IMU + wheel odometry, LQR with model-predictive lean limiting</td></tr><tr><td>Sustained lateral force at 900 mm</td><td>~30 N (lean-limited, m·g·d/h with d ≈ 0.06 m)</td></tr></tbody></table></div>
+<aside class="note"><span class="note-label">Design review note</span><p>The single wheel is right for moving and wrong for working. A balancing robot exerts force by leaning; the moment it can generate is bounded by its mass times the horizontal offset it can safely hold, divided by the height it pushes at. For a 42 kg body pushing at counter height that is about 30 N, sustained. Scrubbing a baked-on pan is 20–50 N. Opening a stiff fridge door is 30–70 N. Lifting a full laundry basket from a front-loader shifts the centre of mass by more than the ball can chase on a wet floor. So the ball alone does not do the jobs in the brief. The fix is not to give up the ball, it is to give the robot a way to stand still.</p></aside>
+<h3>3.2 Plant</h3>
+<p>Three outrigger feet stow in the skirt and deploy to a 500 mm stance in about 1.5 s. A friction brake locks the ball. In Plant the robot is a tripod with a low centre of mass and can sustain &gt;100 N at counter height, limited by the feet's rubber pads rather than by balance. The controller enters Plant automatically before any task tagged high-force: scrubbing, prying, pulling a drawer, hauling laundry, holding a pot under a tap.</p>
+<p>Plant also cuts idle power: the balance loop drops from 60 W to under 5 W, which matters for tasks like folding that take twenty minutes at one spot.</p>
+<h3>3.3 Kneel</h3>
+<p>The body drops 110 mm around the ball so the skirt lip carries the load on a rubber ring. The robot is passively stable with no power. Every fault path, including battery cut-off, brown-out, IMU disagreement and a tip-over prediction, ends here. Kneel is also the charging and storage posture. The transition from Roam is a controlled descent: the drive damps the fall so the lip lands at under 0.3 m/s.</p>
+<p>A supercapacitor bank (100 F, 48 V) is sized to complete one Roam→Kneel descent after main power loss. This is the one non-negotiable safety component in the design.</p>
+<h3>3.4 Stairs</h3>
+<p>Not supported. See §11.</p>
+<h2 id="s4-body-and-internal-layout">4. Body and internal layout</h2>
+<figure class="fig"><svg viewBox="0 0 1000 660" role="img" aria-label="Cutaway of the body showing the omniwheel ball drive and battery low in the skirt, water tanks and tool carousel mid-body, telescoping mast, arm turret and sensor crown" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block"><defs>
+  <marker id="f3arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="f3dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="f3hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><line class="ink" x1="40" y1="610" x2="960" y2="610"/>
+<circle class="ball" cx="330.0" cy="554.0" r="56.0"/>
+<ellipse class="ink" cx="330.0" cy="554.0" rx="30.8" ry="56.0" opacity="0.35"/>
+<path class="shell" d="M277.9,566.0 C244.3,542.0 244.3,482.0 254.0,474.0 L406.0,474.0 C415.7,482.0 415.7,542.0 382.1,566.0 Z"/>
+<path class="shell" d="M254.0,474.0 C247.9,402.0 255.5,302.0 263.1,258.0 L396.9,258.0 C404.5,302.0 412.1,402.0 406.0,474.0 Z"/>
+<path class="shell2" d="M263.1,258.0 C250.0,246.0 250.0,226.0 278.0,218.0 L382.0,218.0 C410.0,226.0 410.0,246.0 396.9,258.0 Z"/>
+<path class="shell" d="M278.0,218.0 C278.0,170.0 301.4,150.0 330.0,150.0 C358.6,150.0 382.0,170.0 382.0,218.0 Z"/>
+<rect class="hi" x="280.6" y="190.0" width="98.8" height="2.4" rx="2"/>
+<path class="ink" d="M270.0,250.0 L270.0,226.0" opacity="0.6"/>
+<path class="ink" d="M390.0,250.0 L390.0,226.0" opacity="0.6"/>
+<circle class="shell2" cx="371.7" cy="504.4" r="8.8"/>
+<circle class="shell2" cx="288.3" cy="504.4" r="8.8"/>
+<circle class="shell2" cx="330.0" cy="489.2" r="8.8"/>
+<rect class="ambfill" x="249.8" y="490.0" width="10" height="56.0" rx="2"/>
+<rect class="ambfill" x="400.2" y="490.0" width="10" height="56.0" rx="2"/>
+<rect class="hifill" x="240.0" y="478.0" width="60" height="40.0" rx="2"/>
+<rect class="hifill" x="360.0" y="478.0" width="60" height="40.0" rx="2"/>
+<rect class="shell2" x="262.0" y="386.0" width="32.0" height="80.0" rx="3"/>
+<rect class="shell2" x="366.0" y="386.0" width="32.0" height="80.0" rx="3"/>
+<ellipse class="ambfill" cx="330.0" cy="306.0" rx="52.0" ry="11.2"/>
+<path class="ambink" d="M278.0,306.0 L278.0,378.0 M382.0,306.0 L382.0,378.0"/>
+<ellipse class="ambfill" cx="330.0" cy="378.0" rx="52.0" ry="11.2"/>
+<rect class="amb" x="281.8" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="296.2" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="310.6" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="325.0" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="339.4" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="353.8" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="368.2" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="hatch" x="312.0" y="258.0" width="36.0" height="216.0"/>
+<rect class="hifill" x="282.0" y="262.0" width="96.0" height="22.0" rx="2"/>
+<rect class="hi" x="260.0" y="252.0" width="140.0" height="4.0" rx="2"/>
+<rect class="shell2" x="262.0" y="220.0" width="40" height="24.0" rx="6"/>
+<rect class="shell2" x="358.0" y="220.0" width="40" height="24.0" rx="6"/>
+<circle class="hi" cx="284.0" cy="186.0" r="5"/>
+<circle class="hi" cx="376.0" cy="186.0" r="5"/>
+<circle class="hi" cx="330.0" cy="154.0" r="5"/>
+<circle class="ambfill" cx="368.0" cy="524.0" r="8.8"/>
+<line class="dim" x1="330.0" y1="154.0" x2="610" y2="100.0"/>
+<circle class="ink" cx="330.0" cy="154.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="104">Top-down wide camera + mic array</text>
+<line class="dim" x1="376.0" y1="186.0" x2="610" y2="130.0"/>
+<circle class="ink" cx="376.0" cy="186.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="134">4× RGB-D cameras at 90° · light ring below</text>
+<line class="dim" x1="386.0" y1="234.0" x2="610" y2="160.0"/>
+<circle class="ink" cx="386.0" cy="234.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="164">Arm shoulders (2× 7-DOF) in rotating turret</text>
+<line class="dim" x1="400.0" y1="252.0" x2="610" y2="190.0"/>
+<circle class="ink" cx="400.0" cy="252.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="194">Turret bearing · 360° continuous</text>
+<line class="dim" x1="378.0" y1="272.0" x2="610" y2="220.0"/>
+<circle class="ink" cx="378.0" cy="272.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="224">Compute · ~200 TOPS SoC, all inference local</text>
+<line class="dim" x1="382.0" y1="342.0" x2="610" y2="260.0"/>
+<circle class="ink" cx="382.0" cy="342.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="264">Tool carousel · 8 quick-change heads</text>
+<line class="dim" x1="398.0" y1="426.0" x2="610" y2="330.0"/>
+<circle class="ink" cx="398.0" cy="426.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="334">Clean water 1.0 L (L) · grey water 1.0 L (R)</text>
+<line class="dim" x1="390.0" y1="490.0" x2="610" y2="400.0"/>
+<circle class="ink" cx="390.0" cy="490.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="404">Battery 1.2 kWh annular pack · lowest mass</text>
+<line class="dim" x1="368.0" y1="524.0" x2="610" y2="440.0"/>
+<circle class="ink" cx="368.0" cy="524.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="444">Snorkel port · wet/dry vacuum hose</text>
+<line class="dim" x1="405.2" y1="530.0" x2="610" y2="470.0"/>
+<circle class="ink" cx="405.2" cy="530.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="474">Outrigger feet ×3, stowed in skirt</text>
+<line class="dim" x1="394.8" y1="546.0" x2="610" y2="520.0"/>
+<circle class="ink" cx="394.8" cy="546.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="524">3× omniwheel ball drive + brake</text>
+<line class="dim" x1="312.0" y1="354.0" x2="226.0" y2="354.0"/>
+<text class="lbl" x="224.0" y="350.0" text-anchor="end">telescoping mast</text>
+<text class="lbl" x="224.0" y="366.0" text-anchor="end">450 mm stroke</text>
+<text class="cap" x="40" y="40">CUTAWAY · SIDE</text>
+<text class="muted" x="40" y="644">heavy mass sits in the skirt around the ball; everything above the turret bearing is under 6 kg</text></svg><figcaption><span class="fignum">Figure 3</span> Cutaway. Heavy mass sits in the skirt around the ball; water and the tool carousel sit mid-body; everything above the turret bearing is under 6 kg.</figcaption></figure>
+<p>The body is three zones stacked on a telescoping mast:</p>
+<div class="tw"><table><thead><tr><th>Zone</th><th>Height above floor</th><th>Contents</th></tr></thead><tbody><tr><td>Skirt</td><td>110–340 mm</td><td>Ball drive, brake, 1.2 kWh annular battery, 3 outrigger feet, snorkel port, charge contacts on the lip</td></tr><tr><td>Mid-body</td><td>340–880 mm</td><td>Clean water 1.0 L and grey water 1.0 L, detergent cartridge 0.5 L, 8-slot tool carousel, compute, pumps, wet/dry vacuum unit with 1.5 L bin</td></tr><tr><td>Turret + head</td><td>880–1150 mm (+450 with mast)</td><td>360° turret bearing, two primary arm shoulders, wand shoulder, sensor crown, speaker, light ring</td></tr></tbody></table></div>
+<p>Shell: two-part rotomoulded polypropylene with a soft TPE band around the skirt and turret. Matte, single colour, no seams on the front. The head dome is a translucent polycarbonate ring so the light ring reads from any side.</p>
+<p>Sealing: mid-body is IPX4. The carousel hatch and snorkel port drain into the grey tank. The robot can be hosed down at the skirt lip.</p>
+<h2 id="s5-manipulation">5. Manipulation</h2>
+<p>The brief pictures a body that pops out a different arm for each job. Eight single-purpose arms do not fit in 0.1 m³ and would each need their own actuators, sensors and safety cases. The spec keeps the feeling of the idea and changes the mechanism: general arms, specialised heads.</p>
+<h3>5.1 Primary arms (×2)</h3>
+<div class="tw"><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody><tr><td>Degrees of freedom</td><td>7 (3 shoulder, 1 elbow, 3 wrist)</td></tr><tr><td>Reach</td><td>750 mm shoulder to wrist coupler</td></tr><tr><td>Payload</td><td>3 kg at full reach, 6 kg within 300 mm of the body</td></tr><tr><td>Joint speed</td><td>90°/s nominal, 180°/s max, force-limited per ISO/TS 15066 body-region tables</td></tr><tr><td>Actuation</td><td>Quasi-direct-drive, 8:1 planetary, back-drivable, joint torque sensing</td></tr><tr><td>Hand</td><td>3-finger underactuated, 12 tactile taxels per finger, 40 N grip, silicone pads</td></tr><tr><td>Wrist coupler</td><td>3-lug bayonet, 4 pogo pins (power + data), 20 N·m rated</td></tr><tr><td>Wrist camera</td><td>Global-shutter RGB, 110° FOV, in the palm</td></tr><tr><td>Mass, each</td><td>4.5 kg</td></tr></tbody></table></div>
+<p>The arms stow flush inside the turret with the hands in recessed bays. Both shoulders sit on the turret so the robot can work on any side without moving the base, which matters in a galley kitchen and at a laundry machine.</p>
+<h3>5.2 Utility arms (×2)</h3>
+<p><strong>Snorkel.</strong> A 2-DOF arm with a 600 mm extendable hose from the skirt port. Wet/dry vacuum head with squeegee lip. Handles spills, crumbs under the table, the floor around the litter box, the dryer lint trap. Deploys downward so it never lifts above 400 mm.</p>
+<p><strong>Wand.</strong> A 3-DOF arm with a 500 mm telescoping shaft from the turret. Head carries spray nozzle, microfibre pad, squeegee edge and a 275 nm UV-C strip. Wipes counters and tables while the primary arms are busy. This is the third parallel effector that the throughput case in §9 relies on.</p>
+<h3>5.3 Tool carousel</h3>
+<figure class="fig"><svg viewBox="0 0 960 420" role="img" aria-label="Five-step tool change: the arm requests a head, the drum indexes it to the hatch, presents it, the wrist couples via a bayonet with pogo pins, and the arm works" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block"><defs>
+  <marker id="f4arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="f4dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="f4hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><text class="cap" x="40" y="36">TOOL CAROUSEL · CHANGE CYCLE ≈ 4 s</text>
+<text class="lblb" x="95" y="80" text-anchor="middle">1 · REQUEST</text>
+<rect class="shell" x="35" y="110" width="120" height="180" rx="40"/>
+<ellipse class="ambfill" cx="95" cy="150" rx="40" ry="10"/>
+<ellipse class="ambfill" cx="95" cy="240" rx="40" ry="10"/>
+<path class="ambink" d="M55,150 L55,240 M135,150 L135,240"/>
+<rect class="amb" x="59" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="75" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="91" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="107" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="123" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<path class="ink" d="M155,175 L155,215" opacity="0.5"/>
+<path class="ink" d="M165,310 L205,310" marker-end="url(#f4arr)"/>
+<text class="lblb" x="280" y="80" text-anchor="middle">2 · INDEX</text>
+<rect class="shell" x="220" y="110" width="120" height="180" rx="40"/>
+<ellipse class="ambfill" cx="280" cy="150" rx="40" ry="10"/>
+<ellipse class="ambfill" cx="280" cy="240" rx="40" ry="10"/>
+<path class="ambink" d="M240,150 L240,240 M320,150 L320,240"/>
+<rect class="amb" x="244" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="260" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="276" y="165" width="8" height="55" rx="2" opacity="1"/>
+<rect class="amb" x="292" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="308" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<path class="ink" d="M340,175 L340,215" opacity="0.5"/>
+<path class="ink" d="M350,310 L390,310" marker-end="url(#f4arr)"/>
+<text class="lblb" x="465" y="80" text-anchor="middle">3 · PRESENT</text>
+<rect class="shell" x="405" y="110" width="120" height="180" rx="40"/>
+<ellipse class="ambfill" cx="465" cy="150" rx="40" ry="10"/>
+<ellipse class="ambfill" cx="465" cy="240" rx="40" ry="10"/>
+<path class="ambink" d="M425,150 L425,240 M505,150 L505,240"/>
+<rect class="amb" x="429" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="445" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="461" y="165" width="8" height="55" rx="2" opacity="1"/>
+<rect class="amb" x="477" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="493" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<path class="ink" d="M525,175 L547,160" />
+<path class="ink" d="M525,215 L547,230" />
+<rect class="amb" x="527" y="188" width="34" height="8" rx="2"/>
+<path class="ink" d="M535,310 L575,310" marker-end="url(#f4arr)"/>
+<text class="lblb" x="650" y="80" text-anchor="middle">4 · COUPLE</text>
+<rect class="shell" x="590" y="110" width="120" height="180" rx="40"/>
+<ellipse class="ambfill" cx="650" cy="150" rx="40" ry="10"/>
+<ellipse class="ambfill" cx="650" cy="240" rx="40" ry="10"/>
+<path class="ambink" d="M610,150 L610,240 M690,150 L690,240"/>
+<rect class="amb" x="614" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="630" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="646" y="165" width="8" height="55" rx="2" opacity="1"/>
+<rect class="amb" x="662" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="678" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<path class="ink" d="M710,175 L732,160" />
+<path class="ink" d="M710,215 L732,230" />
+<path class="ink2" d="M772,122 L758,166 L748,192"/>
+<circle class="ink" cx="758" cy="166" r="5"/>
+<rect class="amb" x="712" y="188" width="34" height="8" rx="2"/>
+<path class="ink" d="M720,310 L760,310" marker-end="url(#f4arr)"/>
+<text class="lblb" x="835" y="80" text-anchor="middle">5 · WORK</text>
+<rect class="shell" x="775" y="110" width="120" height="180" rx="40"/>
+<ellipse class="ambfill" cx="835" cy="150" rx="40" ry="10"/>
+<ellipse class="ambfill" cx="835" cy="240" rx="40" ry="10"/>
+<path class="ambink" d="M795,150 L795,240 M875,150 L875,240"/>
+<rect class="amb" x="799" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="815" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="831" y="165" width="8" height="55" rx="2" opacity="1"/>
+<rect class="amb" x="847" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<rect class="amb" x="863" y="165" width="8" height="55" rx="2" opacity="0.35"/>
+<path class="ink" d="M895,175 L917,160" />
+<path class="ink" d="M895,215 L917,230" />
+<path class="ink2" d="M957,122 L943,166 L933,192"/>
+<circle class="ink" cx="943" cy="166" r="5"/>
+<rect class="amb" x="931" y="188" width="34" height="8" rx="2"/>
+<path class="ambink" d="M965,192 q 12 -10 24 0 q 12 10 24 0" />
+<text class="muted" x="95" y="335" text-anchor="middle">arm requests a head</text>
+<text class="muted" x="95" y="351" text-anchor="middle">by task step</text>
+<text class="muted" x="280" y="335" text-anchor="middle">drum indexes the slot</text>
+<text class="muted" x="280" y="351" text-anchor="middle">to the hatch</text>
+<text class="muted" x="465" y="335" text-anchor="middle">hatch opens, head</text>
+<text class="muted" x="465" y="351" text-anchor="middle">pushed out 40 mm</text>
+<text class="muted" x="650" y="335" text-anchor="middle">wrist coupler: 3-lug</text>
+<text class="muted" x="650" y="351" text-anchor="middle">bayonet + pogo pins</text>
+<text class="muted" x="835" y="335" text-anchor="middle">old head returns</text>
+<text class="muted" x="835" y="351" text-anchor="middle">by the same cycle</text>
+<text class="muted" x="40" y="404">the arm never carries a tool it cannot drop into a slot; a dropped tool is a task fault, not a hazard</text></svg><figcaption><span class="fignum">Figure 4</span> Tool change cycle. The arm requests a head, the drum indexes it to the hatch, the head is presented, the wrist couples via bayonet and pogo pins, and the arm works. About 4 s end to end.</figcaption></figure>
+<div class="tw"><table><thead><tr><th>Slot</th><th>Head</th><th>Used for</th></tr></thead><tbody><tr><td>1</td><td>Scrub pad, replaceable</td><td>Pots, sink, hob</td></tr><tr><td>2</td><td>Stiff brush</td><td>Grout, oven rack, shoes</td></tr><tr><td>3</td><td>Squeegee blade</td><td>Glass, shower, counters</td></tr><tr><td>4</td><td>Silicone tongs</td><td>Hot items, small parts, cutlery basket</td></tr><tr><td>5</td><td>Garment clip pair</td><td>Folding, hanging, pulling laundry from the drum</td></tr><tr><td>6</td><td>Suction cup, 60 mm</td><td>Plates, glass doors, flat items</td></tr><tr><td>7</td><td>Microfibre mitt</td><td>Dusting, screens, polishing</td></tr><tr><td>8</td><td>Spare / user-defined</td><td>Third-party heads via the open coupler spec</td></tr></tbody></table></div>
+<p>Every head has an NFC tag so the robot knows what is in each slot after a user swaps one. Heads are washable in the household dishwasher.</p>
+<aside class="note"><span class="note-label">Design review note</span><p>Tool storage is the honest tax on the "everything inside" principle. The carousel and heads take 22% of the mid-body volume and 3 kg of mass. That is a good trade. The alternative, a wall-mounted tool rack, would make the robot cheaper and lighter and would also make it look like a workshop tool rather than an appliance. The brief is right that the tools should be invisible when not in use.</p></aside>
+<h2 id="s6-workspace">6. Workspace</h2>
+<figure class="fig"><svg viewBox="0 0 960 700" role="img" aria-label="Side view of the robot at a kitchen counter with two reach envelopes: mast down covers counter and lower cabinet, mast up reaches the 1750 mm shelf in the upper cabinet" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block"><defs>
+  <marker id="f5arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="f5dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="f5hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><line class="ink" x1="40" y1="640" x2="920" y2="640"/>
+<rect class="shell2" x="449.6" y="406.0" width="156.0" height="234.0"/>
+<rect class="hatch" x="449.6" y="406.0" width="156.0" height="10.4"/>
+<rect class="shell2" x="514.6" y="94.0" width="91.0" height="182.0"/>
+<line class="ink" x1="514.6" y1="185.0" x2="605.6" y2="185.0"/>
+<line class="ink2" x1="605.6" y1="640.0" x2="605.6" y2="42.0"/>
+<path class="hifill" d="M371.6,398.2 L354.6,203.9 A195.0,195.0 0 0 1 388.6,592.5 Z" opacity="0.9"/>
+<line class="dim" x1="371.6" y1="398.2" x2="270.2" y2="398.2"/>
+<text class="lbl" x="268.6" y="402.2" text-anchor="end">shoulder 930 · mast down</text>
+<path class="hifill" d="M371.6,281.2 L354.6,86.9 A195.0,195.0 0 0 1 388.6,475.5 Z" opacity="0.9"/>
+<line class="dim" x1="371.6" y1="281.2" x2="270.2" y2="281.2"/>
+<text class="lbl" x="268.6" y="285.2" text-anchor="end">shoulder 1380 · mast up</text>
+<circle class="ball" cx="330.0" cy="603.6" r="36.4"/>
+<ellipse class="ink" cx="330.0" cy="603.6" rx="20.0" ry="36.4" opacity="0.35"/>
+<path class="shell" d="M296.1,611.4 C274.3,595.8 274.3,556.8 280.6,551.6 L379.4,551.6 C385.7,556.8 385.7,595.8 363.9,611.4 Z"/>
+<path class="shell" d="M280.6,551.6 C276.6,504.8 281.6,439.8 286.5,411.2 L373.5,411.2 C378.4,439.8 383.4,504.8 379.4,551.6 Z"/>
+<path class="shell2" d="M286.5,411.2 C278.0,403.4 278.0,390.4 296.2,385.2 L363.8,385.2 C382.0,390.4 382.0,403.4 373.5,411.2 Z"/>
+<path class="shell" d="M296.2,385.2 C296.2,354.0 311.4,341.0 330.0,341.0 C348.6,341.0 363.8,354.0 363.8,385.2 Z"/>
+<rect class="hi" x="297.9" y="367.0" width="64.2" height="1.6" rx="2"/>
+<path class="ink" d="M291.0,406.0 L291.0,390.4" opacity="0.6"/>
+<path class="ink" d="M369.0,406.0 L369.0,390.4" opacity="0.6"/>
+<path class="ghost" d="M296.2,224.0 C296.2,250.0 311.8,268.2 330.0,268.2 M363.8,224.0 C363.8,250.0 348.2,268.2 330.0,268.2"/>
+<line class="dim" x1="608.2" y1="406.0" x2="618.6" y2="406.0"/>
+<text class="dimt" x="621.2" y="410.0">counter 900</text>
+<line class="dim" x1="608.2" y1="276.0" x2="618.6" y2="276.0"/>
+<text class="dimt" x="621.2" y="280.0">cabinet base 1400</text>
+<line class="dim" x1="608.2" y1="185.0" x2="618.6" y2="185.0"/>
+<text class="dimt" x="621.2" y="189.0">top shelf 1750</text>
+<line class="dim" x1="608.2" y1="94.0" x2="618.6" y2="94.0"/>
+<text class="dimt" x="621.2" y="98.0">cabinet top 2100</text>
+<text class="lbl" x="268.6" y="608.8" text-anchor="end">floor pickup:</text>
+<text class="lbl" x="268.6" y="624.8" text-anchor="end">mast down, lean 8°</text>
+<text class="cap" x="40" y="32">REACH ENVELOPE · 600 mm COUNTER</text>
+<text class="muted" x="40" y="684">back of the counter is reached with the mast down; the top cabinet shelf needs mast up and the skirt against the toe-kick</text></svg><figcaption><span class="fignum">Figure 5</span> Reach envelope at a standard 600 mm counter with a 1400 mm upper cabinet. Mast down covers the counter to the wall; mast up reaches the front 200 mm of the 1750 mm shelf.</figcaption></figure>
+<div class="tw"><table><thead><tr><th>Target</th><th>Reachable?</th><th>Posture</th></tr></thead><tbody><tr><td>Floor, 500 mm in front</td><td>Yes</td><td>Mast down, lean 8° or Plant</td></tr><tr><td>Counter, front to wall (600 mm)</td><td>Yes</td><td>Mast down</td></tr><tr><td>Sink basin bottom</td><td>Yes</td><td>Mast down, Plant</td></tr><tr><td>Lower cabinet, back of shelf</td><td>Yes</td><td>Mast down, kneel-adjacent lean</td></tr><tr><td>Upper cabinet, first shelf (1400 mm)</td><td>Yes</td><td>Mast up</td></tr><tr><td>Upper cabinet, top shelf (1750 mm)</td><td>Front 200 mm only</td><td>Mast up, skirt at toe-kick</td></tr><tr><td>Front-loader washer drum, back</td><td>Yes</td><td>Plant, arm to 700 mm</td></tr><tr><td>Top-loader washer, bottom of drum</td><td>Marginal</td><td>Mast up, arm vertical; drum depth &gt;550 mm not reached</td></tr><tr><td>Dryer lint trap</td><td>Yes</td><td>Snorkel</td></tr></tbody></table></div>
+<p>The top shelf limit is a straightforward consequence of 750 mm arms. The alternatives are longer arms (mass and moment penalty at the top of a balancing robot, rejected), a 600 mm mast stroke (adds 3 kg and 90 mm of stowed height, worth testing in phase 2), or accepting that people store rarely used things up there.</p>
+<h2 id="s7-sensing-compute-and-privacy">7. Sensing, compute and privacy</h2>
+<div class="tw"><table><thead><tr><th>System</th><th>Specification</th></tr></thead><tbody><tr><td>Depth vision</td><td>4 × RGB-D at 90° on the head equator, 120° FOV each, 0.2–6 m</td></tr><tr><td>Top camera</td><td>Wide RGB looking down over the arms and body, for self-collision and grasp verification</td></tr><tr><td>Wrist cameras</td><td>2, in-palm</td></tr><tr><td>Near-field</td><td>8 ToF sensors in the skirt for feet, pets, cables</td></tr><tr><td>Tactile</td><td>Fingertip taxels, wrist 6-axis F/T, skirt bump ring</td></tr><tr><td>Audio</td><td>6-mic array, on-device wake word, no always-on cloud audio</td></tr><tr><td>Floor</td><td>Wetness sensor and optical flow at the skirt</td></tr><tr><td>Compute</td><td>One SoC, ~200 TOPS INT8, 32 GB, all perception and policy inference on-device</td></tr><tr><td>Connectivity</td><td>Wi-Fi 6, Matter/Thread for appliances, BLE for the dock and tool tags</td></tr></tbody></table></div>
+<p>Privacy is a product feature, not a legal note. There is no forward-facing "eye". Camera activity is shown on the light ring. Video never leaves the house by default; task learning uploads are opt-in, per task, and are sent as scene graphs and trajectories rather than raw frames. A physical shutter on the head covers all four depth cameras when the robot is parked.</p>
+<h2 id="s8-power-docking-and-consumables">8. Power, docking and consumables</h2>
+<div class="tw"><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody><tr><td>Battery</td><td>1.2 kWh LFP, annular, 48 V, hot-swap not supported (mass sits too low to reach)</td></tr><tr><td>Runtime</td><td>4–5 h active manipulation, 8 h mixed, 30 h Plant idle</td></tr><tr><td>Idle draw</td><td>60 W Roam, &lt;5 W Plant, 3 W Kneel</td></tr><tr><td>Charge</td><td>0–80% in 70 min via skirt-lip contacts on the dock</td></tr><tr><td>Fail-safe</td><td>100 F supercapacitor for the Kneel descent</td></tr><tr><td>Dock</td><td>Charges, empties the vacuum bin, drains grey water, refills clean water, holds 4 spare heads</td></tr><tr><td>Water</td><td>1.0 L clean / 1.0 L grey; prefers the household tap when at a sink</td></tr></tbody></table></div>
+<p>The robot does not carry hot water. It uses the sink for anything that needs it, which is what the Plant posture at a sink is for.</p>
+<h2 id="s9-task-performance-and-the-throughput-claim">9. Task performance and the throughput claim</h2>
+<figure class="fig"><svg viewBox="0 0 900 400" role="img" aria-label="Timeline comparing 26 minutes of sequential human dishwashing against 17 minutes for the robot, whose two arms and wand work in parallel while the dishwasher cycle stays the same" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block"><defs>
+  <marker id="f6arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="f6dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="f6hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><text class="cap" x="40" y="36">EVENING DISHES · FAMILY OF 4 · MINUTES OF WORK BEFORE THE DISHWASHER STARTS</text>
+<line class="grid" x1="150.0" y1="70" x2="150.0" y2="300"/>
+<text class="dimt" x="150.0" y="318" text-anchor="middle">0</text>
+<line class="grid" x1="238.8" y1="70" x2="238.8" y2="300"/>
+<text class="dimt" x="238.8" y="318" text-anchor="middle">5</text>
+<line class="grid" x1="327.5" y1="70" x2="327.5" y2="300"/>
+<text class="dimt" x="327.5" y="318" text-anchor="middle">10</text>
+<line class="grid" x1="416.2" y1="70" x2="416.2" y2="300"/>
+<text class="dimt" x="416.2" y="318" text-anchor="middle">15</text>
+<line class="grid" x1="505.0" y1="70" x2="505.0" y2="300"/>
+<text class="dimt" x="505.0" y="318" text-anchor="middle">20</text>
+<line class="grid" x1="593.8" y1="70" x2="593.8" y2="300"/>
+<text class="dimt" x="593.8" y="318" text-anchor="middle">25</text>
+<line class="grid" x1="682.5" y1="70" x2="682.5" y2="300"/>
+<text class="dimt" x="682.5" y="318" text-anchor="middle">30</text>
+<line class="grid" x1="771.2" y1="70" x2="771.2" y2="300"/>
+<text class="dimt" x="771.2" y="318" text-anchor="middle">35</text>
+<line class="grid" x1="860.0" y1="70" x2="860.0" y2="300"/>
+<text class="dimt" x="860.0" y="318" text-anchor="middle">40</text>
+<text class="muted" x="860" y="336" text-anchor="end">minutes</text>
+<text class="lblb" x="138" y="111" text-anchor="end">Human</text>
+<rect class="bar-h" x="151.0" y="95" width="69.0" height="24" rx="3"/>
+<text class="lbl" x="185.5" y="135" text-anchor="middle">clear table</text>
+<rect class="bar-h" x="222.0" y="95" width="193.2" height="24" rx="3"/>
+<text class="lbl" x="318.6" y="135" text-anchor="middle">rinse + load</text>
+<rect class="bar-h" x="417.2" y="95" width="122.2" height="24" rx="3"/>
+<text class="lbl" x="478.4" y="135" text-anchor="middle">hand-wash pots</text>
+<rect class="bar-h" x="541.5" y="95" width="69.0" height="24" rx="3"/>
+<text class="lbl" x="576.0" y="135" text-anchor="middle">wipe + dry</text>
+<text class="lbl" x="619.5" y="111">26 min · 26 min of attention</text>
+<text class="lblb" x="138" y="186" text-anchor="end">GYRO arm L</text>
+<rect class="bar-r" x="151.0" y="170" width="51.2" height="24" rx="3"/>
+<text class="lbl" x="176.6" y="186" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">clear</text>
+<rect class="bar-r" x="204.2" y="170" width="157.8" height="24" rx="3"/>
+<text class="lbl" x="283.1" y="186" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">rinse + load</text>
+<rect class="bar-r" x="364.0" y="170" width="86.8" height="24" rx="3"/>
+<text class="lbl" x="407.4" y="186" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">pots</text>
+<text class="lblb" x="138" y="220" text-anchor="end">GYRO arm R</text>
+<rect class="bar-r" x="151.0" y="204" width="51.2" height="24" rx="3"/>
+<text class="lbl" x="176.6" y="220" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">clear</text>
+<rect class="bar-r" x="204.2" y="204" width="157.8" height="24" rx="3"/>
+<text class="lbl" x="283.1" y="220" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">rinse + load</text>
+<rect class="bar-r" x="364.0" y="204" width="86.8" height="24" rx="3"/>
+<text class="lbl" x="407.4" y="220" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">pots</text>
+<text class="lblb" x="138" y="254" text-anchor="end">GYRO wand</text>
+<rect class="bar-r" x="204.2" y="238" width="104.5" height="24" rx="3"/>
+<text class="lbl" x="256.5" y="254" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">spray counters</text>
+<rect class="bar-r" x="364.0" y="238" width="69.0" height="24" rx="3"/>
+<text class="lbl" x="398.5" y="254" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">wipe</text>
+<text class="lbl" x="459.8" y="220">17 min · 0 min of attention</text>
+<text class="muted" x="40" y="370">robot per-grasp speed assumed 0.8× human at maturity; the gain comes from three effectors working in parallel,</text>
+<text class="muted" x="40" y="386">not from faster hands. The dishwasher cycle (≈2 h) is unchanged, so wall-clock to "done" barely moves.</text></svg><figcaption><span class="fignum">Figure 6</span> Evening dishes for a family of four. A person needs 26 minutes of sequential work; the robot's two arms and wand finish in 17 minutes in parallel. The 2-hour dishwasher cycle is unchanged either way.</figcaption></figure>
+<p>Robot grasp speed is assumed at 0.8× a person's at product maturity. Current research systems are slower than that. The gains below come from parallel effectors and from not needing the person at all.</p>
+<div class="tw"><table><thead><tr><th>Task</th><th>Human</th><th>GYRO (mature)</th><th>Ratio on the manipulation step</th><th>What actually bounds "done"</th></tr></thead><tbody><tr><td>Evening dishes, load + pots + counters</td><td>26 min</td><td>17 min</td><td>1.5×</td><td>Dishwasher cycle ~2 h</td></tr><tr><td>Unload dishwasher, put away</td><td>6 min</td><td>5 min</td><td>1.2×</td><td>Reach to top shelf</td></tr><tr><td>Laundry: transfer, hang, fold 20 items</td><td>18 min</td><td>14 min</td><td>1.3×</td><td>Washer 50 min + dryer 60 min</td></tr><tr><td>Wipe kitchen after cooking</td><td>8 min</td><td>4 min</td><td>2×</td><td>Wand + arm in parallel</td></tr><tr><td>Bathroom: sink, mirror, toilet exterior</td><td>12 min</td><td>9 min</td><td>1.3×</td><td>Plant/relocate cycles</td></tr><tr><td>Tidy a room (30 objects to home)</td><td>10 min</td><td>9 min</td><td>1.1×</td><td>Recognition, not motion</td></tr><tr><td>Vacuum 60 m²</td><td>20 min</td><td>not attempted</td><td>–</td><td>Delegated to a floor robot</td></tr></tbody></table></div>
+<aside class="note"><span class="note-label">Design review note</span><p>"4× the work in the same time" is the wrong claim and it will get shot down by the first engineer who reads it. Nothing in the house gets washed faster because a robot loaded it. Three effectors in parallel at 0.8× speed give you about 1.5× on the steps where hands are the bottleneck, and that is the honest ceiling for a single robot at one sink. What is actually 4× or better is the ratio that matters to the buyer: human attention. Every row above goes from 6–26 minutes of a person's evening to zero. For a two-adult household with children that is 12–18 hours a week. Sell that number. It is true and it is large.</p></aside>
+<p>The one place the "less space" half of the claim is straightforwardly true: GYRO in Plant occupies 0.2 m² of floor at a sink. A person working there occupies about 0.5 m² and needs another 0.6 m² to move. The robot can work in a galley kitchen while a person passes behind it.</p>
+<h2 id="s10-mass-and-cost-budgets">10. Mass and cost budgets</h2>
+<div class="tw"><table><thead><tr><th>Subsystem</th><th>Mass</th><th>Volume BOM (10k/yr)</th></tr></thead><tbody><tr><td>Ball, drive, brake, feet</td><td>8.0 kg</td><td>$1,100</td></tr><tr><td>Battery + BMS + supercap</td><td>7.5 kg</td><td>$700</td></tr><tr><td>Structure, mast, turret bearing</td><td>6.0 kg</td><td>$900</td></tr><tr><td>Primary arms ×2, hands</td><td>9.0 kg</td><td>$4,200</td></tr><tr><td>Utility arms ×2</td><td>3.0 kg</td><td>$700</td></tr><tr><td>Carousel + 8 heads</td><td>3.0 kg</td><td>$500</td></tr><tr><td>Tanks, pumps, vacuum unit</td><td>2.5 kg</td><td>$350</td></tr><tr><td>Sensors + compute</td><td>2.0 kg</td><td>$1,300</td></tr><tr><td>Shell, seals, light ring</td><td>3.0 kg</td><td>$600</td></tr><tr><td>Harness, misc</td><td>1.0 kg</td><td>$300</td></tr><tr><td><strong>Total</strong></td><td><strong>45 kg wet</strong></td><td><strong>≈ $10,650</strong></td></tr></tbody></table></div>
+<p>At a 2.2× multiplier on BOM that is a $22–25k retail unit or a $350–450/month lease, which is the format most households will actually take. The arms are 40% of the cost and the lever for phase-3 reductions.</p>
+<h2 id="s11-risks-and-open-questions">11. Risks and open questions</h2>
+<ol><li><strong>Stairs.</strong> A ball cannot climb them and a 45 kg robot cannot be carried. Options, in order of preference: sell one unit per floor (the base and body are cheap; the arms are not, and a dumb second body could share arms via the coupler spec), a home lift in new builds, or a stair-climbing dock module that is really a second robot. Single-floor is the phase-1 scope and this is the biggest reason a humanoid competitor could win multi-storey homes.</li><li><strong>Wet floors.</strong> Omniwheel-on-ball drives slip on wet tile. Mitigations: wetness sensor forces Plant before any spill task, ball tread compound, and the snorkel dries its own path. This needs a test rig before anything else is built.</li><li><strong>Manipulation is the schedule risk, not the ball.</strong> Ballbots have been stable since 2006. Folding a fitted sheet is not solved anywhere. Phase timing below assumes learned policies keep improving at the current rate; if they stall, the product ships as a dishes-and-wiping robot first.</li><li><strong>Acceptance is asserted, not measured.</strong> The appliance-not-person principle is well supported by the uncanny-valley literature and by how people treat robot vacuums, but nobody has put a 1.15 m self-balancing egg in a family kitchen for a month. Run that study in phase 1 with a foam mock-up on a remote-controlled ballbot before locking the shell.</li><li><strong>Children and pets.</strong> A balancing robot pushed by a child must not fall on them. Roam speed near people drops to 0.25 m/s; a shove beyond the lean limit triggers Kneel, not a recovery attempt. This must be tested to ISO 13482 with a dummy, not simulated.</li><li><strong>Noise.</strong> Three omniwheels on a ball are audible. Target 45 dB(A) at 1 m in Roam, which is quieter than a fridge compressor, and this drives the ball tread and bearing choice.</li></ol>
+<h2 id="s12-development-path">12. Development path</h2>
+<div class="tw"><table><thead><tr><th>Phase</th><th>Duration</th><th>Goal</th><th>Exit test</th></tr></thead><tbody><tr><td>1. Feasibility</td><td>6 months</td><td>Ballbot base with Plant/Kneel; foam body; remote-controlled</td><td>30-day in-home acceptance study; wet-floor rig; ISO 13482 push test</td></tr><tr><td>2. Manipulation</td><td>12 months</td><td>Two arms, carousel, wand; dishes end-to-end</td><td>50 consecutive dish loads with &lt;2% breakage in 3 kitchens</td></tr><tr><td>3. Product</td><td>12 months</td><td>Sealed shell, dock, laundry, safety certification</td><td>1,000 h field trial, 20 homes, no unplanned Kneel from a push</td></tr><tr><td>4. Cost-down</td><td>ongoing</td><td>Arm cost to $1,200 each; second-body sharing</td><td>Lease unit economics positive at $400/month</td></tr></tbody></table></div>
+<h2 id="sappendix-a-specification-summary">Appendix A. Specification summary</h2>
+<div class="tw"><table class="kv"><tbody><tr><td>Form</td><td>Self-balancing single-ball robot, egg body, no face</td></tr><tr><td>Height</td><td>1150 mm stowed / 1600 mm mast up</td></tr><tr><td>Diameter</td><td>420 mm max</td></tr><tr><td>Mass</td><td>45 kg wet</td></tr><tr><td>Drive</td><td>Ø280 ball, 3 omniwheels, 1.2 m/s</td></tr><tr><td>Postures</td><td>Roam, Plant (3 feet), Kneel (fail-safe)</td></tr><tr><td>Arms</td><td>2 × 7-DOF, 750 mm, 3 kg; snorkel; wand</td></tr><tr><td>Tools</td><td>8-slot internal carousel, 4 s change, open coupler spec</td></tr><tr><td>Reach</td><td>Floor to 2100 mm; top-shelf front only</td></tr><tr><td>Sensing</td><td>4 × RGB-D, 2 wrist cams, tactile, 6-mic array, floor wetness</td></tr><tr><td>Compute</td><td>~200 TOPS on-device, no default cloud video</td></tr><tr><td>Power</td><td>1.2 kWh, 4–5 h active, dock charge 70 min to 80%</td></tr><tr><td>Safety</td><td>ISO 13482 target, force-limited arms, supercap Kneel</td></tr><tr><td>Not supported</td><td>Stairs, hot water, floor vacuuming at scale</td></tr></tbody></table></div>
+</main>
+<footer><span>Project GYRO · rev 0.1 · all dimensions mm</span><span>Source: docs/home-robot/SPEC.md · figures generated from one dimensioned model</span></footer>

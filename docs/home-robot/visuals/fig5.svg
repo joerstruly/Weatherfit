@@ -1,0 +1,72 @@
+<svg viewBox="0 0 960 700" width="960" height="700" role="img" aria-label="Side view of the robot at a kitchen counter with two reach envelopes: mast down covers counter and lower cabinet, mast up reaches the 1750 mm shelf in the upper cabinet" xmlns="http://www.w3.org/2000/svg">
+<style>
+  svg { color:#1F2A33; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .paper { fill:#F5F6F3; }
+  .ink { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round; }
+  .ink2 { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .shell { fill:#ECEBE3; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .shell2 { fill:#E0DFD5; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .ball { fill:#2B3540; stroke:currentColor; stroke-width:1.5; }
+  .hi { fill:#1C7FA8; stroke:none; }
+  .hiink { fill:none; stroke:#1C7FA8; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .hifill { fill:#1C7FA8; fill-opacity:0.18; stroke:#1C7FA8; stroke-width:1.5; }
+  .amb { fill:#B8700A; stroke:none; }
+  .ambink { fill:none; stroke:#B8700A; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .ambfill { fill:#B8700A; fill-opacity:0.22; stroke:#B8700A; stroke-width:1.5; }
+  .dim { fill:none; stroke:#6B7680; stroke-width:1; }
+  .dimt { fill:#6B7680; font-size:12px; }
+  .lbl { fill:currentColor; font-size:13px; }
+  .lblb { fill:currentColor; font-size:13px; font-weight:600; }
+  .cap { fill:currentColor; font-size:14px; font-weight:600; letter-spacing:0.04em; }
+  .muted { fill:#6B7680; font-size:12px; }
+  .grid { stroke:#D2D6D0; stroke-width:1; }
+  .ghost { fill:none; stroke:currentColor; stroke-width:1.2; stroke-dasharray:4 4; opacity:0.55; }
+  .hatch { fill:url(#hatch); stroke:currentColor; stroke-width:1.2; }
+  .bar-h { fill:#1C7FA8; }
+  .bar-r { fill:#B8700A; }
+  .bar-idle { fill:#D2D6D0; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><rect class="paper" x="0" y="0" width="960" height="700"/><line class="ink" x1="40" y1="640" x2="920" y2="640"/>
+<rect class="shell2" x="449.6" y="406.0" width="156.0" height="234.0"/>
+<rect class="hatch" x="449.6" y="406.0" width="156.0" height="10.4"/>
+<rect class="shell2" x="514.6" y="94.0" width="91.0" height="182.0"/>
+<line class="ink" x1="514.6" y1="185.0" x2="605.6" y2="185.0"/>
+<line class="ink2" x1="605.6" y1="640.0" x2="605.6" y2="42.0"/>
+<path class="hifill" d="M371.6,398.2 L354.6,203.9 A195.0,195.0 0 0 1 388.6,592.5 Z" opacity="0.9"/>
+<line class="dim" x1="371.6" y1="398.2" x2="270.2" y2="398.2"/>
+<text class="lbl" x="268.6" y="402.2" text-anchor="end">shoulder 930 · mast down</text>
+<path class="hifill" d="M371.6,281.2 L354.6,86.9 A195.0,195.0 0 0 1 388.6,475.5 Z" opacity="0.9"/>
+<line class="dim" x1="371.6" y1="281.2" x2="270.2" y2="281.2"/>
+<text class="lbl" x="268.6" y="285.2" text-anchor="end">shoulder 1380 · mast up</text>
+<circle class="ball" cx="330.0" cy="603.6" r="36.4"/>
+<ellipse class="ink" cx="330.0" cy="603.6" rx="20.0" ry="36.4" opacity="0.35"/>
+<path class="shell" d="M296.1,611.4 C274.3,595.8 274.3,556.8 280.6,551.6 L379.4,551.6 C385.7,556.8 385.7,595.8 363.9,611.4 Z"/>
+<path class="shell" d="M280.6,551.6 C276.6,504.8 281.6,439.8 286.5,411.2 L373.5,411.2 C378.4,439.8 383.4,504.8 379.4,551.6 Z"/>
+<path class="shell2" d="M286.5,411.2 C278.0,403.4 278.0,390.4 296.2,385.2 L363.8,385.2 C382.0,390.4 382.0,403.4 373.5,411.2 Z"/>
+<path class="shell" d="M296.2,385.2 C296.2,354.0 311.4,341.0 330.0,341.0 C348.6,341.0 363.8,354.0 363.8,385.2 Z"/>
+<rect class="hi" x="297.9" y="367.0" width="64.2" height="1.6" rx="2"/>
+<path class="ink" d="M291.0,406.0 L291.0,390.4" opacity="0.6"/>
+<path class="ink" d="M369.0,406.0 L369.0,390.4" opacity="0.6"/>
+<path class="ghost" d="M296.2,224.0 C296.2,250.0 311.8,268.2 330.0,268.2 M363.8,224.0 C363.8,250.0 348.2,268.2 330.0,268.2"/>
+<line class="dim" x1="608.2" y1="406.0" x2="618.6" y2="406.0"/>
+<text class="dimt" x="621.2" y="410.0">counter 900</text>
+<line class="dim" x1="608.2" y1="276.0" x2="618.6" y2="276.0"/>
+<text class="dimt" x="621.2" y="280.0">cabinet base 1400</text>
+<line class="dim" x1="608.2" y1="185.0" x2="618.6" y2="185.0"/>
+<text class="dimt" x="621.2" y="189.0">top shelf 1750</text>
+<line class="dim" x1="608.2" y1="94.0" x2="618.6" y2="94.0"/>
+<text class="dimt" x="621.2" y="98.0">cabinet top 2100</text>
+<text class="lbl" x="268.6" y="608.8" text-anchor="end">floor pickup:</text>
+<text class="lbl" x="268.6" y="624.8" text-anchor="end">mast down, lean 8°</text>
+<text class="cap" x="40" y="32">REACH ENVELOPE · 600 mm COUNTER</text>
+<text class="muted" x="40" y="684">back of the counter is reached with the mast down; the top cabinet shelf needs mast up and the skirt against the toe-kick</text></svg>

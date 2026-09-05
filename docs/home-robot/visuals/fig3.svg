@@ -1,0 +1,114 @@
+<svg viewBox="0 0 1000 660" width="1000" height="660" role="img" aria-label="Cutaway of the body showing the omniwheel ball drive and battery low in the skirt, water tanks and tool carousel mid-body, telescoping mast, arm turret and sensor crown" xmlns="http://www.w3.org/2000/svg">
+<style>
+  svg { color:#1F2A33; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .paper { fill:#F5F6F3; }
+  .ink { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round; }
+  .ink2 { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .shell { fill:#ECEBE3; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .shell2 { fill:#E0DFD5; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .ball { fill:#2B3540; stroke:currentColor; stroke-width:1.5; }
+  .hi { fill:#1C7FA8; stroke:none; }
+  .hiink { fill:none; stroke:#1C7FA8; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .hifill { fill:#1C7FA8; fill-opacity:0.18; stroke:#1C7FA8; stroke-width:1.5; }
+  .amb { fill:#B8700A; stroke:none; }
+  .ambink { fill:none; stroke:#B8700A; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .ambfill { fill:#B8700A; fill-opacity:0.22; stroke:#B8700A; stroke-width:1.5; }
+  .dim { fill:none; stroke:#6B7680; stroke-width:1; }
+  .dimt { fill:#6B7680; font-size:12px; }
+  .lbl { fill:currentColor; font-size:13px; }
+  .lblb { fill:currentColor; font-size:13px; font-weight:600; }
+  .cap { fill:currentColor; font-size:14px; font-weight:600; letter-spacing:0.04em; }
+  .muted { fill:#6B7680; font-size:12px; }
+  .grid { stroke:#D2D6D0; stroke-width:1; }
+  .ghost { fill:none; stroke:currentColor; stroke-width:1.2; stroke-dasharray:4 4; opacity:0.55; }
+  .hatch { fill:url(#hatch); stroke:currentColor; stroke-width:1.2; }
+  .bar-h { fill:#1C7FA8; }
+  .bar-r { fill:#B8700A; }
+  .bar-idle { fill:#D2D6D0; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><rect class="paper" x="0" y="0" width="1000" height="660"/><line class="ink" x1="40" y1="610" x2="960" y2="610"/>
+<circle class="ball" cx="330.0" cy="554.0" r="56.0"/>
+<ellipse class="ink" cx="330.0" cy="554.0" rx="30.8" ry="56.0" opacity="0.35"/>
+<path class="shell" d="M277.9,566.0 C244.3,542.0 244.3,482.0 254.0,474.0 L406.0,474.0 C415.7,482.0 415.7,542.0 382.1,566.0 Z"/>
+<path class="shell" d="M254.0,474.0 C247.9,402.0 255.5,302.0 263.1,258.0 L396.9,258.0 C404.5,302.0 412.1,402.0 406.0,474.0 Z"/>
+<path class="shell2" d="M263.1,258.0 C250.0,246.0 250.0,226.0 278.0,218.0 L382.0,218.0 C410.0,226.0 410.0,246.0 396.9,258.0 Z"/>
+<path class="shell" d="M278.0,218.0 C278.0,170.0 301.4,150.0 330.0,150.0 C358.6,150.0 382.0,170.0 382.0,218.0 Z"/>
+<rect class="hi" x="280.6" y="190.0" width="98.8" height="2.4" rx="2"/>
+<path class="ink" d="M270.0,250.0 L270.0,226.0" opacity="0.6"/>
+<path class="ink" d="M390.0,250.0 L390.0,226.0" opacity="0.6"/>
+<circle class="shell2" cx="371.7" cy="504.4" r="8.8"/>
+<circle class="shell2" cx="288.3" cy="504.4" r="8.8"/>
+<circle class="shell2" cx="330.0" cy="489.2" r="8.8"/>
+<rect class="ambfill" x="249.8" y="490.0" width="10" height="56.0" rx="2"/>
+<rect class="ambfill" x="400.2" y="490.0" width="10" height="56.0" rx="2"/>
+<rect class="hifill" x="240.0" y="478.0" width="60" height="40.0" rx="2"/>
+<rect class="hifill" x="360.0" y="478.0" width="60" height="40.0" rx="2"/>
+<rect class="shell2" x="262.0" y="386.0" width="32.0" height="80.0" rx="3"/>
+<rect class="shell2" x="366.0" y="386.0" width="32.0" height="80.0" rx="3"/>
+<ellipse class="ambfill" cx="330.0" cy="306.0" rx="52.0" ry="11.2"/>
+<path class="ambink" d="M278.0,306.0 L278.0,378.0 M382.0,306.0 L382.0,378.0"/>
+<ellipse class="ambfill" cx="330.0" cy="378.0" rx="52.0" ry="11.2"/>
+<rect class="amb" x="281.8" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="296.2" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="310.6" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="325.0" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="339.4" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="353.8" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="amb" x="368.2" y="314.0" width="10" height="56.0" rx="2" opacity="0.8"/>
+<rect class="hatch" x="312.0" y="258.0" width="36.0" height="216.0"/>
+<rect class="hifill" x="282.0" y="262.0" width="96.0" height="22.0" rx="2"/>
+<rect class="hi" x="260.0" y="252.0" width="140.0" height="4.0" rx="2"/>
+<rect class="shell2" x="262.0" y="220.0" width="40" height="24.0" rx="6"/>
+<rect class="shell2" x="358.0" y="220.0" width="40" height="24.0" rx="6"/>
+<circle class="hi" cx="284.0" cy="186.0" r="5"/>
+<circle class="hi" cx="376.0" cy="186.0" r="5"/>
+<circle class="hi" cx="330.0" cy="154.0" r="5"/>
+<circle class="ambfill" cx="368.0" cy="524.0" r="8.8"/>
+<line class="dim" x1="330.0" y1="154.0" x2="610" y2="100.0"/>
+<circle class="ink" cx="330.0" cy="154.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="104">Top-down wide camera + mic array</text>
+<line class="dim" x1="376.0" y1="186.0" x2="610" y2="130.0"/>
+<circle class="ink" cx="376.0" cy="186.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="134">4× RGB-D cameras at 90° · light ring below</text>
+<line class="dim" x1="386.0" y1="234.0" x2="610" y2="160.0"/>
+<circle class="ink" cx="386.0" cy="234.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="164">Arm shoulders (2× 7-DOF) in rotating turret</text>
+<line class="dim" x1="400.0" y1="252.0" x2="610" y2="190.0"/>
+<circle class="ink" cx="400.0" cy="252.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="194">Turret bearing · 360° continuous</text>
+<line class="dim" x1="378.0" y1="272.0" x2="610" y2="220.0"/>
+<circle class="ink" cx="378.0" cy="272.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="224">Compute · ~200 TOPS SoC, all inference local</text>
+<line class="dim" x1="382.0" y1="342.0" x2="610" y2="260.0"/>
+<circle class="ink" cx="382.0" cy="342.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="264">Tool carousel · 8 quick-change heads</text>
+<line class="dim" x1="398.0" y1="426.0" x2="610" y2="330.0"/>
+<circle class="ink" cx="398.0" cy="426.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="334">Clean water 1.0 L (L) · grey water 1.0 L (R)</text>
+<line class="dim" x1="390.0" y1="490.0" x2="610" y2="400.0"/>
+<circle class="ink" cx="390.0" cy="490.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="404">Battery 1.2 kWh annular pack · lowest mass</text>
+<line class="dim" x1="368.0" y1="524.0" x2="610" y2="440.0"/>
+<circle class="ink" cx="368.0" cy="524.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="444">Snorkel port · wet/dry vacuum hose</text>
+<line class="dim" x1="405.2" y1="530.0" x2="610" y2="470.0"/>
+<circle class="ink" cx="405.2" cy="530.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="474">Outrigger feet ×3, stowed in skirt</text>
+<line class="dim" x1="394.8" y1="546.0" x2="610" y2="520.0"/>
+<circle class="ink" cx="394.8" cy="546.0" r="2.5" fill="currentColor"/>
+<text class="lbl" x="620" y="524">3× omniwheel ball drive + brake</text>
+<line class="dim" x1="312.0" y1="354.0" x2="226.0" y2="354.0"/>
+<text class="lbl" x="224.0" y="350.0" text-anchor="end">telescoping mast</text>
+<text class="lbl" x="224.0" y="366.0" text-anchor="end">450 mm stroke</text>
+<text class="cap" x="40" y="40">CUTAWAY · SIDE</text>
+<text class="muted" x="40" y="644">heavy mass sits in the skirt around the ball; everything above the turret bearing is under 6 kg</text></svg>

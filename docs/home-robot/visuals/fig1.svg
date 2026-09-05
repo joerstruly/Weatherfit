@@ -1,0 +1,117 @@
+<svg viewBox="0 0 900 620" width="900" height="620" role="img" aria-label="General arrangement: stowed roam posture at 1150 mm beside the extended reach posture at 1600 mm with both arms deployed" xmlns="http://www.w3.org/2000/svg">
+<style>
+  svg { color:#1F2A33; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .paper { fill:#F5F6F3; }
+  .ink { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round; }
+  .ink2 { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .shell { fill:#ECEBE3; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .shell2 { fill:#E0DFD5; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .ball { fill:#2B3540; stroke:currentColor; stroke-width:1.5; }
+  .hi { fill:#1C7FA8; stroke:none; }
+  .hiink { fill:none; stroke:#1C7FA8; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .hifill { fill:#1C7FA8; fill-opacity:0.18; stroke:#1C7FA8; stroke-width:1.5; }
+  .amb { fill:#B8700A; stroke:none; }
+  .ambink { fill:none; stroke:#B8700A; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .ambfill { fill:#B8700A; fill-opacity:0.22; stroke:#B8700A; stroke-width:1.5; }
+  .dim { fill:none; stroke:#6B7680; stroke-width:1; }
+  .dimt { fill:#6B7680; font-size:12px; }
+  .lbl { fill:currentColor; font-size:13px; }
+  .lblb { fill:currentColor; font-size:13px; font-weight:600; }
+  .cap { fill:currentColor; font-size:14px; font-weight:600; letter-spacing:0.04em; }
+  .muted { fill:#6B7680; font-size:12px; }
+  .grid { stroke:#D2D6D0; stroke-width:1; }
+  .ghost { fill:none; stroke:currentColor; stroke-width:1.2; stroke-dasharray:4 4; opacity:0.55; }
+  .hatch { fill:url(#hatch); stroke:currentColor; stroke-width:1.2; }
+  .bar-h { fill:#1C7FA8; }
+  .bar-r { fill:#B8700A; }
+  .bar-idle { fill:#D2D6D0; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><rect class="paper" x="0" y="0" width="900" height="620"/><line class="ink" x1="40" y1="560" x2="860" y2="560"/>
+<line class="grid" x1="40" y1="560" x2="32" y2="568"/>
+<line class="grid" x1="62" y1="560" x2="54" y2="568"/>
+<line class="grid" x1="84" y1="560" x2="76" y2="568"/>
+<line class="grid" x1="106" y1="560" x2="98" y2="568"/>
+<line class="grid" x1="128" y1="560" x2="120" y2="568"/>
+<line class="grid" x1="150" y1="560" x2="142" y2="568"/>
+<line class="grid" x1="172" y1="560" x2="164" y2="568"/>
+<line class="grid" x1="194" y1="560" x2="186" y2="568"/>
+<line class="grid" x1="216" y1="560" x2="208" y2="568"/>
+<line class="grid" x1="238" y1="560" x2="230" y2="568"/>
+<line class="grid" x1="260" y1="560" x2="252" y2="568"/>
+<line class="grid" x1="282" y1="560" x2="274" y2="568"/>
+<line class="grid" x1="304" y1="560" x2="296" y2="568"/>
+<line class="grid" x1="326" y1="560" x2="318" y2="568"/>
+<line class="grid" x1="348" y1="560" x2="340" y2="568"/>
+<line class="grid" x1="370" y1="560" x2="362" y2="568"/>
+<line class="grid" x1="392" y1="560" x2="384" y2="568"/>
+<line class="grid" x1="414" y1="560" x2="406" y2="568"/>
+<line class="grid" x1="436" y1="560" x2="428" y2="568"/>
+<line class="grid" x1="458" y1="560" x2="450" y2="568"/>
+<line class="grid" x1="480" y1="560" x2="472" y2="568"/>
+<line class="grid" x1="502" y1="560" x2="494" y2="568"/>
+<line class="grid" x1="524" y1="560" x2="516" y2="568"/>
+<line class="grid" x1="546" y1="560" x2="538" y2="568"/>
+<line class="grid" x1="568" y1="560" x2="560" y2="568"/>
+<line class="grid" x1="590" y1="560" x2="582" y2="568"/>
+<line class="grid" x1="612" y1="560" x2="604" y2="568"/>
+<line class="grid" x1="634" y1="560" x2="626" y2="568"/>
+<line class="grid" x1="656" y1="560" x2="648" y2="568"/>
+<line class="grid" x1="678" y1="560" x2="670" y2="568"/>
+<line class="grid" x1="700" y1="560" x2="692" y2="568"/>
+<line class="grid" x1="722" y1="560" x2="714" y2="568"/>
+<line class="grid" x1="744" y1="560" x2="736" y2="568"/>
+<line class="grid" x1="766" y1="560" x2="758" y2="568"/>
+<line class="grid" x1="788" y1="560" x2="780" y2="568"/>
+<line class="grid" x1="810" y1="560" x2="802" y2="568"/>
+<line class="grid" x1="832" y1="560" x2="824" y2="568"/>
+<line class="grid" x1="854" y1="560" x2="846" y2="568"/>
+<circle class="ball" cx="250.0" cy="518.0" r="42.0"/>
+<ellipse class="ink" cx="250.0" cy="518.0" rx="23.1" ry="42.0" opacity="0.35"/>
+<path class="shell" d="M210.9,527.0 C185.7,509.0 185.7,464.0 193.0,458.0 L307.0,458.0 C314.3,464.0 314.3,509.0 289.1,527.0 Z"/>
+<path class="shell" d="M193.0,458.0 C188.4,404.0 194.1,329.0 199.8,296.0 L300.2,296.0 C305.9,329.0 311.6,404.0 307.0,458.0 Z"/>
+<path class="shell2" d="M199.8,296.0 C190.0,287.0 190.0,272.0 211.0,266.0 L289.0,266.0 C310.0,272.0 310.0,287.0 300.2,296.0 Z"/>
+<path class="shell" d="M211.0,266.0 C211.0,230.0 228.6,215.0 250.0,215.0 C271.4,215.0 289.0,230.0 289.0,266.0 Z"/>
+<rect class="hi" x="212.9" y="245.0" width="74.1" height="1.8" rx="2"/>
+<path class="ink" d="M205.0,290.0 L205.0,272.0" opacity="0.6"/>
+<path class="ink" d="M295.0,290.0 L295.0,272.0" opacity="0.6"/>
+<text class="cap" x="250" y="40" text-anchor="middle">STOWED · ROAM</text>
+<circle class="ball" cx="640.0" cy="518.0" r="42.0"/>
+<ellipse class="ink" cx="640.0" cy="518.0" rx="23.1" ry="42.0" opacity="0.35"/>
+<path class="shell" d="M600.9,527.0 C575.7,509.0 575.7,464.0 583.0,458.0 L697.0,458.0 C704.3,464.0 704.3,509.0 679.1,527.0 Z"/>
+<path class="shell" d="M583.0,458.0 C578.4,404.0 584.1,329.0 589.8,296.0 L690.2,296.0 C695.9,329.0 701.6,404.0 697.0,458.0 Z"/>
+<rect class="hatch" x="619.0" y="161.0" width="42.0" height="135.0"/>
+<path class="shell2" d="M589.8,161.0 C580.0,152.0 580.0,137.0 601.0,131.0 L679.0,131.0 C700.0,137.0 700.0,152.0 690.2,161.0 Z"/>
+<path class="shell" d="M601.0,131.0 C601.0,95.0 618.5,80.0 640.0,80.0 C661.5,80.0 679.0,95.0 679.0,131.0 Z"/>
+<rect class="hi" x="603.0" y="110.0" width="74.1" height="1.8" rx="2"/>
+<path class="ink2" d="M688.0,146.0 L766.0,134.0 L835.0,182.0"/>
+<circle class="ink" cx="766.0" cy="134.0" r="5.4"/>
+<path class="ink2" d="M835.0,182.0 l12.0,-7.5 M835.0,182.0 l13.5,4.5"/>
+<path class="ink2" d="M592.0,146.0 L526.0,110.0 L472.0,164.0"/>
+<circle class="ink" cx="526.0" cy="110.0" r="5.4"/>
+<path class="ink2" d="M472.0,164.0 l-12.0,-7.5 M472.0,164.0 l-13.5,4.5"/>
+<text class="cap" x="640" y="40" text-anchor="middle">EXTENDED · REACH</text>
+<line class="dim" x1="151.0" y1="215.0" x2="190.0" y2="215.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="100.0" y1="560.0" x2="100.0" y2="215.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="92.0" y="391.5" text-anchor="end">1150</text>
+<line class="dim" x1="208.0" y1="594.0" x2="292.0" y2="594.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="250.0" y="588.0" text-anchor="middle">Ø280 ball</text>
+<line class="dim" x1="187.0" y1="470.0" x2="187.0" y2="622.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="313.0" y1="470.0" x2="313.0" y2="622.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="187.0" y1="618.0" x2="313.0" y2="618.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="250.0" y="612.0" text-anchor="middle">Ø420 max</text>
+<line class="dim" x1="307.0" y1="281.0" x2="360.0" y2="281.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="350.0" y1="560.0" x2="350.0" y2="281.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="358.0" y="424.5" text-anchor="start">930 shoulder</text>
+<line class="dim" x1="571.0" y1="80.0" x2="520.0" y2="80.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="530.0" y1="560.0" x2="530.0" y2="80.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="522.0" y="324.0" text-anchor="end">1600</text>
+<line class="dim" x1="661.0" y1="296.0" x2="700.0" y2="296.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="661.0" y1="161.0" x2="700.0" y2="161.0" stroke-dasharray="3 3"/>
+<line class="dim" x1="690.0" y1="296.0" x2="690.0" y2="161.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="698.0" y="232.5" text-anchor="start">450 mast stroke</text>
+<line class="dim" x1="688.0" y1="118.0" x2="847.0" y2="118.0" marker-start="url(#dimarr)" marker-end="url(#dimarr)"/><text class="dimt" x="767.5" y="112.0" text-anchor="middle">750 reach</text>
+<text class="muted" x="860" y="606" text-anchor="end">all dimensions mm · mass 42 kg dry / 45 kg wet · scale 0.3</text></svg>

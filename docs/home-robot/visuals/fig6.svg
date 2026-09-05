@@ -1,0 +1,90 @@
+<svg viewBox="0 0 900 400" width="900" height="400" role="img" aria-label="Timeline comparing 26 minutes of sequential human dishwashing against 17 minutes for the robot, whose two arms and wand work in parallel while the dishwasher cycle stays the same" xmlns="http://www.w3.org/2000/svg">
+<style>
+  svg { color:#1F2A33; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .paper { fill:#F5F6F3; }
+  .ink { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round; }
+  .ink2 { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .shell { fill:#ECEBE3; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .shell2 { fill:#E0DFD5; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; }
+  .ball { fill:#2B3540; stroke:currentColor; stroke-width:1.5; }
+  .hi { fill:#1C7FA8; stroke:none; }
+  .hiink { fill:none; stroke:#1C7FA8; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .hifill { fill:#1C7FA8; fill-opacity:0.18; stroke:#1C7FA8; stroke-width:1.5; }
+  .amb { fill:#B8700A; stroke:none; }
+  .ambink { fill:none; stroke:#B8700A; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .ambfill { fill:#B8700A; fill-opacity:0.22; stroke:#B8700A; stroke-width:1.5; }
+  .dim { fill:none; stroke:#6B7680; stroke-width:1; }
+  .dimt { fill:#6B7680; font-size:12px; }
+  .lbl { fill:currentColor; font-size:13px; }
+  .lblb { fill:currentColor; font-size:13px; font-weight:600; }
+  .cap { fill:currentColor; font-size:14px; font-weight:600; letter-spacing:0.04em; }
+  .muted { fill:#6B7680; font-size:12px; }
+  .grid { stroke:#D2D6D0; stroke-width:1; }
+  .ghost { fill:none; stroke:currentColor; stroke-width:1.2; stroke-dasharray:4 4; opacity:0.55; }
+  .hatch { fill:url(#hatch); stroke:currentColor; stroke-width:1.2; }
+  .bar-h { fill:#1C7FA8; }
+  .bar-r { fill:#B8700A; }
+  .bar-idle { fill:#D2D6D0; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+  </marker>
+  <marker id="dimarr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#6B7680"/>
+  </marker>
+  <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </pattern>
+</defs><rect class="paper" x="0" y="0" width="900" height="400"/><text class="cap" x="40" y="36">EVENING DISHES · FAMILY OF 4 · MINUTES OF WORK BEFORE THE DISHWASHER STARTS</text>
+<line class="grid" x1="150.0" y1="70" x2="150.0" y2="300"/>
+<text class="dimt" x="150.0" y="318" text-anchor="middle">0</text>
+<line class="grid" x1="238.8" y1="70" x2="238.8" y2="300"/>
+<text class="dimt" x="238.8" y="318" text-anchor="middle">5</text>
+<line class="grid" x1="327.5" y1="70" x2="327.5" y2="300"/>
+<text class="dimt" x="327.5" y="318" text-anchor="middle">10</text>
+<line class="grid" x1="416.2" y1="70" x2="416.2" y2="300"/>
+<text class="dimt" x="416.2" y="318" text-anchor="middle">15</text>
+<line class="grid" x1="505.0" y1="70" x2="505.0" y2="300"/>
+<text class="dimt" x="505.0" y="318" text-anchor="middle">20</text>
+<line class="grid" x1="593.8" y1="70" x2="593.8" y2="300"/>
+<text class="dimt" x="593.8" y="318" text-anchor="middle">25</text>
+<line class="grid" x1="682.5" y1="70" x2="682.5" y2="300"/>
+<text class="dimt" x="682.5" y="318" text-anchor="middle">30</text>
+<line class="grid" x1="771.2" y1="70" x2="771.2" y2="300"/>
+<text class="dimt" x="771.2" y="318" text-anchor="middle">35</text>
+<line class="grid" x1="860.0" y1="70" x2="860.0" y2="300"/>
+<text class="dimt" x="860.0" y="318" text-anchor="middle">40</text>
+<text class="muted" x="860" y="336" text-anchor="end">minutes</text>
+<text class="lblb" x="138" y="111" text-anchor="end">Human</text>
+<rect class="bar-h" x="151.0" y="95" width="69.0" height="24" rx="3"/>
+<text class="lbl" x="185.5" y="135" text-anchor="middle">clear table</text>
+<rect class="bar-h" x="222.0" y="95" width="193.2" height="24" rx="3"/>
+<text class="lbl" x="318.6" y="135" text-anchor="middle">rinse + load</text>
+<rect class="bar-h" x="417.2" y="95" width="122.2" height="24" rx="3"/>
+<text class="lbl" x="478.4" y="135" text-anchor="middle">hand-wash pots</text>
+<rect class="bar-h" x="541.5" y="95" width="69.0" height="24" rx="3"/>
+<text class="lbl" x="576.0" y="135" text-anchor="middle">wipe + dry</text>
+<text class="lbl" x="619.5" y="111">26 min · 26 min of attention</text>
+<text class="lblb" x="138" y="186" text-anchor="end">GYRO arm L</text>
+<rect class="bar-r" x="151.0" y="170" width="51.2" height="24" rx="3"/>
+<text class="lbl" x="176.6" y="186" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">clear</text>
+<rect class="bar-r" x="204.2" y="170" width="157.8" height="24" rx="3"/>
+<text class="lbl" x="283.1" y="186" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">rinse + load</text>
+<rect class="bar-r" x="364.0" y="170" width="86.8" height="24" rx="3"/>
+<text class="lbl" x="407.4" y="186" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">pots</text>
+<text class="lblb" x="138" y="220" text-anchor="end">GYRO arm R</text>
+<rect class="bar-r" x="151.0" y="204" width="51.2" height="24" rx="3"/>
+<text class="lbl" x="176.6" y="220" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">clear</text>
+<rect class="bar-r" x="204.2" y="204" width="157.8" height="24" rx="3"/>
+<text class="lbl" x="283.1" y="220" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">rinse + load</text>
+<rect class="bar-r" x="364.0" y="204" width="86.8" height="24" rx="3"/>
+<text class="lbl" x="407.4" y="220" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">pots</text>
+<text class="lblb" x="138" y="254" text-anchor="end">GYRO wand</text>
+<rect class="bar-r" x="204.2" y="238" width="104.5" height="24" rx="3"/>
+<text class="lbl" x="256.5" y="254" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">spray counters</text>
+<rect class="bar-r" x="364.0" y="238" width="69.0" height="24" rx="3"/>
+<text class="lbl" x="398.5" y="254" text-anchor="middle" fill="#F5F6F3" style="fill:#F5F6F3;font-size:11px">wipe</text>
+<text class="lbl" x="459.8" y="220">17 min · 0 min of attention</text>
+<text class="muted" x="40" y="370">robot per-grasp speed assumed 0.8× human at maturity; the gain comes from three effectors working in parallel,</text>
+<text class="muted" x="40" y="386">not from faster hands. The dishwasher cycle (≈2 h) is unchanged, so wall-clock to "done" barely moves.</text></svg>
