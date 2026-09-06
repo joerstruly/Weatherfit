@@ -10,6 +10,7 @@
 - `feasibility-model.md` — the model specification: calculation chain, node-by-node input map, cost breakdown structure, uncertainty, validation protocol, and ranked model risk. **Read this first.**
 - `README.md` — this document: the answer, procurement channels by trade, the resolution ladder, the coverage matrix, the tiered source index, legal constraints, build order, and open gaps.
 - `sources.csv` — machine-readable catalog (403 rows) with tier, category, URL, unit, geographic granularity, cadence, format, access method, all-bidder vs awarded, history depth, license, verification status.
+- `gaps.md` — the open blind spot register: what the catalog still cannot answer, ranked by how much it moves an estimate, with what was already tried so a later pass does not repeat it.
 - `appendix/` — twenty underlying research reports: seven topical passes, five verification passes, three commercial-segment passes, and five later passes (multifamily repositories, trade-bid statutes, feasibility parametrics, hard-commodity price gaps, public net-price sheets).
 
 **Research date:** 5 September 2026. **Verification caveat:** the sandbox blocked direct fetches of every `.gov` and vendor host, so verification relied on search-result snippets, GitHub-hosted API clients and mirrors, and two DoD/GSA PDFs read from a mirror. Every row in `sources.csv` carries a `verification` value. Treat `knowledge`, `unverified` and `LOW-CONF` items as leads to confirm. Section 10 lists what is still open.
