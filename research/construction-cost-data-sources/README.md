@@ -9,7 +9,7 @@
 **Files.**
 - `feasibility-model.md` — the model specification: calculation chain, node-by-node input map, cost breakdown structure, uncertainty, validation protocol, and ranked model risk. **Read this first.**
 - `README.md` — this document: the answer, procurement channels by trade, the resolution ladder, the coverage matrix, the tiered source index, legal constraints, build order, and open gaps.
-- `sources.csv` — machine-readable catalog (403 rows) with tier, category, URL, unit, geographic granularity, cadence, format, access method, all-bidder vs awarded, history depth, license, verification status.
+- `sources.csv` — machine-readable catalog (403 rows, 20 columns) with tier, category, URL, unit, geographic granularity, cadence, format, access method, all-bidder vs awarded, history depth, license, and verification. The `verification` column uses a controlled vocabulary — `VERIFIED-DETAIL` (the specific number or field was seen), `VERIFIED-URL` (URL confirmed real, contents not confirmed), `PARTIAL` (source confirmed but something in it is unresolved), `UNVERIFIED` (asserted in a snippet that could not be opened, or from model knowledge), `LOW-CONF`, `NOT-FOUND`, `VERIFIED-NEGATIVE` (confirmed absence) — with the original free-text qualifier preserved in `verification_note`.
 - `gaps.md` — the open blind spot register: what the catalog still cannot answer, ranked by how much it moves an estimate, with what was already tried so a later pass does not repeat it.
 - `appendix/` — twenty underlying research reports: seven topical passes, five verification passes, three commercial-segment passes, and five later passes (multifamily repositories, trade-bid statutes, feasibility parametrics, hard-commodity price gaps, public net-price sheets).
 
