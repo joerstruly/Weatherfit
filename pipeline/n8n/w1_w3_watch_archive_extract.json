@@ -1,0 +1,413 @@
+{
+  "name": "W1-W3 Watch, Archive, Extract",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 3
+            }
+          ]
+        }
+      },
+      "name": "Cron: annual sources",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{$env.MANIFEST_URL}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "name": "Load manifest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// sources.csv IS the manifest. Select the rows this schedule bucket owns, and\n// enforce the licence gate here so no downstream node can bypass it.\nconst csv = $input.first().json.data;\nconst [head, ...lines] = csv.split(/\\r?\\n/).filter(Boolean);\nconst cols = head.split(',');\nconst rows = lines.map(l => {\n  const out = []; let cur = '', q = false;\n  for (const ch of l) {\n    if (ch === '\"') q = !q;\n    else if (ch === ',' && !q) { out.push(cur); cur = ''; }\n    else cur += ch;\n  }\n  out.push(cur);\n  return Object.fromEntries(cols.map((c, i) => [c, (out[i] || '').trim()]));\n});\n\nconst BUCKET = $env.CADENCE_BUCKET || 'annual';\n// Never store an artifact we are not licensed to store. Reference-only sources\n// are watched for change but their bytes are not retained.\nconst STORE_BLOCKED = /subscription|proprietary|commercial|marshall/i;\n\nreturn rows\n  .filter(r => r.url && /^https?:\\/\\//.test(r.url))\n  .filter(r => (r.cadence || '').toLowerCase().includes(BUCKET))\n  .filter(r => ['VERIFIED-DETAIL', 'VERIFIED-URL', 'PARTIAL'].includes(r.verification))\n  .map(r => ({ json: {\n      source_id: r.id, url: r.url, format: (r.format || '').toLowerCase(),\n      access_method: (r.access_method || '').toLowerCase(),\n      license: r.license, cadence: r.cadence,\n      may_store: !STORE_BLOCKED.test(r.license || ''),\n  }}));\n"
+      },
+      "name": "Parse + filter manifest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{$json.url}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "neverError": true
+            }
+          },
+          "timeout": 120000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
+      },
+      "name": "Fetch (HEAD then GET)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        300
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Content hash is the change signal AND the object-store key. Cheap, and it\n// gives artifact-level dedup for free across sources that mirror each other.\nconst crypto = require('crypto');\nconst out = [];\nfor (const item of $input.all()) {\n  const bin = item.binary && item.binary.data;\n  if (!bin) { out.push({ json: { ...item.json, status: 'fetch_failed' } }); continue; }\n  const buf = Buffer.from(bin.data, 'base64');\n  const sha = crypto.createHash('sha256').update(buf).digest('hex');\n  out.push({ json: { ...item.json, sha256: sha, bytes: buf.length,\n                     content_type: bin.mimeType, fetched_at: new Date().toISOString() },\n             binary: item.binary });\n}\nreturn out;\n"
+      },
+      "name": "Hash + changed?",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT 1 FROM artifact WHERE sha256 = $1 LIMIT 1",
+        "options": {
+          "queryReplacement": "={{$json.sha256}}"
+        }
+      },
+      "name": "Seen this hash before?",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        400,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{$json.sha256}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            },
+            {
+              "leftValue": "={{$json.may_store}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ]
+        }
+      },
+      "name": "IF new + storable",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "={{$env.ARTIFACT_BUCKET}}",
+        "fileName": "=raw/{{$json.source_id}}/{{$json.sha256}}",
+        "binaryData": true
+      },
+      "name": "Put to object store",
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        820,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "\nINSERT INTO artifact (source_id, sha256, url, content_type, bytes, fetched_at, object_key)\nVALUES ($1,$2,$3,$4,$5,$6,$7) ON CONFLICT (sha256) DO NOTHING"
+      },
+      "name": "Record artifact",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        1020,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.PARSER_URL}}/extract",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({artifact_id: $json.sha256, object_key: $json.object_key, source_id: $json.source_id}) }}",
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "name": "Extract (parser service)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1220,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{$json.gates.passed}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ]
+        }
+      },
+      "name": "Gates passed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1420,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.PARSER_URL}}/load",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({artifact_id: $json.artifact_id}) }}"
+      },
+      "name": "Load rows to warehouse",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1640,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "\nINSERT INTO synthesis_queue (artifact_id, source_id, failed_gates, queued_at)\nVALUES ($1,$2,$3, now()) ON CONFLICT (artifact_id) DO NOTHING"
+      },
+      "name": "Queue: template synthesis (W4)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        1640,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "text": "=Source {{$json.source_id}} unreachable ({{$json.status}}) \u2014 {{$json.url}}\\nA dead source is a finding: mark it NOT-FOUND in sources.csv."
+      },
+      "name": "Alert: source unreachable",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        820,
+        460
+      ]
+    }
+  ],
+  "connections": {
+    "Cron: annual sources": {
+      "main": [
+        [
+          {
+            "node": "Load manifest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load manifest": {
+      "main": [
+        [
+          {
+            "node": "Parse + filter manifest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse + filter manifest": {
+      "main": [
+        [
+          {
+            "node": "Fetch (HEAD then GET)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch (HEAD then GET)": {
+      "main": [
+        [
+          {
+            "node": "Hash + changed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash + changed?": {
+      "main": [
+        [
+          {
+            "node": "Seen this hash before?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Alert: source unreachable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seen this hash before?": {
+      "main": [
+        [
+          {
+            "node": "IF new + storable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF new + storable": {
+      "main": [
+        [
+          {
+            "node": "Put to object store",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Put to object store": {
+      "main": [
+        [
+          {
+            "node": "Record artifact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record artifact": {
+      "main": [
+        [
+          {
+            "node": "Extract (parser service)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract (parser service)": {
+      "main": [
+        [
+          {
+            "node": "Gates passed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gates passed?": {
+      "main": [
+        [
+          {
+            "node": "Load rows to warehouse",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Queue: template synthesis (W4)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveExecutionProgress": false
+  },
+  "tags": [
+    {
+      "name": "construction-cost"
+    }
+  ]
+}

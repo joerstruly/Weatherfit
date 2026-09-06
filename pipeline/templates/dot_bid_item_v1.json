@@ -1,0 +1,21 @@
+{
+  "id": "dot_bid_item_v1",
+  "description": "State DOT bid item price report - ruled or whitespace layout, 6 columns",
+  "synthesized_by": "human",
+  "y_tolerance": 3,
+  "header_row_contains": "ITEM CODE",
+  "stop_row_contains": "TOTAL",
+  "columns": [
+    {"name": "item_code",   "x0": 30,  "x1": 128, "type": "string"},
+    {"name": "description", "x0": 128, "x1": 328, "type": "string"},
+    {"name": "unit",        "x0": 328, "x1": 378, "type": "string"},
+    {"name": "quantity",    "x0": 378, "x1": 468, "type": "number"},
+    {"name": "unit_price",  "x0": 468, "x1": 558, "type": "number"},
+    {"name": "amount",      "x0": 558, "x1": 710, "type": "number"}
+  ],
+  "gates": {
+    "expect_columns": 6,
+    "numeric_columns": [3, 4, 5],
+    "qty_col": 3, "price_col": 4, "amount_col": 5, "unit_col": 2
+  }
+}
