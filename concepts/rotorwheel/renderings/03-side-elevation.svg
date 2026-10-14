@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" role="img" aria-label="TW-2 side elevation in drive mode. A full, low hull with a long prow and a faired canopy sits between two sixty-inch turbine-wheels that stand level with the body roof. The shoulder line is the slide-rail housing that carries the modules outboard for flight. The flank reaction channel runs along the lower body between the wheels, catching the inboard fan flow on the ground and turning it aft. Fuel sits in the tail, battery under the cabin floor. Overall length 198 inches, 72 inches to the top of the canopy, 16 inches of ground clearance, wheelbase 120 inches." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+  <defs>
+    <marker id="d1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+    <g id="tw">
+      <circle r="90" fill="none" stroke="currentColor" stroke-width="4"/>
+      <circle r="78" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+      <circle r="74" fill="none" stroke="#E8571F" stroke-width="2" opacity="0.8"/>
+      <circle r="22" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <circle r="8" fill="currentColor"/>
+      <g stroke="#E8571F" stroke-width="5" stroke-linecap="round" opacity="0.55">
+        <line x1="24" y1="0" x2="70" y2="0"/><line x1="12" y1="21" x2="35" y2="61"/>
+        <line x1="-12" y1="21" x2="-35" y2="61"/><line x1="-24" y1="0" x2="-70" y2="0"/>
+        <line x1="-12" y1="-21" x2="-35" y2="-61"/><line x1="12" y1="-21" x2="35" y2="-61"/>
+      </g>
+    </g>
+  </defs>
+
+  <line x1="60" y1="340" x2="880" y2="340" stroke="currentColor" stroke-width="2.5"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.45">
+    <line x1="90" y1="340" x2="78" y2="354"/><line x1="180" y1="340" x2="168" y2="354"/>
+    <line x1="450" y1="340" x2="438" y2="354"/><line x1="720" y1="340" x2="708" y2="354"/>
+    <line x1="850" y1="340" x2="838" y2="354"/>
+  </g>
+
+  <!-- hull -->
+  <path d="M160,276 C182,232 232,186 318,172 L566,166 C672,166 740,178 754,196 L754,266 C716,284 640,292 566,292 L236,292 C190,292 168,286 160,276 Z"
+        fill="none" stroke="currentColor" stroke-width="4"/>
+  <!-- canopy, faired into the roof -->
+  <path d="M352,176 C382,122 492,118 530,170" fill="none" stroke="currentColor" stroke-width="3"/>
+  <g stroke="currentColor" stroke-width="2" opacity="0.55" fill="none">
+    <circle cx="410" cy="152" r="11"/><circle cx="470" cy="150" r="11"/>
+    <path d="M410,163 L404,190"/><path d="M470,161 L464,188"/>
+  </g>
+  <!-- slide-rail housing: the shoulder line -->
+  <path d="M250,218 L724,208" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+  <path d="M250,218 L724,208" stroke="#E8571F" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- flank reaction channel, between the wheels -->
+  <path d="M382,252 L382,282 L520,282 L520,252" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M452,270 L534,270" stroke="#E8571F" stroke-width="3.5" marker-end="url(#d1)"/>
+  <!-- fuel, tail -->
+  <rect x="636" y="206" width="104" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <!-- battery, under floor between wheels -->
+  <rect x="400" y="262" width="128" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <circle cx="176" cy="262" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+
+  <use href="#tw" x="270" y="250"/>
+  <use href="#tw" x="630" y="250"/>
+
+  <!-- callouts -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="582" y1="212" x2="636" y2="104"/>
+    <line x1="430" y1="262" x2="306" y2="116"/>
+    <line x1="688" y1="220" x2="800" y2="140"/>
+    <line x1="464" y1="272" x2="470" y2="356"/>
+  </g>
+  <text x="642" y="100" font-size="11">slide-rail housing — the shoulder line</text>
+  <text x="300" y="112" text-anchor="end" font-size="11">flank reaction channel —</text>
+  <text x="300" y="126" text-anchor="end" font-size="11">turns ground flow aft</text>
+  <text x="806" y="136" font-size="11">fuel, 52 gal</text>
+  <text x="470" y="368" text-anchor="middle" font-size="11">battery</text>
+
+  <!-- dimensions -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="160" y1="300" x2="160" y2="412"/><line x1="754" y1="276" x2="754" y2="412"/>
+    <line x1="167" y1="404" x2="747" y2="404" marker-start="url(#d1)" marker-end="url(#d1)"/>
+    <line x1="270" y1="346" x2="270" y2="452"/><line x1="630" y1="346" x2="630" y2="452"/>
+    <line x1="277" y1="444" x2="623" y2="444" marker-start="url(#d1)" marker-end="url(#d1)"/>
+    <line x1="470" y1="126" x2="890" y2="126"/><line x1="770" y1="340" x2="890" y2="340"/>
+    <line x1="882" y1="133" x2="882" y2="333" marker-start="url(#d1)" marker-end="url(#d1)"/>
+  </g>
+  <text x="457" y="398" text-anchor="middle">198</text>
+  <text x="450" y="438" text-anchor="middle">wheelbase 120</text>
+  <text x="894" y="240">72</text>
+  <text x="60" y="486" font-size="13">TW-2 FERRET · side elevation · DRIVE MODE · dims in inches · the wheels stand level with the roof</text>
+</svg>

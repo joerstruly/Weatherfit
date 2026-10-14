@@ -1,0 +1,356 @@
+<title>TW-2 Ferret</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@600;700;800&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#EEF0E9; --surface:#E5E8DD; --ink:#20241E; --muted:#5A6052;
+  --line:#20241E; --hairline:#C6CBBB; --accent:#D94E14; --accent-ink:#B23F0E;
+  --s1:#2a78d6; --s2:#eb6834;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15180F; --surface:#1D2116; --ink:#E5E8DC; --muted:#9BA18D;
+    --line:#E5E8DC; --hairline:#3A4030; --accent:#F0693A; --accent-ink:#F0693A;
+    --s1:#3987e5; --s2:#d95926;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15180F; --surface:#1D2116; --ink:#E5E8DC; --muted:#9BA18D;
+  --line:#E5E8DC; --hairline:#3A4030; --accent:#F0693A; --accent-ink:#F0693A;
+  --s1:#3987e5; --s2:#d95926;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:'Archivo',system-ui,sans-serif;
+  font-size:15px; line-height:1.6; margin:0}
+.wrap{max-width:960px; margin:0 auto; padding:0 28px 80px}
+
+header{border-bottom:3px solid var(--line); padding:44px 0 28px}
+.eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+h1{font-family:'Saira Semi Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+  font-size:clamp(42px,7.5vw,70px); line-height:.96; letter-spacing:.01em; margin:16px 0 12px; text-wrap:balance}
+h1 .num{color:var(--accent)}
+.thesis{font-size:18px; max-width:60ch; margin:0}
+.rev{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted); max-width:72ch; margin:18px 0 0;
+  border-left:3px solid var(--accent); padding-left:14px}
+
+.figs{display:grid; grid-template-columns:repeat(auto-fit,minmax(144px,1fr)); border:2px solid var(--line);
+  margin:28px 0 0; background:var(--surface)}
+.figs>div{padding:14px 16px; border-right:1px solid var(--hairline)}
+.figs>div:last-child{border-right:0}
+.figs b{display:block; font-family:'IBM Plex Mono',monospace; font-size:21px; font-weight:500;
+  font-variant-numeric:tabular-nums; margin-bottom:2px}
+.figs span{font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+
+h2{font-family:'Saira Semi Condensed',sans-serif; font-weight:700; text-transform:uppercase;
+  font-size:23px; letter-spacing:.03em; margin:58px 0 14px; padding-top:14px; border-top:3px solid var(--line)}
+h2 .sec{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:400; color:var(--accent-ink); margin-right:10px}
+h3{font-family:'Saira Semi Condensed',sans-serif; font-weight:700; font-size:16.5px;
+  text-transform:uppercase; letter-spacing:.03em; margin:26px 0 8px}
+p{max-width:68ch; margin:0 0 14px}
+ul{max-width:68ch; padding-left:20px; margin:0 0 14px}
+li{margin-bottom:7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.tblwrap{overflow-x:auto; margin:0 0 18px}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.08em;
+  text-align:left; color:var(--muted); font-weight:500; padding:6px 14px 6px 0; border-bottom:2px solid var(--line)}
+td{padding:7px 14px 7px 0; border-bottom:1px solid var(--hairline); vertical-align:top}
+td.v{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.total td{border-top:2px solid var(--line); border-bottom:0; font-weight:600}
+
+figure{margin:26px 0; border:2px solid var(--line); background:var(--surface)}
+figure svg{display:block; width:100%; height:auto; padding:14px 10px 4px}
+figcaption{font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+  border-top:2px solid var(--line); padding:10px 14px; display:flex; gap:14px; flex-wrap:wrap}
+figcaption .fno{color:var(--accent-ink); flex-shrink:0}
+
+/* principles */
+.prin{list-style:none; padding:0; margin:0 0 18px; max-width:70ch}
+.prin li{display:flex; gap:16px; padding:12px 0; border-bottom:1px solid var(--hairline); margin:0}
+.prin b{font-family:'IBM Plex Mono',monospace; color:var(--accent-ink); flex-shrink:0; font-weight:500}
+
+/* transformation beats */
+.beats{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0;
+  border:2px solid var(--line); background:var(--surface); margin:0 0 20px}
+.beat{padding:16px 18px; border-right:1px solid var(--hairline)}
+.beat:last-child{border-right:0}
+.beat .n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent-ink); letter-spacing:.1em}
+.beat h4{font-family:'Saira Semi Condensed',sans-serif; font-weight:700; text-transform:uppercase;
+  font-size:17px; letter-spacing:.03em; margin:4px 0 8px}
+.beat p{font-size:13.5px; margin:0; max-width:none}
+.beat .mv{display:block; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted); margin-top:8px}
+
+/* viewer */
+.viewer{margin:26px 0; border:2px solid var(--line); background:var(--surface)}
+.modes{display:flex; gap:8px; padding:12px 14px; border-bottom:2px solid var(--line); flex-wrap:wrap; align-items:center}
+.modes button{font:600 12px/1 'IBM Plex Mono',monospace; letter-spacing:.08em; text-transform:uppercase; padding:9px 14px;
+  border:2px solid var(--line); background:var(--bg); color:var(--ink); cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+.modes button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+.scrub{display:flex; align-items:center; gap:10px; flex:1; min-width:220px}
+.scrub label{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+.scrub input{flex:1; accent-color:var(--accent); min-width:120px}
+#v3d{background:#d6dccf; min-height:200px}
+#v3d canvas{display:block; width:100%!important; height:auto!important}
+.viewer .hint{font-family:'IBM Plex Mono',monospace; font-size:12.5px; border-top:2px solid var(--line); padding:10px 14px}
+.viewer .hint b{color:var(--accent-ink); font-weight:500}
+#pwr{cursor:crosshair}
+#pwr-tipbg{fill:var(--ink); opacity:.94}
+#pwr-t0,#pwr-t1,#pwr-t2{fill:var(--bg)}
+
+.callout{border-left:4px solid var(--accent); background:var(--surface); padding:14px 18px; margin:0 0 16px; max-width:72ch}
+.callout p{margin:0}
+.sw{display:inline-block; width:13px; height:13px; border:1px solid var(--line); vertical-align:-2px; margin-right:7px}
+footer{margin-top:64px; border-top:3px solid var(--line); padding-top:14px;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow"><span>Industrial design specification · Rev F</span><span>2026-10-14 · Unclassified concept</span></div>
+  <h1><span class="num">TW-2</span> Ferret Turbine-Wheel</h1>
+  <p class="thesis">A two-seat machine that drives like a wide, low buggy and takes off from where it is parked.
+  Not a helicopter with wheels. Not a car that flies. <strong>A ground vehicle whose wheels are its engines</strong> —
+  and the moment that defines it is the six seconds in which those wheels stop being wheels.</p>
+  <div class="figs">
+    <div><b>2,700 lb</b><span>gross takeoff weight</span></div>
+    <div><b>92 → 136 in</b><span>track: road width to flight stance</span></div>
+    <div><b>4 × 195 hp</b><span>one core per wheel</span></div>
+    <div><b>140 mph</b><span>best range · 106 mi</span></div>
+    <div><b>~6 s</b><span>spooled to airborne</span></div>
+  </div>
+  <p class="rev"><strong>Rev F is an architecture change, not an edit.</strong> The electric rotor-wheel of Revs A–E
+  is replaced by a turbine-wheel: a gas-generator core lives in the hub of each wheel and drives the fan directly.
+  The hull lift fan is deleted. The wheels gain a second degree of freedom — they <em>slide</em> outboard as well as
+  rotate. And takeoff is no longer a tilt; it is a four-beat transformation that is now the signature of the product.</p>
+</header>
+
+<h2><span class="sec">01</span>The product</h2>
+<div class="tblwrap"><table>
+<tr><td style="width:22%"><strong>For</strong></td><td>two-person teams who need to cross ground that has no road and no landing site</td></tr>
+<tr><td><strong>Replaces</strong></td><td>the choice between a vehicle that can't leave the ground and an aircraft that can't stay on it</td></tr>
+<tr><td><strong>Signature</strong></td><td>four 60-inch turbine-wheels that roll, then roll <em>over</em>, slide out, and lift</td></tr>
+<tr><td><strong>Refuses to be</strong></td><td>a hovering machine — it departs, dashes, and arrives</td></tr>
+</table></div>
+
+<h3>Design principles</h3>
+<ol class="prin">
+  <li><b>01</b><span><strong>The wheel is the product.</strong> Everything else — hull, canopy, tail — is service volume between four identical modules. If a feature does not serve the module or the people, it is deleted.</span></li>
+  <li><b>02</b><span><strong>Tilt is the throttle.</strong> The cores run at constant speed. Lift is commanded by <em>rotating</em> thrust, not by fuelling it. This is what makes a turbine viable in a machine that must hover.</span></li>
+  <li><b>03</b><span><strong>Narrow on the road, wide in the air.</strong> 92 inches across to drive, 136 to fly. The transformation earns both.</span></li>
+  <li><b>04</b><span><strong>Spool before you need it.</strong> Nothing time-critical happens to the engines during takeoff. They are already running, already hot, already stable.</span></li>
+  <li><b>05</b><span><strong>Show the state.</strong> A bystander 50 feet away should read what the machine is about to do from its posture alone. Orange marks everything that moves or gets hot.</span></li>
+</ol>
+
+<h2><span class="sec">02</span>The transformation</h2>
+<p>The hero interaction. Four beats, about six seconds from spooled to airborne.</p>
+
+{{FIG_TRANS}}
+
+<div class="beats">
+  <div class="beat"><div class="n">BEAT 01</div><h4>Spool</h4>
+    <p>Cores start and stabilise at flight idle with the wheels still vertical. Thrust runs inboard into the flank channels and turns aft — ground thrust, zero lift, lateral halves cancelling.</p>
+    <span class="mv">moves: nothing · ~20 s</span></div>
+  <div class="beat"><div class="n">BEAT 02</div><h4>Roll-in</h4>
+    <p>Each wheel's top tips <em>inboard</em>. Thrust swings from horizontal toward down-and-inboard; the vertical component builds as sin θ and the suspension unloads to ~62% of static.</p>
+    <span class="mv">moves: roll collars, 0 → 38°</span></div>
+  <div class="beat"><div class="n">BEAT 03</div><h4>Slide-out</h4>
+    <p>Modules translate outboard, clearing the disc from the hull <em>before</em> it can go flat and widening the track from 92 to 136 inches.</p>
+    <span class="mv">moves: slide rails, 0 → 22 in · ~1.5 s</span></div>
+  <div class="beat"><div class="n">BEAT 04</div><h4>Roll-out</h4>
+    <p>Rotation completes. Discs flat, inflow clean, thrust fully vertical. The vehicle leaves the ground.</p>
+    <span class="mv">moves: roll collars, 38 → 95°</span></div>
+</div>
+
+<div class="viewer">
+  <div class="modes">
+    <button data-mode="drive" aria-pressed="false">Drive</button>
+    <button data-mode="flight" aria-pressed="false">Flight</button>
+    <button data-mode="cruise" aria-pressed="true">Cruise</button>
+    <span class="scrub"><label for="scrub">Scrub</label><input id="scrub" type="range" min="0" max="100" value="100" data-scrub aria-label="Scrub the transformation"></span>
+  </div>
+  <div id="v3d"></div>
+  <div class="hint"><span class="fno" style="color:var(--accent-ink)">FIG 02</span> &nbsp;<b data-beat>CRUISE</b> &nbsp;· drag to orbit, scroll to zoom, drag the scrubber through the four beats.</div>
+</div>
+
+<h3>Why this order, and not another</h3>
+<p>The disc is 52 inches across and the hull is 60 wide. A wheel rotated flat at its drive-mode track would overlap
+the hull by 10 inches a side — blowing on the body, losing thrust and ingesting its own recirculation. The slide is
+not drama; it is the only way to be narrow standing still and wide in the air. And it has to happen <em>between</em>
+the two rotations: roll in to unload the tires, slide while partly unloaded, then finish the roll in clear air.
+Landing reverses it — settle wide, roll in to 38°, slide in, roll down onto the tires.</p>
+<div class="callout"><p><strong>What the operator does.</strong> One two-stage detented lever, not a button. Stage one
+arms and spools; stage two commits, and the transformation runs closed-loop — there is no partial state the vehicle
+will sit in. In flight the same lever commands <em>tilt angle</em>, and the pilot can watch the wheels answer it.
+The control surface of this vehicle is visible from outside.</p></div>
+<p><strong>Sound.</strong> The cores never change speed, so the transformation has no rev. The note stays constant
+and the <em>direction</em> changes — a swell, not a climb. A vehicle that sounds the same taking off as it does
+idling is unusual, and worth protecting in detail design.</p>
+
+<h2><span class="sec">03</span>Form &amp; stance</h2>
+<p><strong>Proportion.</strong> Wheel diameter is 60 inches on a 198-inch vehicle — <strong>30% of overall
+length</strong>, roughly double a truck's — and the wheels stand level with the roof. That is the whole visual
+argument: the machine reads as four engines with a body slung between them, because that is what it is.</p>
+<p><strong>The shoulder line is not styling.</strong> It is the slide-rail housing, a structural extrusion running
+the length of the body that carries the modules outboard. Giving the strongest horizontal line in the design a job
+is the central form decision: the thing that looks like a feature line is the thing that moves the wheels.</p>
+<p><strong>The flank is a working surface.</strong> Between the wheels each side is sculpted into a reaction
+channel — a shaped duct that catches the inboard fan flow while the wheels are still vertical and turns it aft.
+A spooled turbine on the ground pushes the vehicle forward instead of blowing dust sideways. The body sides do
+aerodynamic work, which is why they are shaped and not skinned.</p>
+
+{{FIG_SIDE}}
+{{FIG_PLAN}}
+
+<h2><span class="sec">04</span>The turbine-wheel module</h2>
+<p>Four identical modules — <strong>one part number</strong>, mounted mirrored left and right so the fans
+counter-rotate and reaction torques cancel. From the outside in: a printed TPU airless tire ring; a rim drive motor
+for ground running, silent creep and emergency lift boost; the structural rim, which <em>is</em> the duct wall;
+a 12-blade variable-pitch fan; a ~15:1 reduction gearbox at the hub; and the gas-generator core, which protrudes
+outboard behind a faired spinner and exhausts through the hub centrebody so hot gas always leaves sheathed in
+cool air.</p>
+
+{{FIG_MOD}}
+
+<h3>Bypass ratio ≈ 100</h3>
+<p>The fan passes ~82 lb/s; the core passes ~0.7. That is not a turbofan — it is a turboshaft driving a very large,
+very slow fan, and that is exactly right, because hover power scales as 1/√(disc area). A conventional turbofan
+matched to the same 675 lbf would need a 10.8-inch fan, 1/23 the disc area and <strong>four times the
+power</strong>. The core is small and buried <em>because</em> the fan has to be big.</p>
+
+{{FIG_FAN}}
+
+<h3>Why the turbine works here, when it didn't before</h3>
+<p>Earlier revisions rejected turbines on <strong>throttle lag</strong>: a gas turbine changes thrust in 1–2 seconds,
+and a four-rotor hover needs corrections at 10–50 Hz. This architecture answers it twice over. <strong>Spool before
+commitment</strong> — the cores reach stable flight idle while the vehicle is still standing on its tires, pointing
+thrust somewhere harmless, so nothing has to accelerate on demand. And <strong>vector, don't fuel</strong> — lift is
+commanded by roll angle and blade pitch, both fast and mechanical, with variable pitch responding in ~30 ms.
+Constant-speed core plus variable pitch is how every turbine-lift aircraft has ever been controlled.</p>
+<div class="callout"><p>The throttle-lag objection is <strong>withdrawn</strong>. The objections that survive are
+mass, four engines, and engine-out — and those are real (§07).</p></div>
+
+<h3>Deleting the hull fan</h3>
+<p><strong>Deleted.</strong> Each wheel now carries 675 lbf instead of 560, which is within the same module. In
+exchange: the centreline is freed for crew, fuel and battery; the "mandatory fan" failure case disappears; the hull
+becomes pure structure with nothing spinning under the floor; and the vehicle gets 1.6 feet shorter. There was no
+argument for keeping it.</p>
+
+<h2><span class="sec">05</span>CMF</h2>
+<div class="tblwrap"><table>
+<tr><th>Element</th><th>Material</th><th>Finish</th><th>Why</th></tr>
+<tr><td>Module structure, rim, collar</td><td>forged 7075, milled</td><td><span class="sw" style="background:#9fa49a"></span>bead-blast, clear anodise</td><td>the mechanism is shown, not hidden</td></tr>
+<tr><td>Hull</td><td>compression-moulded carbon</td><td><span class="sw" style="background:#59634a"></span>matte PU, desaturated olive-grey</td><td>low sheen reads as equipment, not vehicle</td></tr>
+<tr><td>Tire ring</td><td>TPU lattice, printed</td><td><span class="sw" style="background:#191b17"></span>as-printed, matte black</td><td>the print texture is the texture</td></tr>
+<tr><td>Duct interior, hot zone</td><td>ceramic-coated Inconel → anodised alu</td><td><span class="sw" style="background:#3f443f"></span>satin graphite</td><td>thermal gradient made visible</td></tr>
+<tr><td>Spinner fairing</td><td>investment-cast titanium</td><td><span class="sw" style="background:#bfc3c6"></span>shot-peen</td><td>the one jewel-grade part — the engine's face</td></tr>
+<tr><td>Canopy</td><td>polycarbonate</td><td><span class="sw" style="background:#9dc0d8"></span>gradient top band</td><td>glare control without tint at eye level</td></tr>
+<tr><td>Moving / hot interfaces</td><td>—</td><td><span class="sw" style="background:#D94E14"></span>safety orange</td><td>roll collars, rail travel, exhaust path</td></tr>
+<tr><td>Hot-section band</td><td>thermochromic paint</td><td>changes above 200 °F</td><td>you can see whether it is safe to touch</td></tr>
+</table></div>
+<p>Orange is reserved. It marks only what rotates, translates or burns. On a machine whose state is its posture,
+the accent is a safety system.</p>
+
+<h3>Human factors</h3>
+<ul>
+  <li><strong>Ingress</strong> over a 16-inch sill, stepping on the rail housing — a deliberate foothold, flat and gritted, not an accident of packaging.</li>
+  <li><strong>Seating</strong> side by side, 28-inch hip spacing, reclined 18° for a low canopy.</li>
+  <li><strong>Sight lines</strong>: the nose drops away between the front wheels, so the ground is visible 12 feet ahead — set by the landing case, not the driving case.</li>
+  <li><strong>Hot-surface discipline</strong>: the spinner and exhaust path are the only touch hazards, and both are outboard, orange and thermochromic.</li>
+  <li><strong>Noise</strong>: ~95–100 dBA at 50 ft in hover. Crew on intercom and ANR. The vehicle is not quiet, and doctrine is the mitigation — fly briefly, land out of sight, approach on wheels and on battery.</li>
+</ul>
+
+<h2><span class="sec">06</span>Dimensions, weight &amp; performance</h2>
+<div class="tblwrap"><table>
+<tr><th>Dimension</th><th>Value</th><th>Performance</th><th>Value</th></tr>
+<tr><td>Length / width (drive) / height</td><td class="v">198 / 92 / 72 in</td><td>Hover power / burn</td><td class="v">780 hp · 8.4 lb/min</td></tr>
+<tr><td>Width, flight (track / disc span)</td><td class="v">136 / 188 in</td><td>Transformation fuel, 60 s</td><td class="v">8 lb</td></tr>
+<tr><td>Wheelbase · ground clearance</td><td class="v">120 · 16 in</td><td>Best-range cruise</td><td class="v">140 mph · 106 mi</td></tr>
+<tr><td>Wheel / fan / tire width</td><td class="v">Ø 60 / Ø 52 / 16 in</td><td>Top speed, drag-limited</td><td class="v">152 mph</td></tr>
+<tr><td>Gross takeoff weight</td><td class="v">2,700 lb</td><td>With 16 ft deployable span</td><td class="v">125 mph · 173 mi</td></tr>
+<tr><td>Installed power</td><td class="v">780 hp (4 × 195)</td><td>Ground</td><td class="v">50 mph · ~4 h · rolls 18 in steps</td></tr>
+<tr><td>Disc area / loading</td><td class="v">59 ft² / 45.8 lb/ft²</td><td>Silent electric creep</td><td class="v">~43 min</td></tr>
+<tr><td>Fuel</td><td class="v">52 gal Jet-A (350 lb)</td><td>Spool / transform</td><td class="v">~20 s / ~6 s</td></tr>
+</table></div>
+
+<h3>Weight budget (target)</h3>
+<div class="tblwrap"><table>
+<tr><th>Group</th><th>lb</th></tr>
+<tr><td>Turbine-wheel modules, 4 × 341<br><span style="color:var(--muted);font-size:12.5px">core 110 · gearbox 30 · fan 34 · duct/rim 38 · tire 28 · rim motor 24 · roll 28 · slide 33 · plumbing 16</span></td><td class="v">1,364</td></tr>
+<tr><td>Hull, structure, rails, canopy</td><td class="v">340</td></tr>
+<tr><td>Crew and kit, 2 × 200</td><td class="v">400</td></tr>
+<tr><td>Fuel, 52 gal Jet-A</td><td class="v">350</td></tr>
+<tr><td>Battery, 8 kWh</td><td class="v">90</td></tr>
+<tr><td>Avionics, controls, systems</td><td class="v">60</td></tr>
+<tr><td>Fluids, wiring, misc</td><td class="v">96</td></tr>
+<tr class="total"><td>Gross takeoff weight</td><td class="v">2,700</td></tr>
+</table></div>
+<p>The modules are <strong>half the vehicle</strong>. That is the defining consequence of putting engines in the
+wheels, and §07 prices it.</p>
+
+{{FIG_PWR}}
+
+<p><strong>Hover sets installed power; cruise sets fuel.</strong> Hovering 60 seconds costs 8 pounds of Jet-A —
+nothing. What hover costs is the 780 hp installation carried through every minute of cruise. Judge changes on
+installed horsepower.</p>
+<p><strong>And the vehicle is drag-limited, not power-limited.</strong> Four 52-inch ducts in the airstream dominate:
+unfaired, top speed falls to ~130 mph; faired, 152. Duct fairing is worth more than any engine change on the table,
+and it is cheap.</p>
+
+<h2><span class="sec">07</span>What it costs — and the one unsolved problem</h2>
+<p><strong>Mass.</strong> Turbine-in-wheel makes the vehicle roughly 50% heavier than the electric equivalent at the
+same mission — 2,700 lb against ~1,830. Four cores and four gearboxes weigh more than one core, a generator and four
+motors, and the wheel has to carry its own hot section, oil and fuel line. Bought with that mass: no high-voltage
+flight bus, no generator chain and its 8–10% loss, fuel energy delivered at the thrust source, and the
+spool-before-commitment behaviour that makes the whole architecture work.</p>
+<p><strong>Four engines</strong> to start, synchronise, maintain and overhaul, with fuel and hot gas crossing two
+moving joints per corner.</p>
+<div class="callout"><p><strong>Engine-out in hover is the open problem, and it is not solved.</strong> Lose one core
+with the discs flat and the vehicle loses 25% of lift <em>and</em> gains a large asymmetric moment. Four independent
+cores cannot cross-feed the way four electric motors can.</p></div>
+<ul>
+  <li><strong>Rim-motor boost.</strong> The ground-drive motor is rated for a 60-second emergency pull of ~30 hp — enough to turn an immediate roll departure into a controllable descent, <em>not</em> enough to hold hover. Honest about that.</li>
+  <li><strong>Fly the corridor fast.</strong> Exposure is seconds, not minutes, by design.</li>
+  <li><strong>Ballistic recovery</strong> for the crewed variant, sized for the transformation envelope.</li>
+</ul>
+<p>If this cannot be closed in Gen-1 testing, the honest fallback is a single core in the body driving tip-turbine
+fans in the rims — Ryan XV-5 precedent, with a Harrier-style hot-gas swivel at the roll joint. One engine,
+inherently cross-fed, at the cost of ducting and noise. That is the fork to watch.</p>
+
+<h2><span class="sec">08</span>Make, maintain, and what's next</h2>
+<ul>
+  <li><strong>Four identical modules</strong>, no handedness — mirrored mounting only.</li>
+  <li><strong>Module change</strong>: six bolts, one fuel quick-disconnect, one electrical connector. Target 12 minutes, two people, no lift equipment — the module rolls away on its own tire.</li>
+  <li><strong>Hull</strong> is three mouldings plus two rail extrusions; the rails are primary structure and the skins are not.</li>
+  <li>The core is a <strong>bought-in gas generator</strong>, not a bespoke engine. The programme does not develop a turbine; it packages one.</li>
+</ul>
+<div class="tblwrap"><table>
+<tr><th>#</th><th>Risk</th><th>Posture</th></tr>
+<tr><td class="v">1</td><td>Engine-out in hover</td><td><strong>Open.</strong> Gen-1 gate.</td></tr>
+<tr><td class="v">2</td><td>Hot section inside a landing wheel — FOD, water, mud</td><td>Mesh, outboard inlet, spin-dry cycle; test early</td></tr>
+<tr><td class="v">3</td><td>Slide rail under load, contaminated</td><td>Sealed rail, redundant actuation; drive mode works with rails failed inboard</td></tr>
+<tr><td class="v">4</td><td>Conversion corridor, 25–68 mph, ducted lip pitch-up</td><td>First flight-test objective after tethered hover</td></tr>
+<tr><td class="v">5</td><td>Module mass growth</td><td>Half the vehicle; every pound here costs ~2 lb of GTOW</td></tr>
+</table></div>
+<h3>Roadmap</h3>
+<ul>
+  <li><strong>Gen-0 — one module on a stand.</strong> Core, gearbox, variable pitch, roll and slide under load. Prove 120 hp ideal at FoM ≥ 0.6 and the 20-second spool.</li>
+  <li><strong>Gen-0.5 — transformation rig.</strong> No flight. A ballasted chassis that performs all four beats, ten thousand cycles, in mud and grit. The transformation <em>is</em> the product; de-risk it before anything flies.</li>
+  <li><strong>Gen-1</strong> — tethered hover, then free transitions, then the corridor.</li>
+  <li><strong>Gen-2</strong> — environmental and engine-out: the §07 gate.</li>
+  <li><strong>Gen-3</strong> — range kit: the 16-foot deployable span.</li>
+</ul>
+<h3>The unmanned sibling</h3>
+<p>The same kinematics scale down; the turbine does not. Below roughly 100 hp, small-core thermal efficiency and
+tip-clearance losses make gas turbines worse than batteries on every axis. The sub-100 lb scout therefore keeps the
+four-beat transformation, the slide rail, the hubless rim and the flank channel, and replaces each core with a
+coaxial electric fan pair. <strong>The architecture is the product; the powerplant is scale-dependent.</strong></p>
+
+<footer>TW-2 FERRET · industrial design specification Rev F · two-seat unarmed scout mobility platform · US customary units · analysis performed in SI and converted</footer>
+</div>
+<script src="{{THREE_SRC}}"></script>
+<script>
+{{VIEWER_JS}}
+</script>

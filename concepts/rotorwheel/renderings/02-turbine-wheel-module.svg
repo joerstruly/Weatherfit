@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 640" role="img" aria-label="The turbine-wheel module in two views. Left, face-on: concentric rings from the outside in are the printed airless tire, the rim drive motor used for ground running and silent creep, the duct wall that doubles as the structural rim, a twelve-blade variable-pitch fan of fifty-two inches, and at the center the turbine core nacelle. Right, a section along the axis with flow running outboard to inboard: the gas-generator core protrudes outboard of the wheel behind a faired spinner and draws its own inlet air; its shaft runs inboard to a reduction gearbox at the hub; the core exhaust discharges through the hub centerbody into the fan stream, so hot gas leaves sheathed in cool air; the fan pushes the whole flow inboard toward the hull. Below, the roll collar gives ninety-five degrees of rotation and the slide rail twenty-two inches of outboard travel." font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+  <defs>
+    <pattern id="hot" width="7" height="7" patternUnits="userSpaceOnUse">
+      <path d="M0,7 L7,0" stroke="#E8571F" stroke-width="1.5"/>
+    </pattern>
+    <pattern id="msh" width="9" height="9" patternUnits="userSpaceOnUse">
+      <path d="M0,0 L9,9 M9,0 L0,9" stroke="currentColor" stroke-width="0.55"/>
+    </pattern>
+    <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#E8571F"/>
+    </marker>
+    <marker id="mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <text x="26" y="32" font-size="14">TW-2 FERRET · turbine-wheel module · 1 px = 0.2 in · all four modules are one part number</text>
+
+  <!-- ================= FACE-ON ================= -->
+  <g transform="translate(205,275)">
+    <circle r="150" fill="none" stroke="currentColor" stroke-width="7"/>
+    <circle r="140" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle r="137" fill="none" stroke="currentColor" stroke-width="7" opacity="0.3"/>
+    <circle r="130" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M0,-127 A127,127 0 0 0 0,127 Z" fill="url(#msh)" opacity="0.45"/>
+    <g stroke="#E8571F" stroke-width="10" stroke-linecap="round">
+      <line x1="38" y1="0" x2="124" y2="0"/><line x1="33" y1="19" x2="107" y2="62"/>
+      <line x1="19" y1="33" x2="62" y2="107"/><line x1="0" y1="38" x2="0" y2="124"/>
+      <line x1="-19" y1="33" x2="-62" y2="107"/><line x1="-33" y1="19" x2="-107" y2="62"/>
+      <line x1="-38" y1="0" x2="-124" y2="0"/><line x1="-33" y1="-19" x2="-107" y2="-62"/>
+      <line x1="-19" y1="-33" x2="-62" y2="-107"/><line x1="0" y1="-38" x2="0" y2="-124"/>
+      <line x1="19" y1="-33" x2="62" y2="-107"/><line x1="33" y1="-19" x2="107" y2="-62"/>
+    </g>
+    <circle r="36" fill="url(#hot)" stroke="currentColor" stroke-width="3"/>
+    <circle r="13" fill="currentColor"/>
+  </g>
+  <text x="205" y="462" text-anchor="middle" font-size="12">face-on · Ø 60 wheel · Ø 52 fan · 12 blades</text>
+  <text x="205" y="480" text-anchor="middle" font-size="12" opacity="0.75">debris mesh shown on the left half</text>
+
+  <!-- face-on leaders into the central label column -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="311" y1="169" x2="396" y2="140"/>
+    <line x1="302" y1="205" x2="396" y2="185"/>
+    <line x1="296" y1="230" x2="396" y2="230"/>
+    <line x1="312" y1="337" x2="396" y2="320"/>
+    <line x1="241" y1="275" x2="396" y2="372"/>
+  </g>
+  <text x="404" y="144" font-size="12">printed airless tire ring, Ø 60 × 16</text>
+  <text x="404" y="189" font-size="12">rim drive motor — ground running,</text>
+  <text x="404" y="206" font-size="12">silent creep, emergency lift boost</text>
+  <text x="404" y="234" font-size="12">duct wall = structural rim</text>
+  <text x="404" y="324" font-size="12">variable-pitch fan, 12–30° at 75% R</text>
+  <text x="404" y="376" font-size="12">turbine core nacelle</text>
+
+  <!-- ================= SECTION ================= -->
+  <text x="800" y="90" font-size="12">OUTBOARD</text>
+  <text x="1274" y="90" font-size="12" text-anchor="end">INBOARD — flow exits toward the hull</text>
+  <line x1="872" y1="84" x2="912" y2="84" stroke="currentColor" stroke-width="1.5" marker-end="url(#mb)"/>
+
+  <!-- tire + rim bands -->
+  <rect x="1000" y="125" width="80" height="20" fill="none" stroke="currentColor" stroke-width="3"/>
+  <rect x="1000" y="405" width="80" height="20" fill="none" stroke="currentColor" stroke-width="3"/>
+  <rect x="1000" y="145" width="80" height="10" fill="currentColor" opacity="0.3"/>
+  <rect x="1000" y="395" width="80" height="10" fill="currentColor" opacity="0.3"/>
+  <!-- duct walls + lips -->
+  <rect x="1000" y="155" width="80" height="6" fill="currentColor"/>
+  <rect x="1000" y="389" width="80" height="6" fill="currentColor"/>
+  <path d="M1000,161 Q988,174 990,192" fill="none" stroke="currentColor" stroke-width="3"/>
+  <path d="M1000,389 Q988,376 990,358" fill="none" stroke="currentColor" stroke-width="3"/>
+  <line x1="994" y1="166" x2="994" y2="384" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
+  <line x1="1086" y1="166" x2="1086" y2="384" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
+  <!-- fan blade row -->
+  <rect x="1014" y="166" width="12" height="94" rx="4" fill="#E8571F"/>
+  <rect x="1014" y="290" width="12" height="94" rx="4" fill="#E8571F"/>
+  <!-- core, protruding outboard -->
+  <path d="M898,248 Q872,275 898,302 L1000,302 L1000,248 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+  <rect x="928" y="251" width="42" height="48" fill="url(#hot)" stroke="currentColor" stroke-width="2"/>
+  <line x1="898" y1="275" x2="928" y2="275" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+  <!-- gearbox + shaft -->
+  <rect x="1000" y="256" width="40" height="38" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
+  <line x1="970" y1="275" x2="1000" y2="275" stroke="currentColor" stroke-width="5"/>
+  <!-- centrebody + core exhaust -->
+  <path d="M1040,260 L1082,266 Q1096,275 1082,284 L1040,290 Z" fill="url(#hot)" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="1096" y1="275" x2="1136" y2="275" stroke="#E8571F" stroke-width="5" marker-end="url(#ma)"/>
+  <!-- fan flow -->
+  <g stroke="#E8571F" stroke-width="3">
+    <line x1="958" y1="192" x2="1136" y2="192" marker-end="url(#ma)"/>
+    <line x1="958" y1="226" x2="1136" y2="226" marker-end="url(#ma)"/>
+    <line x1="958" y1="324" x2="1136" y2="324" marker-end="url(#ma)"/>
+    <line x1="958" y1="358" x2="1136" y2="358" marker-end="url(#ma)"/>
+  </g>
+  <!-- mount: roll collar + slide rail -->
+  <rect x="1004" y="482" width="72" height="20" rx="6" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="1040" cy="492" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="1076" y1="492" x2="1210" y2="492" stroke="currentColor" stroke-width="7"/>
+  <path d="M1016,514 A40,40 0 0 1 1070,520" fill="none" stroke="#E8571F" stroke-width="2" marker-end="url(#ma)"/>
+  <line x1="1130" y1="474" x2="1206" y2="474" stroke="#E8571F" stroke-width="2" marker-end="url(#ma)"/>
+
+  <!-- section labels -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="880" y1="244" x2="930" y2="262"/>
+    <line x1="1046" y1="112" x2="1028" y2="254"/>
+    <line x1="1128" y1="168" x2="1092" y2="266"/>
+  </g>
+  <text x="876" y="240" font-size="12" text-anchor="end">hot section</text>
+  <text x="1046" y="106" font-size="12" text-anchor="middle">reduction gearbox</text>
+  <text x="1286" y="164" font-size="12" text-anchor="end">core exhaust in fan air</text>
+  <text x="1040" y="546" font-size="12" text-anchor="middle">roll collar · 0–95°</text>
+  <text x="1216" y="466" font-size="12" text-anchor="end">slide rail · 0–22 outboard</text>
+  <text x="1040" y="572" font-size="12" text-anchor="middle" opacity="0.75">section on the axis · dims in inches</text>
+
+  <line x1="370" y1="60" x2="370" y2="470" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+  <line x1="760" y1="60" x2="760" y2="470" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+  <text x="26" y="616" font-size="12" opacity="0.8">The core is longer than the wheel is wide, so it protrudes outboard behind a faired spinner — the visual signature of the module.</text>
+</svg>
